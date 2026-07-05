@@ -29,12 +29,7 @@
       <h2>🚗 稀有载具列表</h2>
       <div class="search-controls">
         <div class="search-box">
-          <input 
-            type="text" 
-            id="search-input" 
-            placeholder="搜索载具名称..."
-            aria-label="搜索载具"
-          >
+          <input type="text" id="search-input" placeholder="搜索载具名称..." aria-label="搜索载具">
           <span class="search-icon">🔍</span>
         </div>
         <select id="category-filter" class="category-select">
@@ -55,7 +50,10 @@
   </main>
 
   <footer>
-    <p>&copy; 2025 齐. 保留所有权利。</p>
+    <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
   </footer>
 
   <style>
@@ -73,7 +71,7 @@
       z-index: 1000;
       padding: 20px;
     }
-    
+
     .modal-content {
       background: #2d2d2d;
       border-radius: 10px;
@@ -84,7 +82,7 @@
       overflow-y: auto;
       position: relative;
     }
-    
+
     .modal-close {
       position: absolute;
       top: 15px;
@@ -100,7 +98,7 @@
       align-items: center;
       justify-content: center;
     }
-    
+
     .quick-view-images {
       display: flex;
       gap: 15px;
@@ -108,19 +106,19 @@
       overflow-x: auto;
       padding: 10px 0;
     }
-    
+
     .quick-view-item {
       min-width: 150px;
       text-align: center;
     }
-    
+
     .quick-view-item img {
       width: 100%;
       height: 100px;
       object-fit: cover;
       border-radius: 6px;
     }
-    
+
     .btn-view-full {
       display: block;
       width: 100%;

@@ -39,7 +39,7 @@
           <li><a href="vehicles.html?category=零散系列">零散系列</a></li>
         </ul>
       </div>
-      
+
       <div class="quick-item">
         <h3>推荐载具</h3>
         <ul>
@@ -48,7 +48,7 @@
           <li><a href="vehicle-detail.html?id=guardian-xs">绝品 卫士XS</a></li>
         </ul>
       </div>
-      
+
       <div class="quick-item">
         <h3>基础知识</h3>
         <ul>
@@ -91,7 +91,10 @@
   </main>
 
   <footer>
-    <p>&copy; 2025 齐. 保留所有权利。</p>
+    <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
   </footer>
 
   <script>
@@ -102,14 +105,14 @@
         const vehicles = data.vehicles;
         let totalVariants = 0;
         let lastDate = '';
-        
+
         vehicles.forEach(vehicle => {
           totalVariants += vehicle.variants.length;
           if (!lastDate || vehicle.update_date > lastDate) {
             lastDate = vehicle.update_date;
           }
         });
-        
+
         const stats = document.querySelectorAll('.stat-number');
         if (stats[0]) stats[0].textContent = vehicles.length;
         if (stats[1]) stats[1].textContent = totalVariants;
