@@ -710,7 +710,17 @@
                 routeImage: '',
                 bilibiliVideo: '',
                 update_date: new Date().toISOString().split('T')[0],
-                variants: [],
+                variants: [
+                    {
+                        name: '默认款',
+                        image: '',
+                        specs: [],
+                        properties: {
+                            "获取难度": "★★★☆☆",
+                            "收藏价值": "★★★☆☆"
+                        }
+                    }
+                ],
                 methods: []
             };
             vehicles.push(newV);
