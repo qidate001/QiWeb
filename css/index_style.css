@@ -158,3 +158,212 @@ body.light-theme .game-card:hover {
         font-size: 1.1rem;
     }
 }
+
+
+
+/* ========================================
+   齐的工具包3 下载区样式（左右布局）
+   ======================================== */
+
+/* --- 整体网格：左 + 右 --- */
+.toolkit-grid {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    align-items: stretch;
+}
+
+/* --- 左侧：Releases 大卡片 --- */
+.toolkit-grid .card-release-big {
+    flex: 0 0 200px;          /* 固定宽度 200px */
+    min-height: 240px;
+    background: linear-gradient(145deg, #2a1a3a, #4a2a5a);
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-decoration: none;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toolkit-grid .card-release-big:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+}
+
+.toolkit-grid .card-release-big .card-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 40%,
+                rgba(255, 255, 255, 0.12) 0%,
+                transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.toolkit-grid .card-release-big:hover .card-glow {
+    opacity: 1;
+}
+
+.toolkit-grid .card-release-big:hover div:last-child {
+    opacity: 1 !important;
+}
+
+/* --- 右侧：四个卡片网格 (2x2) --- */
+.toolkit-right-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;   /* 两列 */
+    gap: 16px;
+    min-width: 0;
+}
+
+/* --- 右侧小卡片 --- */
+.toolkit-right-grid .toolkit-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #ffffff;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    min-height: 80px;
+}
+
+.toolkit-right-grid .toolkit-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+.toolkit-right-grid .toolkit-card .card-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 40%,
+                rgba(255, 255, 255, 0.12) 0%,
+                transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.toolkit-right-grid .toolkit-card:hover .card-glow {
+    opacity: 1;
+}
+
+.toolkit-right-grid .toolkit-card .card-arrow {
+    font-size: 1.2rem;
+    opacity: 0.3;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    flex-shrink: 0;
+}
+
+.toolkit-right-grid .toolkit-card:hover .card-arrow {
+    transform: translateX(6px);
+    opacity: 1;
+}
+
+.toolkit-right-grid .toolkit-card-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+}
+
+.toolkit-right-grid .toolkit-card-content h4 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.toolkit-right-grid .toolkit-card-content p {
+    margin: 2px 0 0 0;
+    font-size: 0.85rem;
+    opacity: 0.75;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* --- 右侧卡片配色 --- */
+.toolkit-right-grid .card-exe {
+    background: linear-gradient(145deg, #1a4a3a, #2a6b4a);
+}
+.toolkit-right-grid .card-rar {
+    background: linear-gradient(145deg, #1a2a4a, #2a4a6a);
+}
+.toolkit-right-grid .card-lite-exe {
+    background: linear-gradient(145deg, #4a3a1a, #6a5a2a);
+}
+.toolkit-right-grid .card-lite-rar {
+    background: linear-gradient(145deg, #2a3a4a, #3a4a5a);
+}
+
+/* --- 亮色主题适配 --- */
+body.light-theme .toolkit-grid .card-release-big {
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+body.light-theme .toolkit-grid .card-release-big:hover {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+body.light-theme .toolkit-right-grid .toolkit-card {
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+body.light-theme .toolkit-right-grid .toolkit-card:hover {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+}
+
+/* --- 手机适配：堆叠排列 --- */
+@media (max-width: 700px) {
+    .toolkit-grid {
+        flex-direction: column;
+        gap: 18px;
+    }
+    .toolkit-grid .card-release-big {
+        flex: 1 1 auto;
+        min-height: 140px;
+        padding: 20px;
+    }
+    .toolkit-grid .card-release-big div:last-child {
+        opacity: 1 !important;
+    }
+    .toolkit-right-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    .toolkit-right-grid .toolkit-card {
+        padding: 14px 14px;
+        min-height: 70px;
+    }
+    .toolkit-right-grid .toolkit-card-icon {
+        font-size: 1.5rem;
+    }
+    .toolkit-right-grid .toolkit-card-content h4 {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .toolkit-right-grid {
+        grid-template-columns: 1fr;   /* 超小屏变单列 */
+    }
+}

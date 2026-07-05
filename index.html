@@ -1,64 +1,134 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>齐的网站</title>
-    <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/index_style.css" />
-    <link rel="stylesheet" href="./css/gta5lo.css" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-  </head>
-  <body>
-    <theme-button value="dark" id="btn" size="3"></theme-button>
 
-    <header>
-      <h1>欢迎来到齐的网站</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html">首页</a></li>
-          <li><a href="about.html">关于我</a></li>
-          <li><a href="contact.html">联系我</a></li>
-        </ul>
-      </nav>
-    </header>
+<head>
+  <meta charset="utf-8" />
+  <title>齐的网站</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/index_style.css" />
+  <link rel="stylesheet" href="./css/gta5lo.css" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+</head>
 
-    <main>
-      <h2>🎮 Grand Theft Auto V 载具收藏</h2>
-      <p style="text-align: center; color: #aaa; margin-bottom: 30px">
-        点击下方卡片，探索 GTA5 中的稀有载具
-      </p>
+<body>
+  <theme-button value="dark" id="btn" size="3"></theme-button>
 
-      <!-- ========== 双按钮卡片区 ========== -->
-      <div class="game-buttons-container">
-        <!-- 线上模式卡片 -->
-        <a href="./gta5ol/index.html" class="game-card card-online">
+  <header>
+    <h1>欢迎来到齐的网站</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">首页</a></li>
+        <li><a href="about.html">关于我</a></li>
+        <li><a href="contact.html">联系我</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ========== 齐的工具包3 下载区 ========== -->
+    <h2>🛠️ 齐的工具包3 <span style="font-size:0.7rem;font-weight:400;color:#aaa;margin-left:12px;">v2.9</span></h2>
+
+    <div class="toolkit-grid">
+      <!-- ===== 左侧：Releases 大卡片 ===== -->
+      <a href="https://github.com/qidate001/QisToolkit3/releases/tag/v2.9" target="_blank"
+        class="toolkit-card card-release-big">
+        <div class="card-glow"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 0;">
+          <div style="font-size:3.2rem;margin-bottom:8px;">📦</div>
+          <h3 style="margin:0;font-size:1.5rem;font-weight:700;">Releases</h3>
+          <p style="margin:6px 0 0 0;font-size:0.9rem;opacity:0.8;">查看所有版本 &amp; 更新日志</p>
+          <div style="margin-top:14px;font-size:1.2rem;opacity:0.6;transition:all 0.3s ease;">点击进入 ➜</div>
+        </div>
+      </a>
+
+      <!-- ===== 右侧：四个版本卡片 ===== -->
+      <div class="toolkit-right-grid">
+        <!-- 完整版 EXE -->
+        <a href="https://github.com/qidate001/QisToolkit3/releases/download/v2.9/QisToolkit3-v2.9-Full.exe"
+          target="_blank" class="toolkit-card card-exe">
           <div class="card-glow"></div>
-          <div class="card-icon">🌐</div>
-          <div class="card-content">
-            <h3 class="card-title">GTA5 Online</h3>
-            <p class="card-sub">稀有载具收集 · 线上模式</p>
+          <div class="toolkit-card-icon">⚡</div>
+          <div class="toolkit-card-content">
+            <h4>完整版 EXE</h4>
+            <p>全功能 · 免安装</p>
           </div>
           <div class="card-arrow">➜</div>
         </a>
 
-        <!-- 故事模式卡片 -->
-        <a href="./gta5/index.html" class="game-card card-story">
+        <!-- 完整版 RAR -->
+        <a href="https://github.com/qidate001/QisToolkit3/releases/download/v2.9/QisToolkit3-v2.9-Full.rar"
+          target="_blank" class="toolkit-card card-rar">
           <div class="card-glow"></div>
-          <div class="card-icon">🚗</div>
-          <div class="card-content">
-            <h3 class="card-title">GTA5 故事模式</h3>
-            <p class="card-sub">稀有载具收集 · 故事模式</p>
+          <div class="toolkit-card-icon">🗜️</div>
+          <div class="toolkit-card-content">
+            <h4>完整版 RAR</h4>
+            <p>全功能 · 压缩包</p>
+          </div>
+          <div class="card-arrow">➜</div>
+        </a>
+
+        <!-- 基础版 EXE -->
+        <a href="https://github.com/qidate001/QisToolkit3/releases/download/v2.9/QisToolkit3-v2.9-Lite.exe"
+          target="_blank" class="toolkit-card card-lite-exe">
+          <div class="card-glow"></div>
+          <div class="toolkit-card-icon">🔹</div>
+          <div class="toolkit-card-content">
+            <h4>基础版 EXE</h4>
+            <p>轻量 · 免安装</p>
+          </div>
+          <div class="card-arrow">➜</div>
+        </a>
+
+        <!-- 基础版 RAR -->
+        <a href="https://github.com/qidate001/QisToolkit3/releases/download/v2.9/QisToolkit3-v2.9-Lite.rar"
+          target="_blank" class="toolkit-card card-lite-rar">
+          <div class="card-glow"></div>
+          <div class="toolkit-card-icon">📁</div>
+          <div class="toolkit-card-content">
+            <h4>基础版 RAR</h4>
+            <p>轻量 · 压缩包</p>
           </div>
           <div class="card-arrow">➜</div>
         </a>
       </div>
-    </main>
+    </div>
+    <!-- ========== 工具包下载区结束 ========== -->
 
-    <footer>
-      <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
-      <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-      </script>
-    </footer>
-  </body>
+    <!-- ========== GTA双按钮卡片区 ========== -->
+    <h2>🎮 Grand Theft Auto V 载具收藏</h2>
+
+    <div class="game-buttons-container">
+      <!-- 线上模式卡片 -->
+      <a href="./gta5ol/index.html" class="game-card card-online">
+        <div class="card-glow"></div>
+        <div class="card-icon">🌐</div>
+        <div class="card-content">
+          <h3 class="card-title">GTA5 Online</h3>
+          <p class="card-sub">稀有载具收集 · 线上模式</p>
+        </div>
+        <div class="card-arrow">➜</div>
+      </a>
+
+      <!-- 故事模式卡片 -->
+      <a href="./gta5/index.html" class="game-card card-story">
+        <div class="card-glow"></div>
+        <div class="card-icon">🚗</div>
+        <div class="card-content">
+          <h3 class="card-title">GTA5 故事模式</h3>
+          <p class="card-sub">稀有载具收集 · 故事模式</p>
+        </div>
+        <div class="card-arrow">➜</div>
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </footer>
+</body>
+
 </html>
