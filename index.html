@@ -3,13 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <title>齐的网站</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/gta5lo.css">
-	<link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/index_style.css" />
+    <link rel="stylesheet" href="./css/gta5lo.css" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   </head>
   <body>
     <theme-button value="dark" id="btn" size="3"></theme-button>
-    
+
     <header>
       <h1>欢迎来到齐的网站</h1>
       <nav>
@@ -22,13 +23,35 @@
     </header>
 
     <main>
-      <h2>主页</h2>
-	  
-	  <div style="text-align: center; margin: 30px 0;">
-        <a href="./gta5ol/index.html" class="highlight-link">GTA5 Online 稀有载具收集</a>
-        <!-- <a href="./gta5/index.html" class="highlight-link">GTA5 故事模式 稀有载具收集</a> -->
+      <h2>🎮 Grand Theft Auto V 载具收藏</h2>
+      <p style="text-align: center; color: #aaa; margin-bottom: 30px">
+        点击下方卡片，探索 GTA5 中的稀有载具
+      </p>
+
+      <!-- ========== 双按钮卡片区 ========== -->
+      <div class="game-buttons-container">
+        <!-- 线上模式卡片 -->
+        <a href="./gta5ol/index.html" class="game-card card-online">
+          <div class="card-glow"></div>
+          <div class="card-icon">🌐</div>
+          <div class="card-content">
+            <h3 class="card-title">GTA5 Online</h3>
+            <p class="card-sub">稀有载具收集 · 线上模式</p>
+          </div>
+          <div class="card-arrow">➜</div>
+        </a>
+
+        <!-- 故事模式卡片 -->
+        <a href="./gta5/index.html" class="game-card card-story">
+          <div class="card-glow"></div>
+          <div class="card-icon">🚗</div>
+          <div class="card-content">
+            <h3 class="card-title">GTA5 故事模式</h3>
+            <p class="card-sub">稀有载具收集 · 故事模式</p>
+          </div>
+          <div class="card-arrow">➜</div>
+        </a>
       </div>
-      
     </main>
 
     <footer>

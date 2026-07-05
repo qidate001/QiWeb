@@ -1,0 +1,160 @@
+/* ========================================
+   GTA5 双卡片按钮样式
+   ======================================== */
+
+/* --- 卡片容器（弹性布局） --- */
+.game-buttons-container {
+    display: flex;
+    flex-wrap: wrap;           /* 手机端自动换行 */
+    justify-content: center;   /* 水平居中 */
+    align-items: stretch;     /* 让卡片高度一致 */
+    gap: 30px;                /* 卡片间距 */
+    margin: 30px 0;
+    padding: 10px 0;
+}
+
+/* --- 基础卡片样式 --- */
+.game-card {
+    position: relative;        /* 让内部发光层绝对定位 */
+    display: flex;
+    align-items: center;      /* 垂直居中内容 */
+    gap: 15px;
+    padding: 22px 30px;
+    min-width: 260px;
+    max-width: 380px;
+    flex: 1 1 auto;           /* 灵活伸缩 */
+    
+    /* 圆角与阴影 */
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    
+    /* 文字与链接 */
+    text-decoration: none;
+    color: #ffffff;
+    
+    /* 过渡动画 */
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                box-shadow 0.3s ease;
+    
+    /* 溢出隐藏，让发光层不超出圆角 */
+    overflow: hidden;
+    
+    /* 边框点缀 */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* --- 卡片悬停效果 --- */
+.game-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* --- 卡片内部发光层（扫光效果） --- */
+.card-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 40%, 
+                rgba(255, 255, 255, 0.25) 0%, 
+                transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;      /* 让鼠标穿透 */
+}
+
+.game-card:hover .card-glow {
+    opacity: 1;
+}
+
+/* --- 卡片图标 --- */
+.card-icon {
+    font-size: 2.8rem;
+    line-height: 1;
+    flex-shrink: 0;           /* 防止图标被压缩 */
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.game-card:hover .card-icon {
+    transform: scale(1.1) rotate(-4deg);
+}
+
+/* --- 卡片文字区域 --- */
+.card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.card-title {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.card-sub {
+    margin: 0;
+    font-size: 0.85rem;
+    opacity: 0.85;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+    font-weight: 400;
+    letter-spacing: 0.3px;
+}
+
+/* --- 卡片右侧箭头 --- */
+.card-arrow {
+    font-size: 1.6rem;
+    font-weight: 300;
+    opacity: 0.7;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    flex-shrink: 0;
+}
+
+.game-card:hover .card-arrow {
+    transform: translateX(8px);
+    opacity: 1;
+}
+
+/* --- 线上模式：橙红渐变（GTA OL 风格） --- */
+.card-online {
+    background: linear-gradient(145deg, #600808, #8d4a38);
+    /* 偏暖色调 */
+}
+
+/* --- 故事模式：深蓝紫渐变（故事模式氛围） --- */
+.card-story {
+    background: linear-gradient(145deg, #1e3c72, #2a5298);
+    /* 冷色调 */
+}
+
+/* --- 亮色主题下微调（让卡片在浅色背景下更明显） --- */
+body.light-theme .game-card {
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+body.light-theme .game-card:hover {
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* --- 手机屏幕适配（小于 600px 时卡片占满宽度） --- */
+@media (max-width: 600px) {
+    .game-buttons-container {
+        gap: 20px;
+    }
+    .game-card {
+        min-width: 100%;
+        padding: 18px 22px;
+    }
+    .card-icon {
+        font-size: 2.2rem;
+    }
+    .card-title {
+        font-size: 1.1rem;
+    }
+}
