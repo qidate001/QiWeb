@@ -11,14 +11,14 @@
     "variantsCount": 2
   },
   {
-    "id": "bison-borrowed",
-    "name": "橙色 冒险家 野牛",
-    "category": "有借有还",
-    "difficulty": "★★★★☆",
+    "id": "有借有还-nui9",
+    "name": "有借有还",
+    "category": "主线",
+    "difficulty": "★★☆☆☆",
     "description": "有借有还任务可获取的稀有配色载具",
     "update_date": "2025-11-20",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1qT4y1b7SS",
     "coverImage": "有借有还_橙色 冒险家 野牛.png",
-    "variantsCount": 1
+    "variantsCount": 2
   }
 ]
