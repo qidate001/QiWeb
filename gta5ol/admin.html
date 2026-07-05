@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚗 稀有载具 - 本地管理后台</title>
+    <style>
+        /* ===== 全局样式 ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f1f5f9;
+            padding: 20px;
+            color: #0f172a;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ===== 顶部标题栏 ===== */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+        .top-bar h1 {
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .top-bar .server-status {
+            font-size: 0.85rem;
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: #e2e8f0;
+            color: #475569;
+        }
+        .top-bar .server-status.online {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .top-bar .server-status.offline {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 24px;
+            border-left: 4px solid #8b5cf6;
+            padding-left: 16px;
+        }
+
+        /* ===== 主体两栏布局 ===== */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 24px;
+        }
+        @media (max-width: 820px) {
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== 左侧：车辆列表 ===== */
+        .vehicle-list-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            max-height: calc(100vh - 160px);
+            overflow-y: auto;
+        }
+        .vehicle-list-panel h2 {
+            font-size: 1.1rem;
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .vehicle-list-panel .badge {
+            background: #e2e8f0;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .vehicle-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            margin-bottom: 4px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: 2px solid transparent;
+        }
+        .vehicle-item:hover {
+            background: #f1f5f9;
+        }
+        .vehicle-item.active {
+            background: #ede9fe;
+            border-color: #8b5cf6;
+        }
+        .vehicle-item .name {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .vehicle-item .cat {
+            font-size: 0.7rem;
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 2px 10px;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+        .vehicle-item .del-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0 4px;
+        }
+        .vehicle-item .del-btn:hover {
+            color: #ef4444;
+        }
+        .btn-add-new {
+            width: 100%;
+            padding: 12px;
+            border: 2px dashed #cbd5e1;
+            background: transparent;
+            border-radius: 12px;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+        .btn-add-new:hover {
+            border-color: #8b5cf6;
+            color: #8b5cf6;
+            background: #f8fafc;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 30px 0;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* ===== 右侧：编辑器 ===== */
+        .editor-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        /* ===== 表单控件 ===== */
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+            color: #334155;
+        }
+        .form-group .hint {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: 400;
+            margin-left: 6px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            transition: 0.15s;
+            background: #fafbfc;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139,92,246,0.15);
+            background: white;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== 动态区块 ===== */
+        .dynamic-section {
+            margin-top: 24px;
+            border-top: 2px solid #f1f5f9;
+            padding-top: 20px;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .section-header h3 {
+            font-size: 1rem;
+        }
+        .btn-add {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 5px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.15s;
+        }
+        .btn-add:hover {
+            background: #7c3aed;
+        }
+
+        /* ===== 卡片项（变体/方法） ===== */
+        .card-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 14px;
+            position: relative;
+        }
+        .card-item .remove-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #fee2e2;
+            border: none;
+            color: #dc2626;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .card-item .remove-btn:hover {
+            background: #fecaca;
+        }
+        .card-item .sub-label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #475569;
+            margin: 10px 0 6px 0;
+        }
+        .card-item .sub-label:first-of-type {
+            margin-top: 0;
+        }
+
+        /* 规格组 */
+        .spec-group, .prop-group, .detail-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 6px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .spec-group .form-control, .prop-group .form-control, .detail-group .form-control {
+            flex: 1;
+            min-width: 60px;
+            font-size: 0.85rem;
+            padding: 6px 10px;
+        }
+        .spec-group .spec-rare {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        .btn-remove-item {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 0 4px;
+        }
+        .btn-remove-item:hover {
+            color: #ef4444;
+        }
+
+        /* ===== 底部操作栏 ===== */
+        .action-bar {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .btn-primary:hover {
+            background: #7c3aed;
+            transform: scale(1.01);
+        }
+        .btn-success {
+            background: #22c55e;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .btn-success:hover {
+            background: #16a34a;
+        }
+        .btn-secondary {
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            background: #475569;
+        }
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+        .btn-outline {
+            background: transparent;
+            color: #64748b;
+            border: 2px solid #e2e8f0;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-outline:hover {
+            background: #f1f5f9;
+        }
+
+        /* ===== Toast 提示 ===== */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #0f172a;
+            color: white;
+            padding: 16px 28px;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            transform: translateY(80px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            pointer-events: none;
+            z-index: 999;
+            max-width: 420px;
+            font-size: 0.95rem;
+        }
+        #toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        #toast.success { border-left: 4px solid #22c55e; }
+        #toast.error { border-left: 4px solid #ef4444; }
+
+        /* ===== 滚动条 ===== */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 顶部 -->
+    <div class="top-bar">
+        <h1>🚗 稀有载具 · 本地管理</h1>
+        <span class="server-status" id="serverStatus">⏳ 检测中...</span>
+    </div>
+    <div class="subtitle">
+        可视化编辑 · <strong>直接覆写</strong>项目中的 data/ 目录 · 编辑后推送 GitHub 即生效
+    </div>
+
+    <div class="admin-grid">
+        <!-- ====== 左侧：车辆列表 ====== -->
+        <div class="vehicle-list-panel">
+            <h2>
+                <span>📋 载具</span>
+                <span class="badge" id="vehicleCount">0</span>
+            </h2>
+            <div id="vehicleListContainer">
+                <div class="empty-state">暂无载具，点击下方添加</div>
+            </div>
+            <button class="btn-add-new" onclick="createNewVehicle()">＋ 新建载具</button>
+        </div>
+
+        <!-- ====== 右侧：编辑器 ====== -->
+        <div class="editor-panel">
+            <form id="vehicleForm" onsubmit="return false;">
+                <input type="hidden" id="editIndex" value="-1">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>车辆名称 <span class="hint">(中文)</span></label>
+                        <input type="text" class="form-control" id="vName" placeholder="例如：贝菲特 迪布达2" oninput="autoGenerateId()">
+                    </div>
+                    <div class="form-group">
+                        <label>ID <span class="hint">(自动生成)</span></label>
+                        <input type="text" class="form-control" id="vId" placeholder="dubsta2" readonly style="background:#eef2f6; cursor:not-allowed;">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>分类</label>
+                        <input type="text" class="form-control" id="vCategory" placeholder="改车王系列 / 零散系列 / 磨损系列">
+                    </div>
+                    <div class="form-group">
+                        <label>难度</label>
+                        <input type="text" class="form-control" id="vDifficulty" placeholder="★★☆☆☆">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>描述</label>
+                    <input type="text" class="form-control" id="vDescription" placeholder="简短描述该载具">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>B站视频链接</label>
+                        <input type="url" class="form-control" id="vBilibili" placeholder="https://www.bilibili.com/video/...">
+                    </div>
+                    <div class="form-group">
+                        <label>更新日期</label>
+                        <input type="date" class="form-control" id="vDate">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>路线图文件名 <span class="hint">(放在 images/ 下)</span></label>
+                    <input type="text" class="form-control" id="vRouteImage" placeholder="路线图.png">
+                </div>
+
+                <!-- ===== 变体 ===== -->
+                <div class="dynamic-section">
+                    <div class="section-header">
+                        <h3>🎨 变体 (Variants)</h3>
+                        <button type="button" class="btn-add" onclick="addVariant()">＋ 添加</button>
+                    </div>
+                    <div id="variantsContainer"></div>
+                </div>
+
+                <!-- ===== 获取方法 ===== -->
+                <div class="dynamic-section">
+                    <div class="section-header">
+                        <h3>📋 获取方法 (Methods)</h3>
+                        <button type="button" class="btn-add" onclick="addMethod()">＋ 添加</button>
+                    </div>
+                    <div id="methodsContainer"></div>
+                </div>
+
+                <!-- ===== 操作栏 ===== -->
+                <div class="action-bar">
+                    <button type="button" class="btn-primary" onclick="saveCurrentVehicle()">💾 保存当前</button>
+                    <button type="button" class="btn-success" onclick="saveToLocalServer()" id="btnDirectSave">
+                        ⚡ 直接覆写 data/ (零下载)
+                    </button>
+                    <button type="button" class="btn-secondary" onclick="exportZIP()">📦 导出 data.zip</button>
+                    <button type="button" class="btn-outline" onclick="exportLegacyJSON()">📄 导出 vehicles.json</button>
+                    <button type="button" class="btn-danger" onclick="if(confirm('清除所有数据？')){ clearAllData(); }">🗑️ 清空</button>
+                </div>
+
+                <p style="margin-top:14px; font-size:0.8rem; color:#94a3b8;">
+                    💡 <strong>直接覆写</strong> 需要先运行 <code style="background:#f1f5f9;padding:2px 8px;border-radius:4px;">node admin-server.js</code>
+                    · 覆写后项目 data/ 目录自动更新，推送 GitHub 即可
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ===== Toast ===== -->
+<div id="toast"></div>
+
+<!-- ===== JSZip 库（用于导出 ZIP） ===== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script>
+    // ================================================================
+    //  全局数据
+    // ================================================================
+    let vehicles = [];
+    let currentEditIndex = -1;
+
+    // ================================================================
+    //  初始化：从本地服务器加载数据
+    // ================================================================
+    async function loadFromServer() {
+        try {
+            const res = await fetch('/api/load');
+            if (res.ok) {
+                const data = await res.json();
+                if (data.vehicles && Array.isArray(data.vehicles)) {
+                    vehicles = data.vehicles;
+                    console.log(`✅ 从服务器加载 ${vehicles.length} 辆载具`);
+                    document.getElementById('serverStatus').className = 'server-status online';
+                    document.getElementById('serverStatus').textContent = '✅ 已连接';
+                } else {
+                    throw new Error('数据格式错误');
+                }
+            } else {
+                throw new Error(`HTTP ${res.status}`);
+            }
+        } catch (e) {
+            console.warn('⚠️ 无法连接本地服务器，尝试加载本地 vehicles.json', e);
+            document.getElementById('serverStatus').className = 'server-status offline';
+            document.getElementById('serverStatus').textContent = '⚠️ 未连接 (仅能导出)';
+            // 降级：尝试加载项目中的 vehicles.json
+            try {
+                const fallbackRes = await fetch('./data/vehicles.json?t=' + Date.now());
+                if (fallbackRes.ok) {
+                    const data = await fallbackRes.json();
+                    if (data.vehicles) {
+                        vehicles = data.vehicles;
+                        console.log(`✅ 从本地文件加载 ${vehicles.length} 辆载具 (降级模式)`);
+                    }
+                }
+            } catch (e2) {
+                console.warn('⚠️ 本地文件也加载失败，使用空数据集');
+                vehicles = [];
+            }
+        }
+        renderVehicleList();
+        if (vehicles.length > 0) {
+            selectVehicle(0);
+        } else {
+            createNewVehicle();
+        }
+    }
+
+    // ================================================================
+    //  渲染左侧列表
+    // ================================================================
+    function renderVehicleList() {
+        const container = document.getElementById('vehicleListContainer');
+        document.getElementById('vehicleCount').textContent = vehicles.length;
+
+        if (vehicles.length === 0) {
+            container.innerHTML = `<div class="empty-state">暂无载具，点击下方添加</div>`;
+            return;
+        }
+
+        let html = '';
+        vehicles.forEach((v, idx) => {
+            const active = (idx === currentEditIndex) ? 'active' : '';
+            html += `
+                <div class="vehicle-item ${active}" onclick="selectVehicle(${idx})">
+                    <span class="name">${v.name || '未命名'}</span>
+                    <span style="display:flex; gap:6px; align-items:center;">
+                        <span class="cat">${v.category || '未分类'}</span>
+                        <button class="del-btn" onclick="event.stopPropagation(); deleteVehicle(${idx})" title="删除">✕</button>
+                    </span>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+
+    // ================================================================
+    //  选择 / 新建 / 删除
+    // ================================================================
+    function selectVehicle(index) {
+        if (index < 0 || index >= vehicles.length) return;
+        currentEditIndex = index;
+        renderVehicleList();
+        loadVehicleToForm(vehicles[index]);
+    }
+
+    function createNewVehicle() {
+        const newV = {
+            id: 'new-' + Date.now().toString(36),
+            name: '新载具',
+            category: '零散系列',
+            difficulty: '★★☆☆☆',
+            description: '请填写描述',
+            routeImage: '',
+            bilibiliVideo: '',
+            update_date: new Date().toISOString().split('T')[0],
+            variants: [],
+            methods: []
+        };
+        vehicles.push(newV);
+        currentEditIndex = vehicles.length - 1;
+        renderVehicleList();
+        loadVehicleToForm(newV);
+        showToast('✅ 已创建新载具', 'success');
+    }
+
+    function deleteVehicle(index) {
+        if (!confirm(`确定删除 "${vehicles[index].name}" 吗？`)) return;
+        vehicles.splice(index, 1);
+        if (currentEditIndex === index) currentEditIndex = -1;
+        else if (currentEditIndex > index) currentEditIndex--;
+        renderVehicleList();
+        if (vehicles.length > 0) {
+            const newIdx = Math.min(currentEditIndex, vehicles.length - 1);
+            if (newIdx >= 0) selectVehicle(newIdx);
+            else createNewVehicle();
+        } else {
+            createNewVehicle();
+        }
+        showToast('🗑️ 已删除', 'error');
+    }
+
+    function clearAllData() {
+        vehicles = [];
+        currentEditIndex = -1;
+        renderVehicleList();
+        document.getElementById('vehicleForm').reset();
+        document.getElementById('variantsContainer').innerHTML = '';
+        document.getElementById('methodsContainer').innerHTML = '';
+        createNewVehicle();
+        showToast('已清空所有数据', 'error');
+    }
+
+    // ================================================================
+    //  加载数据到表单
+    // ================================================================
+    function loadVehicleToForm(v) {
+        document.getElementById('editIndex').value = currentEditIndex;
+        document.getElementById('vName').value = v.name || '';
+        document.getElementById('vId').value = v.id || '';
+        document.getElementById('vCategory').value = v.category || '';
+        document.getElementById('vDifficulty').value = v.difficulty || '';
+        document.getElementById('vDescription').value = v.description || '';
+        document.getElementById('vBilibili').value = v.bilibiliVideo || '';
+        document.getElementById('vRouteImage').value = v.routeImage || '';
+        document.getElementById('vDate').value = v.update_date || '';
+
+        // 变体
+        const vContainer = document.getElementById('variantsContainer');
+        vContainer.innerHTML = '';
+        if (v.variants && v.variants.length > 0) {
+            v.variants.forEach((variant, idx) => addVariant(variant, idx));
+        }
+
+        // 方法
+        const mContainer = document.getElementById('methodsContainer');
+        mContainer.innerHTML = '';
+        if (v.methods && v.methods.length > 0) {
+            v.methods.forEach((method, idx) => addMethod(method, idx));
+        }
+    }
+
+    // ================================================================
+    //  保存当前编辑到内存
+    // ================================================================
+    function saveCurrentVehicle() {
+        const index = parseInt(document.getElementById('editIndex').value);
+        const name = document.getElementById('vName').value.trim();
+        const id = document.getElementById('vId').value.trim();
+
+        if (!name) { showToast('⚠️ 请填写名称', 'error'); return; }
+        if (!id) { showToast('⚠️ ID 不能为空', 'error'); return; }
+
+        // 检查ID唯一性
+        const duplicate = vehicles.some((v, i) => v.id === id && i !== index);
+        if (duplicate) {
+            showToast('⚠️ ID "' + id + '" 已存在', 'error');
+            return;
+        }
+
+        const vehicleData = {
+            id: id,
+            name: name,
+            category: document.getElementById('vCategory').value.trim() || '未分类',
+            difficulty: document.getElementById('vDifficulty').value.trim() || '★★☆☆☆',
+            description: document.getElementById('vDescription').value.trim() || '无描述',
+            bilibiliVideo: document.getElementById('vBilibili').value.trim(),
+            routeImage: document.getElementById('vRouteImage').value.trim(),
+            update_date: document.getElementById('vDate').value || new Date().toISOString().split('T')[0],
+            variants: collectVariantsFromDOM(),
+            methods: collectMethodsFromDOM()
+        };
+
+        if (index === -1 || index >= vehicles.length) {
+            vehicles.push(vehicleData);
+            currentEditIndex = vehicles.length - 1;
+        } else {
+            vehicles[index] = vehicleData;
+            currentEditIndex = index;
+        }
+
+        renderVehicleList();
+        document.getElementById('editIndex').value = currentEditIndex;
+        showToast(`✅ 已保存 "${vehicleData.name}"`, 'success');
+        loadVehicleToForm(vehicles[currentEditIndex]);
+    }
+
+    // ================================================================
+    //  自动生成 ID
+    // ================================================================
+    function autoGenerateId() {
+        const name = document.getElementById('vName').value.trim();
+        if (!name) { document.getElementById('vId').value = ''; return; }
+        let id = name
+            .replace(/[^\w\u4e00-\u9fa5\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .toLowerCase();
+        if (/^[\u4e00-\u9fa5-]+$/.test(id)) {
+            id = id + '-' + Date.now().toString(36).slice(-4);
+        }
+        document.getElementById('vId').value = id;
+    }
+
+    // ================================================================
+    //  变体操作
+    // ================================================================
+    function addVariant(data, index) {
+        const container = document.getElementById('variantsContainer');
+        const div = document.createElement('div');
+        div.className = 'card-item';
+
+        const specsHtml = (data && data.specs) ? data.specs.map((s, si) => `
+            <div class="spec-group" data-specindex="${si}">
+                <input class="form-control" style="flex:0.7;" placeholder="标签" value="${s.label || ''}">
+                <input class="form-control" placeholder="值" value="${s.value || ''}">
+                <label class="spec-rare">
+                    <input type="checkbox" ${s.isRare ? 'checked' : ''}> 稀有
+                </label>
+                <button type="button" class="btn-remove-item" onclick="this.closest('.spec-group').remove()">✕</button>
+            </div>
+        `).join('') : '';
+
+        const propsHtml = (data && data.properties) ? Object.entries(data.properties).map(([key, value]) => `
+            <div class="prop-group">
+                <input class="form-control" style="flex:0.7;" placeholder="键" value="${key}">
+                <input class="form-control" placeholder="值" value="${value}">
+                <button type="button" class="btn-remove-item" onclick="this.closest('.prop-group').remove()">✕</button>
+            </div>
+        `).join('') : '';
+
+        div.innerHTML = `
+            <button type="button" class="remove-btn" onclick="this.closest('.card-item').remove()">✕</button>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+                <input class="form-control" placeholder="变体名称 (如：铬合金款)" value="${data ? data.name : ''}">
+                <input class="form-control" placeholder="图片文件名 (如：迪布达2_1.png)" value="${data ? data.image : ''}">
+            </div>
+            <div class="sub-label">🎨 规格 (Specs)</div>
+            <div class="specs-wrapper">${specsHtml || '<div style="color:#94a3b8;font-size:0.8rem;padding:4px 0;">暂无规格</div>'}</div>
+            <button type="button" class="btn-add" style="font-size:0.7rem; padding:3px 12px; margin:4px 0;" onclick="addSpec(this)">＋ 添加规格</button>
+
+            <div class="sub-label" style="margin-top:10px;">📊 属性 (Properties)</div>
+            <div class="props-wrapper">${propsHtml || '<div style="color:#94a3b8;font-size:0.8rem;padding:4px 0;">暂无属性</div>'}</div>
+            <button type="button" class="btn-add" style="font-size:0.7rem; padding:3px 12px; margin:4px 0;" onclick="addProperty(this)">＋ 添加属性</button>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
+                <input class="form-control" placeholder="配件 (可选)" value="${data && data.accessory ? data.accessory : ''}">
+                <input class="form-control" placeholder="爆炸数据 (可选)" value="${data && data.explosion_data ? (typeof data.explosion_data === 'string' ? data.explosion_data : JSON.stringify(data.explosion_data)) : ''}">
+            </div>
+        `;
+        container.appendChild(div);
+    }
+
+    function addSpec(btn) {
+        const wrapper = btn.closest('.card-item').querySelector('.specs-wrapper');
+        const group = document.createElement('div');
+        group.className = 'spec-group';
+        group.innerHTML = `
+            <input class="form-control" style="flex:0.7;" placeholder="标签" value="">
+            <input class="form-control" placeholder="值" value="">
+            <label class="spec-rare"><input type="checkbox"> 稀有</label>
+            <button type="button" class="btn-remove-item" onclick="this.closest('.spec-group').remove()">✕</button>
+        `;
+        // 移除"暂无规格"提示
+        if (wrapper.querySelector('div[style]')) wrapper.innerHTML = '';
+        wrapper.appendChild(group);
+    }
+
+    function addProperty(btn) {
+        const wrapper = btn.closest('.card-item').querySelector('.props-wrapper');
+        const group = document.createElement('div');
+        group.className = 'prop-group';
+        group.innerHTML = `
+            <input class="form-control" style="flex:0.7;" placeholder="键" value="">
+            <input class="form-control" placeholder="值" value="">
+            <button type="button" class="btn-remove-item" onclick="this.closest('.prop-group').remove()">✕</button>
+        `;
+        if (wrapper.querySelector('div[style]')) wrapper.innerHTML = '';
+        wrapper.appendChild(group);
+    }
+
+    // ================================================================
+    //  方法操作
+    // ================================================================
+    function addMethod(data, index) {
+        const container = document.getElementById('methodsContainer');
+        const div = document.createElement('div');
+        div.className = 'card-item';
+
+        const detailsHtml = (data && data.details) ? Object.entries(data.details).map(([key, value]) => `
+            <div class="detail-group">
+                <input class="form-control" style="flex:0.7;" placeholder="条件" value="${key}">
+                <input class="form-control" placeholder="值" value="${value}">
+                <button type="button" class="btn-remove-item" onclick="this.closest('.detail-group').remove()">✕</button>
+            </div>
+        `).join('') : '';
+
+        div.innerHTML = `
+            <button type="button" class="remove-btn" onclick="this.closest('.card-item').remove()">✕</button>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+                <input class="form-control" placeholder="标题" value="${data ? data.title : ''}">
+                <input class="form-control" placeholder="编号 (数字)" value="${data ? data.number : ''}">
+            </div>
+            <div class="sub-label">📌 详情条件</div>
+            <div class="method-details-wrapper">${detailsHtml || '<div style="color:#94a3b8;font-size:0.8rem;padding:4px 0;">暂无条件</div>'}</div>
+            <button type="button" class="btn-add" style="font-size:0.7rem; padding:3px 12px; margin:4px 0;" onclick="addMethodDetail(this)">＋ 添加条件</button>
+
+            <div style="margin-top:8px;">
+                <input class="form-control" placeholder="简介" value="${data ? data.intro : ''}">
+            </div>
+            <div style="margin-top:6px;">
+                <textarea class="form-control" rows="2" placeholder="描述">${data ? data.description : ''}</textarea>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px;">
+                <input class="form-control" placeholder="备注链接" value="${data ? data.noteLink : ''}">
+                <input class="form-control" placeholder="备注文字" value="${data ? data.noteText : ''}">
+            </div>
+        `;
+        container.appendChild(div);
+    }
+
+    function addMethodDetail(btn) {
+        const wrapper = btn.closest('.card-item').querySelector('.method-details-wrapper');
+        const group = document.createElement('div');
+        group.className = 'detail-group';
+        group.innerHTML = `
+            <input class="form-control" style="flex:0.7;" placeholder="条件" value="">
+            <input class="form-control" placeholder="值" value="">
+            <button type="button" class="btn-remove-item" onclick="this.closest('.detail-group').remove()">✕</button>
+        `;
+        if (wrapper.querySelector('div[style]')) wrapper.innerHTML = '';
+        wrapper.appendChild(group);
+    }
+
+    // ================================================================
+    //  从 DOM 收集数据
+    // ================================================================
+    function collectVariantsFromDOM() {
+        const items = document.querySelectorAll('#variantsContainer .card-item');
+        const result = [];
+        items.forEach(el => {
+            const inputs = el.querySelectorAll('input');
+            if (inputs.length < 2) return;
+            const name = inputs[0]?.value || '';
+            const image = inputs[1]?.value || '';
+            if (!name) return;
+
+            // specs
+            const specGroups = el.querySelectorAll('.specs-wrapper .spec-group');
+            const specs = [];
+            specGroups.forEach(sg => {
+                const sgInputs = sg.querySelectorAll('input');
+                if (sgInputs.length < 2) return;
+                specs.push({
+                    label: sgInputs[0].value || '',
+                    value: sgInputs[1].value || '',
+                    isRare: sg.querySelector('input[type="checkbox"]')?.checked || false
+                });
+            });
+
+            // properties
+            const propGroups = el.querySelectorAll('.props-wrapper .prop-group');
+            const properties = {};
+            propGroups.forEach(pg => {
+                const pgInputs = pg.querySelectorAll('input');
+                if (pgInputs.length < 2) return;
+                const key = pgInputs[0].value.trim();
+                if (key) properties[key] = pgInputs[1].value || '';
+            });
+
+            // 配件 & 爆炸数据（最后两个 input）
+            const accessory = inputs[inputs.length - 2]?.value || '';
+            const explosionRaw = inputs[inputs.length - 1]?.value || '';
+            let explosion_data = null;
+            if (explosionRaw.trim()) {
+                try { explosion_data = JSON.parse(explosionRaw); }
+                catch { explosion_data = explosionRaw; }
+            }
+
+            const variant = { name, image, specs, properties };
+            if (accessory) variant.accessory = accessory;
+            if (explosion_data) variant.explosion_data = explosion_data;
+            result.push(variant);
+        });
+        return result;
+    }
+
+    function collectMethodsFromDOM() {
+        const items = document.querySelectorAll('#methodsContainer .card-item');
+        const result = [];
+        items.forEach(el => {
+            const inputs = el.querySelectorAll('input');
+            const textareas = el.querySelectorAll('textarea');
+            if (inputs.length < 2) return;
+            const title = inputs[0]?.value || '';
+            const number = parseInt(inputs[1]?.value) || 0;
+            if (!title) return;
+
+            const details = {};
+            const detailGroups = el.querySelectorAll('.method-details-wrapper .detail-group');
+            detailGroups.forEach(dg => {
+                const dgInputs = dg.querySelectorAll('input');
+                if (dgInputs.length < 2) return;
+                const key = dgInputs[0].value.trim();
+                if (key) details[key] = dgInputs[1].value || '';
+            });
+
+            const intro = inputs[2]?.value || '';
+            const description = textareas[0]?.value || '';
+            const noteLink = inputs[3]?.value || '';
+            const noteText = inputs[4]?.value || '';
+
+            result.push({ title, number, details, intro, description, noteLink, noteText });
+        });
+        return result;
+    }
+
+    // ================================================================
+    //  ⭐ 核心：直接覆写本地文件（通过 Node 服务器）
+    // ================================================================
+    async function saveToLocalServer() {
+        saveCurrentVehicle();
+        if (vehicles.length === 0) {
+            showToast('⚠️ 没有数据可保存', 'error');
+            return;
+        }
+
+        const btn = document.getElementById('btnDirectSave');
+        btn.textContent = '⏳ 保存中...';
+        btn.disabled = true;
+
+        try {
+            const res = await fetch('/api/save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ vehicles })
+            });
+            const result = await res.json();
+            if (result.success) {
+                showToast(result.message, 'success');
+                // 更新状态
+                document.getElementById('serverStatus').className = 'server-status online';
+                document.getElementById('serverStatus').textContent = '✅ 已同步';
+            } else {
+                showToast('❌ ' + result.message, 'error');
+            }
+        } catch (err) {
+            console.error(err);
+            showToast('❌ 无法连接本地服务器，请运行 node admin-server.js', 'error');
+            document.getElementById('serverStatus').className = 'server-status offline';
+            document.getElementById('serverStatus').textContent = '⚠️ 未连接';
+        } finally {
+            btn.textContent = '⚡ 直接覆写 data/ (零下载)';
+            btn.disabled = false;
+        }
+    }
+
+    // ================================================================
+    //  导出 ZIP（备选方案）
+    // ================================================================
+    async function exportZIP() {
+        saveCurrentVehicle();
+        if (vehicles.length === 0) {
+            showToast('⚠️ 没有数据可导出', 'error');
+            return;
+        }
+        try {
+            const zip = new JSZip();
+            const dataFolder = zip.folder('data');
+
+            // index.json
+            const indexData = vehicles.map(v => ({
+                id: v.id,
+                name: v.name,
+                category: v.category,
+                difficulty: v.difficulty,
+                description: v.description,
+                update_date: v.update_date,
+                bilibiliVideo: v.bilibiliVideo || '',
+                coverImage: v.variants?.[0]?.image || null,
+                variantsCount: v.variants?.length || 0
+            }));
+            dataFolder.file('index.json', JSON.stringify(indexData, null, 2));
+
+            // details/
+            const detailsFolder = dataFolder.folder('details');
+            vehicles.forEach(v => {
+                const clean = JSON.parse(JSON.stringify(v));
+                if (!clean.bilibiliVideo) delete clean.bilibiliVideo;
+                if (!clean.routeImage) delete clean.routeImage;
+                if (clean.variants) {
+                    clean.variants = clean.variants.map(vr => {
+                        if (!vr.accessory) delete vr.accessory;
+                        if (!vr.explosion_data) delete vr.explosion_data;
+                        return vr;
+                    });
+                }
+                detailsFolder.file(`${v.id}.json`, JSON.stringify(clean, null, 2));
+            });
+
+            const blob = await zip.generateAsync({ type: 'blob' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.zip';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast(`✅ 已导出 data.zip (${vehicles.length} 辆)`, 'success');
+        } catch (err) {
+            console.error(err);
+            showToast('❌ 导出失败: ' + err.message, 'error');
+        }
+    }
+
+    // ================================================================
+    //  导出 legacy vehicles.json
+    // ================================================================
+    function exportLegacyJSON() {
+        saveCurrentVehicle();
+        if (vehicles.length === 0) {
+            showToast('⚠️ 没有数据可导出', 'error');
+            return;
+        }
+        const data = { vehicles: JSON.parse(JSON.stringify(vehicles)) };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'vehicles.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast(`✅ 已导出 vehicles.json (${vehicles.length} 辆)`, 'success');
+    }
+
+    // ================================================================
+    //  Toast
+    // ================================================================
+    function showToast(msg, type = 'success') {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.className = 'show ' + type;
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3500);
+    }
+
+    // ================================================================
+    //  启动
+    // ================================================================
+    document.addEventListener('DOMContentLoaded', () => {
+        loadFromServer();
+    });
+</script>
+</body>
+</html>

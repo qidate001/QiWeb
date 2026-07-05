@@ -1,0 +1,106 @@
+{
+  "id": "bifta",
+  "name": "必福塔",
+  "category": "沙滩聚会系列",
+  "difficulty": "★★★★☆",
+  "description": "特殊沙滩聚会必福塔",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1uMYheyELE/?p=36",
+  "update_date": "2025-12-21",
+  "variants": [
+    {
+      "name": "蓝色款",
+      "image": "必福塔_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "未知"
+        },
+        {
+          "label": "副色调",
+          "value": "未知",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "未知"
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "复制车 / LSC",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "铬合金款",
+      "image": "必福塔_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "铬合金"
+        },
+        {
+          "label": "副色调",
+          "value": "亮粉色"
+        },
+        {
+          "label": "轮胎色",
+          "value": "黄色鸟/露珠色"
+        },
+        {
+          "label": "珠光",
+          "value": "磨损蓝",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "复制车 / LSC",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "黄绿款",
+      "image": "必福塔_3.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "竞速黄"
+        },
+        {
+          "label": "副色调",
+          "value": "哑光青柠绿"
+        },
+        {
+          "label": "轮胎色",
+          "value": "哑光黄",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "工业暗钢色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "复制车 / LSC",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★★☆",
+        "车友会": "完全继承"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "title": "暂无获取方法",
+      "number": 0,
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+    }
+  ]
+}

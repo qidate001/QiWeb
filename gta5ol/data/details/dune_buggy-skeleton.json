@@ -1,0 +1,67 @@
+{
+  "id": "dune_buggy-skeleton",
+  "name": "沙丘魔宝",
+  "category": "零散系列",
+  "difficulty": "★★☆☆☆",
+  "description": "两款沙丘魔宝，其中铁皮款无特殊之处",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV123ADeEEAF",
+  "update_date": "2025-12-21",
+  "variants": [
+    {
+      "name": "骨架款",
+      "image": "沙丘魔宝_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "无"
+        },
+        {
+          "label": "轮胎色",
+          "value": "无"
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "accessory": "无前挡版",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "铁皮款",
+      "image": "沙丘魔宝_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "无"
+        },
+        {
+          "label": "轮胎色",
+          "value": "无"
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "☆☆☆☆☆",
+        "车友会": "完全继承"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "title": "暂无获取方法",
+      "number": 0,
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+    }
+  ]
+}

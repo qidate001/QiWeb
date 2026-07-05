@@ -1,0 +1,97 @@
+{
+  "id": "monster-xl",
+  "name": "威皮 大脚霸王XL",
+  "category": "零散系列",
+  "difficulty": "★☆☆☆☆",
+  "description": "此稀有载具可以说是非常经典的了",
+  "routeImage": "大脚霸王XL_获取路线.png",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1jB4y1672E",
+  "update_date": "2025-11-23",
+  "variants": [
+    {
+      "name": "蓝色款",
+      "image": "大脚霸王XL_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "哑光浅蓝",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "哑光浅蓝",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "未知"
+        },
+        {
+          "label": "珠光",
+          "value": "菲斯特粉",
+          "isRare": true
+        }
+      ],
+      "accessory": "脚踏板",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "黄色款",
+      "image": "大脚霸王XL_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "未知"
+        },
+        {
+          "label": "副色调",
+          "value": "未知"
+        },
+        {
+          "label": "轮胎色",
+          "value": "纯白色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "未知"
+        }
+      ],
+      "accessory": "无顶、防撞杆、脚踏板",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "title": "线上方案",
+      "number": 1,
+      "details": {
+        "时间限制": "9:00 - 16:00",
+        "种子车": "大脚霸王XL"
+      },
+      "description": "首先从南圣安地列斯网站上购买普通版的威皮 大脚霸王XL，或者大街上抢一辆并停入车库（保存为个人载具）后也行。开着这辆大脚霸王XL按照路线来回行驶，行驶途中全程俯视或看向后方（卡视角，别看着刷新点就行）直至目标稀有载具在标点位置刷出。",
+      "noteLink": "#",
+      "noteText": "相关注意事项请见：《卡视野》"
+    },
+    {
+      "title": "线下方案",
+      "number": 2,
+      "details": {
+        "时间限制": "12:00 左右"
+      },
+      "description": "开着任意载具不断按路线行驶，直至目标稀有载具在标点位置刷出。开进车库保存即可。",
+      "noteLink": "../常识/线下市中心改车王.html",
+      "noteText": "相关注意事项请见：《线下市中心改车王》"
+    }
+  ]
+}

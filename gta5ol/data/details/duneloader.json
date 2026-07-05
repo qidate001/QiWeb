@@ -1,0 +1,359 @@
+{
+  "id": "duneloader",
+  "name": "磨损系列 越野游侠",
+  "category": "磨损系列",
+  "difficulty": "★★★★☆",
+  "description": "此车非常特殊，根据有无车载货物分为A/B/C三个系列",
+  "routeImage": "",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1ExkMBdENq",
+  "update_date": "2026-03-21",
+  "variants": [
+    {
+      "name": "空斗 军绿款",
+      "image": "越野游侠_A_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损军绿色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损军绿色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "未知"
+      }
+    },
+    {
+      "name": "空斗 海蚀绿款",
+      "image": "越野游侠_A_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损海蚀绿",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损海蚀绿",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★★☆",
+        "车友会": "未知"
+      }
+    },
+    {
+      "name": "空斗 磨损红款",
+      "image": "越野游侠_A_3.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损红",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损红",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★★☆",
+        "车友会": "未知"
+      }
+    },
+    {
+      "name": "空斗 蜂蜜棕款",
+      "image": "越野游侠_A_4.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损蜂蜜棕",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损蜂蜜棕",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "未知"
+      }
+    },
+    {
+      "name": "空斗 稻草棕款",
+      "image": "越野游侠_A_5.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损稻草棕",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损稻草棕",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "未知"
+      }
+    },
+    {
+      "name": "货物A 军绿款",
+      "image": "越野游侠_B_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损军绿色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损军绿色",
+          "isRare": true
+        }
+      ],
+      "accessory": "车载货物A",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "未知"
+      }
+    },
+    {
+      "name": "货物A 海蚀绿款",
+      "image": "越野游侠_B_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损海蚀绿",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损海蚀绿",
+          "isRare": true
+        }
+      ],
+      "accessory": "车载货物A",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★★☆",
+        "车友会": "未知"
+      }
+    },
+    {
+      "name": "货物A 磨损红款",
+      "image": "越野游侠_B_3.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损红",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损红",
+          "isRare": true
+        }
+      ],
+      "accessory": "车载货物A",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★★☆",
+        "车友会": "未知"
+      }
+    },
+    {
+      "name": "货物A 蜂蜜棕款",
+      "image": "越野游侠_B_4.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损蜂蜜棕",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损蜂蜜棕",
+          "isRare": true
+        }
+      ],
+      "accessory": "车载货物A",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "未知"
+      }
+    },
+    {
+      "name": "货物A 稻草棕款",
+      "image": "越野游侠_B_5.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损稻草棕",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损稻草棕",
+          "isRare": true
+        }
+      ],
+      "accessory": "车载货物A",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "未知"
+      }
+    },
+    {
+      "name": "货物B 军绿款",
+      "image": "越野游侠_C_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损军绿色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损军绿色",
+          "isRare": true
+        }
+      ],
+      "accessory": "车载货物B",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "未知"
+      }
+    },
+    {
+      "name": "货物B 海蚀绿款",
+      "image": "越野游侠_C_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损海蚀绿",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损海蚀绿",
+          "isRare": true
+        }
+      ],
+      "accessory": "车载货物B",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★★☆",
+        "车友会": "未知"
+      }
+    },
+    {
+      "name": "货物B 磨损红款",
+      "image": "越野游侠_C_3.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损红",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损红",
+          "isRare": true
+        }
+      ],
+      "accessory": "车载货物B",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★★☆",
+        "车友会": "未知"
+      }
+    },
+    {
+      "name": "货物B 蜂蜜棕款",
+      "image": "越野游侠_C_4.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损蜂蜜棕",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损蜂蜜棕",
+          "isRare": true
+        }
+      ],
+      "accessory": "车载货物B",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "未知"
+      }
+    },
+    {
+      "name": "货物B 稻草棕款",
+      "image": "越野游侠_C_5.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损稻草棕",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损稻草棕",
+          "isRare": true
+        }
+      ],
+      "accessory": "车载货物B",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "未知"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "title": "暂无获取方法",
+      "number": 0,
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+    }
+  ]
+}

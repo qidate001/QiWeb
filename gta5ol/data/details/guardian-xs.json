@@ -1,0 +1,113 @@
+{
+  "id": "guardian-xs",
+  "name": "绝品 卫士XS",
+  "category": "改车王系列",
+  "difficulty": "★★☆☆☆",
+  "description": "绝品卫士XS稀有配色载具",
+  "routeImage": "卫士XS_获取路线.png",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1ZV4y1W7yi",
+  "update_date": "2025-11-20",
+  "variants": [
+    {
+      "name": "紫色款",
+      "image": "卫士XS_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "工业亮蓝色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "工业亮蓝色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "亮红色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      },
+      "explosion_data": "[ 1349725314, \"卫士 XS 紫色\", {\"priColor\" : 81, \"secColor\" : 81, \"pearlColor\" : 35, \"wheelColor\" : 0, \"dialsColor\" : 0, \"trimColor\" : 0, \"customPriColor\" : 0, \"customSecColor\" : 0, \"tireSmoke\" : 16777215, \"neon\" : 16711935, \"neonState\" : 0, \"livery\" : -1, \"windowTint\" : 0, \"wheelType\" : 0, \"lowGripTyres\" : 0, \"plateIndex\" : 0, \"plate\" : \"03ZYA966\", \"mods\" : { \"0\" : 3, \"1\" : 1, \"2\" : 1, \"3\" : 0, \"4\" : 1, \"5\" : 0, \"15\" : 0, \"20\" : 0, \"22\" : 0, \"23\" : 10 }, \"extras\" : { \"10\" : 1} } ]"
+    },
+    {
+      "name": "黄色款",
+      "image": "卫士XS_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "未知"
+        },
+        {
+          "label": "副色调",
+          "value": "未知"
+        },
+        {
+          "label": "轮胎色",
+          "value": "金属优雅红",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "金属橙",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★☆☆☆☆",
+        "车友会": "完全继承"
+      },
+      "explosion_data": "[1349725314, \"卫士 XS 黄色\", {\"priColor\": 91, \"secColor\": 0, \"pearlColor\": 42, \"wheelColor\": 156, \"dialsColor\": 0, \"trimColor\": 0, \"customPriColor\": 0, \"customSecColor\": 0, \"tireSmoke\": 16777215, \"neon\": 16711935, \"neonState\": 0, \"livery\": -1, \"windowTint\": 1, \"wheelType\": 0, \"lowGripTyres\": 0, \"plateIndex\": 0, \"plate\": \"80QLU250\", \"mods\": { \"0\": 1, \"1\": 0, \"2\": 0, \"3\": 0, \"4\": 1, \"15\": 0, \"20\": 0, \"22\": 0, \"23\": 6 }, \"extras\": { \"10\": 1} }]"
+    }
+  ],
+  "methods": [
+    {
+      "title": "日蚀大厦路线",
+      "number": 1,
+      "details": {
+        "时间限制": "22:00 - 4:00",
+        "天气限制": "大晴天",
+        "种子车": "无要求"
+      },
+      "description": "此期间内按照图片路线不断环绕行驶，直至刷出有NPC开着我们要的稀有载具。",
+      "noteLink": "#",
+      "noteText": "相关注意事项请见：《卡视野》"
+    },
+    {
+      "title": "市中心改车王",
+      "number": 2,
+      "details": {
+        "时间限制": "12:00 左右",
+        "天气限制": "大晴天",
+        "种子车": "迪布达2 或 任意卫士XS"
+      },
+      "description": "开着种子车不断按路线行驶，直至稀有载具在改车王刷出。开到改车王等上保险（防丢防盗→追踪器→完全承保）然后开进车库即可。",
+      "noteLink": "../常识/市中心改车王.html",
+      "noteText": "相关注意事项请见：《市中心改车王》"
+    },
+    {
+      "title": "线下方案",
+      "number": 3,
+      "details": {
+        "时间限制": "12:00 左右",
+        "天气限制": "大晴天"
+      },
+      "description": "开着任意载具不断按路线行驶，直至目标稀有载具在改车王刷出。开进车库保存即可。",
+      "noteLink": "../常识/线下市中心改车王.html",
+      "noteText": "相关注意事项请见：《线下市中心改车王》"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "id": "industrial_black-granger",
+  "name": "绝致 屌王",
+  "category": "零散系列",
+  "difficulty": "★★☆☆☆",
+  "description": "工业黑稀有配色绝致屌王",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1nd4beGEDc",
+  "routeImage": "",
+  "update_date": "2026-03-22",
+  "variants": [
+    {
+      "name": "无保险杠款",
+      "image": "屌王_工业黑_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "工业黑",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "工业黑",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "工业黑",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "有保险杠款",
+      "image": "屌王_工业黑_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "工业黑",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "工业黑",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "工业黑",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      },
+      "accessory": "有前保险杠"
+    }
+  ],
+  "methods": [
+    {
+      "title": "暂无获取方法",
+      "number": 0,
+      "details": {},
+      "intro": "undefined",
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦",
+      "noteLink": "undefined",
+      "noteText": "undefined"
+    }
+  ]
+}

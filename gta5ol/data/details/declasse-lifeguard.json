@@ -1,0 +1,68 @@
+{
+  "id": "declasse-lifeguard",
+  "name": "沙滩急救车",
+  "category": "零散系列",
+  "difficulty": "★★★☆☆",
+  "description": "沙滩急救车特殊款式",
+  "routeImage": "",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1Ji42197Li",
+  "update_date": "2025-12-21",
+  "variants": [
+    {
+      "name": "无保险杠款",
+      "image": "沙滩急救车_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "未知"
+        },
+        {
+          "label": "轮胎色",
+          "value": "无"
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★☆☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "有保险杠款",
+      "image": "沙滩急救车_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "未知"
+        },
+        {
+          "label": "轮胎色",
+          "value": "无"
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "accessory": "有前保险杠",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★☆☆☆☆",
+        "车友会": "会掉配件"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "title": "暂无获取方法",
+      "number": 0,
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+    }
+  ]
+}

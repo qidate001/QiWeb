@@ -1,0 +1,289 @@
+{
+  "id": "worn-bf-surfer",
+  "name": "磨损系列 毕福 乘风",
+  "category": "磨损系列",
+  "difficulty": "★★☆☆☆",
+  "description": "磨损色毕福乘风稀有配色载具",
+  "routeImage": "",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1RKaUzsEx3",
+  "update_date": "2026-1-2",
+  "variants": [
+    {
+      "name": "红白款",
+      "image": "磨损乘风_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损白",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损红",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "无"
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "红金款",
+      "image": "磨损乘风_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损红",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损红金色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "无"
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "蓝色款",
+      "image": "磨损乘风_3.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损婴儿蓝",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损深蓝色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "无"
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "海蚀绿款",
+      "image": "磨损乘风_4.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损冰霜白",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损海蚀绿",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "无"
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "银灰色款",
+      "image": "磨损乘风_5.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损冰霜白",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损银灰色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "无"
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "稻棕色款",
+      "image": "磨损乘风_6.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损冰霜白",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损稻棕色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "无"
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "银灰款",
+      "image": "磨损乘风_7.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损银灰色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损黑",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "无"
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "石墨黑款",
+      "image": "磨损乘风_8.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损石墨黑",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损黑",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "无"
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "全黑款",
+      "image": "磨损乘风_9.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损黑",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损黑",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "无"
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "title": "暂无获取方法",
+      "number": 0,
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+    }
+  ]
+}

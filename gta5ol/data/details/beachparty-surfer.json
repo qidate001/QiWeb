@@ -1,0 +1,145 @@
+{
+  "id": "beachparty-surfer",
+  "name": "沙滩聚会系列 毕福 乘风",
+  "category": "沙滩聚会系列",
+  "difficulty": "★★★☆☆",
+  "description": "沙滩聚会乘风稀有配色载具",
+  "routeImage": "",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1H8PDzzEkN",
+  "update_date": "2026-03-22",
+  "variants": [
+    {
+      "name": "黄红款",
+      "image": "沙滩聚会乘风_4.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "MP100",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "工业艳红色",
+          "isRare": true
+        },
+        {
+          "label": "轮毂色",
+          "value": "MP100",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "海绿色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★★★",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "绿色款",
+      "image": "沙滩聚会乘风_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "哑光青柠绿",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "哑光青柠绿",
+          "isRare": false
+        },
+        {
+          "label": "轮毂色",
+          "value": "冰雪白",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "工业艳红色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "蓝粉款",
+      "image": "沙滩聚会乘风_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "亮粉色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "警车蓝",
+          "isRare": true
+        },
+        {
+          "label": "轮毂色",
+          "value": "合金",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "铬合金款",
+      "image": "沙滩聚会乘风_3.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "铬合金",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "黄色",
+          "isRare": false
+        },
+        {
+          "label": "轮毂色",
+          "value": "合金",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "title": "暂无获取方法",
+      "number": 0,
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+    }
+  ]
+}

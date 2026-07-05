@@ -1,0 +1,71 @@
+{
+  "id": "tornado-guitar",
+  "name": "龙卷风吉他版系列",
+  "category": "零散系列",
+  "difficulty": "★☆☆☆☆",
+  "description": "《末路狂花》彩蛋载具。",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV13B4y167DD",
+  "update_date": "2025-12-21",
+  "variants": [
+    {
+      "name": "彩蛋款",
+      "image": "龙卷风吉他版_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "未知"
+        },
+        {
+          "label": "副色调",
+          "value": "磨损黑",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "accessory": "后座吉他",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★★★☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "富兰克林刺杀款",
+      "image": "龙卷风吉他版_3.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损海蚀绿",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损米白色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "accessory": "后座吉他",
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★★☆",
+        "车友会": "完全继承"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "title": "暂无获取方法",
+      "number": 0,
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+    }
+  ]
+}

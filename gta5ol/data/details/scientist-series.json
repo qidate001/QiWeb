@@ -1,0 +1,77 @@
+{
+  "id": "scientist-series",
+  "name": "科学家系列",
+  "category": "零散系列",
+  "difficulty": "★☆☆☆☆",
+  "description": "值得注意！屌客 科学家版是黑名单载具，绝对无法入库。",
+  "routeImage": "科学家系列_获取路线.png",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1qB4y1B79j",
+  "update_date": "2025-11-24",
+  "variants": [
+    {
+      "name": "华盛顿 科学家版",
+      "image": "华盛顿_科学家版.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "纯白色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "未知"
+        },
+        {
+          "label": "珠光",
+          "value": "纯白色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "屌客 科学家版",
+      "image": "屌客_科学家版.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "纯白色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "未知"
+        },
+        {
+          "label": "珠光",
+          "value": "纯白色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "黑名单载具",
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★☆☆☆☆",
+        "车友会": "完全继承（理论上）"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "title": "获取方案（线上线下通用）",
+      "number": 1,
+      "details": {
+        "时间限制": "10:00 - 11:00",
+        "天气限制": "大晴天"
+      },
+      "description": "开着自己的载具来到起点。开往刷新点，行驶途中全程俯视或看向后方（卡视角，别看着刷新点就行）。刷新点可能会刷：2辆屌客 科学家版、2辆华盛顿 科学家版、1辆屌客 科学家版、1辆华盛顿 科学家版。",
+      "noteLink": "#",
+      "noteText": "相关注意事项请见：《卡视野》"
+    }
+  ]
+}

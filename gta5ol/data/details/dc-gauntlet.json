@@ -1,0 +1,124 @@
+{
+  "id": "dc-gauntlet",
+  "name": "DC 铁腕",
+  "category": "零散系列",
+  "difficulty": "★★★★★",
+  "description": "DC铁腕稀有配色载具",
+  "routeImage": "",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1i14y187XS",
+  "update_date": "2026-01-03",
+  "variants": [
+    {
+      "name": "橙色款",
+      "image": "DC铁腕_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "哑光橙",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "哑光橙",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "哑光橙",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★★",
+        "收藏价值": "★★★★★",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "绿色款",
+      "image": "DC铁腕_3.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "鸟黄色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "哑光黑",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "鸟黄色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★★",
+        "收藏价值": "★★★★★",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "红橙款",
+      "image": "DC铁腕_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "未知"
+        },
+        {
+          "label": "轮胎色",
+          "value": "未知"
+        },
+        {
+          "label": "珠光",
+          "value": "未知"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "暗红款",
+      "image": "DC铁腕_4.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "暗红色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "暗红色",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "哑光橙",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★★",
+        "收藏价值": "★★★★★",
+        "车友会": "完全继承"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "title": "暂无获取方法",
+      "number": 0,
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+    }
+  ]
+}

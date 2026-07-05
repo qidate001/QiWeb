@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>GTA5 Online 稀有载具收集 - 载具列表</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/gta5lo.css">
+</head>
+
+<body>
+  <theme-button value="dark" id="btn" size="3"></theme-button>
+
+  <header>
+    <h1>GTA5 Online 稀有载具收集</h1>
+    <nav>
+      <ul>
+        <li><a href="../index.html">网站首页</a></li>
+        <li><a href="index.html">GTA5首页</a></li>
+        <li><a href="vehicles.html">载具列表</a></li>
+        <li><a href="../about.html">关于我</a></li>
+        <li><a href="../contact.html">联系我</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <h2>🚗 稀有载具列表</h2>
+      <div class="search-controls">
+        <div class="search-box">
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="搜索载具名称..."
+            aria-label="搜索载具"
+          >
+          <span class="search-icon">🔍</span>
+        </div>
+        <select id="category-filter" class="category-select">
+          <option value="all">所有分类</option>
+        </select>
+        <div class="result-info" id="result-count">加载中...</div>
+      </div>
+    </div>
+
+    <div id="vehicle-container" class="vehicles-grid">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>加载载具数据中...</p>
+      </div>
+    </div>
+
+    <div id="pagination" class="pagination-container"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 齐. 保留所有权利。</p>
+  </footer>
+
+  <style>
+    /* 快速预览模态框样式 */
+    .quick-view-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    
+    .modal-content {
+      background: #2d2d2d;
+      border-radius: 10px;
+      padding: 30px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: #e74c3c;
+      font-size: 24px;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .quick-view-images {
+      display: flex;
+      gap: 15px;
+      margin: 20px 0;
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+    
+    .quick-view-item {
+      min-width: 150px;
+      text-align: center;
+    }
+    
+    .quick-view-item img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    
+    .btn-view-full {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: #3498db;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+
+  <script src="js/vehicles.js"></script>
+</body>
+
+</html>

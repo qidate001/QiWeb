@@ -1,0 +1,211 @@
+[
+  {
+    "id": "dubsta2",
+    "name": "贝菲特 迪布达2",
+    "category": "改车王系列",
+    "difficulty": "★★☆☆☆",
+    "description": "此稀有载具几乎是最出名的了",
+    "update_date": "2025-11-23",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1h14y1b7xr",
+    "coverImage": "迪布达2_1.png",
+    "variantsCount": 2
+  },
+  {
+    "id": "guardian-xs",
+    "name": "绝品 卫士XS",
+    "category": "改车王系列",
+    "difficulty": "★★☆☆☆",
+    "description": "绝品卫士XS稀有配色载具",
+    "update_date": "2025-11-20",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1ZV4y1W7yi",
+    "coverImage": "卫士XS_1.png",
+    "variantsCount": 2
+  },
+  {
+    "id": "monster-xl",
+    "name": "威皮 大脚霸王XL",
+    "category": "零散系列",
+    "difficulty": "★☆☆☆☆",
+    "description": "此稀有载具可以说是非常经典的了",
+    "update_date": "2025-11-23",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1jB4y1672E",
+    "coverImage": "大脚霸王XL_1.png",
+    "variantsCount": 2
+  },
+  {
+    "id": "scientist-series",
+    "name": "科学家系列",
+    "category": "零散系列",
+    "difficulty": "★☆☆☆☆",
+    "description": "值得注意！屌客 科学家版是黑名单载具，绝对无法入库。",
+    "update_date": "2025-11-24",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1qB4y1B79j",
+    "coverImage": "华盛顿_科学家版.png",
+    "variantsCount": 2
+  },
+  {
+    "id": "tornado-guitar",
+    "name": "龙卷风吉他版系列",
+    "category": "零散系列",
+    "difficulty": "★☆☆☆☆",
+    "description": "《末路狂花》彩蛋载具。",
+    "update_date": "2025-12-21",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV13B4y167DD",
+    "coverImage": "龙卷风吉他版_1.png",
+    "variantsCount": 2
+  },
+  {
+    "id": "dune_buggy-skeleton",
+    "name": "沙丘魔宝",
+    "category": "零散系列",
+    "difficulty": "★★☆☆☆",
+    "description": "两款沙丘魔宝，其中铁皮款无特殊之处",
+    "update_date": "2025-12-21",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV123ADeEEAF",
+    "coverImage": "沙丘魔宝_1.png",
+    "variantsCount": 2
+  },
+  {
+    "id": "bifta",
+    "name": "必福塔",
+    "category": "沙滩聚会系列",
+    "difficulty": "★★★★☆",
+    "description": "特殊沙滩聚会必福塔",
+    "update_date": "2025-12-21",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1uMYheyELE/?p=36",
+    "coverImage": "必福塔_1.png",
+    "variantsCount": 3
+  },
+  {
+    "id": "super-diamond",
+    "name": "埃努斯 金钻耀星",
+    "category": "零散系列",
+    "difficulty": "★★★★☆",
+    "description": "稀有豪华车，难得难得",
+    "update_date": "2025-12-21",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1RP4y1d7nC",
+    "coverImage": "金钻耀星_1.png",
+    "variantsCount": 3
+  },
+  {
+    "id": "declasse-lifeguard",
+    "name": "沙滩急救车",
+    "category": "零散系列",
+    "difficulty": "★★★☆☆",
+    "description": "沙滩急救车特殊款式",
+    "update_date": "2025-12-21",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1Ji42197Li",
+    "coverImage": "沙滩急救车_1.png",
+    "variantsCount": 2
+  },
+  {
+    "id": "worn-declasse-voodoo",
+    "name": "磨损系列 绝致 巫毒",
+    "category": "磨损系列",
+    "difficulty": "★★☆☆☆",
+    "description": "磨损色绝致巫毒稀有配色载具",
+    "update_date": "2026-1-1",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1t8KPehEca",
+    "coverImage": "磨损巫毒_1.png",
+    "variantsCount": 10
+  },
+  {
+    "id": "worn-bf-surfer",
+    "name": "磨损系列 毕福 乘风",
+    "category": "磨损系列",
+    "difficulty": "★★☆☆☆",
+    "description": "磨损色毕福乘风稀有配色载具",
+    "update_date": "2026-1-2",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1RKaUzsEx3",
+    "coverImage": "磨损乘风_1.png",
+    "variantsCount": 9
+  },
+  {
+    "id": "worn-albany-emperor",
+    "name": "磨损系列 亚班尼 皇霸天",
+    "category": "磨损系列",
+    "difficulty": "★★★☆☆",
+    "description": "磨损色亚班尼皇霸天稀有配色载具",
+    "update_date": "2026-1-2",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1U2pjzvE8H",
+    "coverImage": "磨损皇霸天_1.png",
+    "variantsCount": 9
+  },
+  {
+    "id": "worn-declasse-tornado",
+    "name": "磨损系列 绝致 龙卷风",
+    "category": "磨损系列",
+    "difficulty": "★★★☆☆",
+    "description": "磨损色绝致龙卷风稀有配色载具",
+    "update_date": "2026-01-02",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1VCeizbEdA",
+    "coverImage": "磨损龙卷风_3.png",
+    "variantsCount": 8
+  },
+  {
+    "id": "rat-loader",
+    "name": "老爷卡车",
+    "category": "零散系列",
+    "difficulty": "★★☆☆☆",
+    "description": "老爷卡车稀有配色载具，视频教程中提及存在BUG款式需注意区分",
+    "update_date": "2026-01-03",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1i14y187XS",
+    "coverImage": "老爷卡车_1.png",
+    "variantsCount": 2
+  },
+  {
+    "id": "dc-gauntlet",
+    "name": "DC 铁腕",
+    "category": "零散系列",
+    "difficulty": "★★★★★",
+    "description": "DC铁腕稀有配色载具",
+    "update_date": "2026-01-03",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1i14y187XS",
+    "coverImage": "DC铁腕_1.png",
+    "variantsCount": 4
+  },
+  {
+    "id": "duneloader",
+    "name": "磨损系列 越野游侠",
+    "category": "磨损系列",
+    "difficulty": "★★★★☆",
+    "description": "此车非常特殊，根据有无车载货物分为A/B/C三个系列",
+    "update_date": "2026-03-21",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1ExkMBdENq",
+    "coverImage": "越野游侠_A_1.png",
+    "variantsCount": 15
+  },
+  {
+    "id": "worn-injection",
+    "name": "沙丘征服者",
+    "category": "磨损系列",
+    "difficulty": "★★☆☆☆",
+    "description": "磨损色沙丘征服者稀有配色载具",
+    "update_date": "2026-03-22",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1H8PDzzEkN",
+    "coverImage": "沙丘征服者_1.png",
+    "variantsCount": 8
+  },
+  {
+    "id": "beachparty-surfer",
+    "name": "沙滩聚会系列 毕福 乘风",
+    "category": "沙滩聚会系列",
+    "difficulty": "★★★☆☆",
+    "description": "沙滩聚会乘风稀有配色载具",
+    "update_date": "2026-03-22",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1H8PDzzEkN",
+    "coverImage": "沙滩聚会乘风_4.png",
+    "variantsCount": 4
+  },
+  {
+    "id": "industrial_black-granger",
+    "name": "绝致 屌王",
+    "category": "零散系列",
+    "difficulty": "★★☆☆☆",
+    "description": "工业黑稀有配色绝致屌王",
+    "update_date": "2026-03-22",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1nd4beGEDc",
+    "coverImage": "屌王_工业黑_1.png",
+    "variantsCount": 2
+  }
+]

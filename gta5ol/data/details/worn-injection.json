@@ -1,0 +1,229 @@
+{
+  "id": "worn-injection",
+  "name": "沙丘征服者",
+  "category": "磨损系列",
+  "difficulty": "★★☆☆☆",
+  "description": "磨损色沙丘征服者稀有配色载具",
+  "routeImage": "",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1H8PDzzEkN",
+  "update_date": "2026-03-22",
+  "variants": [
+    {
+      "name": "灰红款",
+      "image": "沙丘征服者_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损银灰色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损金红色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "磨损石墨色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "橙色款",
+      "image": "沙丘征服者_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损橙色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损橙色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "浅蓝款",
+      "image": "沙丘征服者_3.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损浅蓝色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损浅蓝色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "银蓝款",
+      "image": "沙丘征服者_4.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损银色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损蓝光银",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "棕白款",
+      "image": "沙丘征服者_5.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损稻草棕",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损白色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "黑蓝款",
+      "image": "沙丘征服者_6.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损黑色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损深蓝色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "磨损石墨色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "红色款",
+      "image": "沙丘征服者_7.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损红色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损深红色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "红黑款",
+      "image": "沙丘征服者_8.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损红色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损石墨色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "无"
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "title": "暂无获取方法",
+      "number": 0,
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+    }
+  ]
+}

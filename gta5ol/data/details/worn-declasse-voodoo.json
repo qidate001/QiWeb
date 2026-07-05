@@ -1,0 +1,289 @@
+{
+  "id": "worn-declasse-voodoo",
+  "name": "磨损系列 绝致 巫毒",
+  "category": "磨损系列",
+  "difficulty": "★★☆☆☆",
+  "description": "磨损色绝致巫毒稀有配色载具",
+  "routeImage": "",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1t8KPehEca",
+  "update_date": "2026-1-1",
+  "variants": [
+    {
+      "name": "上黑下银款",
+      "image": "磨损巫毒_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损墨黑色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损银",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "无",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "上银下黑款",
+      "image": "磨损巫毒_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损银",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损墨黑色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "无",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "上金下白款",
+      "image": "磨损巫毒_3.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损红金色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损冰霜白",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "磨损出租车黄",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "全红款",
+      "image": "磨损巫毒_4.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损红",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损红",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "无",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "上绿下白款",
+      "image": "磨损巫毒_5.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损绿",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损冰霜白",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "无",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "全绿款",
+      "image": "磨损巫毒_6.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损深绿色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损深绿色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "磨损深绿色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "上蓝下白款",
+      "image": "磨损巫毒_7.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损蓝",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损冰霜白",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "磨损蓝",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "上白下蓝款",
+      "image": "磨损巫毒_8.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损冰霜白",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损婴儿蓝",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "磨损婴儿蓝",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "上棕下白款",
+      "image": "磨损巫毒_9.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损稻棕色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损冰霜白",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "磨损稻棕色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "沙棕款",
+      "image": "磨损巫毒_10.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "稻棕色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "沙棕色",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "无",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★☆☆☆☆",
+        "车友会": "完全继承"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "title": "暂无获取方法",
+      "number": 0,
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+    }
+  ]
+}

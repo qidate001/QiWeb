@@ -1,0 +1,99 @@
+{
+  "id": "super-diamond",
+  "name": "埃努斯 金钻耀星",
+  "category": "零散系列",
+  "difficulty": "★★★★☆",
+  "description": "稀有豪华车，难得难得",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1RP4y1d7nC",
+  "update_date": "2025-12-21",
+  "variants": [
+    {
+      "name": "金色款",
+      "image": "金钻耀星_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "金色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "未知",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "无",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "入库情况": "复制车 / LSC",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "白色款",
+      "image": "金钻耀星_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "纯白色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "未知",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "无",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "入库情况": "复制车 / LSC",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★★☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "石青色款",
+      "image": "金钻耀星_3.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "石青色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "未知",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "无",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "入库情况": "复制车 / LSC",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★★★",
+        "车友会": "完全继承"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "title": "暂无获取方法",
+      "number": 0,
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+    }
+  ]
+}

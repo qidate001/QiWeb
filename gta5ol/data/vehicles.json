@@ -1,0 +1,2809 @@
+{
+  "vehicles": [
+    {
+      "id": "dubsta2",
+      "name": "贝菲特 迪布达2",
+      "category": "改车王系列",
+      "difficulty": "★★☆☆☆",
+      "description": "此稀有载具几乎是最出名的了",
+      "routeImage": "市中心改车王路线.png",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1h14y1b7xr",
+      "update_date": "2025-11-23",
+      "variants": [
+        {
+          "name": "铬合金款",
+          "image": "迪布达2_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "铬合金",
+              "isRare": false
+            },
+            {
+              "label": "副色调",
+              "value": "铬合金",
+              "isRare": false
+            },
+            {
+              "label": "轮胎色",
+              "value": "铬合金",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "铬合金",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★★★☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "金色款",
+          "image": "迪布达2_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "竞速黄",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "未知"
+            },
+            {
+              "label": "轮胎色",
+              "value": "竞速黄",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "纯金色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "首次获得方案",
+          "number": 1,
+          "details": {
+            "时间限制": "12:00前后",
+            "天气限制": "大晴天",
+            "种子车": "迪布达"
+          },
+          "intro": "此方案适用于未拥有迪布达2的玩家",
+          "description": "先打电话给 贝克女士，请求一辆普通迪布达（服务载具 → 迪布达）。开着迪布达不断按路线行驶，直至稀有载具在改车王刷出。开到改车王等上保险（防丢防盗→追踪器→完全承保）然后开进车库即可。",
+          "noteLink": "../常识/市中心改车王.html",
+          "noteText": "相关注意事项请见：《市中心改车王》"
+        },
+        {
+          "title": "二次获得方案",
+          "number": 2,
+          "details": {
+            "时间限制": "12:00 左右",
+            "天气限制": "大晴天",
+            "种子车": "迪布达2"
+          },
+          "intro": "此方案适已拥有迪布达2的玩家",
+          "description": "执行西米恩差事——大脚怪的碾压（ESC→在线→差事→进行差事→Rockstar 制作→任务→回收：大脚怪的碾压）。开着迪布达2不断按路线行驶，直至稀有载具在改车王刷出。开到改车王等上保险（防丢防盗→追踪器→完全承保）然后开进车库即可。",
+          "noteLink": "../常识/市中心改车王.html",
+          "noteText": "相关注意事项请见：《市中心改车王》"
+        },
+        {
+          "title": "线下方案",
+          "number": 3,
+          "details": {
+            "时间限制": "12:00 左右",
+            "天气限制": "大晴天"
+          },
+          "description": "开着任意载具不断按路线行驶，直至目标稀有载具在改车王刷出。开进车库保存即可。",
+          "noteLink": "../常识/线下市中心改车王.html",
+          "noteText": "相关注意事项请见：《线下市中心改车王》"
+        }
+      ]
+    },
+    {
+      "id": "guardian-xs",
+      "name": "绝品 卫士XS",
+      "category": "改车王系列",
+      "difficulty": "★★☆☆☆",
+      "description": "绝品卫士XS稀有配色载具",
+      "routeImage": "卫士XS_获取路线.png",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1ZV4y1W7yi",
+      "update_date": "2025-11-20",
+      "variants": [
+        {
+          "name": "紫色款",
+          "image": "卫士XS_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "工业亮蓝色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "工业亮蓝色",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "黑色",
+              "isRare": false
+            },
+            {
+              "label": "珠光",
+              "value": "亮红色",
+              "isRare": false
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          },
+          "explosion_data": "[ 1349725314, \"卫士 XS 紫色\", {\"priColor\" : 81, \"secColor\" : 81, \"pearlColor\" : 35, \"wheelColor\" : 0, \"dialsColor\" : 0, \"trimColor\" : 0, \"customPriColor\" : 0, \"customSecColor\" : 0, \"tireSmoke\" : 16777215, \"neon\" : 16711935, \"neonState\" : 0, \"livery\" : -1, \"windowTint\" : 0, \"wheelType\" : 0, \"lowGripTyres\" : 0, \"plateIndex\" : 0, \"plate\" : \"03ZYA966\", \"mods\" : { \"0\" : 3, \"1\" : 1, \"2\" : 1, \"3\" : 0, \"4\" : 1, \"5\" : 0, \"15\" : 0, \"20\" : 0, \"22\" : 0, \"23\" : 10 }, \"extras\" : { \"10\" : 1} } ]"
+        },
+        {
+          "name": "黄色款",
+          "image": "卫士XS_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "未知"
+            },
+            {
+              "label": "副色调",
+              "value": "未知"
+            },
+            {
+              "label": "轮胎色",
+              "value": "金属优雅红",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "金属橙",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★☆☆",
+            "收藏价值": "★☆☆☆☆",
+            "车友会": "完全继承"
+          },
+          "explosion_data": "[1349725314, \"卫士 XS 黄色\", {\"priColor\": 91, \"secColor\": 0, \"pearlColor\": 42, \"wheelColor\": 156, \"dialsColor\": 0, \"trimColor\": 0, \"customPriColor\": 0, \"customSecColor\": 0, \"tireSmoke\": 16777215, \"neon\": 16711935, \"neonState\": 0, \"livery\": -1, \"windowTint\": 1, \"wheelType\": 0, \"lowGripTyres\": 0, \"plateIndex\": 0, \"plate\": \"80QLU250\", \"mods\": { \"0\": 1, \"1\": 0, \"2\": 0, \"3\": 0, \"4\": 1, \"15\": 0, \"20\": 0, \"22\": 0, \"23\": 6 }, \"extras\": { \"10\": 1} }]"
+        }
+      ],
+      "methods": [
+        {
+          "title": "日蚀大厦路线",
+          "number": 1,
+          "details": {
+            "时间限制": "22:00 - 4:00",
+            "天气限制": "大晴天",
+            "种子车": "无要求"
+          },
+          "description": "此期间内按照图片路线不断环绕行驶，直至刷出有NPC开着我们要的稀有载具。",
+          "noteLink": "#",
+          "noteText": "相关注意事项请见：《卡视野》"
+        },
+        {
+          "title": "市中心改车王",
+          "number": 2,
+          "details": {
+            "时间限制": "12:00 左右",
+            "天气限制": "大晴天",
+            "种子车": "迪布达2 或 任意卫士XS"
+          },
+          "description": "开着种子车不断按路线行驶，直至稀有载具在改车王刷出。开到改车王等上保险（防丢防盗→追踪器→完全承保）然后开进车库即可。",
+          "noteLink": "../常识/市中心改车王.html",
+          "noteText": "相关注意事项请见：《市中心改车王》"
+        },
+        {
+          "title": "线下方案",
+          "number": 3,
+          "details": {
+            "时间限制": "12:00 左右",
+            "天气限制": "大晴天"
+          },
+          "description": "开着任意载具不断按路线行驶，直至目标稀有载具在改车王刷出。开进车库保存即可。",
+          "noteLink": "../常识/线下市中心改车王.html",
+          "noteText": "相关注意事项请见：《线下市中心改车王》"
+        }
+      ]
+    },
+    {
+      "id": "monster-xl",
+      "name": "威皮 大脚霸王XL",
+      "category": "零散系列",
+      "difficulty": "★☆☆☆☆",
+      "description": "此稀有载具可以说是非常经典的了",
+      "routeImage": "大脚霸王XL_获取路线.png",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1jB4y1672E",
+      "update_date": "2025-11-23",
+      "variants": [
+        {
+          "name": "蓝色款",
+          "image": "大脚霸王XL_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "哑光浅蓝",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "哑光浅蓝",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "未知"
+            },
+            {
+              "label": "珠光",
+              "value": "菲斯特粉",
+              "isRare": true
+            }
+          ],
+          "accessory": "脚踏板",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★☆☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "黄色款",
+          "image": "大脚霸王XL_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "未知"
+            },
+            {
+              "label": "副色调",
+              "value": "未知"
+            },
+            {
+              "label": "轮胎色",
+              "value": "纯白色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "未知"
+            }
+          ],
+          "accessory": "无顶、防撞杆、脚踏板",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★☆☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "线上方案",
+          "number": 1,
+          "details": {
+            "时间限制": "9:00 - 16:00",
+            "种子车": "大脚霸王XL"
+          },
+          "description": "首先从南圣安地列斯网站上购买普通版的威皮 大脚霸王XL，或者大街上抢一辆并停入车库（保存为个人载具）后也行。开着这辆大脚霸王XL按照路线来回行驶，行驶途中全程俯视或看向后方（卡视角，别看着刷新点就行）直至目标稀有载具在标点位置刷出。",
+          "noteLink": "#",
+          "noteText": "相关注意事项请见：《卡视野》"
+        },
+        {
+          "title": "线下方案",
+          "number": 2,
+          "details": {
+            "时间限制": "12:00 左右"
+          },
+          "description": "开着任意载具不断按路线行驶，直至目标稀有载具在标点位置刷出。开进车库保存即可。",
+          "noteLink": "../常识/线下市中心改车王.html",
+          "noteText": "相关注意事项请见：《线下市中心改车王》"
+        }
+      ]
+    },
+    {
+      "id": "scientist-series",
+      "name": "科学家系列",
+      "category": "零散系列",
+      "difficulty": "★☆☆☆☆",
+      "description": "值得注意！屌客 科学家版是黑名单载具，绝对无法入库。",
+      "routeImage": "科学家系列_获取路线.png",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1qB4y1B79j",
+      "update_date": "2025-11-24",
+      "variants": [
+        {
+          "name": "华盛顿 科学家版",
+          "image": "华盛顿_科学家版.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "纯白色",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "未知"
+            },
+            {
+              "label": "珠光",
+              "value": "纯白色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★☆☆☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "屌客 科学家版",
+          "image": "屌客_科学家版.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "纯白色",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "未知"
+            },
+            {
+              "label": "珠光",
+              "value": "纯白色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "黑名单载具",
+            "获取难度": "★☆☆☆☆",
+            "收藏价值": "★☆☆☆☆",
+            "车友会": "完全继承（理论上）"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "获取方案（线上线下通用）",
+          "number": 1,
+          "details": {
+            "时间限制": "10:00 - 11:00",
+            "天气限制": "大晴天"
+          },
+          "description": "开着自己的载具来到起点。开往刷新点，行驶途中全程俯视或看向后方（卡视角，别看着刷新点就行）。刷新点可能会刷：2辆屌客 科学家版、2辆华盛顿 科学家版、1辆屌客 科学家版、1辆华盛顿 科学家版。",
+          "noteLink": "#",
+          "noteText": "相关注意事项请见：《卡视野》"
+        }
+      ]
+    },
+    {
+      "id": "tornado-guitar",
+      "name": "龙卷风吉他版系列",
+      "category": "零散系列",
+      "difficulty": "★☆☆☆☆",
+      "description": "《末路狂花》彩蛋载具。",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV13B4y167DD",
+      "update_date": "2025-12-21",
+      "variants": [
+        {
+          "name": "彩蛋款",
+          "image": "龙卷风吉他版_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "未知"
+            },
+            {
+              "label": "副色调",
+              "value": "磨损黑",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "accessory": "后座吉他",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★☆☆☆☆",
+            "收藏价值": "★★★★☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "富兰克林刺杀款",
+          "image": "龙卷风吉他版_3.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损海蚀绿",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损米白色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "accessory": "后座吉他",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★★☆",
+            "车友会": "完全继承"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "暂无获取方法",
+          "number": 0,
+          "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+        }
+      ]
+    },
+    {
+      "id": "dune_buggy-skeleton",
+      "name": "沙丘魔宝",
+      "category": "零散系列",
+      "difficulty": "★★☆☆☆",
+      "description": "两款沙丘魔宝，其中铁皮款无特殊之处",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV123ADeEEAF",
+      "update_date": "2025-12-21",
+      "variants": [
+        {
+          "name": "骨架款",
+          "image": "沙丘魔宝_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "无"
+            },
+            {
+              "label": "轮胎色",
+              "value": "无"
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "accessory": "无前挡版",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★☆☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "铁皮款",
+          "image": "沙丘魔宝_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "无"
+            },
+            {
+              "label": "轮胎色",
+              "value": "无"
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★☆☆☆☆",
+            "收藏价值": "☆☆☆☆☆",
+            "车友会": "完全继承"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "暂无获取方法",
+          "number": 0,
+          "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+        }
+      ]
+    },
+    {
+      "id": "bifta",
+      "name": "必福塔",
+      "category": "沙滩聚会系列",
+      "difficulty": "★★★★☆",
+      "description": "特殊沙滩聚会必福塔",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1uMYheyELE/?p=36",
+      "update_date": "2025-12-21",
+      "variants": [
+        {
+          "name": "蓝色款",
+          "image": "必福塔_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "未知"
+            },
+            {
+              "label": "副色调",
+              "value": "未知",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "未知"
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "复制车 / LSC",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "铬合金款",
+          "image": "必福塔_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "铬合金"
+            },
+            {
+              "label": "副色调",
+              "value": "亮粉色"
+            },
+            {
+              "label": "轮胎色",
+              "value": "黄色鸟/露珠色"
+            },
+            {
+              "label": "珠光",
+              "value": "磨损蓝",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "复制车 / LSC",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "黄绿款",
+          "image": "必福塔_3.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "竞速黄"
+            },
+            {
+              "label": "副色调",
+              "value": "哑光青柠绿"
+            },
+            {
+              "label": "轮胎色",
+              "value": "哑光黄",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "工业暗钢色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "复制车 / LSC",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★★☆",
+            "车友会": "完全继承"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "暂无获取方法",
+          "number": 0,
+          "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+        }
+      ]
+    },
+    {
+      "id": "super-diamond",
+      "name": "埃努斯 金钻耀星",
+      "category": "零散系列",
+      "difficulty": "★★★★☆",
+      "description": "稀有豪华车，难得难得",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1RP4y1d7nC",
+      "update_date": "2025-12-21",
+      "variants": [
+        {
+          "name": "金色款",
+          "image": "金钻耀星_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "金色",
+              "isRare": false
+            },
+            {
+              "label": "轮胎色",
+              "value": "未知",
+              "isRare": false
+            },
+            {
+              "label": "珠光",
+              "value": "无",
+              "isRare": false
+            }
+          ],
+          "properties": {
+            "入库情况": "复制车 / LSC",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "白色款",
+          "image": "金钻耀星_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "纯白色",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "未知",
+              "isRare": false
+            },
+            {
+              "label": "珠光",
+              "value": "无",
+              "isRare": false
+            }
+          ],
+          "properties": {
+            "入库情况": "复制车 / LSC",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★★☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "石青色款",
+          "image": "金钻耀星_3.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "石青色",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "未知",
+              "isRare": false
+            },
+            {
+              "label": "珠光",
+              "value": "无",
+              "isRare": false
+            }
+          ],
+          "properties": {
+            "入库情况": "复制车 / LSC",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★★★",
+            "车友会": "完全继承"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "暂无获取方法",
+          "number": 0,
+          "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+        }
+      ]
+    },
+    {
+      "id": "declasse-lifeguard",
+      "name": "沙滩急救车",
+      "category": "零散系列",
+      "difficulty": "★★★☆☆",
+      "description": "沙滩急救车特殊款式",
+      "routeImage": "",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1Ji42197Li",
+      "update_date": "2025-12-21",
+      "variants": [
+        {
+          "name": "无保险杠款",
+          "image": "沙滩急救车_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "未知"
+            },
+            {
+              "label": "轮胎色",
+              "value": "无"
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★☆☆",
+            "收藏价值": "★☆☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "有保险杠款",
+          "image": "沙滩急救车_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "未知"
+            },
+            {
+              "label": "轮胎色",
+              "value": "无"
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "accessory": "有前保险杠",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★☆☆",
+            "收藏价值": "★☆☆☆☆",
+            "车友会": "会掉配件"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "暂无获取方法",
+          "number": 0,
+          "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+        }
+      ]
+    },
+    {
+      "id": "worn-declasse-voodoo",
+      "name": "磨损系列 绝致 巫毒",
+      "category": "磨损系列",
+      "difficulty": "★★☆☆☆",
+      "description": "磨损色绝致巫毒稀有配色载具",
+      "routeImage": "",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1t8KPehEca",
+      "update_date": "2026-1-1",
+      "variants": [
+        {
+          "name": "上黑下银款",
+          "image": "磨损巫毒_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损墨黑色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损银",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无",
+              "isRare": false
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★☆☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "上银下黑款",
+          "image": "磨损巫毒_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损银",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损墨黑色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无",
+              "isRare": false
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★☆☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "上金下白款",
+          "image": "磨损巫毒_3.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损红金色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损冰霜白",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "磨损出租车黄",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "全红款",
+          "image": "磨损巫毒_4.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损红",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损红",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无",
+              "isRare": false
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "上绿下白款",
+          "image": "磨损巫毒_5.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损绿",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损冰霜白",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无",
+              "isRare": false
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "全绿款",
+          "image": "磨损巫毒_6.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损深绿色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损深绿色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "磨损深绿色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "上蓝下白款",
+          "image": "磨损巫毒_7.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损蓝",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损冰霜白",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "磨损蓝",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "上白下蓝款",
+          "image": "磨损巫毒_8.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损冰霜白",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损婴儿蓝",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "磨损婴儿蓝",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "上棕下白款",
+          "image": "磨损巫毒_9.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损稻棕色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损冰霜白",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "磨损稻棕色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "沙棕款",
+          "image": "磨损巫毒_10.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "稻棕色",
+              "isRare": false
+            },
+            {
+              "label": "副色调",
+              "value": "沙棕色",
+              "isRare": false
+            },
+            {
+              "label": "珠光",
+              "value": "无",
+              "isRare": false
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★☆☆",
+            "收藏价值": "★☆☆☆☆",
+            "车友会": "完全继承"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "暂无获取方法",
+          "number": 0,
+          "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+        }
+      ]
+    },
+    {
+      "id": "worn-bf-surfer",
+      "name": "磨损系列 毕福 乘风",
+      "category": "磨损系列",
+      "difficulty": "★★☆☆☆",
+      "description": "磨损色毕福乘风稀有配色载具",
+      "routeImage": "",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1RKaUzsEx3",
+      "update_date": "2026-1-2",
+      "variants": [
+        {
+          "name": "红白款",
+          "image": "磨损乘风_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损白",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损红",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "无"
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "红金款",
+          "image": "磨损乘风_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损红",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损红金色",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "无"
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "蓝色款",
+          "image": "磨损乘风_3.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损婴儿蓝",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损深蓝色",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "无"
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "海蚀绿款",
+          "image": "磨损乘风_4.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损冰霜白",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损海蚀绿",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "无"
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "银灰色款",
+          "image": "磨损乘风_5.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损冰霜白",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损银灰色",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "无"
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "稻棕色款",
+          "image": "磨损乘风_6.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损冰霜白",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损稻棕色",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "无"
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "银灰款",
+          "image": "磨损乘风_7.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损银灰色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损黑",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "无"
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "石墨黑款",
+          "image": "磨损乘风_8.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损石墨黑",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损黑",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "无"
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "全黑款",
+          "image": "磨损乘风_9.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损黑",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损黑",
+              "isRare": true
+            },
+            {
+              "label": "轮胎色",
+              "value": "无"
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "暂无获取方法",
+          "number": 0,
+          "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+        }
+      ]
+    },
+    {
+      "id": "worn-albany-emperor",
+      "name": "磨损系列 亚班尼 皇霸天",
+      "category": "磨损系列",
+      "difficulty": "★★★☆☆",
+      "description": "磨损色亚班尼皇霸天稀有配色载具",
+      "routeImage": "",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1U2pjzvE8H",
+      "update_date": "2026-1-2",
+      "variants": [
+        {
+          "name": "白色款",
+          "image": "磨损皇霸天_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损米白色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损棕",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "银色款",
+          "image": "磨损皇霸天_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损银",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损石墨黑",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "黑白款",
+          "image": "磨损皇霸天_3.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损黑",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损米白色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "棕色款",
+          "image": "磨损皇霸天_4.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损棕",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损稻棕色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "红白款",
+          "image": "磨损皇霸天_5.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损红",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损米白色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "浅蓝款",
+          "image": "磨损皇霸天_6.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损浅蓝色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损黑",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "绿色款",
+          "image": "磨损皇霸天_7.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损绿",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损深棕色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "深蓝款",
+          "image": "磨损皇霸天_8.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损深蓝色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损暗影银",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "蓝黑款",
+          "image": "磨损皇霸天_9.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损蓝",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损摸黑色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "暂无获取方法",
+          "number": 0,
+          "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+        }
+      ]
+    },
+    {
+      "id": "worn-declasse-tornado",
+      "name": "磨损系列 绝致 龙卷风",
+      "category": "磨损系列",
+      "difficulty": "★★★☆☆",
+      "description": "磨损色绝致龙卷风稀有配色载具",
+      "routeImage": "",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1VCeizbEdA",
+      "update_date": "2026-01-02",
+      "variants": [
+        {
+          "name": "绿色款",
+          "image": "磨损龙卷风_3.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损海蚀绿",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "黑色款",
+          "image": "磨损龙卷风_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损墨黑色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "稻棕款",
+          "image": "磨损龙卷风_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损稻棕色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "白色款",
+          "image": "磨损龙卷风_4.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损冰霜白",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "银蓝款",
+          "image": "磨损龙卷风_5.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损银光蓝",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "红色款",
+          "image": "磨损龙卷风_6.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损红",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "红金款",
+          "image": "磨损龙卷风_7.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损红金色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "蓝色款",
+          "image": "磨损龙卷风_8.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损婴儿蓝",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "暂无获取方法",
+          "number": 0,
+          "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+        }
+      ]
+    },
+    {
+      "id": "rat-loader",
+      "name": "老爷卡车",
+      "category": "零散系列",
+      "difficulty": "★★☆☆☆",
+      "description": "老爷卡车稀有配色载具，视频教程中提及存在BUG款式需注意区分",
+      "routeImage": "",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1i14y187XS",
+      "update_date": "2026-01-03",
+      "variants": [
+        {
+          "name": "绿色款",
+          "image": "老爷卡车_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "深绿色",
+              "isRare": false
+            },
+            {
+              "label": "轮胎色",
+              "value": "纯白色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "桃红色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "黄色款",
+          "image": "老爷卡车_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "未知"
+            },
+            {
+              "label": "轮胎色",
+              "value": "纯白色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "草黄色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "暂无获取方法",
+          "number": 0,
+          "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+        }
+      ]
+    },
+    {
+      "id": "dc-gauntlet",
+      "name": "DC 铁腕",
+      "category": "零散系列",
+      "difficulty": "★★★★★",
+      "description": "DC铁腕稀有配色载具",
+      "routeImage": "",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1i14y187XS",
+      "update_date": "2026-01-03",
+      "variants": [
+        {
+          "name": "橙色款",
+          "image": "DC铁腕_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "哑光橙",
+              "isRare": false
+            },
+            {
+              "label": "副色调",
+              "value": "哑光橙",
+              "isRare": false
+            },
+            {
+              "label": "珠光",
+              "value": "哑光橙",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★★",
+            "收藏价值": "★★★★★",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "绿色款",
+          "image": "DC铁腕_3.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "鸟黄色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "哑光黑",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "鸟黄色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★★",
+            "收藏价值": "★★★★★",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "红橙款",
+          "image": "DC铁腕_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "未知"
+            },
+            {
+              "label": "轮胎色",
+              "value": "未知"
+            },
+            {
+              "label": "珠光",
+              "value": "未知"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "暗红款",
+          "image": "DC铁腕_4.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "暗红色",
+              "isRare": false
+            },
+            {
+              "label": "副色调",
+              "value": "暗红色",
+              "isRare": false
+            },
+            {
+              "label": "珠光",
+              "value": "哑光橙",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★★",
+            "收藏价值": "★★★★★",
+            "车友会": "完全继承"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "暂无获取方法",
+          "number": 0,
+          "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+        }
+      ]
+    },
+    {
+      "id": "duneloader",
+      "name": "磨损系列 越野游侠",
+      "category": "磨损系列",
+      "difficulty": "★★★★☆",
+      "description": "此车非常特殊，根据有无车载货物分为A/B/C三个系列",
+      "routeImage": "",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1ExkMBdENq",
+      "update_date": "2026-03-21",
+      "variants": [
+        {
+          "name": "空斗 军绿款",
+          "image": "越野游侠_A_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损军绿色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损军绿色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "未知"
+          }
+        },
+        {
+          "name": "空斗 海蚀绿款",
+          "image": "越野游侠_A_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损海蚀绿",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损海蚀绿",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★★☆",
+            "车友会": "未知"
+          }
+        },
+        {
+          "name": "空斗 磨损红款",
+          "image": "越野游侠_A_3.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损红",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损红",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★★☆",
+            "车友会": "未知"
+          }
+        },
+        {
+          "name": "空斗 蜂蜜棕款",
+          "image": "越野游侠_A_4.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损蜂蜜棕",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损蜂蜜棕",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "未知"
+          }
+        },
+        {
+          "name": "空斗 稻草棕款",
+          "image": "越野游侠_A_5.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损稻草棕",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损稻草棕",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "未知"
+          }
+        },
+        {
+          "name": "货物A 军绿款",
+          "image": "越野游侠_B_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损军绿色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损军绿色",
+              "isRare": true
+            }
+          ],
+          "accessory": "车载货物A",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "未知"
+          }
+        },
+        {
+          "name": "货物A 海蚀绿款",
+          "image": "越野游侠_B_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损海蚀绿",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损海蚀绿",
+              "isRare": true
+            }
+          ],
+          "accessory": "车载货物A",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★★☆",
+            "车友会": "未知"
+          }
+        },
+        {
+          "name": "货物A 磨损红款",
+          "image": "越野游侠_B_3.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损红",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损红",
+              "isRare": true
+            }
+          ],
+          "accessory": "车载货物A",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★★☆",
+            "车友会": "未知"
+          }
+        },
+        {
+          "name": "货物A 蜂蜜棕款",
+          "image": "越野游侠_B_4.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损蜂蜜棕",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损蜂蜜棕",
+              "isRare": true
+            }
+          ],
+          "accessory": "车载货物A",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "未知"
+          }
+        },
+        {
+          "name": "货物A 稻草棕款",
+          "image": "越野游侠_B_5.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损稻草棕",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损稻草棕",
+              "isRare": true
+            }
+          ],
+          "accessory": "车载货物A",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "未知"
+          }
+        },
+        {
+          "name": "货物B 军绿款",
+          "image": "越野游侠_C_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损军绿色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损军绿色",
+              "isRare": true
+            }
+          ],
+          "accessory": "车载货物B",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "未知"
+          }
+        },
+        {
+          "name": "货物B 海蚀绿款",
+          "image": "越野游侠_C_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损海蚀绿",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损海蚀绿",
+              "isRare": true
+            }
+          ],
+          "accessory": "车载货物B",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★★☆",
+            "车友会": "未知"
+          }
+        },
+        {
+          "name": "货物B 磨损红款",
+          "image": "越野游侠_C_3.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损红",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损红",
+              "isRare": true
+            }
+          ],
+          "accessory": "车载货物B",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★★☆",
+            "车友会": "未知"
+          }
+        },
+        {
+          "name": "货物B 蜂蜜棕款",
+          "image": "越野游侠_C_4.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损蜂蜜棕",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损蜂蜜棕",
+              "isRare": true
+            }
+          ],
+          "accessory": "车载货物B",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "未知"
+          }
+        },
+        {
+          "name": "货物B 稻草棕款",
+          "image": "越野游侠_C_5.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损稻草棕",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损稻草棕",
+              "isRare": true
+            }
+          ],
+          "accessory": "车载货物B",
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "未知"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "暂无获取方法",
+          "number": 0,
+          "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+        }
+      ]
+    },
+    {
+      "id": "worn-injection",
+      "name": "沙丘征服者",
+      "category": "磨损系列",
+      "difficulty": "★★☆☆☆",
+      "description": "磨损色沙丘征服者稀有配色载具",
+      "routeImage": "",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1H8PDzzEkN",
+      "update_date": "2026-03-22",
+      "variants": [
+        {
+          "name": "灰红款",
+          "image": "沙丘征服者_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损银灰色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损金红色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "磨损石墨色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "橙色款",
+          "image": "沙丘征服者_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损橙色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损橙色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "浅蓝款",
+          "image": "沙丘征服者_3.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损浅蓝色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损浅蓝色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "银蓝款",
+          "image": "沙丘征服者_4.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损银色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损蓝光银",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "棕白款",
+          "image": "沙丘征服者_5.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损稻草棕",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损白色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "黑蓝款",
+          "image": "沙丘征服者_6.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损黑色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损深蓝色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "磨损石墨色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "红色款",
+          "image": "沙丘征服者_7.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损红色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损深红色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "红黑款",
+          "image": "沙丘征服者_8.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "磨损红色",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "磨损石墨色",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "暂无获取方法",
+          "number": 0,
+          "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+        }
+      ]
+    },
+    {
+      "id": "beachparty-surfer",
+      "name": "沙滩聚会系列 毕福 乘风",
+      "category": "沙滩聚会系列",
+      "difficulty": "★★★☆☆",
+      "description": "沙滩聚会乘风稀有配色载具",
+      "routeImage": "",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1H8PDzzEkN",
+      "update_date": "2026-03-22",
+      "variants": [
+        {
+          "name": "黄红款",
+          "image": "沙滩聚会乘风_4.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "MP100",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "工业艳红色",
+              "isRare": true
+            },
+            {
+              "label": "轮毂色",
+              "value": "MP100",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "海绿色",
+              "isRare": false
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★☆☆",
+            "收藏价值": "★★★★★",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "绿色款",
+          "image": "沙滩聚会乘风_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "哑光青柠绿",
+              "isRare": false
+            },
+            {
+              "label": "副色调",
+              "value": "哑光青柠绿",
+              "isRare": false
+            },
+            {
+              "label": "轮毂色",
+              "value": "冰雪白",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "工业艳红色",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "蓝粉款",
+          "image": "沙滩聚会乘风_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "亮粉色",
+              "isRare": false
+            },
+            {
+              "label": "副色调",
+              "value": "警车蓝",
+              "isRare": true
+            },
+            {
+              "label": "轮毂色",
+              "value": "合金",
+              "isRare": false
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "铬合金款",
+          "image": "沙滩聚会乘风_3.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "铬合金",
+              "isRare": false
+            },
+            {
+              "label": "副色调",
+              "value": "黄色",
+              "isRare": false
+            },
+            {
+              "label": "轮毂色",
+              "value": "合金",
+              "isRare": false
+            },
+            {
+              "label": "珠光",
+              "value": "无"
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★★☆☆",
+            "收藏价值": "★★☆☆☆",
+            "车友会": "完全继承"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "暂无获取方法",
+          "number": 0,
+          "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+        }
+      ]
+    },
+    {
+      "id": "industrial_black-granger",
+      "name": "绝致 屌王",
+      "category": "零散系列",
+      "difficulty": "★★☆☆☆",
+      "description": "工业黑稀有配色绝致屌王",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1nd4beGEDc",
+      "routeImage": "",
+      "update_date": "2026-03-22",
+      "variants": [
+        {
+          "name": "无保险杠款",
+          "image": "屌王_工业黑_1.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "工业黑",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "工业黑",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "工业黑",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          }
+        },
+        {
+          "name": "有保险杠款",
+          "image": "屌王_工业黑_2.png",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "工业黑",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "工业黑",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "工业黑",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "入库情况": "直接入库",
+            "获取难度": "★★☆☆☆",
+            "收藏价值": "★★★☆☆",
+            "车友会": "完全继承"
+          },
+          "accessory": "有前保险杠"
+        }
+      ],
+      "methods": [
+        {
+          "title": "暂无获取方法",
+          "number": 0,
+          "details": {},
+          "intro": "undefined",
+          "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦",
+          "noteLink": "undefined",
+          "noteText": "undefined"
+        }
+      ]
+    }
+  ]
+}
