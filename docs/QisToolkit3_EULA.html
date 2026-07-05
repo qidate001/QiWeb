@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>最终用户许可协议 · 齐的工具包3</title>
+    <style>
+        /* ---------- 全局重置 & 主题 ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #121212;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ---------- 主卡片 ---------- */
+        .eula-container {
+            max-width: 960px;
+            width: 100%;
+            background: #1e1e1e;
+            border-radius: 28px;
+            padding: 45px 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            border: 1px solid #2c2c2c;
+            transition: all 0.2s;
+        }
+
+        /* ---------- 头部 ---------- */
+        .eula-header {
+            text-align: center;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #2a2a2a;
+        }
+
+        .eula-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #f1c40f, #e67e22);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .eula-header .sub {
+            font-size: 1rem;
+            color: #aaa;
+            margin-top: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .eula-header .sub a {
+            color: #64b5f6;
+            text-decoration: none;
+            border-bottom: 1px dotted #64b5f6;
+        }
+
+        .eula-header .sub a:hover {
+            color: #90caf9;
+            border-bottom-color: #90caf9;
+        }
+
+        /* ---------- 作者信息横幅 ---------- */
+        .author-bar {
+            background: #282828;
+            border-radius: 14px;
+            padding: 14px 22px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px 28px;
+            font-size: 0.92rem;
+            border: 1px solid #333;
+        }
+
+        .author-bar span {
+            color: #ccc;
+        }
+
+        .author-bar strong {
+            color: #f1c40f;
+            font-weight: 600;
+        }
+
+        .author-bar .contact {
+            color: #90caf9;
+        }
+
+        /* ---------- 正文排版 ---------- */
+        .eula-body {
+            display: flex;
+            flex-direction: column;
+            gap: 26px;
+        }
+
+        /* 每个条款块 */
+        .clause {
+            background: #252525;
+            border-radius: 16px;
+            padding: 22px 28px;
+            border-left: 4px solid #3a3a3a;
+            transition: border-color 0.2s;
+        }
+
+        .clause:hover {
+            border-left-color: #f1c40f;
+        }
+
+        .clause h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #f1c40f;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .clause h2 .badge {
+            font-size: 0.7rem;
+            background: #3a3a3a;
+            color: #bbb;
+            padding: 0 12px;
+            border-radius: 30px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .clause p,
+        .clause li {
+            color: #d0d0d0;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .clause ul,
+        .clause ol {
+            padding-left: 24px;
+            margin: 8px 0 4px 0;
+        }
+
+        .clause li {
+            margin-bottom: 4px;
+        }
+
+        .clause .highlight-box {
+            background: #1f2a2a;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 12px 0 4px 0;
+            border: 1px solid #2d4a4a;
+            color: #bcd4d4;
+            font-size: 0.92rem;
+        }
+
+        .clause .highlight-box strong {
+            color: #e67e22;
+        }
+
+        .clause .highlight-box .danger {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        /* ---------- 下载渠道 ---------- */
+        .channel-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+            margin-top: 10px;
+        }
+
+        .channel-list a {
+            color: #64b5f6;
+            text-decoration: none;
+            background: #1e2a3a;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            border: 1px solid #2a3a4a;
+            transition: all 0.2s;
+        }
+
+        .channel-list a:hover {
+            background: #2a3a5a;
+            border-color: #64b5f6;
+            color: #90caf9;
+        }
+
+        /* ---------- 底部接受声明 ---------- */
+        .acceptance {
+            margin-top: 20px;
+            padding: 20px 28px;
+            background: #1a2a1a;
+            border-radius: 16px;
+            border: 1px solid #2d4a2d;
+            text-align: center;
+            font-size: 1rem;
+            color: #b0d0b0;
+        }
+
+        .acceptance strong {
+            color: #8bc34a;
+        }
+
+        .acceptance .btn-group {
+            margin-top: 16px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .acceptance .btn {
+            padding: 10px 40px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-agree {
+            background: #2e7d32;
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(46, 125, 50, 0.3);
+        }
+
+        .btn-agree:hover {
+            background: #388e3c;
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
+        }
+
+        .btn-disagree {
+            background: #4a2a2a;
+            color: #ccc;
+        }
+
+        .btn-disagree:hover {
+            background: #5a2a2a;
+            color: #fff;
+        }
+
+        /* ---------- 响应式 ---------- */
+        @media (max-width: 700px) {
+            .eula-container {
+                padding: 28px 20px;
+                border-radius: 20px;
+            }
+
+            .eula-header h1 {
+                font-size: 1.7rem;
+            }
+
+            .clause {
+                padding: 18px 18px;
+            }
+
+            .clause h2 {
+                font-size: 1.05rem;
+                flex-wrap: wrap;
+            }
+
+            .author-bar {
+                flex-direction: column;
+                align-items: center;
+                gap: 6px;
+                font-size: 0.85rem;
+            }
+
+            .channel-list {
+                justify-content: center;
+            }
+
+            .acceptance .btn {
+                padding: 8px 28px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 450px) {
+            body {
+                padding: 16px 10px;
+            }
+            .eula-container {
+                padding: 18px 14px;
+            }
+            .clause {
+                padding: 14px 14px;
+            }
+            .clause h2 {
+                font-size: 0.95rem;
+            }
+            .clause p,
+            .clause li {
+                font-size: 0.88rem;
+            }
+            .highlight-box {
+                font-size: 0.85rem !important;
+                padding: 12px 14px !important;
+            }
+        }
+
+        /* ---------- 滚动条美化 ---------- */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="eula-container">
+
+        <!-- 头部 -->
+        <div class="eula-header">
+            <h1>📄 最终用户许可协议</h1>
+            <div class="sub">
+                齐的工具包3 · <strong>QisToolkit3</strong> &nbsp;|&nbsp; 版本 v2.9
+            </div>
+        </div>
+
+        <!-- 作者 & 联系方式 -->
+        <div class="author-bar">
+            <span>👤 作者：<strong>齐（齐date）</strong> · 全网同名</span>
+            <span>📧 <span class="contact">3563532971@qq.com</span></span>
+            <span>📧 <span class="contact">qidate001@gmail.com</span></span>
+            <span>💬 交流群：<strong>634270874</strong></span>
+        </div>
+
+        <!-- 正文 -->
+        <div class="eula-body">
+
+            <!-- 1. 定义 -->
+            <div class="clause">
+                <h2>1. 定义 <span class="badge">释义</span></h2>
+                <p><strong>“本软件”</strong>指“齐的工具包3”（QisToolkit3）及其所有组件，包括但不限于：图形界面模块、命令行模块（QiCmd）、系统修改工具、IFEO映像劫持工具、系统权限启动器（SPL）、文件操作模块、第三方工具集成接口及扩展管理模块。</p>
+            </div>
+
+            <!-- 2. 授权范围 -->
+            <div class="clause">
+                <h2>2. 授权范围 <span class="badge">免费 · 可分发</span></h2>
+                <ul>
+                    <li><strong>2.1</strong> 本软件为免费软件，授予用户在个人计算机或商业环境中的安装和使用权利。</li>
+                    <li><strong>2.2</strong> 允许用户复制、分发本软件的未修改副本，但禁止逆向工程、反编译或移除任何版权声明。</li>
+                    <li><strong>2.3</strong> 用户可通过以下渠道获取本软件：</li>
+                </ul>
+                <div class="channel-list">
+                    <a href="https://github.com/qidate001/QisToolkit3/releases/" target="_blank">🐙 GitHub Releases</a>
+                    <a href="https://pan.baidu.com/s/1XTg3X1aTYdIP1Q11YZ0fiQ?pwd=qinb" target="_blank">📦 百度网盘 (pwd: qinb)</a>
+                    <a href="https://wwjs.lanzoub.com/b004hviqmf" target="_blank">☁️ 蓝奏云 (pwd: 851o)</a>
+                    <a href="#" style="cursor:default;background:#2a2a2a;border-color:#3a3a3a;">💬 交流群 634270874</a>
+                </div>
+            </div>
+
+            <!-- 3. 高风险功能声明 -->
+            <div class="clause">
+                <h2>3. 高风险功能声明 <span class="badge">⚠️ 风险自负</span></h2>
+                <p>本软件包含大量可改变操作系统行为、设置及文件系统的功能，包括但不限于：</p>
+
+                <div class="highlight-box">
+                    <strong>📂 文件操作类</strong><br />
+                    文件强制删除、覆盖、追加 · 修改时间戳（创建/修改/访问）· 修改文件属性（隐藏/系统/只读/存档/脱机/无内容索引等）
+                </div>
+
+                <div class="highlight-box">
+                    <strong>⚙️ 系统修改类</strong><br />
+                    系统注册表修改（IFEO映像劫持、程序卸载项、自启动项、Shell文件夹重定向）<br />
+                    系统策略禁用（任务管理器/注册表编辑器/Windows更新/控制面板/电源选项等）<br />
+                    用户账户控制（UAC）行为修改 · 用户密码管理（修改密码、强制过期、账户锁定等）
+                </div>
+
+                <div class="highlight-box">
+                    <strong>🔓 权限提升类</strong><br />
+                    以 SYSTEM 权限或其他高特权启动进程 · 系统权限启动器（SPL）
+                </div>
+
+                <div class="highlight-box">
+                    <strong>🧩 其他高风险</strong><br />
+                    对 Windows 系统文件、配置的读写操作 · 命令行模式（QiCmd）批量执行高风险操作
+                </div>
+
+                <p style="margin-top: 14px; color: #e0c0a0;">
+                    <span class="danger">❗ 用户明确知晓并同意：</span><br />
+                    (1) 使用上述功能可能导致操作系统不稳定、无法启动、数据丢失、安全漏洞或应用程序崩溃。<br />
+                    (2) 对于因使用本软件（尤其 IFEO 劫持、权限提升、注册表修改）造成的任何直接或间接损失，软件作者不承担任何赔偿责任。<br />
+                    (3) 在修改系统前，用户应自行备份重要数据和系统状态（如注册表导出、系统还原点）。
+                </p>
+            </div>
+
+            <!-- 4. 第三方工具与扩展 -->
+            <div class="clause">
+                <h2>4. 第三方工具与扩展 <span class="badge">独立许可</span></h2>
+                <ul>
+                    <li><strong>4.1</strong> 本软件可能提供对第三方工具（如 IDM 激活工具、MAS、yt-dlp、FFmpeg、Geek Uninstaller 等）的调用接口或引导下载。这些工具由其各自作者拥有版权，并遵循独立的许可协议。</li>
+                    <li><strong>4.2</strong> 本软件不对第三方工具的功能、安全性、合法性及后续更新负责。用户需自行判断并承担使用风险。</li>
+                    <li><strong>4.3</strong> 扩展管理模块允许下载额外功能（如 MAS 激活工具）。这些扩展并非本软件必须组成部分，启用扩展即视为用户自愿承担所有相关风险。</li>
+                    <li><strong>4.4</strong> 基础版软件不附带部分第三方工具，若用户手动添加或下载完整版，同样适用上述条款。</li>
+                </ul>
+            </div>
+
+            <!-- 5. 命令行模式 -->
+            <div class="clause">
+                <h2>5. 命令行模式 <span class="badge">QiCmd</span></h2>
+                <p>本软件包含命令行模式（QiCmd）。用户通过命令行参数执行文件操作、系统修改等动作时，同样适用本协议第 3 条的风险声明。建议在脚本部署前进行充分测试。</p>
+            </div>
+
+            <!-- 6. 无担保声明 -->
+            <div class="clause">
+                <h2>6. 无担保声明 <span class="badge">“现状”提供</span></h2>
+                <p>本软件按“现状”提供，不提供任何明示或暗示的担保，包括但不限于适销性、特定用途适用性及无侵权担保。不保证软件运行无中断、无错误或完全安全。</p>
+            </div>
+
+            <!-- 7. 责任限制 -->
+            <div class="clause">
+                <h2>7. 责任限制 <span class="badge">免责</span></h2>
+                <p>在适用法律允许的最大范围内，作者不对因使用或无法使用本软件所导致的任何特殊、间接、附带或后果性损失（包括利润损失、数据丢失、业务中断）承担责任，即使已被告知可能发生此类损害。</p>
+            </div>
+
+            <!-- 8. 反馈与支持 -->
+            <div class="clause">
+                <h2>8. 反馈与支持 <span class="badge">联系作者</span></h2>
+                <ul>
+                    <li><strong>8.1</strong> 用户可通过以下渠道反馈问题或建议：<br />
+                        📧 QQ邮箱：<a href="mailto:3563532971@qq.com" style="color:#64b5f6;">3563532971@qq.com</a> &nbsp;·&nbsp;
+                        📧 Google邮箱：<a href="mailto:qidate001@gmail.com" style="color:#64b5f6;">qidate001@gmail.com</a> &nbsp;·&nbsp;
+                        💬 交流群：<strong>634270874</strong>
+                    </li>
+                    <li><strong>8.2</strong> 作者保留根据反馈修改软件的权利，但不承诺解决所有问题。</li>
+                </ul>
+            </div>
+
+            <!-- 9. 协议更新 -->
+            <div class="clause">
+                <h2>9. 协议更新 <span class="badge">持续改进</span></h2>
+                <p>作者保留随时更新本协议的权利。更新后的协议将随软件新版本发布。继续使用新版本即表示接受更新后的条款。</p>
+            </div>
+
+            <!-- 10. 终止 -->
+            <div class="clause">
+                <h2>10. 终止 <span class="badge">违约后果</span></h2>
+                <p>若用户违反本协议任何条款，授权自动终止。终止后用户必须立即卸载并删除所有软件副本。</p>
+            </div>
+
+            <!-- 11. 适用法律 -->
+            <div class="clause">
+                <h2>11. 适用法律 <span class="badge">中华人民共和国</span></h2>
+                <p>本协议受中华人民共和国法律管辖。</p>
+            </div>
+
+        </div>
+
+        <!-- 底部接受声明 -->
+        <div class="acceptance">
+            <p>
+                <strong>📌 若您点击下载或安装本软件，表示您已阅读、理解并同意上述所有条款。</strong><br />
+                若不同意，请删除本软件。
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>
