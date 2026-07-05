@@ -32,7 +32,36 @@
         "获取难度": "★★★★☆",
         "收藏价值": "★★★☆☆"
       },
-      "explosion_data": "[ 4278019151, "
+      "explosion_data": [
+        4278019151,
+        "野牛 (EC Orange/Lustered)",
+        {
+          "priColor": 124,
+          "secColor": 124,
+          "pearlColor": 111,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 3,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "45AQC940",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 1,
+            "11": 1
+          }
+        }
+      ]
     },
     {
       "name": "绿色 冒险家 野牛",
@@ -42,7 +71,36 @@
         "获取难度": "★★★★☆",
         "收藏价值": "★★★☆☆"
       },
-      "explosion_data": "[ 4278019151, "
+      "explosion_data": [
+        4278019151,
+        "野牛 (EC Orange/Lustered)",
+        {
+          "priColor": 124,
+          "secColor": 124,
+          "pearlColor": 111,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 3,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "45AQC940",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 1,
+            "11": 1
+          }
+        }
+      ]
     }
   ],
   "methods": [
