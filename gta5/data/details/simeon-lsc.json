@@ -1,0 +1,71 @@
+{
+  "id": "simeon-lsc",
+  "name": "开局西米恩车店",
+  "category": "西米恩",
+  "difficulty": "★★☆☆☆",
+  "description": "开局西米恩车店可获取的稀有配色载具",
+  "routeImage": "",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1iQ4y1c78G",
+  "update_date": "2025-11-20",
+  "variants": [
+    {
+      "name": "悠游 行者",
+      "image": "开局西米恩车店_悠游 行者.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损蓝银色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "工业黑色聚酯",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "哑光灰色 / 磨损绿色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★☆☆☆☆"
+      },
+      "explosion_data": "[ 3486135912, \"行者 (EC Sliver/Lustered)\", {\"priColor\" : 25, \"secColor\" : 16, \"pearlColor\" : 111, \"wheelColor\" : 156, \"dialsColor\" : 0, \"trimColor\" : 0, \"customPriColor\" : 0, \"customSecColor\" : 0, \"tireSmoke\" : 16777215, \"neon\" : 16711935, \"neonState\" : 0, \"livery\" : -1, \"windowTint\" : -1, \"wheelType\" : 3, \"lowGripTyres\" : 0, \"plateIndex\" : 0, \"plate\" : \"25DXV594\", \"mods\" : { \"22\" : 0 }, \"extras\" : { \"10\" : 1, \"11\" : 1, \"12\" : 1} } ]"
+    },
+    {
+      "name": "贝飞特 施瓦泽",
+      "image": "开局西米恩车店_贝飞特 施瓦泽.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "改车王标准色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "工业深银色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "磨损银色 / 哑光橙色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆"
+      },
+      "explosion_data": "[ 3548084598, \"施瓦兹 (Bright Red/Lustered)\", {\"priColor\" : 32, \"secColor\" : 17, \"pearlColor\" : 5, \"wheelColor\" : 156, \"dialsColor\" : 0, \"trimColor\" : 0, \"customPriColor\" : 0, \"customSecColor\" : 0, \"tireSmoke\" : 16777215, \"neon\" : 16711935, \"neonState\" : 0, \"livery\" : -1, \"windowTint\" : -1, \"wheelType\" : 0, \"lowGripTyres\" : 0, \"plateIndex\" : 0, \"plate\" : \"81GGZ409\", \"mods\" : { \"22\" : 0 }, \"extras\" : { \"10\" : 0, \"12\" : 1} } ]"
+    }
+  ],
+  "methods": [
+    {
+      "title": "获取方法",
+      "number": 1,
+      "description": "具体操作请参考上方B站视频。"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-// vehicles.js - 车辆数据管理器（完整修复版）
+// vehicles.js - 车辆数据管理器（按需加载索引版）
 console.log('vehicles.js 已加载');
 
 class VehicleManager {
@@ -13,22 +13,18 @@ class VehicleManager {
   }
 
   async loadVehicles() {
-    console.log('开始加载车辆数据...');
+    console.log('开始加载车辆索引...');
     try {
-      const jsonPath = './data/vehicles.json';
-      console.log('加载路径:', jsonPath);
-
-      const response = await fetch(jsonPath);
+      // 只加载轻量索引
+      const response = await fetch('./data/index.json');
       console.log('响应状态:', response.status);
 
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
 
-      const data = await response.json();
-      this.vehicles = data.vehicles || [];
-
-      console.log(`成功加载 ${this.vehicles.length} 个车辆`);
+      this.vehicles = await response.json(); // 直接是数组
+      console.log(`成功加载 ${this.vehicles.length} 个车辆索引`);
 
       // 提取分类
       this.vehicles.forEach(vehicle => {
@@ -51,7 +47,7 @@ class VehicleManager {
 
     } catch (error) {
       console.error('加载失败:', error);
-      this.showError('加载数据失败: ' + error.message);
+      this.showError('加载数据失败，请确保已运行拆分脚本生成 index.json: ' + error.message);
     }
   }
 
@@ -62,10 +58,7 @@ class VehicleManager {
       return;
     }
 
-    // 清空现有选项
     filter.innerHTML = '<option value="all">所有分类</option>';
-
-    // 添加分类选项
     Array.from(this.categories)
       .filter(cat => cat !== '所有分类')
       .forEach(category => {
@@ -79,11 +72,8 @@ class VehicleManager {
   setupSearch() {
     console.log('设置搜索功能...');
 
-    // 搜索框
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
-      console.log('绑定搜索框事件');
-
       searchInput.addEventListener('input', (e) => {
         console.log('搜索输入:', e.target.value);
         this.searchTerm = e.target.value.trim().toLowerCase();
@@ -91,16 +81,12 @@ class VehicleManager {
         this.render();
         this.updateResultCount();
       });
-
     } else {
       console.error('未找到 #search-input 元素');
     }
 
-    // 分类筛选器
     const categoryFilter = document.getElementById('category-filter');
     if (categoryFilter) {
-      console.log('绑定分类筛选器事件');
-
       categoryFilter.addEventListener('change', (e) => {
         console.log('分类选择:', e.target.value);
         this.currentCategory = e.target.value;
@@ -108,7 +94,6 @@ class VehicleManager {
         this.render();
         this.updateResultCount();
       });
-
     } else {
       console.error('未找到 #category-filter 元素');
     }
@@ -116,11 +101,9 @@ class VehicleManager {
 
   filterVehicles() {
     return this.vehicles.filter(vehicle => {
-      // 分类过滤
       const matchesCategory = this.currentCategory === 'all' ||
         vehicle.category === this.currentCategory;
 
-      // 搜索过滤
       const matchesSearch = !this.searchTerm ||
         (vehicle.name && vehicle.name.toLowerCase().includes(this.searchTerm)) ||
         (vehicle.description && vehicle.description.toLowerCase().includes(this.searchTerm));
@@ -139,7 +122,6 @@ class VehicleManager {
     this.filteredVehicles = this.filterVehicles();
     console.log(`过滤后: ${this.filteredVehicles.length} 个车辆`);
 
-    // 清空容器
     container.innerHTML = '';
 
     if (this.filteredVehicles.length === 0) {
@@ -147,21 +129,16 @@ class VehicleManager {
       return;
     }
 
-    // 分页
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     const pageVehicles = this.filteredVehicles.slice(startIndex, endIndex);
 
-    // 渲染车辆卡片
     pageVehicles.forEach(vehicle => {
       const vehicleElement = this.createVehicleCard(vehicle);
       container.appendChild(vehicleElement);
     });
 
-    // 渲染分页
     this.renderPagination();
-
-    // 设置懒加载
     this.setupLazyLoading();
   }
 
@@ -170,11 +147,8 @@ class VehicleManager {
     div.className = 'vehicle-card';
     div.dataset.id = vehicle.id;
 
-    // 第一张图片
-    const firstImage = vehicle.variants?.[0]?.image;
-    const imagePath = firstImage ?
-      `images/${firstImage}` :
-      '../../images/placeholder.jpg';
+    // 使用索引中的封面图字段
+    const imagePath = vehicle.coverImage ? `images/${vehicle.coverImage}` : 'images/placeholder.jpg';
 
     div.innerHTML = `
       <div class="card-image">
@@ -192,7 +166,7 @@ class VehicleManager {
         <p class="card-description">${vehicle.description || '无描述'}</p>
         <div class="card-meta">
           <span class="meta-item">📅 ${vehicle.update_date || '未知'}</span>
-          <span class="meta-item">🎨 ${vehicle.variants?.length || 0}款</span>
+          <span class="meta-item">🎨 ${vehicle.variantsCount || 0}款</span>
         </div>
         <div class="card-actions">
           <a href="vehicle-detail.html?id=${vehicle.id}" class="btn-view">查看详情</a>
@@ -216,12 +190,10 @@ class VehicleManager {
 
     let html = '<div class="pagination">';
 
-    // 上一页
     if (this.currentPage > 1) {
       html += `<button class="page-btn prev" onclick="vehicleManager.goToPage(${this.currentPage - 1})">上一页</button>`;
     }
 
-    // 页码
     const maxVisiblePages = 5;
     let startPage = Math.max(1, this.currentPage - Math.floor(maxVisiblePages / 2));
     let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
@@ -238,7 +210,6 @@ class VehicleManager {
       }
     }
 
-    // 下一页
     if (this.currentPage < totalPages) {
       html += `<button class="page-btn next" onclick="vehicleManager.goToPage(${this.currentPage + 1})">下一页</button>`;
     }
@@ -304,7 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM 已加载，初始化 VehicleManager');
   vehicleManager = new VehicleManager();
 
-  // 处理URL参数
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get('category');
   const search = urlParams.get('search');
@@ -317,9 +287,6 @@ document.addEventListener('DOMContentLoaded', () => {
     vehicleManager.searchTerm = search.toLowerCase();
   }
 
-  // 加载车辆数据
   vehicleManager.loadVehicles();
-
-  // 暴露到全局
   window.vehicleManager = vehicleManager;
 });

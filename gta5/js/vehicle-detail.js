@@ -1,13 +1,12 @@
-// vehicle-detail.js - 车辆详情页处理器（修复图片路径版）
+// vehicle-detail.js - 车辆详情页处理器（按需加载版）
 class VehicleDetail {
   constructor() {
     this.vehicleId = null;
     this.vehicle = null;
-    this.allVehicles = [];
+    this.similarVehicles = [];
   }
 
   async loadDetail() {
-    // 获取URL参数
     const urlParams = new URLSearchParams(window.location.search);
     this.vehicleId = urlParams.get('id');
 
@@ -19,35 +18,26 @@ class VehicleDetail {
     }
 
     try {
-      // 加载所有车辆数据
-      const response = await fetch('./data/vehicles.json');
-      const data = await response.json();
-      this.allVehicles = data.vehicles;
-
-      console.log('加载到车辆数据:', this.allVehicles.length, '个');
-
-      // 查找当前车辆
-      this.vehicle = this.allVehicles.find(v => v.id === this.vehicleId);
-
-      if (!this.vehicle) {
-        this.showError('未找到指定的载具: ' + this.vehicleId);
-        return;
+      // 只加载当前车辆的详情文件
+      const response = await fetch(`./data/details/${this.vehicleId}.json`);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status} - 可能该车辆详情文件不存在`);
       }
-
+      this.vehicle = await response.json();
       console.log('找到车辆:', this.vehicle.name);
 
       // 渲染详情
       this.renderDetail();
 
-      // 加载相关推荐
-      //this.loadSimilarVehicles();
+      // 加载相关推荐（可选）
+      this.loadSimilarVehicles();
 
       // 更新页面标题
-      document.title = `GTA5 故事模式 稀有载具收集：${this.vehicle.name}`;
+      document.title = `GTA5 Online 稀有载具收集：${this.vehicle.name}`;
 
     } catch (error) {
       console.error('加载详情失败:', error);
-      this.showError('加载详情失败，请刷新页面重试: ' + error.message);
+      this.showError('加载详情失败，请确认已运行拆分脚本生成详情文件: ' + error.message);
     }
   }
 
@@ -57,10 +47,8 @@ class VehicleDetail {
 
     const { vehicle } = this;
 
-    // 构建变体HTML
     const variantsHTML = vehicle.variants.map(variant => this.renderVariant(variant)).join('');
 
-    // 构建方法HTML
     const methodsHTML = vehicle.methods && vehicle.methods.length > 0
       ? vehicle.methods.map(method => this.renderMethod(method)).join('')
       : '';
@@ -119,13 +107,11 @@ class VehicleDetail {
       ` : ''}
     `;
 
-    // 设置懒加载
     this.setupLazyLoading();
     this.setupExplosionDataToggle();
   }
 
   renderVariant(variant) {
-    // 构建配置项HTML
     const specsHTML = variant.specs.map(spec => {
       const colorClass = spec.isRare ? 'rare' :
         (spec.value === '未知' || spec.value === '无' ? 'unknown' : 'normal');
@@ -138,7 +124,6 @@ class VehicleDetail {
       `;
     }).join('');
 
-    // 构建属性HTML
     const propertiesHTML = Object.entries(variant.properties).map(([key, value]) => {
       let className = '';
       if (key === '入库情况') {
@@ -153,7 +138,6 @@ class VehicleDetail {
         else if (value.includes('会掉配件')) className = 'meetup-partial';
         else if (value.includes('无法继承')) className = 'meetup-none';
       }
-
       return `
         <div class="property-item">
           <span class="property-label">${key}：</span>
@@ -162,7 +146,6 @@ class VehicleDetail {
       `;
     }).join('');
 
-    // 检查变体是否有爆炸数据
     const variantExplosionData = variant.explosion_data 
       ? this.renderVariantExplosionData(variant.name, variant.explosion_data)
       : '';
@@ -183,9 +166,7 @@ class VehicleDetail {
           <div class="variant-specs">
             <h4>车辆配置</h4>
             ${specsHTML}
-            ${variant.accessory ? `
-              <div class="accessory-item">${variant.accessory}</div>
-            ` : ''}
+            ${variant.accessory ? `<div class="accessory-item">${variant.accessory}</div>` : ''}
           </div>
           <div class="variant-properties">
             <h4>车辆属性</h4>
@@ -200,8 +181,6 @@ class VehicleDetail {
   renderExplosionData(data) {
     const jsonString = JSON.stringify(data, null, 2);
     const dataId = `explosion-data-${Date.now()}`;
-    
-    // 使用 syntaxHighlight 方法格式化JSON
     const formattedJson = this.syntaxHighlight(jsonString);
 
     return `
@@ -255,80 +234,57 @@ class VehicleDetail {
     `;
   }
 
-  loadSimilarVehicles() {
-    if (!this.vehicle || !this.allVehicles.length) return;
+  // 相关推荐（基于索引加载，保持轻量）
+  async loadSimilarVehicles() {
+    if (!this.vehicle) return;
 
-    const similar = this.allVehicles
-      .filter(v => v.id !== this.vehicleId && v.category === this.vehicle.category)
-      .slice(0, 3);
+    try {
+      const response = await fetch('./data/index.json');
+      if (!response.ok) return;
+      const indexData = await response.json();
 
-    if (similar.length === 0) return;
+      const similar = indexData
+        .filter(v => v.id !== this.vehicleId && v.category === this.vehicle.category)
+        .slice(0, 3);
 
-    const container = document.getElementById('similar-container');
-    const section = document.getElementById('similar-vehicles');
+      if (similar.length === 0) return;
 
-    if (!container || !section) return;
+      const container = document.getElementById('similar-container');
+      const section = document.getElementById('similar-vehicles');
+      if (!container || !section) return;
 
-    section.style.display = 'block';
+      section.style.display = 'block';
 
-    container.innerHTML = similar.map(vehicle => `
-      <div class="similar-card">
-        <img 
-          data-src="./images/${vehicle.variants[0]?.image || 'placeholder.jpg'}" 
-          alt="${vehicle.name}" 
-          class="lazy-image"
-          loading="lazy"
-          onerror="this.style.display='none'"
-        >
-        <div class="similar-info">
-          <h4>${vehicle.name}</h4>
-          <p>${vehicle.description.substring(0, 60)}...</p>
-          <a href="vehicle-detail.html?id=${vehicle.id}" class="btn-view">查看详情</a>
+      container.innerHTML = similar.map(vehicle => `
+        <div class="similar-card">
+          <img 
+            data-src="${vehicle.coverImage ? `./images/${vehicle.coverImage}` : 'images/placeholder.jpg'}" 
+            alt="${vehicle.name}" 
+            class="lazy-image"
+            loading="lazy"
+            onerror="this.style.display='none'"
+          >
+          <div class="similar-info">
+            <h4>${vehicle.name}</h4>
+            <p>${vehicle.description ? vehicle.description.substring(0, 60) + '...' : ''}</p>
+            <a href="vehicle-detail.html?id=${vehicle.id}" class="btn-view">查看详情</a>
+          </div>
         </div>
-      </div>
-    `).join('');
+      `).join('');
 
-    this.setupLazyLoading();
-  }
-
-  setupLazyLoading() {
-    if ('IntersectionObserver' in window) {
-      const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            if (img.dataset.src) {
-              console.log('懒加载图片:', img.dataset.src);
-              img.src = img.dataset.src;
-              img.classList.remove('lazy-image');
-            }
-            observer.unobserve(img);
-          }
-        });
-      });
-
-      document.querySelectorAll('.lazy-image').forEach(img => {
-        imageObserver.observe(img);
-      });
-    } else {
-      document.querySelectorAll('.lazy-image').forEach(img => {
-        if (img.dataset.src) {
-          img.src = img.dataset.src;
-        }
-      });
+      this.setupLazyLoading(); // 重新绑定懒加载
+    } catch (e) {
+      console.warn('加载推荐失败:', e);
     }
   }
 
-  // 新增：渲染变体爆炸数据的方法（紧凑格式）
+  // ---------- 辅助方法 ----------
   renderVariantExplosionData(variantName, explosionData) {
-    // 如果已经是字符串，直接使用；如果是数组，转换为字符串
     const dataString = typeof explosionData === 'string' 
       ? explosionData 
       : JSON.stringify(explosionData);
     
     const dataId = `explosion-data-${this.vehicleId}-${variantName.replace(/\s+/g, '-')}`;
-    
-    // 清理数据：移除换行和缩进
     const cleanData = dataString.replace(/[\n\t\r]/g, '').replace(/\s+/g, ' ');
     
     return `
@@ -352,7 +308,6 @@ class VehicleDetail {
   }
 
   setupExplosionDataToggle() {
-    // 展开/收起功能
     document.querySelectorAll('.variant-explosion-section .explosion-toggle').forEach(toggle => {
       toggle.addEventListener('click', () => {
         const targetId = toggle.dataset.target;
@@ -369,16 +324,14 @@ class VehicleDetail {
       });
     });
     
-    // 复制按钮功能 - 紧凑版
     document.querySelectorAll('.mini-copy-btn').forEach(button => {
       button.addEventListener('click', (e) => {
-        e.stopPropagation(); // 防止触发父级的点击事件
+        e.stopPropagation();
         const text = button.dataset.clipboardText;
         navigator.clipboard.writeText(text).then(() => {
           const originalText = button.textContent;
           button.textContent = '✅';
           button.style.background = '#2ecc71';
-          
           setTimeout(() => {
             button.textContent = originalText;
             button.style.background = '';
@@ -394,9 +347,51 @@ class VehicleDetail {
         });
       });
     });
+
+    // 原有的展开/收起（用于整体爆炸数据）
+    document.querySelectorAll('.section-header.expandable').forEach(header => {
+      header.addEventListener('click', () => {
+        const targetId = header.dataset.target;
+        const content = document.getElementById(targetId);
+        const icon = header.querySelector('.expand-icon');
+        if (content.style.display === 'none') {
+          content.style.display = 'block';
+          icon.textContent = '▲';
+        } else {
+          content.style.display = 'none';
+          icon.textContent = '▼';
+        }
+      });
+    });
   }
 
-  // JSON语法高亮方法
+  setupLazyLoading() {
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            if (img.dataset.src) {
+              img.src = img.dataset.src;
+              img.classList.remove('lazy-image');
+            }
+            observer.unobserve(img);
+          }
+        });
+      });
+
+      document.querySelectorAll('.lazy-image').forEach(img => {
+        imageObserver.observe(img);
+      });
+    } else {
+      document.querySelectorAll('.lazy-image').forEach(img => {
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+        }
+      });
+    }
+  }
+
   syntaxHighlight(json) {
     if (typeof json != 'string') {
       json = JSON.stringify(json, undefined, 2);
@@ -421,7 +416,6 @@ class VehicleDetail {
     );
   }
 
-  // 添加HTML转义方法（防止XSS）
   escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
