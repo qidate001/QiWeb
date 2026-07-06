@@ -164,18 +164,36 @@
 
 /* --- 二维码组件统一精细化渲染 --- */
 .qr-wrapper {
-    margin: 10px 0 16px;
-    text-align: center;
+    margin: 15px 0;
+    width: 100%;             /* 宽度完全填满卡片 */
+    aspect-ratio: 1 / 1;     /* 保持 1:1 绝对正方形 */
+    border-radius: 14px;
+    overflow: hidden;        
+    border: 1px solid rgba(255, 255, 255, 0.12); /* 淡淡的半透明边框 */
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5); /* 内部阴影，增加深邃感 */
+    background: rgba(0, 0, 0, 0.25); /* 核心修改：改为比卡片更深一点的半透明黑色 */
 }
 
 .qr-wrapper img {
-    width: 110px;
-    height: 110px;
-    border-radius: 12px;
-    border: 3px solid rgba(255,255,255,0.2);
-    background: white;
-    padding: 2px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    width: 100%;             /* 宽度填满 */
+    height: 100%;            /* 高度填满 */
+    object-fit: contain;     /* 完整显示整张图片，绝不裁剪 */
+    padding: 6px;            /* 留出一丁点安全边距，防止贴边，背景透出深色 */
+    border: none;
+    mix-blend-mode: normal;   /* 保持图片原本的色彩质量 */
+}
+
+/* 亮色主题微调（在亮色主题下让背景稍微变浅一些，匹配整体画风） */
+body.light-theme .qr-wrapper {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 移除上一次加在底部的特殊高度，交由 aspect-ratio 自动控制 */
+.featured-card .qr-wrapper {
+    height: auto !important; 
+    max-width: 100%;
 }
 
 

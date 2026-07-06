@@ -27,7 +27,7 @@
     <!-- ===== 主内容 ===== -->
     <main>
         <div class="contact-hero">
-            <h2>📬 联系 齐</h2>
+            <!-- <h2>📬 联系 齐</h2> -->
             <p>推荐使用 QQ 群或 GitHub Issues，我会第一时间回复</p>
         </div>
 
@@ -62,6 +62,9 @@
                     <h3 class="card-title">GitHub Issues</h3>
                     <p class="card-sub">提交反馈 / 建议 / Bug</p>
                     <div class="detail-number text-small">QisToolkit3 / Issues</div>
+                    <div class="qr-wrapper">
+                        <img src="./images/QisToolkit3_GitHub_Issues.png" alt="齐的工具包3 GitHub Issues 入口图片" />
+                    </div>
                     <div class="contact-card-actions no-qr-actions">
                         <button class="btn-contact primary btn-copy" data-text="https://github.com/qidate001/QisToolkit3/issues">📋 复制链接</button>
                         <a href="https://github.com/qidate001/QisToolkit3/issues" target="_blank" class="btn-contact">🚀 前往 Issues</a>
@@ -204,7 +207,10 @@
     </main>
 
     <footer>
-        <p>© 2026 齐 · 齐的工具包3 · 用 ❤️ 制作</p>
+        <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
     </footer>
 
     <!-- 一键复制脚本 -->
