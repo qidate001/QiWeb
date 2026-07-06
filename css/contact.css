@@ -1,0 +1,257 @@
+/* ==========================================================================
+   contact.css - 联系我页面专属排版与美化 (不污染全局 style.css 与 index_style.css)
+   ========================================================================== */
+
+/* --- 头部 Hero 区域优化 --- */
+.contact-hero {
+    text-align: center;
+    padding: 20px 0 30px;
+}
+
+.contact-hero h2 {
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+    border-bottom: none !important; /* 覆盖main h2的下划线 */
+    padding-bottom: 0 !important;
+}
+
+.contact-hero p {
+    font-size: 1.15rem;
+    opacity: 0.85;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+/* --- 推荐置顶区：GTA5 卡片深度定制适配 --- */
+.featured-legacy-grid {
+    gap: 30px;
+    margin-bottom: 50px !important;
+}
+
+/* 强制覆盖 index_style.css 的最大宽度，让双大卡片平分均摊布局 */
+.game-card.featured-card {
+    max-width: 500px !important; 
+    min-height: 340px;
+    align-items: flex-start !important; /* 从左上角开始纵向排列 */
+    padding: 28px 30px;
+}
+
+.game-card.featured-card .card-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 强烈推荐标签 */
+.featured-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: linear-gradient(135deg, #f7971e, #ffd200);
+    color: #1a1a1a;
+    padding: 4px 14px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(247, 151, 30, 0.4);
+    z-index: 2;
+}
+
+/* 数字化大展示 */
+.detail-number {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin: 12px 0 6px;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.detail-number.text-small {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* 置顶没有二维码时的弹性撑开占位 */
+.no-qr-actions {
+    margin-top: auto !important;
+}
+
+
+/* --- 下方常规渠道：左右分栏布局 --- */
+.channels-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.channel-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.channel-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #3498db;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(52, 152, 219, 0.2);
+}
+
+.mt-40 {
+    margin-top: 16px;
+}
+
+/* 2x2 小型常规网格布局 */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+/* 针对视频媒体渠道的网格定制：由于是3个，支持等宽排列 */
+.media-grid-layout {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+
+/* --- 通用卡片组件（无缝继承原有色彩体系与动效） --- */
+.contact-card {
+    position: relative;
+    border-radius: 18px;
+    padding: 22px;
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 210px;
+    overflow: hidden;
+}
+
+/* 融入 GTA5 卡片的悬停反馈 */
+.contact-card:hover {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow: 0 14px 35px rgba(0,0,0,0.5);
+}
+
+.contact-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.contact-card-header .icon { 
+    font-size: 2.2rem; 
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+}
+
+.contact-card-header .title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.detail {
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+    word-break: break-all;
+    opacity: 0.9;
+}
+
+/* --- 二维码组件统一精细化渲染 --- */
+.qr-wrapper {
+    margin: 10px 0 16px;
+    text-align: center;
+}
+
+.qr-wrapper img {
+    width: 110px;
+    height: 110px;
+    border-radius: 12px;
+    border: 3px solid rgba(255,255,255,0.2);
+    background: white;
+    padding: 2px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+
+/* --- 操作按钮组 --- */
+.contact-card-actions {
+    margin-top: auto;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-contact {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-contact:hover {
+    background: rgba(255, 255, 255, 0.28);
+    transform: translateY(-2px);
+}
+
+.btn-contact.primary { 
+    background: rgba(255, 255, 255, 0.25); 
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+
+/* --- 配色方案 (沿用你所提供的高质感渐变色与全新专属配色) --- */
+.card-qq-personal{ background: linear-gradient(145deg, #1e3c72, #2a5298); } /* 故事模式深蓝 */
+.card-qq-bot     { background: linear-gradient(145deg, #3a1a5a, #6a3a8a); }
+.card-gmail      { background: linear-gradient(145deg, #1a4a3a, #2a6b4a); } /* 墨绿 */
+.card-qqmail     { background: linear-gradient(145deg, #2a3a4a, #3a4a5a); } /* 刚灰 */
+
+/* 🆕 新增多媒体渠道专属艺术渐变 */
+.card-bilibili   { background: linear-gradient(145deg, #fc7694, #b83b5e); } /* 哔哩哔哩：经典霓虹粉红 */
+.card-douyin     { background: linear-gradient(145deg, #161823, #2f3447); border-color: rgba(0, 242, 254, 0.25) !important; } /* 抖音：冷酷潮酷极夜黑 */
+.card-youtube    { background: linear-gradient(145deg, #e52d27, #b31217); } /* YouTube：数码极客正红 */
+
+
+/* --- 移动端响应式与两套主题优雅调谐 --- */
+body.light-theme .contact-card {
+    border-color: rgba(0, 0, 0, 0.06);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .contact-card:hover {
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18);
+}
+
+@media (max-width: 900px) {
+    .channels-container {
+        grid-template-columns: 1fr; /* 左右分栏变垂直单栏 */
+        gap: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .game-card.featured-card {
+        padding: 20px !important;
+    }
+    .card-icon {
+        display: none; /* 手机端隐藏置顶卡片的大 icon */
+    }
+    .contact-grid {
+        grid-template-columns: 1fr; /* 手机端全部退化成平铺大卡片列表，防止内容溢出 */
+    }
+}

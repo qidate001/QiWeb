@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>齐的网站 · 联系我</title>
+
+    <!-- 保持原有引入顺序，你的基础设计完全不受影响 -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/index_style.css" />
+    <link rel="stylesheet" href="./css/contact.css" />
+</head>
+<body>
+
+    <!-- ===== 页眉 ===== -->
+    <header>
+        <h1>联系我</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我</a></li>
+                <li><a href="contact.html" class="active">联系我</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ===== 主内容 ===== -->
+    <main>
+        <div class="contact-hero">
+            <h2>📬 联系 齐</h2>
+            <p>推荐使用 QQ 群或 GitHub Issues，我会第一时间回复</p>
+        </div>
+
+        <!-- 推荐置顶区（复用 game-buttons-container 保持 GTA5 卡片弹性对齐） -->
+        <div class="game-buttons-container featured-legacy-grid">
+            
+            <!-- QQ群卡片 -->
+            <div class="game-card card-online featured-card">
+                <div class="card-glow"></div>
+                <div class="featured-badge">⭐ 强烈推荐</div>
+                <div class="card-icon">👥</div>
+                <div class="card-content">
+                    <h3 class="card-title">QQ 群</h3>
+                    <p class="card-sub">交流、反馈与动态发布</p>
+                    <div class="detail-number">634270874</div>
+                    <div class="qr-wrapper">
+                        <img src="./images/QQ群_0.png" alt="QQ群二维码" />
+                    </div>
+                    <div class="contact-card-actions">
+                        <button class="btn-contact primary btn-copy" data-text="634270874">📋 复制群号</button>
+                        <a href="https://qm.qq.com/q/your-group-link" target="_blank" class="btn-contact">🚀 立即加群</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GitHub 卡片 -->
+            <div class="game-card card-story featured-card">
+                <div class="card-glow"></div>
+                <div class="featured-badge">🛠️ 开源反馈</div>
+                <div class="card-icon">🐙</div>
+                <div class="card-content">
+                    <h3 class="card-title">GitHub Issues</h3>
+                    <p class="card-sub">提交反馈 / 建议 / Bug</p>
+                    <div class="detail-number text-small">QisToolkit3 / Issues</div>
+                    <div class="contact-card-actions no-qr-actions">
+                        <button class="btn-contact primary btn-copy" data-text="https://github.com/qidate001/QisToolkit3/issues">📋 复制链接</button>
+                        <a href="https://github.com/qidate001/QisToolkit3/issues" target="_blank" class="btn-contact">🚀 前往 Issues</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 常规渠道（左右分栏大网格） -->
+        <div class="channels-container">
+            
+            <!-- 左侧：QQ 渠道列 -->
+            <div class="channel-column">
+                <div class="channel-title">💬 QQ 渠道</div>
+                <div class="contact-grid">
+                    
+                    <!-- QQ 本人 -->
+                    <div class="contact-card card-qq-personal">
+                        <div class="card-glow"></div>
+                        <div class="contact-card-header">
+                            <span class="icon">🧑</span>
+                            <span class="title">QQ 本人</span>
+                        </div>
+                        <div class="detail"><strong>3563532971</strong></div>
+                        <div class="qr-wrapper">
+                            <img src="./images/QQ_3563532971.png" alt="QQ本人二维码" />
+                        </div>
+                        <div class="contact-card-actions">
+                            <button class="btn-contact primary btn-copy" data-text="3563532971">📋 复制</button>
+                            <a href="https://qm.qq.com/q/your-personal-link" target="_blank" class="btn-contact">💬 聊天</a>
+                        </div>
+                    </div>
+
+                    <!-- QQ 机器人 -->
+                    <div class="contact-card card-qq-bot">
+                        <div class="card-glow"></div>
+                        <div class="contact-card-header">
+                            <span class="icon">🤖</span>
+                            <span class="title">QQ 机器人</span>
+                        </div>
+                        <div class="detail"><strong>262702548</strong></div>
+                        <div class="qr-wrapper">
+                            <img src="./images/QQ_262702548.png" alt="QQ机器人二维码" />
+                        </div>
+                        <div class="contact-card-actions">
+                            <button class="btn-contact primary btn-copy" data-text="262702548">📋 复制</button>
+                            <a href="https://qm.qq.com/q/your-bot-link" target="_blank" class="btn-contact">🤖 加好友</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 右侧：邮箱 & 媒体渠道列 -->
+            <div class="channel-column">
+                <div class="channel-title">✉️ 邮箱渠道</div>
+                <div class="contact-grid">
+                    
+                    <!-- Gmail -->
+                    <div class="contact-card card-gmail">
+                        <div class="card-glow"></div>
+                        <div class="contact-card-header">
+                            <span class="icon">📧</span>
+                            <span class="title">Gmail</span>
+                        </div>
+                        <div class="detail"><strong>qidate001@gmail.com</strong></div>
+                        <div class="contact-card-actions">
+                            <button class="btn-contact primary btn-copy" data-text="qidate001@gmail.com">📋 复制</button>
+                            <a href="mailto:qidate001@gmail.com" class="btn-contact">✉️ 发邮件</a>
+                        </div>
+                    </div>
+
+                    <!-- QQ 邮箱 -->
+                    <div class="contact-card card-qqmail">
+                        <div class="card-glow"></div>
+                        <div class="contact-card-header">
+                            <span class="icon">📨</span>
+                            <span class="title">QQ 邮箱</span>
+                        </div>
+                        <div class="detail"><strong>3563532971@qq.com</strong></div>
+                        <div class="contact-card-actions">
+                            <button class="btn-contact primary btn-copy" data-text="3563532971@qq.com">📋 复制</button>
+                            <a href="mailto:3563532971@qq.com" class="btn-contact">✉️ 发邮件</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 新增：视频与媒体渠道（采用流线大网格平铺，支持响应式三列布局） -->
+                <div class="channel-title mt-40">📹 视频与媒体渠道</div>
+                <div class="contact-grid media-grid-layout">
+                    
+                    <!-- Bilibili -->
+                    <div class="contact-card card-bilibili">
+                        <div class="card-glow"></div>
+                        <div class="contact-card-header">
+                            <span class="icon">📺</span>
+                            <span class="title">哔哩哔哩</span>
+                        </div>
+                        <div class="detail">UID: 271893438</div>
+                        <div class="contact-card-actions">
+                            <button class="btn-contact primary btn-copy" data-text="https://space.bilibili.com/271893438">📋 链接</button>
+                            <a href="https://space.bilibili.com/271893438" target="_blank" class="btn-contact">🚀 访问</a>
+                        </div>
+                    </div>
+
+                    <!-- 抖音 -->
+                    <div class="contact-card card-douyin">
+                        <div class="card-glow"></div>
+                        <div class="contact-card-header">
+                            <span class="icon">🎵</span>
+                            <span class="title">抖音</span>
+                        </div>
+                        <div class="detail">关注获取新工具动态</div>
+                        <div class="contact-card-actions">
+                            <button class="btn-contact primary btn-copy" data-text="https://www.douyin.com/user/MS4wLjABAAAAUYEJap_XbDILX06UPjRinBejbpaKZKneyM4WHh2ybwg">📋 链接</button>
+                            <a href="https://www.douyin.com/user/MS4wLjABAAAAUYEJap_XbDILX06UPjRinBejbpaKZKneyM4WHh2ybwg" target="_blank" class="btn-contact">🚀 访问</a>
+                        </div>
+                    </div>
+
+                    <!-- YouTube -->
+                    <div class="contact-card card-youtube">
+                        <div class="card-glow"></div>
+                        <div class="contact-card-header">
+                            <span class="icon">▶️</span>
+                            <span class="title">YouTube</span>
+                        </div>
+                        <div class="detail">@qiqi-z1p7x</div>
+                        <div class="contact-card-actions">
+                            <button class="btn-contact primary btn-copy" data-text="https://www.youtube.com/@qiqi-z1p7x">📋 链接</button>
+                            <a href="https://www.youtube.com/@qiqi-z1p7x" target="_blank" class="btn-contact">🚀 访问</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 齐 · 齐的工具包3 · 用 ❤️ 制作</p>
+    </footer>
+
+    <!-- 一键复制脚本 -->
+    <script>
+        document.querySelectorAll('.btn-copy').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation(); // 阻止冒泡，防止触发外层卡片的链接跳转
+                const text = this.getAttribute('data-text');
+                
+                if (text) {
+                    navigator.clipboard.writeText(text).then(() => {
+                        const orig = this.innerHTML;
+                        this.innerHTML = '✅ 已复制';
+                        setTimeout(() => this.innerHTML = orig, 1500);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
