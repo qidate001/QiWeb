@@ -9,8 +9,8 @@
   "update_date": "2026-07-07",
   "variants": [
     {
-      "name": "悠游 行者 哑光灰色款",
-      "image": "开局西米恩车店_悠游 行者.png",
+      "name": "冰霜灰款",
+      "image": "开局西米恩车店_行者_1.png",
       "specs": [
         {
           "label": "主色调",
@@ -34,7 +34,7 @@
       },
       "explosion_data": [
         3486135912,
-        "行者 (EC Sliver/Lustered)",
+        "EC Sliver/Lustered 悠游 行者 (1)",
         {
           "priColor": 25,
           "secColor": 16,
@@ -52,12 +52,12 @@
           "wheelType": 3,
           "lowGripTyres": 0,
           "plateIndex": 0,
-          "plate": "25DXV594",
+          "plate": "84SKA689",
           "mods": {
             "22": 0
           },
           "extras": {
-            "10": 1,
+            "10": 0,
             "11": 1,
             "12": 1
           }
@@ -65,8 +65,8 @@
       ]
     },
     {
-      "name": "悠游 行者",
-      "image": "开局西米恩车店_悠游 行者.png",
+      "name": "磨损绿款",
+      "image": "开局西米恩车店_行者_2.png",
       "specs": [
         {
           "label": "主色调",
@@ -89,11 +89,11 @@
         "收藏价值": "★★★☆☆"
       },
       "explosion_data": [
-        3548084598,
-        "施瓦兹 (Bright Red/Lustered)",
+        3486135912,
+        "EC Sliver/Lustered 悠游 行者 (2)",
         {
-          "priColor": 32,
-          "secColor": 17,
+          "priColor": 25,
+          "secColor": 16,
           "pearlColor": 5,
           "wheelColor": 156,
           "dialsColor": 0,
@@ -105,55 +105,21 @@
           "neonState": 0,
           "livery": -1,
           "windowTint": -1,
-          "wheelType": 0,
+          "wheelType": 3,
           "lowGripTyres": 0,
           "plateIndex": 0,
-          "plate": "81GGZ409",
+          "plate": "40JAZ748",
           "mods": {
             "22": 0
           },
           "extras": {
-            "10": 0,
-            "12": 1
+            "10": 1,
+            "11": 1,
+            "12": 0
           }
         }
       ]
-    },
-    {
-      "name": "贝飞特 施瓦泽",
-      "image": "开局西米恩车店_贝飞特 施瓦泽.png",
-      "specs": [
-        {
-          "label": "主色调",
-          "value": "未知",
-          "isRare": false
-        },
-        {
-          "label": "副色调",
-          "value": "工业深银色",
-          "isRare": true
-        },
-        {
-          "label": "珠光",
-          "value": "磨损银色 / 哑光橙色",
-          "isRare": true
-        }
-      ],
-      "properties": {
-        "获取难度": "★★☆☆☆",
-        "收藏价值": "★★☆☆☆"
-      }
     }
   ],
-  "methods": [
-    {
-      "title": "获取方法",
-      "number": 1,
-      "details": {},
-      "intro": "undefined",
-      "description": "具体操作请参考上方B站视频。",
-      "noteLink": "undefined",
-      "noteText": "undefined"
-    }
-  ]
+  "methods": []
 }
