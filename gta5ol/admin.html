@@ -714,7 +714,12 @@
                     {
                         name: '默认款',
                         image: '',
-                        specs: [],
+                        specs: [
+                            { label: "主色调", value: "" },
+                            { label: "副色调", value: "" },
+                            { label: "轮胎色", value: "" },
+                            { label: "珠光", value: "" }
+                        ],
                         properties: {
                             "入库情况": "直接入库",
                             "获取难度": "★★★☆☆",
@@ -868,7 +873,25 @@
             const accessoryVal = (data && data.accessory) ? data.accessory : '';
             const escapedAccessoryVal = accessoryVal.replace(/"/g, '&quot;');
 
-            const specsHtml = (data && data.specs) ? data.specs.map((s, si) => `
+            // 如果 data 为 null 或 undefined，使用默认值
+            const variantData = data || {
+                name: '新变体',
+                image: '',
+                specs: [
+                    { label: "主色调", value: "" },
+                    { label: "副色调", value: "" },
+                    { label: "轮胎色", value: "" },
+                    { label: "珠光", value: "" }
+                ],
+                properties: {
+                    "入库情况": "直接入库",
+                    "获取难度": "★★★☆☆",
+                    "收藏价值": "★★★☆☆",
+                    "车友会": "完全继承"
+                }
+            };
+
+            const specsHtml = (variantData.specs) ? variantData.specs.map((s, si) => `
                 <div class="spec-group" data-specindex="${si}">
                     <input class="form-control" style="flex:0.7;" placeholder="标签" value="${s.label || ''}">
                     <input class="form-control" placeholder="值" value="${s.value || ''}">
@@ -879,7 +902,7 @@
                 </div>
             `).join('') : '';
 
-            const propsHtml = (data && data.properties) ? Object.entries(data.properties).map(([key, value]) => `
+            const propsHtml = (variantData.properties) ? Object.entries(variantData.properties).map(([key, value]) => `
                 <div class="prop-group">
                     <input class="form-control" style="flex:0.7;" placeholder="键" value="${key}">
                     <input class="form-control" placeholder="值" value="${value}">
@@ -890,8 +913,8 @@
             div.innerHTML = `
                 <button type="button" class="remove-btn" onclick="this.closest('.card-item').remove()">✕</button>
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
-                    <input class="form-control" placeholder="变体名称 (如：铬合金款)" value="${data ? data.name : ''}">
-                    <input class="form-control" placeholder="图片文件名 (如：迪布达2_1.png)" value="${data ? data.image : ''}">
+                    <input class="form-control" placeholder="变体名称 (如：铬合金款)" value="${variantData.name || ''}">
+                    <input class="form-control" placeholder="图片文件名 (如：迪布达2_1.png)" value="${variantData.image || ''}">
                 </div>
                 <div class="sub-label">🎨 规格 (Specs)</div>
                 <div class="specs-wrapper">${specsHtml || '<div style="color:#94a3b8;font-size:0.8rem;padding:4px 0;">暂无规格</div>'}</div>
