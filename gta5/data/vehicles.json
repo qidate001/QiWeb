@@ -240,6 +240,129 @@
         }
       ],
       "methods": []
+    },
+    {
+      "id": "ec2-bright-redlustered-贝飞特-施瓦泽",
+      "name": "EC2 Bright Red/Lustered 贝飞特 施瓦泽",
+      "category": "主线：有借有还",
+      "difficulty": "★★☆☆☆",
+      "description": "请填写描述",
+      "bilibiliVideo": "",
+      "routeImage": "",
+      "update_date": "2026-07-07",
+      "variants": [
+        {
+          "name": "磨损银款",
+          "image": "",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "LS Customs color",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "工业暗银",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "磨损银",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "获取难度": "★★★☆☆",
+            "收藏价值": "★★★☆☆"
+          },
+          "explosion_data": [
+            3548084598,
+            "EC2 Bright Red/Lustered 贝飞特 施瓦泽 (1)",
+            {
+              "priColor": 32,
+              "secColor": 17,
+              "pearlColor": 5,
+              "wheelColor": 156,
+              "dialsColor": 0,
+              "trimColor": 0,
+              "customPriColor": 0,
+              "customSecColor": 0,
+              "tireSmoke": 16777215,
+              "neon": 16711935,
+              "neonState": 0,
+              "livery": -1,
+              "windowTint": -1,
+              "wheelType": 0,
+              "lowGripTyres": 0,
+              "plateIndex": 0,
+              "plate": "62CCA880",
+              "mods": {
+                "22": 0
+              },
+              "extras": {
+                "10": 1,
+                "12": 1
+              }
+            }
+          ]
+        },
+        {
+          "name": "哑光橙款",
+          "image": "",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "LS Customs color",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "工业暗银",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "哑光橙",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "获取难度": "★★★☆☆",
+            "收藏价值": "★★★☆☆"
+          },
+          "explosion_data": [
+            3548084598,
+            "EC2 Bright Red/Lustered 贝飞特 施瓦泽 (2)",
+            {
+              "priColor": 32,
+              "secColor": 17,
+              "pearlColor": 111,
+              "wheelColor": 156,
+              "dialsColor": 0,
+              "trimColor": 0,
+              "customPriColor": 0,
+              "customSecColor": 0,
+              "tireSmoke": 16777215,
+              "neon": 16711935,
+              "neonState": 0,
+              "livery": -1,
+              "windowTint": -1,
+              "wheelType": 0,
+              "lowGripTyres": 0,
+              "plateIndex": 0,
+              "plate": "07QJH398",
+              "mods": {
+                "22": 0
+              },
+              "extras": {
+                "10": 1,
+                "12": 1
+              }
+            }
+          ]
+        }
+      ],
+      "methods": []
     }
   ]
 }
