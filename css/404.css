@@ -1,0 +1,193 @@
+/* 404.css - 404错误页面专用样式 */
+/* 完全基于 style.css 的暗色/亮色主题体系设计 */
+
+/* ===== 404 英雄区 ===== */
+.error-hero {
+    text-align: center;
+    padding: 30px 20px 20px 20px;
+    margin-bottom: 10px;
+}
+
+/* 故障艺术字 */
+.error-glitch {
+    font-size: 8rem;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
+    display: flex;
+    justify-content: center;
+    gap: 0.1em;
+    margin-bottom: 10px;
+    user-select: none;
+}
+
+.glitch-char {
+    display: inline-block;
+    position: relative;
+    color: #e74c3c;
+    text-shadow: 
+        3px 0 0 #3498db,
+        -3px 0 0 #2ecc71,
+        0 0 20px rgba(231, 76, 60, 0.3);
+    animation: glitch-skew 3s infinite linear alternate;
+}
+
+.glitch-char:nth-child(1) {
+    animation-delay: 0.2s;
+}
+.glitch-char:nth-child(2) {
+    animation-delay: 0.5s;
+}
+.glitch-char:nth-child(3) {
+    animation-delay: 0.8s;
+}
+
+@keyframes glitch-skew {
+    0% {
+        transform: skew(0deg) scale(1);
+        text-shadow: 3px 0 0 #3498db, -3px 0 0 #2ecc71;
+    }
+    10% {
+        transform: skew(-3deg) scale(1.02);
+        text-shadow: 5px 0 0 #3498db, -5px 0 0 #2ecc71;
+    }
+    20% {
+        transform: skew(3deg) scale(0.98);
+        text-shadow: -3px 0 0 #3498db, 3px 0 0 #2ecc71;
+    }
+    30% {
+        transform: skew(0deg) scale(1);
+        text-shadow: 3px 0 0 #3498db, -3px 0 0 #2ecc71;
+    }
+    70% {
+        transform: skew(0deg) scale(1);
+        text-shadow: 3px 0 0 #3498db, -3px 0 0 #2ecc71;
+    }
+    80% {
+        transform: skew(-2deg) scale(1.01);
+        text-shadow: 4px 0 0 #3498db, -4px 0 0 #2ecc71;
+    }
+    90% {
+        transform: skew(2deg) scale(0.99);
+        text-shadow: -4px 0 0 #3498db, 4px 0 0 #2ecc71;
+    }
+    100% {
+        transform: skew(0deg) scale(1);
+        text-shadow: 3px 0 0 #3498db, -3px 0 0 #2ecc71;
+    }
+}
+
+.error-sub {
+    font-size: 1.15rem;
+    color: #bdc3c7;
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+    opacity: 0.85;
+}
+
+/* 浅色主题适配 */
+body.light-theme .error-sub {
+    color: #555555;
+}
+
+body.light-theme .glitch-char {
+    color: #c0392b;
+    text-shadow: 
+        3px 0 0 #2980b9,
+        -3px 0 0 #27ae60,
+        0 0 20px rgba(192, 57, 43, 0.2);
+}
+
+body.light-theme .glitch-char:nth-child(1) {
+    text-shadow: 3px 0 0 #2980b9, -3px 0 0 #27ae60;
+}
+body.light-theme .glitch-char:nth-child(2) {
+    text-shadow: -3px 0 0 #2980b9, 3px 0 0 #27ae60;
+}
+body.light-theme .glitch-char:nth-child(3) {
+    text-shadow: 3px 0 0 #2980b9, -3px 0 0 #27ae60;
+}
+
+/* ===== 错误建议卡片容器 ===== */
+.error-suggestions {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* 卡片微调 — 与 GTA5 卡片完全一致，仅增加一些 404 专属点缀 */
+.error-card {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.error-card .card-glow {
+    background: radial-gradient(circle at 30% 30%, rgba(231, 76, 60, 0.08), transparent 70%);
+}
+
+/* 鼠标悬停时额外红色光晕 (仅404卡片) */
+.error-card:hover .card-glow {
+    background: radial-gradient(circle at 30% 30%, rgba(231, 76, 60, 0.18), transparent 70%);
+}
+
+/* ===== 脚注 ===== */
+.error-footnote {
+    margin-top: 25px;
+    padding: 20px 25px;
+    border-top: 1px solid #404040;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    text-align: center;
+}
+
+.error-footnote p {
+    margin: 6px 0;
+    font-size: 0.92rem;
+    color: #95a5a6;
+}
+
+.error-footnote p:first-child {
+    margin-top: 0;
+}
+.error-footnote p:last-child {
+    margin-bottom: 0;
+}
+
+/* 浅色主题脚注 */
+body.light-theme .error-footnote {
+    border-top-color: #d0d0d0;
+    background: rgba(0, 0, 0, 0.02);
+}
+
+body.light-theme .error-footnote p {
+    color: #666666;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 640px) {
+    .error-glitch {
+        font-size: 4.8rem;
+        gap: 0.05em;
+    }
+
+    .error-sub {
+        font-size: 0.95rem;
+    }
+
+    .error-hero {
+        padding: 15px 10px 10px 10px;
+    }
+
+    .error-footnote {
+        padding: 15px 16px;
+    }
+
+    .error-footnote p {
+        font-size: 0.82rem;
+    }
+}
+
+@media (max-width: 420px) {
+    .error-glitch {
+        font-size: 3.6rem;
+    }
+}
