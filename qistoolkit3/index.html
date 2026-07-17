@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/index_style.css">
     <link rel="stylesheet" href="./css/qistoolkit3-page.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <script src="./js/changelog.js" defer></script>
 </head>
 <body>
     <theme-button value="dark" id="btn" size="3"></theme-button>
@@ -38,9 +39,9 @@
             </div> -->
         <!-- </div> -->
 
-        <!-- ====== 下载主干：双栏布局 (沿用index_style的grid思想) ====== -->
+        <!-- ====== 下载主干：双栏布局 ====== -->
         <div class="toolkit-download-grid">
-            <!-- 左侧：Releases 大卡片 (强化) -->
+            <!-- 左侧：Releases 大卡片 -->
             <a href="https://github.com/qidate001/QisToolkit3/releases/tag/v2.9" target="_blank" class="release-big-card">
                 <div class="card-glow"></div>
                 <div class="release-big-content">
@@ -145,31 +146,11 @@
             </div>
         </div>
 
-        <!-- ====== 版本历史 / 更新日志 (折叠风格) ====== -->
+        <!-- 更新日志容器 -->
         <div class="changelog-section">
-            <h3>📋 更新日志 <span style="font-size:0.8rem; font-weight:400; color:#aaa;">v2.9</span></h3>
-            <div class="changelog-list">
-                <div class="log-item">
-                    <span class="log-version">v2.9</span>
-                    <span class="log-date">2026-07-17</span>
-                    <p>• 新增磁盘分析模块 · 优化清理引擎 · 修复已知崩溃</p>
-                </div>
-                <div class="log-item">
-                    <span class="log-version">v2.8</span>
-                    <span class="log-date">2026-06-30</span>
-                    <p>• 界面微调 · 增加深色模式适配 · 提升启动速度</p>
-                </div>
-                <div class="log-item">
-                    <span class="log-version">v2.7</span>
-                    <span class="log-date">2026-06-15</span>
-                    <p>• 重构文件校验模块 · 增加SHA-256支持</p>
-                </div>
-                <div class="log-item more-log" style="display:none;">
-                    <span class="log-version">v2.6</span>
-                    <span class="log-date">2026-05-28</span>
-                    <p>• 添加了系统备份小工具 · 优化内存占用</p>
-                </div>
-                <button class="log-toggle-btn" onclick="toggleLogs()">显示更多</button>
+            <h3>📋 更新日志 <span style="font-size:0.8rem;font-weight:400;color:#aaa;">最新 v2.9.1</span></h3>
+            <div class="changelog-list" id="changelogContainer" data-changelog data-show="5">
+                <!-- 由 JavaScript 动态渲染 -->
             </div>
         </div>
     </main>
