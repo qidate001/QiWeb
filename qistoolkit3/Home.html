@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>首页 · 齐的工具包3</title>
+    <!-- 全局样式 (style.css) 与索引页样式 (index_style, qistoolkit3-page, qistoolkit3-8card) 已在主站引入 -->
+    <!-- 此处额外引入 home-page.css 专门控制本页布局与卡片细节，保持风格一致 -->
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/index_style.css" />
+    <link rel="stylesheet" href="./css/qistoolkit3-page.css" />
+    <link rel="stylesheet" href="./css/qistoolkit3-8card.css" />
+    <link rel="stylesheet" href="./css/home-page.css" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+</head>
+
+<body>
+    <!-- 主题切换按钮（与主站一致） -->
+    <theme-button value="dark" id="btn" size="3"></theme-button>
+
+    <header>
+        <h1>齐的工具包3</h1>
+        <nav>
+            <ul>
+                <li><a href="/index.html">首页</a></li>
+                <li><a href="/about.html">关于我</a></li>
+                <li><a href="/contact.html">联系我</a></li>
+                <li><a href="./index.html">返回齐的工具包3专区</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="toolkit-special-page home-main">
+        <h2>
+            <a href="./qistoolkit3/index.html" style="text-decoration: none;">🏠 首页 </a>
+            <!-- <span style="font-size:0.7rem;font-weight:400;color:#aaa;margin-left:12px;">v2.9</span> -->
+        </h2>
+        <!-- ====== 页眉区 ====== -->
+        <!-- <div class="toolkit-hero home-hero">
+            <div class="toolkit-hero-icon">⌨️</div> -->
+        <!-- <h2>首页</h2>
+            <p class="hero-sub">Ctrl / Alt + 数字 · 极速启动系统工具</p> -->
+        <!-- <div class="hero-badges"> -->
+        <!-- <span class="badge">🔓 完全免费</span>
+                <span class="badge">⚡ 全局热键</span>
+                <span class="badge">🔄 即呼即应</span> -->
+        <!-- </div> -->
+        <!-- </div> -->
+
+        <!-- ====== 快捷键总览 ====== -->
+        <div class="shortcut-section">
+            <!-- 左侧说明卡片 + 右侧快捷键网格 (类似 index 双栏) -->
+            <div class="shortcut-grid-container">
+                <!-- 左侧：特色说明卡 -->
+                <div class="shortcut-info-card">
+                    <div class="card-glow"></div>
+                    <div class="info-content">
+                        <span class="info-icon">💡</span>
+                        <h3>全局热键</h3>
+                        <p>按下 <kbd>Ctrl</kbd> + <kbd>Space</kbd> 即可显示此列表。</p>
+                        <!-- <div class="info-tag">系统级 · 即时应答</div> -->
+                    </div>
+                </div>
+
+                <!-- 右侧：快捷键网格 (2x2 或自适应) -->
+                <div class="shortcut-grid">
+                    <!-- 1. Ctrl + 数字 (常规) -->
+                    <div class="shortcut-group">
+                        <h4 class="group-title"><span class="group-icon">🔓</span> Ctrl + 数字 <span
+                                class="perm-badge">常规权限</span></h4>
+                        <ul class="shortcut-list">
+                            <li><kbd>Ctrl+1</kbd> 命令提示符 (CMD)</li>
+                            <li><kbd>Ctrl+2</kbd> PowerShell</li>
+                            <li><kbd>Ctrl+3</kbd> 任务管理器</li>
+                            <li><kbd>Ctrl+4</kbd> <span class="empty-placeholder">（预留）</span></li>
+                            <li><kbd>Ctrl+5</kbd> <span class="empty-placeholder">（预留）</span></li>
+                            <li><kbd>Ctrl+6</kbd> <span class="empty-placeholder">（预留）</span></li>
+                            <li><kbd>Ctrl+7</kbd> <span class="empty-placeholder">（预留）</span></li>
+                            <li><kbd>Ctrl+8</kbd> <span class="empty-placeholder">（预留）</span></li>
+                            <li><kbd>Ctrl+9</kbd> <span class="empty-placeholder">（预留）</span></li>
+                            <li><kbd>Ctrl+0</kbd> <span class="empty-placeholder">（预留）</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- 2. Alt + 数字 (System权限) -->
+                    <div class="shortcut-group">
+                        <h4 class="group-title"><span class="group-icon">🔑</span> Alt + 数字 <span
+                                class="perm-badge system">System权限</span></h4>
+                        <ul class="shortcut-list">
+                            <li><kbd>Alt+1</kbd> System 命令提示符</li>
+                            <li><kbd>Alt+2</kbd> System PowerShell</li>
+                            <li><kbd>Alt+3</kbd> System 任务管理器</li>
+                            <li><kbd>Alt+4</kbd> <span class="empty-placeholder">（预留）</span></li>
+                            <li><kbd>Alt+5</kbd> <span class="empty-placeholder">（预留）</span></li>
+                            <li><kbd>Alt+6</kbd> <span class="empty-placeholder">（预留）</span></li>
+                            <li><kbd>Alt+7</kbd> <span class="empty-placeholder">（预留）</span></li>
+                            <li><kbd>Alt+8</kbd> <span class="empty-placeholder">（预留）</span></li>
+                            <li><kbd>Alt+9</kbd> <span class="empty-placeholder">（预留）</span></li>
+                            <li><kbd>Alt+0</kbd> <span class="empty-placeholder">（预留）</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- 3. 特殊快捷键 -->
+                    <div class="shortcut-group special-group">
+                        <h4 class="group-title"><span class="group-icon">⚡</span> 特殊快捷键</h4>
+                        <ul class="shortcut-list">
+                            <li><kbd>Ctrl+S</kbd> SPL 启动器</li>
+                            <li><kbd>Ctrl+Space</kbd> <strong>显示此列表</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== 辅助说明：权限解释 ====== -->
+        <div class="toolkit-legal-bar home-legal">
+            <p>
+                <span style="color: #8bc34a;">🔓 常规权限</span> · 以当前用户身份运行
+                <span style="margin-left: 24px; color: #f0c27a;">🔑 System权限</span> · 最高系统级权限 (比管理员更高)
+            </p>
+            <p style="margin-top: 6px; font-size: 0.9rem; opacity: 0.7;">
+                <kbd>Ctrl+Space</kbd> 为全局呼出键 · 无论工具包在何处，一键唤醒快捷键列表。
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </footer>
+</body>
+
+</html>
