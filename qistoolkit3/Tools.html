@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>万能工具 · 齐的工具包3</title>
-    <!-- 复用主站全局样式 + 本页专用 tools-page.css -->
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/index_style.css" />
     <link rel="stylesheet" href="./css/qistoolkit3-page.css" />
@@ -16,7 +15,6 @@
 </head>
 
 <body>
-    <!-- 主题切换按钮 -->
     <theme-button value="dark" id="btn" size="3"></theme-button>
 
     <header>
@@ -32,139 +30,238 @@
     </header>
 
     <main class="toolkit-special-page tools-main">
-        <!-- 页面标题 -->
-        <!-- <div class="tools-hero">
-            <div class="tools-hero-icon">🔧</div>
-            <h2>万能工具</h2>
-            <p class="hero-sub">原创工具 · 三大层级 · 数十项实用功能</p>
-            <div class="hero-badges">
-                <span class="badge">⚙️ 基础工具</span>
-                <span class="badge">🚀 高级工具</span>
-                <span class="badge">🎲 娱乐工具</span>
-            </div>
-        </div> -->
-
         <h2>
-            <a href="./index.html" style="text-decoration: none;">🏠 万能工具 </a>
-            <!-- <span style="font-size:0.7rem;font-weight:400;color:#aaa;margin-left:12px;">v2.9</span> -->
+            <a href="./index.html" style="text-decoration: none;">🔧 万能工具</a>
         </h2>
 
-        <!-- ====== 三层结构 ====== -->
+        <!-- ====== 工具层级容器 ====== -->
         <div class="tools-layer-container">
 
-            <!-- 第一层：基础工具 -->
+            <!-- 第一层：原创工具 -->
             <div class="tools-layer">
                 <div class="layer-header">
-                    <span class="layer-icon">⚙️</span>
-                    <h3>基础工具</h3>
-                    <span class="layer-badge">常用 · 系统维护</span>
+                    <span class="layer-icon">🛠️</span>
+                    <h3>原创工具</h3>
+                    <span class="layer-badge">自研 · 核心</span>
                 </div>
-                <div class="tools-grid">
-                    <a href="#" class="tool-item" data-tool="常用普通功能工具">
-                        <span class="tool-icon">🛠️</span>
-                        <span class="tool-name">常用普通功能工具</span>
-                        <span class="tool-arrow">➜</span>
-                    </a>
-                    <a href="#" class="tool-item" data-tool="文本处理">
-                        <span class="tool-icon">📝</span>
-                        <span class="tool-name">文本处理</span>
-                        <span class="tool-arrow">➜</span>
-                    </a>
-                    <a href="#" class="tool-item" data-tool="系统错误检测工具">
-                        <span class="tool-icon">🔍</span>
-                        <span class="tool-name">系统错误检测工具</span>
-                        <span class="tool-arrow">➜</span>
-                    </a>
-                    <a href="#" class="tool-item" data-tool="流氓软件扫描工具">
-                        <span class="tool-icon">🛡️</span>
-                        <span class="tool-name">流氓软件扫描工具</span>
-                        <span class="tool-arrow">➜</span>
-                    </a>
-                    <a href="#" class="tool-item" data-tool="批量重命名工具">
-                        <span class="tool-icon">📁</span>
-                        <span class="tool-name">批量重命名工具</span>
-                        <span class="tool-arrow">➜</span>
-                    </a>
-                    <a href="#" class="tool-item" data-tool="任务管理器">
-                        <span class="tool-icon">📊</span>
-                        <span class="tool-name">任务管理器</span>
-                        <span class="tool-arrow">➜</span>
-                    </a>
+
+                <!-- 子层级：基础工具 -->
+                <div class="tools-sub-layer">
+                    <div class="sub-layer-header">
+                        <span class="sub-icon">📦</span>
+                        <span class="sub-title">基础工具</span>
+                        <span class="sub-badge">常用功能</span>
+                    </div>
+                    <div class="tools-grid">
+                        <a href="#" class="tool-item" data-tool="常用普通功能工具">
+                            <span class="tool-icon">🛠️</span>
+                            <span class="tool-name">常用普通功能工具</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                        <a href="#" class="tool-item" data-tool="文本处理">
+                            <span class="tool-icon">📝</span>
+                            <span class="tool-name">文本处理</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                        <a href="#" class="tool-item" data-tool="系统错误检测工具">
+                            <span class="tool-icon">🔍</span>
+                            <span class="tool-name">系统错误检测工具</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                        <a href="#" class="tool-item" data-tool="流氓软件扫描工具">
+                            <span class="tool-icon">🛡️</span>
+                            <span class="tool-name">流氓软件扫描工具</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                        <a href="#" class="tool-item" data-tool="批量重命名工具">
+                            <span class="tool-icon">📁</span>
+                            <span class="tool-name">批量重命名工具</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                        <a href="#" class="tool-item" data-tool="任务管理器">
+                            <span class="tool-icon">📊</span>
+                            <span class="tool-name">任务管理器</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 子层级：高级工具 -->
+                <div class="tools-sub-layer">
+                    <div class="sub-layer-header">
+                        <span class="sub-icon">🚀</span>
+                        <span class="sub-title">高级工具</span>
+                        <span class="sub-badge advanced">系统级</span>
+                    </div>
+                    <div class="tools-grid">
+                        <a href="#" class="tool-item" data-tool="高级修改系统工具">
+                            <span class="tool-icon">⚡</span>
+                            <span class="tool-name">高级修改系统工具</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                        <a href="#" class="tool-item" data-tool="IFEO映像劫持工具">
+                            <span class="tool-icon">🎯</span>
+                            <span class="tool-name">IFEO映像劫持工具</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                        <a href="#" class="tool-item" data-tool="发送Windows消息工具">
+                            <span class="tool-icon">💬</span>
+                            <span class="tool-name">发送Windows消息工具</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                        <a href="#" class="tool-item" data-tool="此电脑命名空间工具">
+                            <span class="tool-icon">🖥️</span>
+                            <span class="tool-name">此电脑命名空间工具</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                        <a href="#" class="tool-item" data-tool="程序卸载注册表项工具">
+                            <span class="tool-icon">🗑️</span>
+                            <span class="tool-name">程序卸载注册表项工具</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                        <a href="#" class="tool-item" data-tool="中等优先级自启动项工具">
+                            <span class="tool-icon">⏫</span>
+                            <span class="tool-name">中等优先级自启动项工具</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                        <a href="#" class="tool-item" data-tool="Shell文件夹重定向工具">
+                            <span class="tool-icon">📂</span>
+                            <span class="tool-name">Shell文件夹重定向工具</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                        <a href="#" class="tool-item" data-tool="系统权限启动器（SPL）">
+                            <span class="tool-icon">🔑</span>
+                            <span class="tool-name">系统权限启动器（SPL）</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                        <a href="#" class="tool-item" data-tool="系统服务工具">
+                            <span class="tool-icon">⚙️</span>
+                            <span class="tool-name">系统服务工具</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 子层级：娱乐工具 -->
+                <div class="tools-sub-layer">
+                    <div class="sub-layer-header">
+                        <span class="sub-icon">🎲</span>
+                        <span class="sub-title">娱乐工具</span>
+                        <span class="sub-badge fun">趣味</span>
+                    </div>
+                    <div class="tools-grid">
+                        <a href="#" class="tool-item" data-tool="获取随机短句（一言）">
+                            <span class="tool-icon">💬</span>
+                            <span class="tool-name">获取随机短句（一言）</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                        <a href="#" class="tool-item" data-tool="随机垃圾笑话（JokeAPI）">
+                            <span class="tool-icon">😂</span>
+                            <span class="tool-name">随机垃圾笑话（JokeAPI）</span>
+                            <span class="tool-arrow">➜</span>
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <!-- 第二层：高级工具 -->
-            <div class="tools-layer">
+            <!-- 第二层：系统工具（已弃用） -->
+            <div class="tools-layer deprecated-layer">
                 <div class="layer-header">
-                    <span class="layer-icon">🚀</span>
-                    <h3>高级工具</h3>
-                    <span class="layer-badge advanced">系统级 · 高阶操作</span>
+                    <span class="layer-icon">⚠️</span>
+                    <h3>系统工具</h3>
+                    <span class="layer-badge deprecated">已弃用</span>
                 </div>
                 <div class="tools-grid">
-                    <a href="#" class="tool-item" data-tool="高级修改系统工具">
-                        <span class="tool-icon">⚡</span>
-                        <span class="tool-name">高级修改系统工具</span>
-                        <span class="tool-arrow">➜</span>
-                    </a>
-                    <a href="#" class="tool-item" data-tool="IFEO映像劫持工具">
-                        <span class="tool-icon">🎯</span>
-                        <span class="tool-name">IFEO映像劫持工具</span>
-                        <span class="tool-arrow">➜</span>
-                    </a>
-                    <a href="#" class="tool-item" data-tool="发送Windows消息工具">
-                        <span class="tool-icon">💬</span>
-                        <span class="tool-name">发送Windows消息工具</span>
-                        <span class="tool-arrow">➜</span>
-                    </a>
-                    <a href="#" class="tool-item" data-tool="此电脑命名空间工具">
-                        <span class="tool-icon">🖥️</span>
-                        <span class="tool-name">此电脑命名空间工具</span>
-                        <span class="tool-arrow">➜</span>
-                    </a>
-                    <a href="#" class="tool-item" data-tool="程序卸载注册表项工具">
-                        <span class="tool-icon">🗑️</span>
-                        <span class="tool-name">程序卸载注册表项工具</span>
-                        <span class="tool-arrow">➜</span>
-                    </a>
-                    <a href="#" class="tool-item" data-tool="中等优先级自启动项工具">
-                        <span class="tool-icon">⏫</span>
-                        <span class="tool-name">中等优先级自启动项工具</span>
-                        <span class="tool-arrow">➜</span>
-                    </a>
-                    <a href="#" class="tool-item" data-tool="Shell文件夹重定向工具">
-                        <span class="tool-icon">📂</span>
-                        <span class="tool-name">Shell文件夹重定向工具</span>
-                        <span class="tool-arrow">➜</span>
-                    </a>
-                    <a href="#" class="tool-item" data-tool="系统权限启动器（SPL）">
-                        <span class="tool-icon">🔑</span>
-                        <span class="tool-name">系统权限启动器（SPL）</span>
-                        <span class="tool-arrow">➜</span>
-                    </a>
-                    <a href="#" class="tool-item" data-tool="系统服务工具">
+                    <a href="#" class="tool-item deprecated-item" data-tool="系统设置（已弃用）">
                         <span class="tool-icon">⚙️</span>
-                        <span class="tool-name">系统服务工具</span>
+                        <span class="tool-name">系统设置 <span class="deprecated-tag">已弃用</span></span>
+                        <span class="tool-arrow">➜</span>
+                    </a>
+                    <a href="#" class="tool-item deprecated-item" data-tool="系统修改（已弃用）">
+                        <span class="tool-icon">🔧</span>
+                        <span class="tool-name">系统修改 <span class="deprecated-tag">已弃用</span></span>
+                        <span class="tool-arrow">➜</span>
+                    </a>
+                    <a href="#" class="tool-item deprecated-item" data-tool="系统软件（半弃用）">
+                        <span class="tool-icon">🖥️</span>
+                        <span class="tool-name">系统软件 <span class="deprecated-tag half">半弃用</span></span>
+                        <span class="tool-arrow">➜</span>
+                    </a>
+                    <a href="#" class="tool-item deprecated-item" data-tool="系统程序（已弃用）">
+                        <span class="tool-icon">📦</span>
+                        <span class="tool-name">系统程序 <span class="deprecated-tag">已弃用</span></span>
+                        <span class="tool-arrow">➜</span>
+                    </a>
+                    <a href="#" class="tool-item deprecated-item" data-tool="命令行命令（半弃用）">
+                        <span class="tool-icon">⌨️</span>
+                        <span class="tool-name">命令行命令 <span class="deprecated-tag half">半弃用</span></span>
                         <span class="tool-arrow">➜</span>
                     </a>
                 </div>
             </div>
 
-            <!-- 第三层：娱乐工具 -->
+            <!-- 第三层：软件工具 -->
             <div class="tools-layer">
                 <div class="layer-header">
-                    <span class="layer-icon">🎲</span>
-                    <h3>娱乐工具</h3>
-                    <span class="layer-badge fun">趣味 · 放松</span>
+                    <span class="layer-icon">📦</span>
+                    <h3>软件工具</h3>
+                    <span class="layer-badge">针对第三方软件的功能</span>
                 </div>
                 <div class="tools-grid">
-                    <a href="#" class="tool-item" data-tool="获取随机短句（一言）">
-                        <span class="tool-icon">💬</span>
-                        <span class="tool-name">获取随机短句（一言）</span>
+                    <a href="#" class="tool-item" data-tool="第三方软件功能页">
+                        <span class="tool-icon">📋</span>
+                        <span class="tool-name">第三方软件功能页</span>
                         <span class="tool-arrow">➜</span>
                     </a>
-                    <a href="#" class="tool-item" data-tool="随机垃圾笑话（JokeAPI）">
-                        <span class="tool-icon">😂</span>
-                        <span class="tool-name">随机垃圾笑话（JokeAPI）</span>
+                </div>
+            </div>
+
+            <!-- 第四层：第三方工具 & 特殊工具 -->
+            <div class="tools-layer">
+                <div class="layer-header">
+                    <span class="layer-icon">🔗</span>
+                    <h3>第三方工具 &amp; 特殊工具</h3>
+                    <span class="layer-badge external">外部 · 集成</span>
+                </div>
+                <div class="tools-grid">
+                    <a href="#" class="tool-item" data-tool="IDM激活工具">
+                        <span class="tool-icon">⬇️</span>
+                        <span class="tool-name">IDM激活工具</span>
+                        <span class="tool-arrow">➜</span>
+                    </a>
+                    <a href="#" class="tool-item" data-tool="MAS激活工具">
+                        <span class="tool-icon">🔑</span>
+                        <span class="tool-name">MAS激活工具</span>
+                        <span class="tool-arrow">➜</span>
+                    </a>
+                    <a href="#" class="tool-item" data-tool="Yt-Dlp工具">
+                        <span class="tool-icon">🎬</span>
+                        <span class="tool-name">Yt-Dlp工具</span>
+                        <span class="tool-arrow">➜</span>
+                    </a>
+                    <a href="#" class="tool-item" data-tool="FFmpeg工具">
+                        <span class="tool-icon">🎞️</span>
+                        <span class="tool-name">FFmpeg工具</span>
+                        <span class="tool-arrow">➜</span>
+                    </a>
+                    <a href="#" class="tool-item" data-tool="Geek工具">
+                        <span class="tool-icon">🧹</span>
+                        <span class="tool-name">Geek工具</span>
+                        <span class="tool-arrow">➜</span>
+                    </a>
+                    <a href="#" class="tool-item external-link" data-tool="Unlock-Music">
+                        <span class="tool-icon">🎵</span>
+                        <span class="tool-name">Unlock-Music <span class="external-tag">跳转网页</span></span>
+                        <span class="tool-arrow">➜</span>
+                    </a>
+                    <a href="#" class="tool-item external-link" data-tool="Paywall Buster">
+                        <span class="tool-icon">📰</span>
+                        <span class="tool-name">Paywall Buster <span class="external-tag">跳转网页</span></span>
+                        <span class="tool-arrow">➜</span>
+                    </a>
+                    <a href="#" class="tool-item" data-tool="齐的工具包3行生——迫害系统娱乐程序">
+                        <span class="tool-icon">🎭</span>
+                        <span class="tool-name">齐的工具包3行生——迫害系统娱乐程序 <span class="external-tag">未发布</span></span>
                         <span class="tool-arrow">➜</span>
                     </a>
                 </div>
@@ -172,14 +269,12 @@
 
         </div>
 
-        <!-- ====== 辅助信息：提示 ====== -->
+        <!-- ====== 辅助信息 ====== -->
         <div class="toolkit-legal-bar tools-legal">
             <p>
                 <span style="color: #8bc34a;">💡 点击任一工具卡片</span> 将跳转至对应功能页面（开发中）。
             </p>
-
             <p style="margin-top: 6px; font-size: 0.9rem; opacity: 0.6; color: #aaa;">
-                🛠️ 所有工具均为原创，持续更新中。<br/>
                 🔒 高级工具涉及系统底层操作，请谨慎使用。
             </p>
         </div>
@@ -190,9 +285,7 @@
         <script>
             document.getElementById('year').textContent = new Date().getFullYear();
 
-            // ========== 动态设置版本号 ==========
             document.addEventListener('DOMContentLoaded', function() {
-                // 用 ID 选择器匹配
                 const versionBadge = document.getElementById('versionBadge');
                 if (versionBadge && typeof APP_CONFIG !== 'undefined') {
                     versionBadge.textContent = APP_CONFIG.version;
