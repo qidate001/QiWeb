@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./css/qistoolkit3-8card.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <script src="./js/changelog.js" defer></script>
+    <script src="/js/config.js"></script>
 </head>
 
 <body>
@@ -18,7 +19,7 @@
 
     <header>
         <!-- <h1>🧰 齐的工具包3</h1> -->
-        <h1>齐的工具包3 <span class="version-badge">v2.9</span></h2>
+        <h1>齐的工具包3 <span class="version-badge">未知</span></h1>
             <nav>
                 <ul>
                     <li><a href="/index.html">首页</a></li>
@@ -44,9 +45,8 @@
 
         <!-- ====== 下载主干：双栏布局 ====== -->
         <div class="toolkit-download-grid">
-            <!-- 左侧：Releases 大卡片 -->
-            <a href="https://github.com/qidate001/QisToolkit3/releases/tag/v2.9" target="_blank"
-                class="release-big-card">
+            <!-- Releases 大卡片 -->
+            <a id="releaseCard" href="#" target="_blank" class="release-big-card">
                 <div class="card-glow"></div>
                 <div class="release-big-content">
                     <div class="big-icon">📦</div>
@@ -56,11 +56,9 @@
                 </div>
             </a>
 
-            <!-- 右侧：四个下载卡片 (2x2) 沿用 index_style 配色 -->
+            <!-- 右侧四个下载卡片 -->
             <div class="download-grid-4">
-                <!-- 完整版 EXE -->
-                <a href="https://github.com/qidate001/QisToolkit3/releases/download/v2.9/QisToolkit3-v2.9-Full.exe"
-                    target="_blank" class="dl-card card-exe">
+                <a id="dlFullExe" href="#" target="_blank" class="dl-card card-exe">
                     <div class="card-glow"></div>
                     <div class="dl-card-icon">⚡</div>
                     <div class="dl-card-content">
@@ -69,9 +67,8 @@
                     </div>
                     <div class="card-arrow">➜</div>
                 </a>
-                <!-- 完整版 RAR -->
-                <a href="https://github.com/qidate001/QisToolkit3/releases/download/v2.9/QisToolkit3-v2.9-Full.rar"
-                    target="_blank" class="dl-card card-rar">
+
+                <a id="dlFullRar" href="#" target="_blank" class="dl-card card-rar">
                     <div class="card-glow"></div>
                     <div class="dl-card-icon">🗜️</div>
                     <div class="dl-card-content">
@@ -80,9 +77,8 @@
                     </div>
                     <div class="card-arrow">➜</div>
                 </a>
-                <!-- 基础版 EXE -->
-                <a href="https://github.com/qidate001/QisToolkit3/releases/download/v2.9/QisToolkit3-v2.9-Lite.exe"
-                    target="_blank" class="dl-card card-lite-exe">
+
+                <a id="dlLiteExe" href="#" target="_blank" class="dl-card card-lite-exe">
                     <div class="card-glow"></div>
                     <div class="dl-card-icon">🔹</div>
                     <div class="dl-card-content">
@@ -91,9 +87,8 @@
                     </div>
                     <div class="card-arrow">➜</div>
                 </a>
-                <!-- 基础版 RAR -->
-                <a href="https://github.com/qidate001/QisToolkit3/releases/download/v2.9/QisToolkit3-v2.9-Lite.rar"
-                    target="_blank" class="dl-card card-lite-rar">
+
+                <a id="dlLiteRar" href="#" target="_blank" class="dl-card card-lite-rar">
                     <div class="card-glow"></div>
                     <div class="dl-card-icon">📁</div>
                     <div class="dl-card-content">
@@ -109,22 +104,22 @@
         <div class="toolkit-legal-bar">
             <p>
                 <span style="color: #8bc34a;">💡 本软件完全免费</span> ·
-                <a href="https://github.com/qidate001/QisToolkit3/blob/main/LICENSE" target="_blank"
+                <a id="licenseLink" href="#" target="_blank"
                     style="color: #64b5f6; text-decoration: underline;">完全开源</a>
                 ！
                 <span style="color: #aaa; font-weight: 300;">
                     若难以访问 GitHub，可尝试
-                    <a href="https://pan.baidu.com/s/1XTg3X1aTYdIP1Q11YZ0fiQ?pwd=qinb" target="_blank"
+                    <a id="baiduLink" href="#" target="_blank"
                         style="color: #64b5f6; text-decoration: underline;">百度网盘</a>
                     ，但仍推荐从
-                    <a href="https://github.com/qidate001/QisToolkit3/releases" target="_blank"
+                    <a id="githubLink" href="#" target="_blank"
                         style="color: #64b5f6; text-decoration: underline;">GitHub Releases</a>
                     下载最新版本。
                 </span>
             </p>
             <p style="margin-top: 8px; font-size: 0.95rem;">
                 <strong style="color: #f0c27a;">📌 若您点击下载或安装本软件，表示您已阅读、理解并同意
-                    <a href="./docs/QisToolkit3_EULA.html" target="_blank"
+                    <a id="eulaLink" href="#" target="_blank"
                         style="color: #64b5f6; text-decoration: underline;">EULA</a>
                     中所述所有条款。若不同意，请勿下载本软件。
                 </strong>
@@ -213,6 +208,28 @@
                     btn.textContent = '显示更多';
                 }
             }
+
+            // 设置所有链接
+            document.addEventListener('DOMContentLoaded', function () {
+                // 设置版本号显示
+                const versionBadge = document.querySelector('.version-badge');
+                if (versionBadge) {
+                    versionBadge.textContent = APP_CONFIG.version;
+                }
+
+                // 设置所有下载链接
+                document.getElementById('releaseCard').href = APP_CONFIG.urls.release;
+                document.getElementById('dlFullExe').href = APP_CONFIG.urls.fullExe;
+                document.getElementById('dlFullRar').href = APP_CONFIG.urls.fullRar;
+                document.getElementById('dlLiteExe').href = APP_CONFIG.urls.liteExe;
+                document.getElementById('dlLiteRar').href = APP_CONFIG.urls.liteRar;
+
+                // 设置辅助链接
+                document.getElementById('licenseLink').href = APP_CONFIG.urls.license;
+                document.getElementById('baiduLink').href = APP_CONFIG.urls.baiduPan;
+                document.getElementById('githubLink').href = APP_CONFIG.urls.github;
+                document.getElementById('eulaLink').href = APP_CONFIG.urls.eula;
+            });
         </script>
     </footer>
 </body>

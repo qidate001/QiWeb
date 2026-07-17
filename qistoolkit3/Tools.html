@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./css/qistoolkit3-8card.css" />
     <link rel="stylesheet" href="./css/tools-page.css" />
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <script src="/js/config.js"></script>
 </head>
 
 <body>
@@ -19,20 +20,20 @@
     <theme-button value="dark" id="btn" size="3"></theme-button>
 
     <header>
-        <h1>齐的工具包3 <span class="version-badge">v2.9</span></h1>
+        <h1>齐的工具包3 <span class="version-badge" id="versionBadge">#</span></h1>
         <nav>
             <ul>
                 <li><a href="/index.html">首页</a></li>
                 <li><a href="/about.html">关于我</a></li>
                 <li><a href="/contact.html">联系我</a></li>
-                <li><a href="./index.html">返回齐的工具包3专区</a></li>
+                <li><a href="./index.html">返回专区</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="toolkit-special-page tools-main">
         <!-- 页面标题 -->
-        <div class="tools-hero">
+        <!-- <div class="tools-hero">
             <div class="tools-hero-icon">🔧</div>
             <h2>万能工具</h2>
             <p class="hero-sub">原创工具 · 三大层级 · 数十项实用功能</p>
@@ -41,7 +42,12 @@
                 <span class="badge">🚀 高级工具</span>
                 <span class="badge">🎲 娱乐工具</span>
             </div>
-        </div>
+        </div> -->
+
+        <h2>
+            <a href="./index.html" style="text-decoration: none;">🏠 万能工具 </a>
+            <!-- <span style="font-size:0.7rem;font-weight:400;color:#aaa;margin-left:12px;">v2.9</span> -->
+        </h2>
 
         <!-- ====== 三层结构 ====== -->
         <div class="tools-layer-container">
@@ -170,69 +176,12 @@
         <div class="toolkit-legal-bar tools-legal">
             <p>
                 <span style="color: #8bc34a;">💡 点击任一工具卡片</span> 将跳转至对应功能页面（开发中）。
-                <span style="color: #aaa; margin-left: 16px;">🛠️ 所有工具均为原创，持续更新中。</span>
             </p>
-            <p style="margin-top: 6px; font-size: 0.9rem; opacity: 0.6;">
+
+            <p style="margin-top: 6px; font-size: 0.9rem; opacity: 0.6; color: #aaa;">
+                🛠️ 所有工具均为原创，持续更新中。<br/>
                 🔒 高级工具涉及系统底层操作，请谨慎使用。
             </p>
-        </div>
-
-        <!-- ====== 八大核心 (复用 features-grid, 与 index 一致) ====== -->
-        <div class="toolkit-features">
-            <h3>✨ 八大核心</h3>
-            <div class="features-grid">
-                <!-- 1. 首页 -->
-                <a href="./Home.html" class="feature-card">
-                    <span class="feature-icon">🏠</span>
-                    <h4>首页</h4>
-                    <p>快捷键功能</p>
-                    <span class="feature-tag">Ctrl+Space</span>
-                </a>
-                <!-- 2. 文件操作 -->
-                <a href="./FilesOperation.html" class="feature-card">
-                    <span class="feature-icon">📂</span>
-                    <h4>文件操作</h4>
-                    <p>IO相关操作</p>
-                </a>
-                <!-- 3. 文本生成 -->
-                <a href="./TextGenerate.html" class="feature-card">
-                    <span class="feature-icon">📝</span>
-                    <h4>文本生成</h4>
-                    <p>已过时 · 练手作品</p>
-                </a>
-                <!-- 4. 清理垃圾 -->
-                <a href="./CleaningUpTrash.html" class="feature-card">
-                    <span class="feature-icon">🧹</span>
-                    <h4>清理垃圾</h4>
-                    <p>一键扫描 · 快速清理</p>
-                </a>
-                <!-- 5. 万能工具 (当前高亮) -->
-                <a href="./Tools.html" class="feature-card active-card">
-                    <span class="feature-icon">🔧</span>
-                    <h4>万能工具</h4>
-                    <p>本工具包的核心模块</p>
-                    <span class="feature-tag">yt-dlp · FFmpeg</span>
-                </a>
-                <!-- 6. 游戏工具 -->
-                <a href="./GameTools.html" class="feature-card">
-                    <span class="feature-icon">🎮</span>
-                    <h4>游戏工具</h4>
-                    <p>《问身 问己 问心》</p>
-                </a>
-                <!-- 7. 奇葩问答 -->
-                <a href="./StrangeQuestionAndAnswer.html" class="feature-card">
-                    <span class="feature-icon">❓</span>
-                    <h4>奇葩问答</h4>
-                    <p>趣味游戏 · 海量题库</p>
-                    <span class="feature-tag">500+ 题</span>
-                </a>
-                <!-- 8. 软件设置 -->
-                <a href="./Options.html" class="feature-card">
-                    <span class="feature-icon">⚙️</span>
-                    <h4>软件设置</h4>
-                    <p>扩展管理 · 下载渠道</p>
-                </a>
-            </div>
         </div>
     </main>
 
@@ -240,6 +189,15 @@
         <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
         <script>
             document.getElementById('year').textContent = new Date().getFullYear();
+
+            // ========== 动态设置版本号 ==========
+            document.addEventListener('DOMContentLoaded', function() {
+                // 用 ID 选择器匹配
+                const versionBadge = document.getElementById('versionBadge');
+                if (versionBadge && typeof APP_CONFIG !== 'undefined') {
+                    versionBadge.textContent = APP_CONFIG.version;
+                }
+            });
         </script>
     </footer>
 </body>

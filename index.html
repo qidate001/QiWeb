@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="./css/gta5lo.css" />
   <link rel="stylesheet" href="./qistoolkit3/css/qistoolkit3-page.css" />
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+  <script src="/js/config.js"></script>
 </head>
 
 <body>
@@ -28,14 +29,13 @@
   <main>
     <!-- ========== 齐的工具包3 下载区 ========== -->
     <h2>
-      <a href="./qistoolkit3/index.html" style="text-decoration: none;">🛠️ 齐的工具包3 </a>
-      <span style="font-size:0.7rem;font-weight:400;color:#aaa;margin-left:12px;">v2.9</span>
+      <a id="toolkitHomeLink" href="./qistoolkit3" style="text-decoration: none;">🛠️ 齐的工具包3 </a>
+      <span id="toolkitVersion" style="font-size:0.7rem;font-weight:400;color:#aaa;margin-left:12px;">#</span>
     </h2>
 
     <div class="toolkit-grid">
       <!-- ===== 左侧：Releases 大卡片 ===== -->
-      <a href="https://github.com/qidate001/QisToolkit3/releases/tag/v2.9" target="_blank"
-        class="toolkit-card card-release-big">
+      <a id="releaseCard" href="#" target="_blank" class="toolkit-card card-release-big">
         <div class="card-glow"></div>
         <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 0;">
           <div style="font-size:3.2rem;margin-bottom:8px;">📦</div>
@@ -48,8 +48,7 @@
       <!-- ===== 右侧：四个版本卡片 ===== -->
       <div class="toolkit-right-grid">
         <!-- 完整版 EXE -->
-        <a href="https://github.com/qidate001/QisToolkit3/releases/download/v2.9/QisToolkit3-v2.9-Full.exe"
-          target="_blank" class="toolkit-card card-exe">
+        <a id="dlFullExe" href="#" target="_blank" class="toolkit-card card-exe">
           <div class="card-glow"></div>
           <div class="toolkit-card-icon">⚡</div>
           <div class="toolkit-card-content">
@@ -60,8 +59,7 @@
         </a>
 
         <!-- 完整版 RAR -->
-        <a href="https://github.com/qidate001/QisToolkit3/releases/download/v2.9/QisToolkit3-v2.9-Full.rar"
-          target="_blank" class="toolkit-card card-rar">
+        <a id="dlFullRar" href="#" target="_blank" class="toolkit-card card-rar">
           <div class="card-glow"></div>
           <div class="toolkit-card-icon">🗜️</div>
           <div class="toolkit-card-content">
@@ -72,8 +70,7 @@
         </a>
 
         <!-- 基础版 EXE -->
-        <a href="https://github.com/qidate001/QisToolkit3/releases/download/v2.9/QisToolkit3-v2.9-Lite.exe"
-          target="_blank" class="toolkit-card card-lite-exe">
+        <a id="dlLiteExe" href="#" target="_blank" class="toolkit-card card-lite-exe">
           <div class="card-glow"></div>
           <div class="toolkit-card-icon">🔹</div>
           <div class="toolkit-card-content">
@@ -84,8 +81,7 @@
         </a>
 
         <!-- 基础版 RAR -->
-        <a href="https://github.com/qidate001/QisToolkit3/releases/download/v2.9/QisToolkit3-v2.9-Lite.rar"
-          target="_blank" class="toolkit-card card-lite-rar">
+        <a id="dlLiteRar" href="#" target="_blank" class="toolkit-card card-lite-rar">
           <div class="card-glow"></div>
           <div class="toolkit-card-icon">📁</div>
           <div class="toolkit-card-content">
@@ -100,23 +96,19 @@
     <div class="toolkit-legal-bar">
       <p>
         <span style="color: #8bc34a;">💡 本软件完全免费</span> ·
-        <a href="https://github.com/qidate001/QisToolkit3/blob/main/LICENSE" target="_blank"
-          style="color: #64b5f6; text-decoration: underline;">完全开源</a>
+        <a id="licenseLink" href="#" target="_blank" style="color: #64b5f6; text-decoration: underline;">完全开源</a>
         ！
         <span style="color: #aaa; font-weight: 300;">
           若难以访问 GitHub，可尝试
-          <a href="https://pan.baidu.com/s/1XTg3X1aTYdIP1Q11YZ0fiQ?pwd=qinb" target="_blank"
-            style="color: #64b5f6; text-decoration: underline;">百度网盘</a>
+          <a id="baiduLink" href="#" target="_blank" style="color: #64b5f6; text-decoration: underline;">百度网盘</a>
           ，但仍推荐从
-          <a href="https://github.com/qidate001/QisToolkit3/releases" target="_blank"
-            style="color: #64b5f6; text-decoration: underline;">GitHub Releases</a>
+          <a id="githubLink" href="#" target="_blank" style="color: #64b5f6; text-decoration: underline;">GitHub Releases</a>
           下载最新版本。
         </span>
       </p>
       <p style="margin-top: 8px; font-size: 0.95rem;">
         <strong style="color: #f0c27a;">📌 若您点击下载或安装本软件，表示您已阅读、理解并同意
-          <a href="./docs/QisToolkit3_EULA.html" target="_blank"
-            style="color: #64b5f6; text-decoration: underline;">EULA</a>
+          <a id="eulaLink" href="#" target="_blank" style="color: #64b5f6; text-decoration: underline;">EULA</a>
           中所述所有条款。若不同意，请勿下载本软件。
         </strong>
       </p>
@@ -155,6 +147,28 @@
     <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
     <script>
       document.getElementById('year').textContent = new Date().getFullYear();
+      
+      // ========== 动态设置所有链接和版本号 ==========
+      document.addEventListener('DOMContentLoaded', function() {
+        // 设置版本号
+        document.getElementById('toolkitVersion').textContent = APP_CONFIG.version;
+        
+        // 设置工具包首页链接
+        document.getElementById('toolkitHomeLink').href = APP_CONFIG.toolkit.home;
+        
+        // 设置所有下载链接
+        document.getElementById('releaseCard').href = APP_CONFIG.toolkit.release;
+        document.getElementById('dlFullExe').href = APP_CONFIG.toolkit.fullExe;
+        document.getElementById('dlFullRar').href = APP_CONFIG.toolkit.fullRar;
+        document.getElementById('dlLiteExe').href = APP_CONFIG.toolkit.liteExe;
+        document.getElementById('dlLiteRar').href = APP_CONFIG.toolkit.liteRar;
+        
+        // 设置辅助链接
+        document.getElementById('licenseLink').href = APP_CONFIG.toolkit.license;
+        document.getElementById('baiduLink').href = APP_CONFIG.toolkit.baiduPan;
+        document.getElementById('githubLink').href = APP_CONFIG.toolkit.github;
+        document.getElementById('eulaLink').href = APP_CONFIG.toolkit.eula;
+      });
     </script>
   </footer>
 </body>

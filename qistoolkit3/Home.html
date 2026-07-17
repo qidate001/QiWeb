@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./css/qistoolkit3-8card.css" />
     <link rel="stylesheet" href="./css/home-page.css" />
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <script src="/js/config.js"></script>
 </head>
 
 <body>
@@ -20,20 +21,20 @@
     <theme-button value="dark" id="btn" size="3"></theme-button>
 
     <header>
-        <h1>齐的工具包3 <span class="version-badge">v2.9</span></h1>
+        <h1>齐的工具包3 <span class="version-badge" id="versionBadge">#</span></h1>
         <nav>
             <ul>
                 <li><a href="/index.html">首页</a></li>
                 <li><a href="/about.html">关于我</a></li>
                 <li><a href="/contact.html">联系我</a></li>
-                <li><a href="./index.html">返回齐的工具包3专区</a></li>
+                <li><a href="./index.html">返回专区</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="toolkit-special-page home-main">
         <h2>
-            <a href="./qistoolkit3/index.html" style="text-decoration: none;">🏠 首页 </a>
+            <a href="./index.html" style="text-decoration: none;">🏠 首页 </a>
             <!-- <span style="font-size:0.7rem;font-weight:400;color:#aaa;margin-left:12px;">v2.9</span> -->
         </h2>
         <!-- ====== 页眉区 ====== -->
@@ -129,6 +130,15 @@
         <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
         <script>
             document.getElementById('year').textContent = new Date().getFullYear();
+
+            // ========== 动态设置版本号 ==========
+            document.addEventListener('DOMContentLoaded', function() {
+                // 用 ID 选择器匹配
+                const versionBadge = document.getElementById('versionBadge');
+                if (versionBadge && typeof APP_CONFIG !== 'undefined') {
+                    versionBadge.textContent = APP_CONFIG.version;
+                }
+            });
         </script>
     </footer>
 </body>
