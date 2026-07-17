@@ -1,0 +1,338 @@
+/* ============================================================
+   tools-page.css - 万能工具（Tools）专属样式
+   三层结构 · 清晰直观 · 与主站风格一致
+   ============================================================ */
+
+/* --- 页面 Hero --- */
+.tools-hero {
+    text-align: center;
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 28px;
+}
+
+body.light-theme .tools-hero {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.tools-hero-icon {
+    font-size: 3.6rem;
+    line-height: 1;
+    margin-bottom: 4px;
+    filter: drop-shadow(0 4px 12px rgba(52, 152, 219, 0.25));
+}
+
+.tools-hero h2 {
+    font-size: 2.2rem;
+    margin-bottom: 4px;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+}
+
+.tools-hero .hero-sub {
+    font-size: 1.05rem;
+    opacity: 0.75;
+    margin: 4px auto 12px;
+}
+
+/* --- 三层容器 --- */
+.tools-layer-container {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin: 10px 0 20px;
+}
+
+/* --- 每一层 --- */
+.tools-layer {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+    padding: 18px 20px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.tools-layer:hover {
+    border-color: rgba(52, 152, 219, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+body.light-theme .tools-layer {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .tools-layer:hover {
+    border-color: rgba(41, 128, 185, 0.08);
+    background: rgba(0, 0, 0, 0.015);
+}
+
+/* --- 层级头部 --- */
+.layer-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+body.light-theme .layer-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.layer-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.layer-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #b0d4f0;
+}
+
+body.light-theme .layer-header h3 {
+    color: #2c3e50;
+}
+
+.layer-badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 2px 14px;
+    border-radius: 30px;
+    background: rgba(139, 195, 74, 0.12);
+    color: #8bc34a;
+    border: 1px solid rgba(139, 195, 74, 0.06);
+    margin-left: auto;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.layer-badge.advanced {
+    background: rgba(241, 196, 15, 0.12);
+    color: #f0c27a;
+    border-color: rgba(241, 196, 15, 0.06);
+}
+
+.layer-badge.fun {
+    background: rgba(155, 89, 182, 0.12);
+    color: #bb8fce;
+    border-color: rgba(155, 89, 182, 0.06);
+}
+
+body.light-theme .layer-badge {
+    background: rgba(139, 195, 74, 0.06);
+    color: #558b2f;
+}
+
+body.light-theme .layer-badge.advanced {
+    background: rgba(241, 196, 15, 0.06);
+    color: #b7950b;
+}
+
+body.light-theme .layer-badge.fun {
+    background: rgba(155, 89, 182, 0.06);
+    color: #7b4a8b;
+}
+
+/* --- 工具网格 --- */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+}
+
+/* --- 单个工具卡片 --- */
+.tool-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #c8d8e8;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.tool-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.tool-item:hover::before {
+    opacity: 1;
+}
+
+.tool-item:hover {
+    transform: translateY(-3px) scale(1.01);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(52, 152, 219, 0.12);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    color: #ffffff;
+}
+
+body.light-theme .tool-item {
+    color: #333;
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .tool-item:hover {
+    background: rgba(41, 128, 185, 0.04);
+    border-color: rgba(41, 128, 185, 0.1);
+    color: #1a1a1a;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.tool-item .tool-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    opacity: 0.8;
+    transition: transform 0.3s ease;
+}
+
+.tool-item:hover .tool-icon {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.tool-item .tool-name {
+    font-size: 0.88rem;
+    font-weight: 500;
+    flex: 1;
+    line-height: 1.3;
+}
+
+.tool-item .tool-arrow {
+    font-size: 0.9rem;
+    opacity: 0.2;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.tool-item:hover .tool-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+}
+
+/* --- 响应式：工具网格自适应 --- */
+@media (max-width: 700px) {
+    .tools-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 8px;
+    }
+
+    .tool-item {
+        padding: 8px 12px;
+    }
+
+    .tool-item .tool-name {
+        font-size: 0.82rem;
+    }
+
+    .tool-item .tool-icon {
+        font-size: 1.1rem;
+    }
+
+    .layer-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .layer-badge {
+        font-size: 0.55rem;
+        padding: 1px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tools-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+    }
+
+    .tool-item {
+        padding: 8px 10px;
+        border-radius: 8px;
+    }
+
+    .tool-item .tool-name {
+        font-size: 0.75rem;
+    }
+
+    .tool-item .tool-icon {
+        font-size: 1rem;
+    }
+
+    .tools-layer {
+        padding: 14px 14px 16px;
+    }
+
+    .tools-hero h2 {
+        font-size: 1.6rem;
+    }
+
+    .tools-hero-icon {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- 八大核心中的万能工具高亮 (与 home-page 一致) --- */
+.feature-card.active-card {
+    border-color: rgba(52, 152, 219, 0.3);
+    background: rgba(52, 152, 219, 0.06);
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.05);
+}
+
+.feature-card.active-card::before {
+    opacity: 1;
+    background: linear-gradient(90deg, transparent, #3498db, transparent);
+}
+
+body.light-theme .feature-card.active-card {
+    border-color: rgba(41, 128, 185, 0.2);
+    background: rgba(41, 128, 185, 0.04);
+    box-shadow: 0 0 20px rgba(41, 128, 185, 0.06);
+}
+
+/* --- 辅助信息微调 --- */
+.tools-legal {
+    margin-top: 16px;
+    padding: 14px 24px;
+}
+
+.tools-legal kbd {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 1px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: monospace;
+    color: #8bc4f0;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+body.light-theme .tools-legal kbd {
+    background: rgba(0, 0, 0, 0.06);
+    color: #2980b9;
+    border-color: rgba(0, 0, 0, 0.06);
+}
