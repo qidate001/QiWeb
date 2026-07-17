@@ -901,40 +901,40 @@ function renderOldStyleChangelog(containerId, showCount) {
 // ============================================================
 // 自动修正 type 字段（依据版本号变化段位）
 // ============================================================
-(function fixTypes() {
-    // 解析版本号，提取前4段数字（不足补0）
-    function parseVersion(ver) {
-        const nums = ver.replace(/^v/, '').match(/\d+/g);
-        if (!nums) return null;
-        const arr = nums.map(Number);
-        while (arr.length < 4) arr.push(0);
-        return arr.slice(0, 4);
-    }
+// (function fixTypes() {
+//     // 解析版本号，提取前4段数字（不足补0）
+//     function parseVersion(ver) {
+//         const nums = ver.replace(/^v/, '').match(/\d+/g);
+//         if (!nums) return null;
+//         const arr = nums.map(Number);
+//         while (arr.length < 4) arr.push(0);
+//         return arr.slice(0, 4);
+//     }
 
-    // 比较两个版本，返回 type
-    function getType(v1, v2) {
-        const a = parseVersion(v1);
-        const b = parseVersion(v2);
-        if (!a || !b) return 'patch';
-        for (let i = 0; i < 4; i++) {
-            if (a[i] !== b[i]) {
-                if (i === 0) return 'top';
-                if (i === 1) return 'major';
-                if (i === 2) return 'minor';
-                if (i === 3) return 'patch';
-            }
-        }
-        return 'patch'; // 相同则视为补丁
-    }
+//     // 比较两个版本，返回 type
+//     function getType(v1, v2) {
+//         const a = parseVersion(v1);
+//         const b = parseVersion(v2);
+//         if (!a || !b) return 'patch';
+//         for (let i = 0; i < 4; i++) {
+//             if (a[i] !== b[i]) {
+//                 if (i === 0) return 'top';
+//                 if (i === 1) return 'major';
+//                 if (i === 2) return 'minor';
+//                 if (i === 3) return 'patch';
+//             }
+//         }
+//         return 'patch'; // 相同则视为补丁
+//     }
 
-    // 遍历并修正
-    for (let i = 0; i < CHANGELOG_DATA.length; i++) {
-        const current = CHANGELOG_DATA[i];
-        const next = CHANGELOG_DATA[i + 1];
-        current.type = next ? getType(current.version, next.version) : 'patch';
-    }
+//     // 遍历并修正
+//     for (let i = 0; i < CHANGELOG_DATA.length; i++) {
+//         const current = CHANGELOG_DATA[i];
+//         const next = CHANGELOG_DATA[i + 1];
+//         current.type = next ? getType(current.version, next.version) : 'patch';
+//     }
 
-    // 输出修正后的完整数据（复制此输出替换原 CHANGELOG_DATA）
-    console.log('修正后的 CHANGELOG_DATA：');
-    console.log(JSON.stringify(CHANGELOG_DATA, null, 2));
-})();
+//     // 输出修正后的完整数据（复制此输出替换原 CHANGELOG_DATA）
+//     console.log('修正后的 CHANGELOG_DATA：');
+//     console.log(JSON.stringify(CHANGELOG_DATA, null, 2));
+// })();
