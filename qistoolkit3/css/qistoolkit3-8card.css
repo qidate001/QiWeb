@@ -186,3 +186,223 @@ body.light-theme .feature-card:hover .feature-tag {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* ==========================================================================
+   changelog-entry.css - 首页更新日志入口卡片
+   ========================================================================== */
+
+.changelog-entry-section {
+    margin: 30px 0 10px;
+}
+
+.changelog-entry-card {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    padding: 20px 28px;
+    border-radius: 16px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
+}
+
+.changelog-entry-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    border-color: rgba(52, 152, 219, 0.2);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+body.light-theme .changelog-entry-card {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .changelog-entry-card:hover {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+    border-color: rgba(41, 128, 185, 0.15);
+    background: #ffffff;
+}
+
+/* --- 光晕层 --- */
+.changelog-card-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 40%, rgba(52, 152, 219, 0.06) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.changelog-entry-card:hover .changelog-card-glow {
+    opacity: 1;
+}
+
+/* --- 内容布局 --- */
+.changelog-card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.changelog-card-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.changelog-card-icon {
+    font-size: 2.4rem;
+    line-height: 1;
+    filter: drop-shadow(0 2px 8px rgba(52, 152, 219, 0.15));
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.changelog-entry-card:hover .changelog-card-icon {
+    transform: scale(1.1) rotate(-6deg);
+}
+
+.changelog-card-text h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #3498db;
+    transition: color 0.3s ease;
+}
+
+.changelog-entry-card:hover .changelog-card-text h3 {
+    color: #5dade2;
+}
+
+body.light-theme .changelog-card-text h3 {
+    color: #2980b9;
+}
+
+body.light-theme .changelog-entry-card:hover .changelog-card-text h3 {
+    color: #3498db;
+}
+
+.changelog-card-text p {
+    margin: 2px 0 0 0;
+    font-size: 0.88rem;
+    opacity: 0.6;
+    color: inherit;
+}
+
+.changelog-card-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+}
+
+.changelog-version-tag {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 16px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, rgba(247, 151, 30, 0.15), rgba(255, 215, 0, 0.05));
+    color: #f39c12;
+    border: 1px solid rgba(247, 151, 30, 0.15);
+    transition: all 0.3s ease;
+}
+
+.changelog-entry-card:hover .changelog-version-tag {
+    background: linear-gradient(135deg, rgba(247, 151, 30, 0.25), rgba(255, 215, 0, 0.08));
+    border-color: rgba(247, 151, 30, 0.3);
+    transform: scale(1.04);
+}
+
+body.light-theme .changelog-version-tag {
+    background: linear-gradient(135deg, rgba(230, 126, 34, 0.08), rgba(241, 196, 15, 0.03));
+    color: #e67e22;
+    border-color: rgba(230, 126, 34, 0.1);
+}
+
+.changelog-arrow {
+    font-size: 1.3rem;
+    opacity: 0.3;
+    transition: all 0.3s ease;
+}
+
+.changelog-entry-card:hover .changelog-arrow {
+    opacity: 1;
+    transform: translateX(6px);
+}
+
+/* --- 顶部装饰条（悬停显示） --- */
+.changelog-entry-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.4), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.changelog-entry-card:hover::before {
+    opacity: 1;
+}
+
+/* --- 响应式 --- */
+@media (max-width: 600px) {
+    .changelog-entry-card {
+        padding: 16px 20px;
+    }
+
+    .changelog-card-content {
+        gap: 12px;
+    }
+
+    .changelog-card-left {
+        gap: 12px;
+    }
+
+    .changelog-card-icon {
+        font-size: 1.8rem;
+    }
+
+    .changelog-card-text h3 {
+        font-size: 1.1rem;
+    }
+
+    .changelog-card-text p {
+        font-size: 0.78rem;
+    }
+
+    .changelog-version-tag {
+        font-size: 0.7rem;
+        padding: 3px 12px;
+    }
+
+    .changelog-arrow {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .changelog-card-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .changelog-card-right {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}

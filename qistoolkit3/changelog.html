@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>更新日志 · 齐的工具包3</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/index_style.css">
+    <link rel="stylesheet" href="./css/changelog-page.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <script src="./js/changelog.js" defer></script>
+    <script src="/js/config.js"></script>
+</head>
+
+<body>
+    <theme-button value="dark" id="btn" size="3"></theme-button>
+
+    <header>
+        <!-- <h1>📋 更新日志 <span class="version-badge">未知</span></h1> -->
+        <nav>
+            <ul>
+                <li><a href="/index.html">首页</a></li>
+                <li><a href="/about.html">关于我</a></li>
+                <li><a href="/contact.html">联系我</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="changelog-page">
+        <!-- ====== 页眉区 ====== -->
+        <div class="changelog-hero">
+            <div class="hero-icon-wrapper">
+                <span class="hero-icon">📜</span>
+                <span class="hero-ring"></span>
+            </div>
+            <h2>更新日志</h2>
+            <p class="hero-sub">记录「齐的工具包3」的每一次迭代与成长</p>
+            <div class="hero-stats">
+                <span class="stat-item">
+                    <span class="stat-num" id="totalVersions">--</span>
+                    <span class="stat-label">版本</span>
+                </span>
+                <span class="stat-divider">·</span>
+                <span class="stat-item">
+                    <span class="stat-num" id="totalEntries">--</span>
+                    <span class="stat-label">更新条目</span>
+                </span>
+                <span class="stat-divider">·</span>
+                <span class="stat-item">
+                    <span class="stat-num" id="latestVersion">--</span>
+                    <span class="stat-label">最新版本</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- ====== 版本筛选器 ====== -->
+        <div class="changelog-filter">
+            <button class="filter-btn active" data-filter="all">📌 全部</button>
+            <button class="filter-btn" data-filter="major">🚀 大版本</button>
+            <button class="filter-btn" data-filter="minor">✨ 小版本</button>
+            <button class="filter-btn" data-filter="patch">🔧 补丁</button>
+        </div>
+
+        <!-- ====== 更新日志时间线 ====== -->
+        <div class="changelog-timeline" id="changelogTimeline">
+            <!-- 由 JavaScript 动态渲染 -->
+        </div>
+
+        <!-- ====== 底部返回 ====== -->
+        <div class="changelog-footer">
+            <a href="/index.html" class="back-home-btn">
+                <span>🏠</span> 返回首页
+            </a>
+            <a id="githubReleasesLink" href="#" target="_blank" class="github-btn">
+                <span>🐙</span> 查看全部 Releases
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // 设置版本号
+            document.addEventListener('DOMContentLoaded', function() {
+                const badge = document.querySelector('.version-badge');
+                if (badge && typeof APP_CONFIG !== 'undefined') {
+                    badge.textContent = APP_CONFIG.version;
+                }
+
+                // 设置 GitHub Releases 链接
+                const githubLink = document.getElementById('githubReleasesLink');
+                if (githubLink && typeof APP_CONFIG !== 'undefined') {
+                    githubLink.href = APP_CONFIG.urls.release;
+                }
+
+                // 等待 changelog 渲染完成后更新统计
+                const observer = new MutationObserver(function() {
+                    const items = document.querySelectorAll('.log-item');
+                    if (items.length > 0) {
+                        updateStats(items);
+                        observer.disconnect();
+                    }
+                });
+                const container = document.getElementById('changelogTimeline');
+                if (container) {
+                    observer.observe(container, { childList: true, subtree: true });
+                }
+            });
+
+            function updateStats(items) {
+                const versions = new Set();
+                let latest = '--';
+                items.forEach(el => {
+                    const v = el.dataset.version;
+                    if (v) versions.add(v);
+                    if (!latest || v > latest) latest = v;
+                });
+                document.getElementById('totalVersions').textContent = versions.size || '--';
+                document.getElementById('totalEntries').textContent = items.length || '--';
+                document.getElementById('latestVersion').textContent = latest || '--';
+            }
+
+            // 筛选功能
+            document.addEventListener('DOMContentLoaded', function() {
+                const btns = document.querySelectorAll('.filter-btn');
+                btns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        btns.forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        const filter = this.dataset.filter;
+                        filterLogs(filter);
+                    });
+                });
+            });
+
+            function filterLogs(filter) {
+                const items = document.querySelectorAll('.log-item');
+                items.forEach(item => {
+                    if (filter === 'all') {
+                        item.style.display = 'flex';
+                        return;
+                    }
+                    const type = item.dataset.type || 'patch';
+                    item.style.display = (type === filter) ? 'flex' : 'none';
+                });
+            }
+        </script>
+    </footer>
+</body>
+
+</html>

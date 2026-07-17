@@ -1,0 +1,529 @@
+/* ==========================================================================
+   changelog-page.css - 更新日志专页样式
+   继承 style.css / index_style.css 色彩体系
+   ========================================================================== */
+
+/* --- 页面 Hero 区域 --- */
+.changelog-hero {
+    text-align: center;
+    padding: 24px 20px 30px;
+    margin-bottom: 30px;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+body.light-theme .changelog-hero {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.hero-icon-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.hero-icon {
+    font-size: 4.2rem;
+    display: block;
+    line-height: 1;
+    filter: drop-shadow(0 4px 16px rgba(52, 152, 219, 0.25));
+    position: relative;
+    z-index: 1;
+}
+
+.hero-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid rgba(52, 152, 219, 0.08);
+    animation: ringPulse 3s ease-in-out infinite;
+}
+
+@keyframes ringPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+    50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0; }
+}
+
+.changelog-hero h2 {
+    font-size: 2.6rem;
+    margin-bottom: 6px;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+    background: linear-gradient(135deg, #3498db, #8e44ad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.light-theme .changelog-hero h2 {
+    background: linear-gradient(135deg, #2980b9, #8e44ad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-sub {
+    font-size: 1.1rem;
+    opacity: 0.7;
+    margin: 4px auto 16px;
+    -webkit-text-fill-color: initial;
+    color: inherit;
+}
+
+/* --- 统计信息 --- */
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 40px;
+    max-width: 480px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+body.light-theme .hero-stats {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.06);
+}
+
+.stat-item {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.stat-num {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #f39c12;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    opacity: 0.6;
+}
+
+.stat-divider {
+    opacity: 0.2;
+    font-weight: 300;
+}
+
+body.light-theme .stat-num {
+    color: #e67e22;
+}
+
+/* --- 筛选器 --- */
+.changelog-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+    padding: 4px 0;
+}
+
+.filter-btn {
+    padding: 8px 22px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    color: #a0a0a0;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.filter-btn:hover {
+    background: rgba(52, 152, 219, 0.08);
+    color: #d0d0d0;
+    border-color: rgba(52, 152, 219, 0.15);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(52, 152, 219, 0.05));
+    color: #5dade2;
+    border-color: rgba(52, 152, 219, 0.25);
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.05);
+}
+
+body.light-theme .filter-btn {
+    border-color: rgba(0, 0, 0, 0.06);
+    background: rgba(0, 0, 0, 0.02);
+    color: #666;
+}
+
+body.light-theme .filter-btn:hover {
+    background: rgba(41, 128, 185, 0.06);
+    color: #333;
+}
+
+body.light-theme .filter-btn.active {
+    background: linear-gradient(135deg, rgba(41, 128, 185, 0.1), rgba(41, 128, 185, 0.03));
+    color: #2980b9;
+    border-color: rgba(41, 128, 185, 0.2);
+}
+
+/* --- 时间线容器 --- */
+.changelog-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 4px 0 10px;
+}
+
+/* --- 日志卡片（大卡片风格） --- */
+.log-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+.log-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.log-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+    border-color: rgba(52, 152, 219, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.log-item:hover::before {
+    opacity: 1;
+}
+
+body.light-theme .log-item {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .log-item:hover {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+    border-color: rgba(41, 128, 185, 0.12);
+    background: #ffffff;
+}
+
+/* --- 版本类型色条 --- */
+.log-item[data-type="top"]::before {
+    background: linear-gradient(90deg, #ff6b35, #f7931e);
+}
+.log-item[data-type="major"]::before {
+    background: linear-gradient(90deg, #e74c3c, #f39c12);
+}
+.log-item[data-type="minor"]::before {
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+}
+.log-item[data-type="patch"]::before {
+    background: linear-gradient(90deg, #8e44ad, #3498db);
+}
+.log-item[data-type=""]::before {
+    background: linear-gradient(90deg, #95a5a6, #7f8c8d);
+}
+
+/* --- 左侧：版本号 + 日期（固定宽度） --- */
+.log-meta {
+    flex: 0 0 180px;
+    padding: 18px 20px 18px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.04);
+    min-height: 80px;
+}
+
+body.light-theme .log-meta {
+    border-right-color: rgba(0, 0, 0, 0.04);
+}
+
+.log-version {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #f39c12;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.log-version .version-tag {
+    font-size: 0.6rem;
+    font-weight: 600;
+    padding: 2px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.log-version .version-tag.top {
+    background: rgba(255, 107, 53, 0.2);
+    color: #ff6b35;
+}
+.log-version .version-tag.major {
+    background: rgba(231, 76, 60, 0.2);
+    color: #e74c3c;
+}
+.log-version .version-tag.minor {
+    background: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+}
+.log-version .version-tag.patch {
+    background: rgba(142, 68, 173, 0.2);
+    color: #8e44ad;
+}
+
+body.light-theme .log-version .version-tag.top {
+    background: rgba(255, 107, 53, 0.1);
+}
+body.light-theme .log-version .version-tag.major {
+    background: rgba(231, 76, 60, 0.1);
+}
+body.light-theme .log-version .version-tag.minor {
+    background: rgba(41, 128, 185, 0.1);
+}
+body.light-theme .log-version .version-tag.patch {
+    background: rgba(142, 68, 173, 0.1);
+}
+
+.log-date {
+    font-size: 0.8rem;
+    opacity: 0.5;
+    margin-top: 2px;
+}
+
+/* --- 右侧：更新内容 --- */
+.log-content {
+    flex: 1;
+    padding: 18px 24px 18px 20px;
+    display: flex;
+    align-items: center;
+    min-width: 200px;
+}
+
+.log-content p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #d0d0d0;
+}
+
+body.light-theme .log-content p {
+    color: #444;
+}
+
+/* --- 版本类型特殊样式 --- */
+.log-item[data-type="top"] .log-version {
+    color: #ff6b35;
+}
+.log-item[data-type="major"] .log-version {
+    color: #e74c3c;
+}
+.log-item[data-type="minor"] .log-version {
+    color: #3498db;
+}
+.log-item[data-type="patch"] .log-version {
+    color: #8e44ad;
+}
+
+/* --- 空状态 --- */
+.changelog-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.changelog-empty .empty-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0.4;
+}
+
+/* --- 底部按钮 --- */
+.changelog-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 40px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+body.light-theme .changelog-footer {
+    border-top-color: rgba(0, 0, 0, 0.06);
+}
+
+.back-home-btn,
+.github-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 30px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.back-home-btn {
+    background: rgba(52, 152, 219, 0.12);
+    color: #5dade2;
+}
+
+.back-home-btn:hover {
+    background: rgba(52, 152, 219, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.15);
+}
+
+.github-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: #e0e0e0;
+}
+
+.github-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+body.light-theme .back-home-btn {
+    background: rgba(41, 128, 185, 0.06);
+    color: #2980b9;
+}
+
+body.light-theme .back-home-btn:hover {
+    background: rgba(41, 128, 185, 0.12);
+}
+
+body.light-theme .github-btn {
+    background: rgba(0, 0, 0, 0.04);
+    color: #333;
+}
+
+body.light-theme .github-btn:hover {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+/* --- 响应式 --- */
+@media (max-width: 700px) {
+    .log-meta {
+        flex: 1 1 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        padding: 16px 20px 12px;
+        min-height: auto;
+    }
+
+    body.light-theme .log-meta {
+        border-bottom-color: rgba(0, 0, 0, 0.04);
+    }
+
+    .log-content {
+        padding: 12px 20px 16px;
+    }
+
+    .changelog-hero h2 {
+        font-size: 2rem;
+    }
+
+    .hero-stats {
+        padding: 10px 18px;
+        gap: 4px;
+        max-width: 100%;
+    }
+
+    .stat-num {
+        font-size: 1.1rem;
+    }
+
+    .changelog-filter {
+        justify-content: center;
+    }
+
+    .filter-btn {
+        padding: 6px 16px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .changelog-hero {
+        padding: 16px 12px 20px;
+    }
+
+    .hero-icon {
+        font-size: 3.2rem;
+    }
+
+    .hero-ring {
+        width: 74px;
+        height: 74px;
+    }
+
+    .changelog-hero h2 {
+        font-size: 1.6rem;
+    }
+
+    .hero-sub {
+        font-size: 0.95rem;
+    }
+
+    .log-version {
+        font-size: 1.05rem;
+    }
+
+    .log-content p {
+        font-size: 0.88rem;
+    }
+
+    .log-meta {
+        padding: 14px 16px 10px;
+    }
+
+    .log-content {
+        padding: 10px 16px 14px;
+    }
+
+    .changelog-footer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .back-home-btn,
+    .github-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+    }
+}

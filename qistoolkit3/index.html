@@ -19,14 +19,14 @@
 
     <header>
         <!-- <h1>🧰 齐的工具包3</h1> -->
-        <h1>齐的工具包3 <span class="version-badge">未知</span></h1>
-            <nav>
-                <ul>
-                    <li><a href="/index.html">首页</a></li>
-                    <li><a href="/about.html">关于我</a></li>
-                    <li><a href="/contact.html">联系我</a></li>
-                </ul>
-            </nav>
+        <h1>齐的工具包3 <span class="version-badge">#</span></h1>
+        <nav>
+            <ul>
+                <li><a href="/index.html">首页</a></li>
+                <li><a href="/about.html">关于我</a></li>
+                <li><a href="/contact.html">联系我</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main class="toolkit-special-page">
@@ -184,12 +184,24 @@
             </div>
         </div>
 
-        <!-- 更新日志容器 -->
-        <div class="changelog-section">
-            <h3>📋 更新日志 <span style="font-size:0.8rem;font-weight:400;color:#aaa;">最新 v2.9.1</span></h3>
-            <div class="changelog-list" id="changelogContainer" data-changelog data-show="5">
-                <!-- 由 JavaScript 动态渲染 -->
-            </div>
+        <!-- ====== 更新日志入口卡片 ====== -->
+        <div class="changelog-entry-section">
+            <a href="./changelog.html" class="changelog-entry-card">
+                <div class="changelog-card-glow"></div>
+                <div class="changelog-card-content">
+                    <div class="changelog-card-left">
+                        <span class="changelog-card-icon">📋</span>
+                        <div class="changelog-card-text">
+                            <h3>更新日志</h3>
+                            <p>记录每一次迭代与成长</p>
+                        </div>
+                    </div>
+                    <div class="changelog-card-right">
+                        <span class="changelog-version-tag" id="changelogLatestVersion">#</span>
+                        <span class="changelog-arrow">➜</span>
+                    </div>
+                </div>
+            </a>
         </div>
     </main>
 
@@ -215,6 +227,12 @@
                 const versionBadge = document.querySelector('.version-badge');
                 if (versionBadge) {
                     versionBadge.textContent = APP_CONFIG.version;
+                }
+
+                // 设置更新日志卡片中的最新版本号
+                const changelogVersionTag = document.getElementById('changelogLatestVersion');
+                if (changelogVersionTag) {
+                    changelogVersionTag.textContent = APP_CONFIG.version;
                 }
 
                 // 设置所有下载链接
