@@ -42,6 +42,11 @@
             </div> -->
         <!-- </div> -->
 
+        <h2>
+            <a id="toolkitHomeLink" href="./qistoolkit3" style="text-decoration: none;">🛠️ 齐的工具包3 </a>
+            <span id="toolkitVersion" style="font-size:0.7rem;font-weight:400;color:#aaa;margin-left:12px;">#</span>
+        </h2>
+
         <!-- ====== 下载主干：双栏布局 ====== -->
         <div class="toolkit-download-grid">
             <!-- Releases 大卡片 -->
@@ -233,6 +238,9 @@
                 if (changelogVersionTag) {
                     changelogVersionTag.textContent = APP_CONFIG.version;
                 }
+
+                // 设置Title版本号显示
+                document.getElementById('toolkitVersion').textContent = APP_CONFIG.version;
 
                 // 设置所有下载链接
                 document.getElementById('releaseCard').href = APP_CONFIG.urls.release;

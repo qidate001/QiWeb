@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>清理垃圾 · 齐的工具包3</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/index_style.css" />
+    <link rel="stylesheet" href="./css/qistoolkit3-page.css" />
+    <link rel="stylesheet" href="./css/qistoolkit3-8card.css" />
+    <link rel="stylesheet" href="./css/cleaning-trash.css" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <script src="/js/config.js"></script>
+</head>
+
+<body>
+    <theme-button value="dark" id="btn" size="3"></theme-button>
+
+    <header>
+        <h1>齐的工具包3 <span class="version-badge" id="versionBadge">#</span></h1>
+        <nav>
+            <ul>
+                <li><a href="/index.html">首页</a></li>
+                <li><a href="/about.html">关于我</a></li>
+                <li><a href="/contact.html">联系我</a></li>
+                <li><a href="./index.html">返回专区</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="toolkit-special-page cleaning-main">
+        <h2>
+            <a href="./index.html" style="text-decoration: none;">🧹 清理垃圾</a>
+        </h2>
+
+        <!-- ====== 操作栏 ====== -->
+        <div class="cleaning-action-bar">
+            <button class="btn-scan" id="scanBtn">
+                <span class="btn-icon">🔍</span> 扫描垃圾
+            </button>
+            <button class="btn-clean" id="cleanBtn" disabled>
+                <span class="btn-icon">🗑️</span> 清理选中
+            </button>
+            <button class="btn-select-all" id="selectAllBtn">
+                ☑ 全选
+            </button>
+            <span class="scan-status" id="scanStatus">就绪</span>
+            <span class="file-count" id="fileCount">共 0 项</span>
+        </div>
+
+        <!-- ====== 垃圾分类列表 ====== -->
+        <div class="cleaning-list-container" id="cleaningList">
+            <!-- 由 JavaScript 动态渲染 -->
+        </div>
+
+        <!-- ====== 辅助信息 ====== -->
+        <div class="toolkit-legal-bar cleaning-legal">
+            <p>
+                <span style="color: #8bc34a;">💡 勾选需要清理的项目</span> 点击「清理选中」即可删除对应垃圾文件。
+                <span style="color: #f0c27a; margin-left: 16px;">⚠️ 请谨慎操作，部分文件可能影响系统</span>
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const versionBadge = document.getElementById('versionBadge');
+                if (versionBadge && typeof APP_CONFIG !== 'undefined') {
+                    versionBadge.textContent = APP_CONFIG.version;
+                }
+            });
+        </script>
+    </footer>
+
+    <!-- 引入清理垃圾的 JavaScript -->
+    <script src="./js/cleaning-trash.js"></script>
+</body>
+
+</html>
