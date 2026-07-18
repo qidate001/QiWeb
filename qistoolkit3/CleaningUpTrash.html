@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,7 +12,6 @@
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
     <script src="/js/config.js"></script>
 </head>
-
 <body>
     <theme-button value="dark" id="btn" size="3"></theme-button>
 
@@ -49,7 +47,6 @@
         <div class="toolkit-legal-bar cleaning-legal">
             <p>
                 <span style="color: #8bc34a;">💡 本页展示所有可清理的垃圾项目</span>
-                <!-- <span style="color: #aaa; margin-left: 16px;">📌 实际清理功能由后端程序执行</span> -->
             </p>
             <p style="margin-top: 6px; font-size: 0.85rem; opacity: 0.6;">
                 ⚠️ 部分项目涉及系统目录，请谨慎操作
@@ -61,7 +58,6 @@
         <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
         <script>
             document.getElementById('year').textContent = new Date().getFullYear();
-
             document.addEventListener('DOMContentLoaded', function() {
                 const versionBadge = document.getElementById('versionBadge');
                 if (versionBadge && typeof APP_CONFIG !== 'undefined') {
@@ -73,5 +69,4 @@
 
     <script src="./js/cleaning-trash.js"></script>
 </body>
-
 </html>

@@ -1,131 +1,143 @@
 /* ============================================================
    cleaning-trash.css - 清理垃圾（CleaningUpTrash）专属样式
-   微软文档风格 · 清晰列表 · 便于扩展
    ============================================================ */
 
 /* --- 页面标题 --- */
 .cleaning-main h2 {
-    font-size: 1.8rem;
-    margin-bottom: 16px;
-    border-bottom: 2px solid rgba(52, 152, 219, 0.12);
-    padding-bottom: 10px;
+    font-size: 1.9rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(52, 152, 219, 0.15);
+    padding-bottom: 12px;
+    letter-spacing: -0.3px;
 }
 
 .cleaning-main h2 a {
-    color: #3498db;
-    transition: color 0.3s ease;
+    color: #4fc3f7;  /* 更亮的蓝色 */
+    transition: color 0.2s ease;
 }
 
 .cleaning-main h2 a:hover {
-    color: #5dade2;
+    color: #81d4fa;
 }
 
 body.light-theme .cleaning-main h2 a {
-    color: #2980b9;
+    color: #1e88e5;
 }
-
 body.light-theme .cleaning-main h2 a:hover {
-    color: #3498db;
+    color: #42a5f5;
 }
 
 /* --- 统计信息 --- */
 .cleaning-stats {
     display: flex;
-    gap: 24px;
-    padding: 10px 16px;
-    margin-bottom: 18px;
+    gap: 28px;
+    padding: 12px 20px;
+    margin-bottom: 22px;
     background: rgba(255, 255, 255, 0.02);
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(2px);
 }
 
 body.light-theme .cleaning-stats {
-    background: rgba(0, 0, 0, 0.015);
+    background: rgba(0, 0, 0, 0.01);
     border-color: rgba(0, 0, 0, 0.04);
 }
 
 .stat-item {
     font-size: 0.9rem;
-    color: #aaa;
+    color: #b0bec5;  /* 更亮的灰色 */
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .stat-item strong {
-    color: #b0d4f0;
+    color: #4dd0e1;  /* 鲜艳的青色 */
     font-weight: 700;
+    font-size: 1.05rem;
 }
 
 body.light-theme .stat-item {
-    color: #666;
+    color: #546e7a;
 }
-
 body.light-theme .stat-item strong {
-    color: #2c3e50;
+    color: #00838f;
 }
 
 /* --- 垃圾列表容器 --- */
 .cleaning-list-container {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 16px;
+    margin-bottom: 24px;
 }
 
-/* --- 分类 --- */
+/* --- 分类卡片 --- */
 .trash-category {
     background: rgba(255, 255, 255, 0.015);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
     overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.trash-category:hover {
+    border-color: rgba(52, 152, 219, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 body.light-theme .trash-category {
     background: #ffffff;
     border-color: rgba(0, 0, 0, 0.04);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.02);
+}
+body.light-theme .trash-category:hover {
+    border-color: rgba(30, 136, 229, 0.15);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
 }
 
-/* --- 分类头部（类似微软文档的表格头） --- */
+/* --- 分类头部（表格头） --- */
 .category-header {
     display: grid;
-    grid-template-columns: 30px 1fr 2.5fr;
-    gap: 12px;
+    grid-template-columns: 32px 1fr 2.5fr;
+    gap: 14px;
     align-items: center;
-    padding: 10px 16px;
-    background: rgba(255, 255, 255, 0.03);
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.02);
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #888;
+    letter-spacing: 0.6px;
+    color: #90a4ae;
 }
 
 body.light-theme .category-header {
-    background: rgba(0, 0, 0, 0.02);
+    background: rgba(0, 0, 0, 0.01);
     border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-    color: #999;
+    color: #78909c;
 }
 
 .category-header .col-icon {
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.6;
 }
 
 .category-header .col-name {
-    color: #b0d4f0;
+    color: #4fc3f7;  /* 亮蓝色 */
+    font-weight: 700;
 }
 
 body.light-theme .category-header .col-name {
-    color: #2c3e50;
+    color: #1e88e5;
 }
 
 .category-header .col-path {
-    color: #888;
+    color: #78909c;
+    font-weight: 500;
 }
-
-/* .category-header .col-status {
-    text-align: center;
-} */
 
 /* --- 分类主体 --- */
 .category-body {
@@ -136,10 +148,10 @@ body.light-theme .category-header .col-name {
 /* --- 列表项 --- */
 .trash-item {
     display: grid;
-    grid-template-columns: 30px 1fr 2.5fr;
-    gap: 12px;
+    grid-template-columns: 32px 1fr 2.5fr;
+    gap: 14px;
     align-items: center;
-    padding: 8px 16px;
+    padding: 10px 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.02);
     transition: background 0.15s ease;
     font-size: 0.85rem;
@@ -156,7 +168,6 @@ body.light-theme .category-header .col-name {
 body.light-theme .trash-item {
     border-bottom: 1px solid rgba(0, 0, 0, 0.02);
 }
-
 body.light-theme .trash-item:hover {
     background: rgba(0, 0, 0, 0.01);
 }
@@ -165,79 +176,84 @@ body.light-theme .trash-item:hover {
 .item-icon {
     text-align: center;
     font-size: 1rem;
-    opacity: 0.7;
+    opacity: 0.6;
+    transition: opacity 0.2s;
 }
 
-/* --- 名称列 --- */
+.trash-item:hover .item-icon {
+    opacity: 0.9;
+}
+
+/* --- 名称列（鲜艳文字） --- */
 .item-name {
     font-weight: 500;
-    color: #c8d8e8;
+    color: #e0f2fe;  /* 明亮的冰蓝色 */
+    letter-spacing: -0.2px;
 }
 
 body.light-theme .item-name {
-    color: #333;
+    color: #1a237e;  /* 深蓝色，更醒目 */
 }
 
-/* --- 路径列 --- */
+/* --- 路径列（更鲜艳） --- */
 .item-paths {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-family: 'Consolas', 'Courier New', monospace;
-    color: #666;
-    line-height: 1.5;
+    color: #b0bec5;  /* 亮灰色 */
+    line-height: 1.6;
     word-break: break-all;
 }
 
 .item-paths .path-line {
     display: block;
+    padding: 1px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.02);
+    color: #b0bec5;
 }
 
-.item-paths .path-line:not(:last-child) {
-    margin-bottom: 2px;
+.item-paths .path-line:last-child {
+    border-bottom: none;
 }
 
-/* --- 状态列 --- */
-/* .item-status {
-    text-align: center;
-    font-size: 0.7rem;
-    font-weight: 500;
-    padding: 2px 8px;
-    border-radius: 10px;
-    color: #888;
-    background: rgba(255, 255, 255, 0.03);
-    white-space: nowrap;
-} */
-
-body.light-theme .item-status {
-    background: rgba(0, 0, 0, 0.03);
+body.light-theme .item-paths {
+    color: #546e7a;
+}
+body.light-theme .item-paths .path-line {
+    border-bottom-color: rgba(0, 0, 0, 0.02);
+    color: #546e7a;
 }
 
 /* --- 辅助信息 --- */
 .cleaning-legal {
-    margin-top: 16px;
-    padding: 14px 24px;
+    margin-top: 20px;
+    padding: 16px 24px;
+    border-left: 4px solid #8bc34a;
+    background: rgba(139, 195, 74, 0.02);
+    border-radius: 12px;
+}
+
+body.light-theme .cleaning-legal {
+    background: rgba(139, 195, 74, 0.03);
 }
 
 /* --- 响应式 --- */
 @media (max-width: 820px) {
     .category-header,
     .trash-item {
-        grid-template-columns: 24px 1fr 1.8fr;
-        gap: 8px;
-        padding: 8px 12px;
+        grid-template-columns: 28px 1fr 1.8fr;
+        gap: 10px;
+        padding: 8px 16px;
         font-size: 0.8rem;
     }
-
     .item-paths {
         font-size: 0.65rem;
     }
-
     .category-header .col-path {
         font-size: 0.7rem;
     }
-
     .cleaning-stats {
-        gap: 16px;
-        padding: 8px 12px;
+        gap: 18px;
+        padding: 10px 16px;
         font-size: 0.8rem;
         flex-wrap: wrap;
     }
@@ -247,74 +263,66 @@ body.light-theme .item-status {
     .category-header {
         display: none;
     }
-
     .trash-item {
         grid-template-columns: 1fr;
         gap: 4px;
-        padding: 10px 14px;
+        padding: 12px 16px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     }
-
     body.light-theme .trash-item {
         border-bottom: 1px solid rgba(0, 0, 0, 0.04);
     }
-
     .trash-item .item-icon {
         text-align: left;
         font-size: 1.1rem;
     }
-
     .trash-item .item-name {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         font-weight: 600;
+        padding-bottom: 2px;
+        color: #e0f2fe;
     }
-
+    body.light-theme .trash-item .item-name {
+        color: #1a237e;
+    }
     .trash-item .item-paths {
-        font-size: 0.68rem;
-        padding-left: 4px;
+        font-size: 0.7rem;
+        padding-left: 6px;
         border-left: 2px solid rgba(52, 152, 219, 0.1);
         padding-left: 10px;
+        margin-top: 2px;
+        color: #b0bec5;
     }
-
-    /* .trash-item .item-status {
-        text-align: left;
-        align-self: flex-start;
-        font-size: 0.65rem;
-        padding: 1px 10px;
-    } */
-
+    body.light-theme .trash-item .item-paths {
+        color: #546e7a;
+    }
     .cleaning-stats {
         flex-direction: column;
         gap: 4px;
-        padding: 8px 12px;
-        font-size: 0.8rem;
+        padding: 10px 14px;
+        font-size: 0.85rem;
     }
-
     .cleaning-main h2 {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
     }
 }
 
 @media (max-width: 400px) {
     .trash-item {
-        padding: 8px 10px;
+        padding: 10px 12px;
     }
-
     .trash-item .item-name {
-        font-size: 0.82rem;
+        font-size: 0.85rem;
     }
-
     .trash-item .item-paths {
         font-size: 0.6rem;
         padding-left: 8px;
     }
-
     .cleaning-main h2 {
-        font-size: 1.2rem;
+        font-size: 1.25rem;
     }
-
     .cleaning-legal {
-        padding: 10px 16px;
+        padding: 12px 16px;
         font-size: 0.85rem;
     }
 }
