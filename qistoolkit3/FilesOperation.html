@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文件操作 · 齐的工具包3</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/index_style.css" />
+    <link rel="stylesheet" href="./css/qistoolkit3-page.css" />
+    <link rel="stylesheet" href="./css/qistoolkit3-8card.css" />
+    <link rel="stylesheet" href="./css/files-operation.css" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <script src="/js/config.js"></script>
+</head>
+
+<body>
+    <theme-button value="dark" id="btn" size="3"></theme-button>
+
+    <header>
+        <h1>齐的工具包3 <span class="version-badge" id="versionBadge">#</span></h1>
+        <nav>
+            <ul>
+                <li><a href="/index.html">首页</a></li>
+                <li><a href="/about.html">关于我</a></li>
+                <li><a href="/contact.html">联系我</a></li>
+                <li><a href="./index.html">返回专区</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="toolkit-special-page files-main">
+        <h2>
+            <a href="./index.html" style="text-decoration: none;">📂 文件操作</a>
+            <span class="mode-badge">基础模式</span>
+        </h2>
+
+        <!-- ====== 一句话定义 ====== -->
+        <p class="files-description">
+            提供基本的文本文件读写，以及文件底层属性（时间、隐藏、只读等）的快速修改功能。
+        </p>
+
+        <!-- ====== 跳转卡片：高级模式 ====== -->
+        <a href="./FilesOperationPlus.html" class="plus-mode-card">
+            <div class="plus-card-glow"></div>
+            <div class="plus-card-content">
+                <span class="plus-icon">🚀</span>
+                <div class="plus-text">
+                    <h4>高级模式</h4>
+                    <p>批量操作 · 高级属性 · 更多功能</p>
+                </div>
+                <span class="plus-arrow">➜</span>
+            </div>
+        </a>
+
+        <!-- ====== 页面预览图 ====== -->
+        <div class="preview-image">
+            <img src="./images/QisToolkit3_FilesOperation.png" alt="文件操作界面预览" />
+            <span class="preview-caption">📸 文件操作 · 基础模式界面预览</span>
+        </div>
+
+        <!-- ====== 功能列表 ====== -->
+        <div class="functions-list">
+
+            <!-- 1. 文件加载与内容管理 -->
+            <div class="function-item">
+                <div class="func-header">
+                    <span class="func-icon">📄</span>
+                    <h3>文件加载与内容管理</h3>
+                    <span class="func-tag">基础</span>
+                </div>
+                <div class="func-body">
+                    <ul>
+                        <li><strong>打开文件</strong>：使用 Windows ShellExecute 打开文件。</li>
+                        <li><strong>阅读文件</strong>：尝试以Unicode读取文本并用MessageBox输出。</li>
+                        <li><strong>清空文件</strong>：一键清空文件全部内容。（<span style="color: #e74c3c;">⚠️ 数据不可恢复</span>）。</li>
+                        <li><strong>删除文件</strong>：直接从磁盘移除当前文件。（<span style="color: #e74c3c;">⚠️ 数据不可恢复</span>）。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 2. 时间戳快速修改 -->
+            <div class="function-item">
+                <div class="func-header">
+                    <span class="func-icon">⏰</span>
+                    <h3>时间戳快速修改</h3>
+                    <span class="func-tag">属性</span>
+                </div>
+                <div class="func-body">
+                    <ul>
+                        <li><strong>创建时间</strong>：修改文件的创建时间戳。</li>
+                        <li><strong>修改时间</strong>：修改文件最后修改时间戳。</li>
+                        <li><strong>访问时间</strong>：修改文件最后访问时间戳。</li>
+                        <li><strong>快捷操作</strong>：每个时间字段均支持手动输入，或一键「<strong>设为现在</strong>」同步当前系统时间。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 3. 基础属性配置 -->
+            <div class="function-item">
+                <div class="func-header">
+                    <span class="func-icon">⚙️</span>
+                    <h3>基础属性配置</h3>
+                    <span class="func-tag">属性</span>
+                </div>
+                <div class="func-body">
+                    <ul>
+                        <li><strong>隐藏文件</strong>：使文件在资源管理器中不可见。</li>
+                        <li><strong>系统文件</strong>：标记为系统级文件。</li>
+                        <li><strong>无内容索引</strong>：禁止 Windows 搜索索引该文件。</li>
+                        <li><strong>存档文件</strong>：标记为已存档（默认启用）。</li>
+                        <li><strong>只读文件</strong>：禁止写入和修改。</li>
+                        <li><strong>脱机文件</strong>：标记为可脱机使用。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 4. 内容写入模式 -->
+            <div class="function-item">
+                <div class="func-header">
+                    <span class="func-icon">💾</span>
+                    <h3>内容写入模式</h3>
+                    <span class="func-tag">保存</span>
+                </div>
+                <div class="func-body">
+                    <ul>
+                        <li><strong>读取</strong>：将当前文件内容加载到编辑框。</li>
+                        <li><strong>覆盖</strong>：用编辑框内容完全替换原文件（<span style="color: #e74c3c;">⚠️ 数据不可恢复</span>）。</li>
+                        <li><strong>追加</strong>：将编辑框内容添加到原文件末尾。</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ====== 能力边界说明 ====== -->
+        <div class="capability-box">
+            <div class="capability-header">
+                <span class="capability-icon">📌</span>
+                <h4>当前模式能力边界</h4>
+            </div>
+            <div class="capability-body">
+                <ul>
+                    <li><strong>文本处理</strong>：基础模式主要针对文本文件（如 TXT、代码文件等）的常规读写。</li>
+                    <li><strong>二进制文件</strong>：右下角的“二进制文件”复选框仅为文件类型标识。<br />
+                        <span style="color: #f0c27a;">当前版本中，基础模式支持阅读二进制文件（如 EXE、图片等），但不支持在此模式下修改并保存它们。</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ====== 使用流程 ====== -->
+        <div class="flow-box">
+            <div class="flow-header">
+                <span class="flow-icon">📋</span>
+                <h4>使用流程</h4>
+            </div>
+            <div class="flow-body">
+                <ol>
+                    <li><strong>选择文件</strong>：点击「打开文件」按钮，选择目标文件。</li>
+                    <li><strong>修改属性</strong>：编辑时间字段，或勾选下方的属性复选框。</li>
+                    <li><strong>内容操作</strong>：在编辑区修改文本，点击「覆盖」或「追加」保存。</li>
+                    <li><strong>完成</strong>：文件修改即时生效。</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- ====== 辅助信息 ====== -->
+        <div class="toolkit-legal-bar files-legal">
+            <p>
+                <span style="color: #8bc34a;">💡 文件修改即时生效</span>
+                <span style="color: #aaa; margin-left: 16px;">📌 操作前请确认文件路径正确</span>
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const versionBadge = document.getElementById('versionBadge');
+                if (versionBadge && typeof APP_CONFIG !== 'undefined') {
+                    versionBadge.textContent = APP_CONFIG.version;
+                }
+            });
+        </script>
+    </footer>
+</body>
+
+</html>
