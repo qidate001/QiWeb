@@ -12,7 +12,7 @@
 }
 
 .cleaning-main h2 a {
-    color: #4fc3f7;  /* 更亮的蓝色 */
+    color: #4fc3f7;
     transition: color 0.2s ease;
 }
 
@@ -25,6 +25,95 @@ body.light-theme .cleaning-main h2 a {
 }
 body.light-theme .cleaning-main h2 a:hover {
     color: #42a5f5;
+}
+
+/* ====== 特殊选项卡片 ====== */
+.cleaning-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.option-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.25s ease;
+}
+
+.option-card:hover {
+    border-color: rgba(52, 152, 219, 0.2);
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .option-card {
+    background: rgba(0, 0, 0, 0.01);
+    border-color: rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .option-card:hover {
+    background: #ffffff;
+    border-color: rgba(30, 136, 229, 0.12);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.option-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    line-height: 1.2;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.option-content {
+    flex: 1;
+}
+
+.option-content h4 {
+    margin: 0 0 4px 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #e0f2fe;
+}
+
+body.light-theme .option-content h4 {
+    color: #1a237e;
+}
+
+.option-content p {
+    margin: 0 0 6px 0;
+    font-size: 0.85rem;
+    color: #b0bec5;
+    line-height: 1.5;
+}
+
+body.light-theme .option-content p {
+    color: #546e7a;
+}
+
+.option-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 2px 12px;
+    border-radius: 20px;
+    background: rgba(52, 152, 219, 0.12);
+    color: #4fc3f7;
+    border: 1px solid rgba(52, 152, 219, 0.08);
+}
+
+body.light-theme .option-tag {
+    background: rgba(30, 136, 229, 0.06);
+    color: #1e88e5;
+    border-color: rgba(30, 136, 229, 0.06);
 }
 
 /* --- 统计信息 --- */
@@ -46,14 +135,14 @@ body.light-theme .cleaning-stats {
 
 .stat-item {
     font-size: 0.9rem;
-    color: #b0bec5;  /* 更亮的灰色 */
+    color: #b0bec5;
     display: flex;
     align-items: center;
     gap: 6px;
 }
 
 .stat-item strong {
-    color: #4dd0e1;  /* 鲜艳的青色 */
+    color: #4dd0e1;
     font-weight: 700;
     font-size: 1.05rem;
 }
@@ -126,7 +215,7 @@ body.light-theme .category-header {
 }
 
 .category-header .col-name {
-    color: #4fc3f7;  /* 亮蓝色 */
+    color: #4fc3f7;
     font-weight: 700;
 }
 
@@ -184,22 +273,22 @@ body.light-theme .trash-item:hover {
     opacity: 0.9;
 }
 
-/* --- 名称列（鲜艳文字） --- */
+/* --- 名称列 --- */
 .item-name {
     font-weight: 500;
-    color: #e0f2fe;  /* 明亮的冰蓝色 */
+    color: #e0f2fe;
     letter-spacing: -0.2px;
 }
 
 body.light-theme .item-name {
-    color: #1a237e;  /* 深蓝色，更醒目 */
+    color: #1a237e;
 }
 
-/* --- 路径列（更鲜艳） --- */
+/* --- 路径列 --- */
 .item-paths {
     font-size: 0.7rem;
     font-family: 'Consolas', 'Courier New', monospace;
-    color: #b0bec5;  /* 亮灰色 */
+    color: #b0bec5;
     line-height: 1.6;
     word-break: break-all;
 }
@@ -236,6 +325,16 @@ body.light-theme .cleaning-legal {
     background: rgba(139, 195, 74, 0.03);
 }
 
+/* --- 选项卡片中的 strong 标签高亮 --- */
+.option-content strong {
+    color: #ffab40;  /* 亮橙色，非常醒目 */
+    font-weight: 700;
+}
+
+body.light-theme .option-content strong {
+    color: #e65100;  /* 深橙色，在浅色背景下更明显 */
+}
+
 /* --- 响应式 --- */
 @media (max-width: 820px) {
     .category-header,
@@ -256,6 +355,10 @@ body.light-theme .cleaning-legal {
         padding: 10px 16px;
         font-size: 0.8rem;
         flex-wrap: wrap;
+    }
+    .cleaning-options {
+        grid-template-columns: 1fr;
+        gap: 12px;
     }
 }
 
@@ -305,6 +408,18 @@ body.light-theme .cleaning-legal {
     .cleaning-main h2 {
         font-size: 1.5rem;
     }
+    .option-card {
+        padding: 14px 16px;
+    }
+    .option-icon {
+        font-size: 1.5rem;
+    }
+    .option-content h4 {
+        font-size: 0.95rem;
+    }
+    .option-content p {
+        font-size: 0.8rem;
+    }
 }
 
 @media (max-width: 400px) {
@@ -324,5 +439,10 @@ body.light-theme .cleaning-legal {
     .cleaning-legal {
         padding: 12px 16px;
         font-size: 0.85rem;
+    }
+    .option-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
     }
 }
