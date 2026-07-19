@@ -10,7 +10,7 @@
   "variants": [
     {
       "name": "冰霜灰款",
-      "image": "开局西米恩车店_行者_1.png",
+      "image": "ec-sliver-lustered-悠游-行者_1.png",
       "specs": [
         {
           "label": "主色调",
@@ -34,7 +34,7 @@
       },
       "explosion_data": [
         3486135912,
-        "EC Sliver/Lustered 悠游 行者 (1)",
+        "行者-1 (EC Sliver/Lustered)",
         {
           "priColor": 25,
           "secColor": 16,
@@ -66,7 +66,7 @@
     },
     {
       "name": "磨损绿款",
-      "image": "开局西米恩车店_行者_2.png",
+      "image": "ec-sliver-lustered-悠游-行者_2.png",
       "specs": [
         {
           "label": "主色调",
@@ -90,7 +90,7 @@
       },
       "explosion_data": [
         3486135912,
-        "EC Sliver/Lustered 悠游 行者 (2)",
+        "行者-2 (EC Sliver/Lustered)",
         {
           "priColor": 25,
           "secColor": 16,

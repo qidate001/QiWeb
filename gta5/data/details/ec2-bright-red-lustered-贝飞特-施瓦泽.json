@@ -1,5 +1,5 @@
 {
-  "id": "ec2-bright-redlustered-贝飞特-施瓦泽",
+  "id": "ec2-bright-red-lustered-贝飞特-施瓦泽",
   "name": "EC2 Bright Red/Lustered 贝飞特 施瓦泽",
   "category": "主线：有借有还",
   "difficulty": "★★☆☆☆",
@@ -10,7 +10,7 @@
   "variants": [
     {
       "name": "磨损银款",
-      "image": "开局西米恩车店_贝飞特 施瓦泽_1.png",
+      "image": "ec2-bright-red-lustered-贝飞特-施瓦泽_1.png",
       "specs": [
         {
           "label": "主色调",
@@ -34,7 +34,7 @@
       },
       "explosion_data": [
         3548084598,
-        "EC2 Bright Red/Lustered 贝飞特 施瓦泽 (1)",
+        "施瓦兹-1 (EC2 Bright Red/Lustered)",
         {
           "priColor": 32,
           "secColor": 17,
@@ -65,7 +65,7 @@
     },
     {
       "name": "哑光橙款",
-      "image": "开局西米恩车店_贝飞特 施瓦泽_2.png",
+      "image": "ec2-bright-red-lustered-贝飞特-施瓦泽_2.png",
       "specs": [
         {
           "label": "主色调",
@@ -89,7 +89,7 @@
       },
       "explosion_data": [
         3548084598,
-        "EC2 Bright Red/Lustered 贝飞特 施瓦泽 (2)",
+        "施瓦兹-2 (EC2 Bright Red/Lustered)",
         {
           "priColor": 32,
           "secColor": 17,

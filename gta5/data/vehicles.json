@@ -12,7 +12,7 @@
       "variants": [
         {
           "name": "冰霜灰款",
-          "image": "开局西米恩车店_行者_1.png",
+          "image": "ec-sliver-lustered-悠游-行者_1.png",
           "specs": [
             {
               "label": "主色调",
@@ -36,7 +36,7 @@
           },
           "explosion_data": [
             3486135912,
-            "EC Sliver/Lustered 悠游 行者 (1)",
+            "行者-1 (EC Sliver/Lustered)",
             {
               "priColor": 25,
               "secColor": 16,
@@ -68,7 +68,7 @@
         },
         {
           "name": "磨损绿款",
-          "image": "开局西米恩车店_行者_2.png",
+          "image": "ec-sliver-lustered-悠游-行者_2.png",
           "specs": [
             {
               "label": "主色调",
@@ -92,7 +92,7 @@
           },
           "explosion_data": [
             3486135912,
-            "EC Sliver/Lustered 悠游 行者 (2)",
+            "行者-2 (EC Sliver/Lustered)",
             {
               "priColor": 25,
               "secColor": 16,
@@ -126,7 +126,7 @@
       "methods": []
     },
     {
-      "id": "ec2-bright-redlustered-贝飞特-施瓦泽",
+      "id": "ec2-bright-red-lustered-贝飞特-施瓦泽",
       "name": "EC2 Bright Red/Lustered 贝飞特 施瓦泽",
       "category": "主线：有借有还",
       "difficulty": "★★☆☆☆",
@@ -137,7 +137,7 @@
       "variants": [
         {
           "name": "磨损银款",
-          "image": "开局西米恩车店_贝飞特 施瓦泽_1.png",
+          "image": "ec2-bright-red-lustered-贝飞特-施瓦泽_1.png",
           "specs": [
             {
               "label": "主色调",
@@ -161,7 +161,7 @@
           },
           "explosion_data": [
             3548084598,
-            "EC2 Bright Red/Lustered 贝飞特 施瓦泽 (1)",
+            "施瓦兹-1 (EC2 Bright Red/Lustered)",
             {
               "priColor": 32,
               "secColor": 17,
@@ -192,7 +192,7 @@
         },
         {
           "name": "哑光橙款",
-          "image": "开局西米恩车店_贝飞特 施瓦泽_2.png",
+          "image": "ec2-bright-red-lustered-贝飞特-施瓦泽_2.png",
           "specs": [
             {
               "label": "主色调",
@@ -216,7 +216,7 @@
           },
           "explosion_data": [
             3548084598,
-            "EC2 Bright Red/Lustered 贝飞特 施瓦泽 (2)",
+            "施瓦兹-2 (EC2 Bright Red/Lustered)",
             {
               "priColor": 32,
               "secColor": 17,
@@ -260,7 +260,7 @@
       "variants": [
         {
           "name": "EC Orange/Lustered",
-          "image": "有借有还_橙色 冒险家 野牛.png",
+          "image": "ec-orange-lustered-冒险家-野牛.png",
           "specs": [
             {
               "label": "主色调",
@@ -327,7 +327,7 @@
       ]
     },
     {
-      "id": "ec-greenlustered-冒险家-野牛",
+      "id": "ec-green-lustered-冒险家-野牛",
       "name": "EC Green/Lustered 冒险家 野牛",
       "category": "主线：有借有还",
       "difficulty": "★★☆☆☆",
@@ -338,7 +338,7 @@
       "variants": [
         {
           "name": "默认款",
-          "image": "有借有还_绿色 冒险家 野牛.png",
+          "image": "ec-green-lustered-冒险家-野牛.png",
           "specs": [
             {
               "label": "主色调",
@@ -358,6 +358,196 @@
           ],
           "properties": {
             "获取难度": "★★★★☆",
+            "收藏价值": "★★★☆☆"
+          },
+          "explosion_data": [
+            4278019151,
+            "野牛 (EC Green/Lustered)",
+            {
+              "priColor": 58,
+              "secColor": 63,
+              "pearlColor": 4,
+              "wheelColor": 156,
+              "dialsColor": 0,
+              "trimColor": 0,
+              "customPriColor": 0,
+              "customSecColor": 0,
+              "tireSmoke": 16777215,
+              "neon": 16711935,
+              "neonState": 0,
+              "livery": -1,
+              "windowTint": -1,
+              "wheelType": 3,
+              "lowGripTyres": 0,
+              "plateIndex": 0,
+              "plate": "24SKR768",
+              "mods": {
+                "22": 0
+              },
+              "extras": {
+                "10": 0,
+                "11": 1
+              }
+            }
+          ]
+        }
+      ],
+      "methods": []
+    },
+    {
+      "id": "ec-green-西部-驮兽",
+      "name": "EC Green 西部 驮兽",
+      "category": "主线：有借有还",
+      "difficulty": "★★☆☆☆",
+      "description": "旧时代限定有借有还任务可获取的稀有配色载具",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1NbxxegEU1",
+      "routeImage": "",
+      "update_date": "2026-07-19",
+      "variants": [
+        {
+          "name": "默认款",
+          "image": "",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "金属海绿",
+              "isRare": false
+            },
+            {
+              "label": "副色调",
+              "value": "金属黑",
+              "isRare": false
+            },
+            {
+              "label": "轮胎色",
+              "value": "合金银",
+              "isRare": false
+            },
+            {
+              "label": "珠光",
+              "value": "磨损绿",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "获取难度": "★★★★☆",
+            "收藏价值": "★★★☆☆"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "title": "平台限定！",
+          "number": 0,
+          "details": {},
+          "intro": "",
+          "description": "这辆车在PS3/Xbox 360版本可以明显看出来颜色相较于本世代版本更深。在PS4/Xbox One/PC版本，这辆西部 驮兽不隐藏是因为它和后面富兰克林的西部 驮兽颜色一样！和PS3/Xbox 360版本有巨大的区别。",
+          "noteLink": "",
+          "noteText": ""
+        }
+      ]
+    },
+    {
+      "id": "ec-bright-red-ec2-white-rims-绝致-统领",
+      "name": "EC Bright Red/EC2 White Rims 绝致 统领",
+      "category": "主线：节外生枝",
+      "difficulty": "★★☆☆☆",
+      "description": "非常值得收藏的三色同色隐藏",
+      "bilibiliVideo": "https://www.bilibili.com/video/BV1TLYgeJE7N",
+      "routeImage": "",
+      "update_date": "2026-07-19",
+      "variants": [
+        {
+          "name": "默认款",
+          "image": "",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": "工业红",
+              "isRare": true
+            },
+            {
+              "label": "副色调",
+              "value": "工业红",
+              "isRare": true
+            },
+            {
+              "label": "珠光",
+              "value": "工业红",
+              "isRare": true
+            }
+          ],
+          "properties": {
+            "获取难度": "★☆☆☆☆",
+            "收藏价值": "★★★★★"
+          },
+          "explosion_data": [
+            2411098011,
+            "统领 (EC Bright Red/EC2 White Rims)",
+            {
+              "priColor": 43,
+              "secColor": 43,
+              "pearlColor": 43,
+              "wheelColor": 134,
+              "dialsColor": 0,
+              "trimColor": 0,
+              "customPriColor": 0,
+              "customSecColor": 0,
+              "tireSmoke": 16777215,
+              "neon": 16711935,
+              "neonState": 0,
+              "livery": -1,
+              "windowTint": -1,
+              "wheelType": 0,
+              "lowGripTyres": 0,
+              "plateIndex": 3,
+              "plate": "04VTT462",
+              "mods": {
+                "22": 0
+              },
+              "extras": {
+                "11": 1,
+                "12": 1
+              }
+            }
+          ]
+        }
+      ],
+      "methods": []
+    },
+    {
+      "id": "new-mrrkfrac",
+      "name": "新载具",
+      "category": "零散系列",
+      "difficulty": "★★☆☆☆",
+      "description": "请填写描述",
+      "routeImage": "",
+      "bilibiliVideo": "",
+      "update_date": "2026-07-19",
+      "variants": [
+        {
+          "name": "默认款",
+          "image": "",
+          "specs": [
+            {
+              "label": "主色调",
+              "value": ""
+            },
+            {
+              "label": "副色调",
+              "value": ""
+            },
+            {
+              "label": "轮胎色",
+              "value": ""
+            },
+            {
+              "label": "珠光",
+              "value": ""
+            }
+          ],
+          "properties": {
+            "获取难度": "★★★☆☆",
             "收藏价值": "★★★☆☆"
           }
         }

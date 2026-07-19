@@ -1,0 +1,53 @@
+{
+  "id": "ec-green-西部-驮兽",
+  "name": "EC Green 西部 驮兽",
+  "category": "主线：有借有还",
+  "difficulty": "★★☆☆☆",
+  "description": "旧时代限定有借有还任务可获取的稀有配色载具",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1NbxxegEU1",
+  "routeImage": "",
+  "update_date": "2026-07-19",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "金属海绿",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "金属黑",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "合金银",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "磨损绿",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "title": "平台限定！",
+      "number": 0,
+      "details": {},
+      "intro": "",
+      "description": "这辆车在PS3/Xbox 360版本可以明显看出来颜色相较于本世代版本更深。在PS4/Xbox One/PC版本，这辆西部 驮兽不隐藏是因为它和后面富兰克林的西部 驮兽颜色一样！和PS3/Xbox 360版本有巨大的区别。",
+      "noteLink": "",
+      "noteText": ""
+    }
+  ]
+}

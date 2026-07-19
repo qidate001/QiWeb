@@ -1,5 +1,5 @@
 {
-  "id": "ec-greenlustered-冒险家-野牛",
+  "id": "ec-green-lustered-冒险家-野牛",
   "name": "EC Green/Lustered 冒险家 野牛",
   "category": "主线：有借有还",
   "difficulty": "★★☆☆☆",
@@ -10,7 +10,7 @@
   "variants": [
     {
       "name": "默认款",
-      "image": "有借有还_绿色 冒险家 野牛.png",
+      "image": "ec-green-lustered-冒险家-野牛.png",
       "specs": [
         {
           "label": "主色调",
@@ -31,7 +31,37 @@
       "properties": {
         "获取难度": "★★★★☆",
         "收藏价值": "★★★☆☆"
-      }
+      },
+      "explosion_data": [
+        4278019151,
+        "野牛 (EC Green/Lustered)",
+        {
+          "priColor": 58,
+          "secColor": 63,
+          "pearlColor": 4,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 3,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "24SKR768",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 0,
+            "11": 1
+          }
+        }
+      ]
     }
   ],
   "methods": []

@@ -1,0 +1,39 @@
+{
+  "id": "new-mrrkfrac",
+  "name": "新载具",
+  "category": "零散系列",
+  "difficulty": "★★☆☆☆",
+  "description": "请填写描述",
+  "routeImage": "",
+  "bilibiliVideo": "",
+  "update_date": "2026-07-19",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": ""
+        },
+        {
+          "label": "副色调",
+          "value": ""
+        },
+        {
+          "label": "轮胎色",
+          "value": ""
+        },
+        {
+          "label": "珠光",
+          "value": ""
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      }
+    }
+  ],
+  "methods": []
+}
