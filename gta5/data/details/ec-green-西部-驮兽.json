@@ -2,7 +2,7 @@
   "id": "ec-green-西部-驮兽",
   "name": "EC Green 西部 驮兽",
   "category": "主线：有借有还",
-  "difficulty": "★★☆☆☆",
+  "difficulty": "★★★★☆",
   "description": "旧时代限定有借有还任务可获取的稀有配色载具",
   "bilibiliVideo": "https://www.bilibili.com/video/BV1NbxxegEU1",
   "routeImage": "",
@@ -10,7 +10,7 @@
   "variants": [
     {
       "name": "默认款",
-      "image": "",
+      "image": "ec-green-西部-驮兽.png",
       "specs": [
         {
           "label": "主色调",

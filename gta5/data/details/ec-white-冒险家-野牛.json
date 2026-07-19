@@ -1,45 +1,50 @@
 {
-  "id": "ec-bright-red-ec2-white-rims-绝致-统领",
-  "name": "EC Bright Red/EC2 White Rims 绝致 统领",
+  "id": "ec-white-冒险家-野牛",
+  "name": "EC White 冒险家 野牛",
   "category": "主线：节外生枝",
-  "difficulty": "★☆☆☆☆",
-  "description": "非常值得收藏的三色同色隐藏",
+  "difficulty": "★★★★★",
+  "description": "难度拉满但价值不高",
   "bilibiliVideo": "https://www.bilibili.com/video/BV1TLYgeJE7N",
   "routeImage": "",
   "update_date": "2026-07-19",
   "variants": [
     {
       "name": "默认款",
-      "image": "ec-bright-red-ec2-white-rims-绝致-统领.png",
+      "image": "ec-white-冒险家-野牛.png",
       "specs": [
         {
           "label": "主色调",
-          "value": "工业红",
+          "value": "磨损白",
           "isRare": true
         },
         {
           "label": "副色调",
-          "value": "工业红",
+          "value": "磨损白",
           "isRare": true
         },
         {
+          "label": "轮胎色",
+          "value": "交通色",
+          "isRare": false
+        },
+        {
           "label": "珠光",
-          "value": "工业红",
-          "isRare": true
+          "value": "交通色",
+          "isRare": false
         }
       ],
       "properties": {
-        "获取难度": "★☆☆☆☆",
-        "收藏价值": "★★★★★"
+        "获取难度": "★★★★★",
+        "收藏价值": "★★☆☆☆"
       },
       "explosion_data": [
-        2411098011,
-        "统领 (EC Bright Red/EC2 White Rims)",
+        1739845664,
+        "野牛 (EC White)",
         {
-          "priColor": 43,
-          "secColor": 43,
-          "pearlColor": 43,
-          "wheelColor": 134,
+          "priColor": 132,
+          "secColor": 132,
+          "pearlColor": 111,
+          "wheelColor": 156,
           "dialsColor": 0,
           "trimColor": 0,
           "customPriColor": 0,
@@ -48,15 +53,17 @@
           "neon": 16711935,
           "neonState": 0,
           "livery": -1,
-          "windowTint": -1,
-          "wheelType": 0,
+          "windowTint": 0,
+          "wheelType": 3,
           "lowGripTyres": 0,
-          "plateIndex": 3,
-          "plate": "04VTT462",
+          "plateIndex": 0,
+          "plate": "45SEY483",
           "mods": {
             "22": 0
           },
           "extras": {
+            "1": 1,
+            "2": 0,
             "11": 1,
             "12": 1
           }
