@@ -2,11 +2,11 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 4866; // 或你自定义的端口
-const DATA_DIR = path.join(__dirname, 'data');
-const DETAILS_DIR = path.join(DATA_DIR, 'details');
+const PORT = 4867;
+const BASE_DIR = __dirname;
 
-if (!fs.existsSync(DETAILS_DIR)) fs.mkdirSync(DETAILS_DIR, { recursive: true });
+// 所有版本列表
+const VERSIONS = ['gta5', 'gta5ol'];
 
 const server = http.createServer((req, res) => {
     const urlObj = new URL(req.url, `http://${req.headers.host}`);
@@ -22,45 +22,48 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // 提供 admin.html 页面
-    if (pathname === '/' || pathname === '/admin.html') {
-        const filePath = path.join(__dirname, 'admin.html');
-        fs.readFile(filePath, 'utf8', (err, data) => {
-            if (err) { res.writeHead(404); res.end('admin.html not found'); return; }
-            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-            res.end(data);
-        });
-        return;
-    }
-
-    // 加载数据（从 vehicles.json 读取）
+    // 加载数据
     if (pathname === '/api/load' && req.method === 'GET') {
+        const version = urlObj.searchParams.get('version') || 'gta5';
+        const dataDir = path.join(BASE_DIR, 'data', version);
+        
         try {
-            const raw = fs.readFileSync(path.join(DATA_DIR, 'vehicles.json'), 'utf8');
+            const raw = fs.readFileSync(path.join(dataDir, 'vehicles.json'), 'utf8');
             const data = JSON.parse(raw);
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.end(JSON.stringify(data));
         } catch (err) {
-            // 文件不存在或解析失败，返回空数组
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.end(JSON.stringify({ vehicles: [] }));
         }
         return;
     }
 
-    // 保存数据（覆写所有文件）
+    // 保存数据
     if (pathname === '/api/save' && req.method === 'POST') {
         let body = '';
         req.on('data', chunk => body += chunk);
         req.on('end', () => {
             try {
                 const parsed = JSON.parse(body);
-                const vehicles = parsed.vehicles;
+                const { vehicles, version = 'gta5' } = parsed;
+                
                 if (!Array.isArray(vehicles)) throw new Error('数据格式错误');
+
+                const dataDir = path.join(BASE_DIR, 'data', version);
+                const detailsDir = path.join(dataDir, 'details');
+                const imagesDir = path.join(dataDir, 'images');
+                
+                if (!fs.existsSync(detailsDir)) {
+                    fs.mkdirSync(detailsDir, { recursive: true });
+                }
+                if (!fs.existsSync(imagesDir)) {
+                    fs.mkdirSync(imagesDir, { recursive: true });
+                }
 
                 // 写入 vehicles.json
                 fs.writeFileSync(
-                    path.join(DATA_DIR, 'vehicles.json'),
+                    path.join(dataDir, 'vehicles.json'),
                     JSON.stringify({ vehicles }, null, 2),
                     'utf8'
                 );
@@ -78,35 +81,24 @@ const server = http.createServer((req, res) => {
                     variantsCount: v.variants?.length || 0
                 }));
                 fs.writeFileSync(
-                    path.join(DATA_DIR, 'index.json'),
+                    path.join(dataDir, 'index.json'),
                     JSON.stringify(index, null, 2),
                     'utf8'
                 );
 
-                // 写入 details/*.json
+                // 写入详情文件
                 vehicles.forEach(v => {
                     fs.writeFileSync(
-                        path.join(DETAILS_DIR, `${v.id}.json`),
+                        path.join(detailsDir, `${v.id}.json`),
                         JSON.stringify(v, null, 2),
                         'utf8'
                     );
                 });
 
-                // 清理已删除的车辆详情文件
-                const existing = fs.readdirSync(DETAILS_DIR);
-                const currentIds = new Set(vehicles.map(v => `${v.id}.json`));
-                let cleaned = 0;
-                existing.forEach(file => {
-                    if (!currentIds.has(file) && file.endsWith('.json')) {
-                        fs.unlinkSync(path.join(DETAILS_DIR, file));
-                        cleaned++;
-                    }
-                });
-
                 res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
                 res.end(JSON.stringify({
                     success: true,
-                    message: `✅ 成功覆写 ${vehicles.length} 辆载具${cleaned ? `，清理 ${cleaned} 个冗余文件` : ''}`
+                    message: `✅ 成功覆写 ${version} 版本 ${vehicles.length} 辆载具`
                 }));
             } catch (err) {
                 res.writeHead(500);
@@ -116,14 +108,25 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // 其他请求返回 404
+    // 提供 admin.html
+    if (pathname === '/' || pathname === '/admin.html') {
+        const filePath = path.join(BASE_DIR, 'admin.html');
+        fs.readFile(filePath, 'utf8', (err, data) => {
+            if (err) { res.writeHead(404); res.end('admin.html not found'); return; }
+            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.end(data);
+        });
+        return;
+    }
+
     res.writeHead(404);
     res.end('Not Found');
 });
 
 server.listen(PORT, () => {
     console.log(`\n🚀 本地管理服务器已启动！`);
-    console.log(`📂 项目目录: ${__dirname}`);
+    console.log(`📂 项目目录: ${BASE_DIR}`);
     console.log(`🌐 访问地址: http://localhost:${PORT}`);
+    console.log(`📋 支持版本: ${VERSIONS.join(', ')}`);
     console.log(`\n💡 请保持此终端运行，关闭即停止。\n`);
 });

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title id="pageTitle">GTA5 故事模式 稀有载具收集</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gta5lo.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+</head>
+
+<body>
+    <theme-button value="dark" id="btn" size="3"></theme-button>
+
+    <header>
+        <h1 id="siteTitle">GTA5 故事模式 稀有载具收集</h1>
+        <nav>
+            <ul>
+                <li><a href="/index.html" id="homeLink">首页</a></li>
+                <li><a href="/about.html">关于我</a></li>
+                <li><a href="/contact.html">联系我</a></li>
+                <li><a href="./vehicles.html" id="vehiclesLink">载具列表</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 版本切换器 -->
+    <div class="version-switcher" style="text-align:center; margin: 10px 0 20px 0;">
+        <a href="?version=gta5" class="version-btn" data-version="gta5"
+            style="display:inline-block; padding:8px 20px; margin:0 10px; background:#2d2d2d; color:#fff; text-decoration:none; border-radius:20px; transition:0.3s;">🎮
+            GTA5 故事模式</a>
+        <a href="?version=gta5ol" class="version-btn" data-version="gta5ol"
+            style="display:inline-block; padding:8px 20px; margin:0 10px; background:#2d2d2d; color:#fff; text-decoration:none; border-radius:20px; transition:0.3s;">🌐
+            GTA5 Online</a>
+    </div>
+
+    <main>
+        <h2>前言</h2>
+        <p class="method-intro">
+            什么是稀有载具？<br />
+            稀有载具指的是 <strong>带有无法通过正常手段改装得到的配色/涂装/配件</strong> 的载具
+        </p>
+
+        <h2>快速开始</h2>
+        <div class="quick-links">
+            <div class="quick-item">
+                <h3>按分类浏览</h3>
+                <ul id="categoryLinks">
+                    <!-- 动态生成 -->
+                </ul>
+            </div>
+
+            <div class="quick-item">
+                <h3>推荐载具</h3>
+                <ul id="recommendLinks">
+                    <!-- 动态生成 -->
+                </ul>
+            </div>
+
+            <div class="quick-item">
+                <h3>基础知识</h3>
+                <ul>
+                    <li><a href="常识/市中心改车王.html">市中心改车王</a></li>
+                    <li><a href="#">卡视野技巧</a></li>
+                    <li><a href="#">种子车概念</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>统计信息</h2>
+        <div class="stats" id="stats-container">
+            <div class="stat-item">
+                <span class="stat-number" id="totalVehicles">加载中...</span>
+                <span class="stat-label">总载具数</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="totalVariants">加载中...</span>
+                <span class="stat-label">变体总数</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="lastUpdate">加载中...</span>
+                <span class="stat-label">最后更新</span>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="vehicles.html" id="enterVehiclesLink" class="highlight-link">🚗 进入载具列表</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </footer>
+
+    <script>
+        // ============================================================
+        //  工具函数：获取当前版本
+        // ============================================================
+        function getVersion() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('version') || 'gta5';
+        }
+
+        // ============================================================
+        //  加载配置
+        // ============================================================
+        async function loadConfig() {
+            try {
+                const response = await fetch('data/config.json');
+                if (!response.ok) throw new Error('无法加载配置文件');
+                return await response.json();
+            } catch (error) {
+                console.warn('加载配置失败，使用默认配置:', error);
+                return {
+                    default: 'gta5',
+                    versions: {
+                        gta5: {
+                            title: 'GTA5 故事模式 稀有载具收集',
+                            subtitle: 'GTA5 故事模式 稀有载具收集',
+                            navLabel: 'GTA5首页',
+                            dataPath: 'data/gta5/'
+                        },
+                        gta5ol: {
+                            title: 'GTA5 Online 稀有载具收集',
+                            subtitle: 'GTA5 Online 稀有载具收集',
+                            navLabel: 'GTA5OL首页',
+                            dataPath: 'data/gta5ol/'
+                        }
+                    }
+                };
+            }
+        }
+
+        // ============================================================
+        //  页面初始化
+        // ============================================================
+        async function initPage() {
+            const version = getVersion();
+            const config = await loadConfig();
+            const vc = config.versions[version];
+
+            if (!vc) {
+                console.error('未知版本:', version);
+                return;
+            }
+
+            // 更新页面标题
+            document.title = vc.title;
+            document.getElementById('pageTitle').textContent = vc.title;
+            document.getElementById('siteTitle').textContent = vc.subtitle;
+
+            // 更新导航链接
+            const versionHomeLink = document.querySelector('nav ul li a[href*="index.html"]');
+            if (versionHomeLink) {
+                versionHomeLink.textContent = vc.navLabel;
+                versionHomeLink.href = `./index.html?version=${version}`;
+            }
+
+            const vehiclesLink = document.getElementById('vehiclesLink');
+            if (vehiclesLink) {
+                vehiclesLink.href = `./vehicles.html?version=${version}`;
+            }
+
+            const enterLink = document.getElementById('enterVehiclesLink');
+            if (enterLink) {
+                enterLink.href = `vehicles.html?version=${version}`;
+            }
+
+            // 高亮当前版本按钮
+            document.querySelectorAll('.version-btn').forEach(btn => {
+                btn.style.background = btn.dataset.version === version ? '#8b5cf6' : '#2d2d2d';
+                btn.style.color = btn.dataset.version === version ? '#fff' : '#aaa';
+            });
+
+            // 加载统计数据
+            await loadStats(version);
+
+            // 加载分类和推荐
+            await loadCategoriesAndRecommend(version);
+        }
+
+        // ============================================================
+        //  加载统计数据
+        // ============================================================
+        async function loadStats(version) {
+            try {
+                const response = await fetch(`data/${version}/vehicles.json`);
+                if (!response.ok) throw new Error('加载数据失败');
+
+                const data = await response.json();
+                const vehicles = data.vehicles || [];
+
+                let totalVariants = 0;
+                let lastDate = '';
+
+                vehicles.forEach(vehicle => {
+                    totalVariants += (vehicle.variants || []).length;
+                    if (!lastDate || (vehicle.update_date && vehicle.update_date > lastDate)) {
+                        lastDate = vehicle.update_date;
+                    }
+                });
+
+                document.getElementById('totalVehicles').textContent = vehicles.length;
+                document.getElementById('totalVariants').textContent = totalVariants;
+                document.getElementById('lastUpdate').textContent = lastDate || '未知';
+
+            } catch (error) {
+                console.error('加载统计信息失败:', error);
+                document.getElementById('totalVehicles').textContent = '加载失败';
+                document.getElementById('totalVariants').textContent = '加载失败';
+                document.getElementById('lastUpdate').textContent = '加载失败';
+            }
+        }
+
+        // ============================================================
+        //  加载分类和推荐
+        // ============================================================
+        async function loadCategoriesAndRecommend(version) {
+            try {
+                const response = await fetch(`data/${version}/index.json`);
+                if (!response.ok) throw new Error('加载索引失败');
+
+                const vehicles = await response.json();
+
+                // 提取分类
+                const categories = new Set();
+                vehicles.forEach(v => {
+                    if (v.category) categories.add(v.category);
+                });
+
+                const categoryContainer = document.getElementById('categoryLinks');
+                if (categoryContainer) {
+                    categoryContainer.innerHTML = '';
+                    categories.forEach(cat => {
+                        const li = document.createElement('li');
+                        const a = document.createElement('a');
+                        a.href = `vehicles.html?category=${encodeURIComponent(cat)}&version=${version}`;
+                        a.textContent = cat;
+                        li.appendChild(a);
+                        categoryContainer.appendChild(li);
+                    });
+                }
+
+                // 推荐载具
+                const recommendContainer = document.getElementById('recommendLinks');
+                if (recommendContainer) {
+                    recommendContainer.innerHTML = '';
+                    const recommend = vehicles
+                        .filter(v => v.coverImage)
+                        .slice(0, 3);
+
+                    if (recommend.length === 0) {
+                        const fallback = vehicles.slice(0, 3);
+                        fallback.forEach(v => {
+                            const li = document.createElement('li');
+                            const a = document.createElement('a');
+                            a.href = `vehicle-detail.html?id=${v.id}&version=${version}`;
+                            a.textContent = v.name;
+                            li.appendChild(a);
+                            recommendContainer.appendChild(li);
+                        });
+                    } else {
+                        recommend.forEach(v => {
+                            const li = document.createElement('li');
+                            const a = document.createElement('a');
+                            a.href = `vehicle-detail.html?id=${v.id}&version=${version}`;
+                            a.textContent = v.name;
+                            li.appendChild(a);
+                            recommendContainer.appendChild(li);
+                        });
+                    }
+                }
+
+            } catch (error) {
+                console.warn('加载分类/推荐失败:', error);
+            }
+        }
+
+        // ============================================================
+        //  启动
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+
+    <style>
+        .version-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 12px rgba(139, 92, 246, 0.4);
+        }
+
+        .version-btn.active {
+            background: #8b5cf6 !important;
+            color: #fff !important;
+        }
+
+        .quick-item ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .quick-item ul li {
+            margin: 6px 0;
+        }
+
+        .quick-item ul li a {
+            color: #8b5cf6;
+            text-decoration: none;
+        }
+
+        .quick-item ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <!-- 版本切换器的额外样式 -->
+    <style>
+        .version-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 12px rgba(139, 92, 246, 0.4);
+        }
+
+        .version-btn.active {
+            background: #8b5cf6 !important;
+            color: #fff !important;
+        }
+
+        .quick-item ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .quick-item ul li {
+            margin: 6px 0;
+        }
+
+        .quick-item ul li a {
+            color: #8b5cf6;
+            text-decoration: none;
+        }
+
+        .quick-item ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+</body>
+
+</html>

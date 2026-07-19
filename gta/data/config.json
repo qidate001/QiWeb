@@ -1,0 +1,19 @@
+{
+  "default": "gta5",
+  "versions": {
+    "gta5": {
+      "title": "GTA5 故事模式 稀有载具收集",
+      "subtitle": "GTA5 故事模式 稀有载具收集",
+      "navLabel": "GTA5首页",
+      "dataPath": "data/gta5/",
+      "homeUrl": "index.html?version=gta5"
+    },
+    "gta5ol": {
+      "title": "GTA5 Online 稀有载具收集",
+      "subtitle": "GTA5 Online 稀有载具收集",
+      "navLabel": "GTA5OL首页",
+      "dataPath": "data/gta5ol/",
+      "homeUrl": "index.html?version=gta5ol"
+    }
+  }
+}

@@ -1,44 +1,94 @@
-// vehicle-detail.js - 车辆详情页处理器（按需加载版）
+// vehicle-detail.js - 车辆详情页处理器（支持多版本 + 版本独立图片）
 class VehicleDetail {
   constructor() {
     this.vehicleId = null;
     this.vehicle = null;
     this.similarVehicles = [];
+    this.version = this.getVersion();
+    this.config = null;
+    console.log('当前版本:', this.version);
+  }
+
+  getVersion() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('version') || 'gta5';
+  }
+
+  async loadConfig() {
+    try {
+      const response = await fetch('data/config.json');
+      if (!response.ok) throw new Error('无法加载配置文件');
+      this.config = await response.json();
+      return this.config;
+    } catch (error) {
+      console.warn('加载配置失败，使用默认配置:', error);
+      this.config = {
+        versions: {
+          gta5: { title: 'GTA5 故事模式 稀有载具收集', dataPath: 'data/gta5/' },
+          gta5ol: { title: 'GTA5 Online 稀有载具收集', dataPath: 'data/gta5ol/' }
+        }
+      };
+      return this.config;
+    }
   }
 
   async loadDetail() {
     const urlParams = new URLSearchParams(window.location.search);
     this.vehicleId = urlParams.get('id');
+    this.version = urlParams.get('version') || 'gta5';
 
-    console.log('加载车辆详情，ID:', this.vehicleId);
+    console.log('加载车辆详情，ID:', this.vehicleId, '版本:', this.version);
 
     if (!this.vehicleId) {
       this.showError('未指定载具ID');
       return;
     }
 
+    await this.loadConfig();
+    this.updatePageTitle();
+    this.highlightVersion();
+
     try {
-      // 只加载当前车辆的详情文件
-      const response = await fetch(`./data/details/${this.vehicleId}.json`);
+      const response = await fetch(`./data/${this.version}/details/${this.vehicleId}.json`);
       if (!response.ok) {
         throw new Error(`HTTP ${response.status} - 可能该车辆详情文件不存在`);
       }
       this.vehicle = await response.json();
       console.log('找到车辆:', this.vehicle.name);
 
-      // 渲染详情
       this.renderDetail();
-
-      // 加载相关推荐（可选）
       this.loadSimilarVehicles();
 
-      // 更新页面标题
-      document.title = `GTA5 Online 稀有载具收集：${this.vehicle.name}`;
+      const vc = this.config.versions[this.version];
+      document.title = `${vc ? vc.title : '稀有载具'}：${this.vehicle.name}`;
 
     } catch (error) {
       console.error('加载详情失败:', error);
-      this.showError('加载详情失败，请确认已运行拆分脚本生成详情文件: ' + error.message);
+      this.showError('加载详情失败: ' + error.message);
     }
+  }
+
+  updatePageTitle() {
+    const vc = this.config.versions[this.version];
+    if (vc) {
+      document.getElementById('siteTitle').textContent = vc.title;
+      const homeLink = document.getElementById('homeLink');
+      if (homeLink) {
+        homeLink.textContent = vc.navLabel || (this.version === 'gta5' ? 'GTA5首页' : 'GTA5OL首页');
+        homeLink.href = `./index.html?version=${this.version}`;
+      }
+      const vehiclesLink = document.getElementById('vehiclesLink');
+      if (vehiclesLink) {
+        vehiclesLink.href = `./vehicles.html?version=${this.version}`;
+      }
+    }
+  }
+
+  highlightVersion() {
+    document.querySelectorAll('.version-btn').forEach(btn => {
+      btn.style.background = btn.dataset.version === this.version ? '#8b5cf6' : '#2d2d2d';
+      btn.style.color = btn.dataset.version === this.version ? '#fff' : '#aaa';
+    });
   }
 
   renderDetail() {
@@ -56,8 +106,8 @@ class VehicleDetail {
     container.innerHTML = `
       <div class="detail-header">
         <div class="breadcrumb">
-          <a href="vehicles.html">载具列表</a> / 
-          <a href="vehicles.html?category=${vehicle.category}">${vehicle.category}</a> / 
+          <a href="vehicles.html?version=${this.version}">载具列表</a> / 
+          <a href="vehicles.html?category=${encodeURIComponent(vehicle.category)}&version=${this.version}">${vehicle.category}</a> / 
           <span>${vehicle.name}</span>
         </div>
         <h2>${vehicle.name}</h2>
@@ -88,7 +138,7 @@ class VehicleDetail {
         <div class="route-section">
           <h3>🗺️ 获取路线图</h3>
           <img 
-            data-src="./images/${vehicle.routeImage}" 
+            data-src="data/${this.version}/images/${vehicle.routeImage}" 
             alt="${vehicle.name}获取路线" 
             class="route-image lazy-image"
             loading="lazy"
@@ -150,11 +200,12 @@ class VehicleDetail {
       ? this.renderVariantExplosionData(variant.name, variant.explosion_data)
       : '';
 
+    // ⭐ 关键修改：图片路径改为版本目录下
     return `
       <div class="variant-card">
         <div class="variant-image">
           <img 
-            data-src="./images/${variant.image}" 
+            data-src="data/${this.version}/images/${variant.image}" 
             alt="${this.vehicle.name} - ${variant.name}" 
             class="lazy-image"
             loading="lazy"
@@ -234,12 +285,11 @@ class VehicleDetail {
     `;
   }
 
-  // 相关推荐（基于索引加载，保持轻量）
   async loadSimilarVehicles() {
     if (!this.vehicle) return;
 
     try {
-      const response = await fetch('./data/index.json');
+      const response = await fetch(`./data/${this.version}/index.json`);
       if (!response.ok) return;
       const indexData = await response.json();
 
@@ -255,10 +305,11 @@ class VehicleDetail {
 
       section.style.display = 'block';
 
+      // ⭐ 推荐图片也改为版本目录下
       container.innerHTML = similar.map(vehicle => `
         <div class="similar-card">
           <img 
-            data-src="${vehicle.coverImage ? `./images/${vehicle.coverImage}` : 'images/placeholder.jpg'}" 
+            data-src="${vehicle.coverImage ? `data/${this.version}/images/${vehicle.coverImage}` : 'images/placeholder.jpg'}" 
             alt="${vehicle.name}" 
             class="lazy-image"
             loading="lazy"
@@ -267,18 +318,17 @@ class VehicleDetail {
           <div class="similar-info">
             <h4>${vehicle.name}</h4>
             <p>${vehicle.description ? vehicle.description.substring(0, 60) + '...' : ''}</p>
-            <a href="vehicle-detail.html?id=${vehicle.id}" class="btn-view">查看详情</a>
+            <a href="vehicle-detail.html?id=${vehicle.id}&version=${this.version}" class="btn-view">查看详情</a>
           </div>
         </div>
       `).join('');
 
-      this.setupLazyLoading(); // 重新绑定懒加载
+      this.setupLazyLoading();
     } catch (e) {
       console.warn('加载推荐失败:', e);
     }
   }
 
-  // ---------- 辅助方法 ----------
   renderVariantExplosionData(variantName, explosionData) {
     const dataString = typeof explosionData === 'string' 
       ? explosionData 
@@ -348,7 +398,6 @@ class VehicleDetail {
       });
     });
 
-    // 原有的展开/收起（用于整体爆炸数据）
     document.querySelectorAll('.section-header.expandable').forEach(header => {
       header.addEventListener('click', () => {
         const targetId = header.dataset.target;
@@ -429,7 +478,7 @@ class VehicleDetail {
         <div class="error-container">
           <h3>⚠️ 错误</h3>
           <p>${message}</p>
-          <a href="vehicles.html" class="btn-back">返回载具列表</a>
+          <a href="vehicles.html?version=${this.version}" class="btn-back">返回载具列表</a>
         </div>
       `;
     }
