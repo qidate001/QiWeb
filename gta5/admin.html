@@ -837,20 +837,32 @@
         }
 
         // ================================================================
-        //  自动生成 ID
+        //  根据名称自动生成 ID（支持中文转拼音式 slug）
         // ================================================================
         function autoGenerateId() {
-            const name = document.getElementById('vName').value.trim();
-            if (!name) { document.getElementById('vId').value = ''; return; }
-            let id = name
-                .replace(/[^\w\u4e00-\u9fa5\s-]/g, '')
-                .replace(/\s+/g, '-')
-                .replace(/-+/g, '-')
-                .toLowerCase();
+            const nameInput = document.getElementById('vName');
+            const idOutput = document.getElementById('vId');
+            const rawName = nameInput.value.trim();
+
+            // 名称为空时清空 ID
+            if (!rawName) {
+                idOutput.value = '';
+                return;
+            }
+
+            // 保留中英文、数字、空格和连字符，将其他字符转为连字符
+            let id = rawName
+                .replace(/[^\w\u4e00-\u9fa5\s/-]/g, '')   // 移除非法字符（保留 /）
+                .replace(/[\/\s]+/g, '-')                 // 将 / 和空白符转为连字符
+                .replace(/-+/g, '-')                      // 合并连续连字符
+                .toLowerCase();                           // 转小写
+
+            // 如果结果只含中文或连字符，追加时间戳后缀确保唯一性
             if (/^[\u4e00-\u9fa5-]+$/.test(id)) {
                 id = id + '-' + Date.now().toString(36).slice(-4);
             }
-            document.getElementById('vId').value = id;
+
+            idOutput.value = id;
         }
 
         // ================================================================
@@ -933,11 +945,11 @@
             const group = document.createElement('div');
             group.className = 'spec-group';
             group.innerHTML = `
-            <input class="form-control" style="flex:0.7;" placeholder="标签" value="">
-            <input class="form-control" placeholder="值" value="">
-            <label class="spec-rare"><input type="checkbox"> 稀有</label>
-            <button type="button" class="btn-remove-item" onclick="this.closest('.spec-group').remove()">✕</button>
-        `;
+                <input class="form-control" style="flex:0.7;" placeholder="标签" value="">
+                <input class="form-control" placeholder="值" value="">
+                <label class="spec-rare"><input type="checkbox"> 稀有</label>
+                <button type="button" class="btn-remove-item" onclick="this.closest('.spec-group').remove()">✕</button>
+            `;
             // 移除"暂无规格"提示
             if (wrapper.querySelector('div[style]')) wrapper.innerHTML = '';
             wrapper.appendChild(group);
@@ -948,10 +960,10 @@
             const group = document.createElement('div');
             group.className = 'prop-group';
             group.innerHTML = `
-            <input class="form-control" style="flex:0.7;" placeholder="键" value="">
-            <input class="form-control" placeholder="值" value="">
-            <button type="button" class="btn-remove-item" onclick="this.closest('.prop-group').remove()">✕</button>
-        `;
+                <input class="form-control" style="flex:0.7;" placeholder="键" value="">
+                <input class="form-control" placeholder="值" value="">
+                <button type="button" class="btn-remove-item" onclick="this.closest('.prop-group').remove()">✕</button>
+            `;
             if (wrapper.querySelector('div[style]')) wrapper.innerHTML = '';
             wrapper.appendChild(group);
         }
@@ -965,34 +977,34 @@
             div.className = 'card-item';
 
             const detailsHtml = (data && data.details) ? Object.entries(data.details).map(([key, value]) => `
-            <div class="detail-group">
-                <input class="form-control" style="flex:0.7;" placeholder="条件" value="${key}">
-                <input class="form-control" placeholder="值" value="${value}">
-                <button type="button" class="btn-remove-item" onclick="this.closest('.detail-group').remove()">✕</button>
-            </div>
-        `).join('') : '';
+                <div class="detail-group">
+                    <input class="form-control" style="flex:0.7;" placeholder="条件" value="${key}">
+                    <input class="form-control" placeholder="值" value="${value}">
+                    <button type="button" class="btn-remove-item" onclick="this.closest('.detail-group').remove()">✕</button>
+                </div>
+            `).join('') : '';
 
             div.innerHTML = `
-            <button type="button" class="remove-btn" onclick="this.closest('.card-item').remove()">✕</button>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
-                <input class="form-control" placeholder="标题" value="${data ? data.title : ''}">
-                <input class="form-control" placeholder="编号 (数字)" value="${data ? data.number : ''}">
-            </div>
-            <div class="sub-label">📌 详情条件</div>
-            <div class="method-details-wrapper">${detailsHtml || '<div style="color:#94a3b8;font-size:0.8rem;padding:4px 0;">暂无条件</div>'}</div>
-            <button type="button" class="btn-add" style="font-size:0.7rem; padding:3px 12px; margin:4px 0;" onclick="addMethodDetail(this)">＋ 添加条件</button>
+                <button type="button" class="remove-btn" onclick="this.closest('.card-item').remove()">✕</button>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+                    <input class="form-control" placeholder="标题" value="${data ? data.title : ''}">
+                    <input class="form-control" placeholder="编号 (数字)" value="${data ? data.number : ''}">
+                </div>
+                <div class="sub-label">📌 详情条件</div>
+                <div class="method-details-wrapper">${detailsHtml || '<div style="color:#94a3b8;font-size:0.8rem;padding:4px 0;">暂无条件</div>'}</div>
+                <button type="button" class="btn-add" style="font-size:0.7rem; padding:3px 12px; margin:4px 0;" onclick="addMethodDetail(this)">＋ 添加条件</button>
 
-            <div style="margin-top:8px;">
-                <input class="form-control" placeholder="简介" value="${data ? data.intro : ''}">
-            </div>
-            <div style="margin-top:6px;">
-                <textarea class="form-control" rows="2" placeholder="描述">${data ? data.description : ''}</textarea>
-            </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px;">
-                <input class="form-control" placeholder="备注链接" value="${data ? data.noteLink : ''}">
-                <input class="form-control" placeholder="备注文字" value="${data ? data.noteText : ''}">
-            </div>
-        `;
+                <div style="margin-top:8px;">
+                    <input class="form-control" placeholder="简介" value="${data ? data.intro : ''}">
+                </div>
+                <div style="margin-top:6px;">
+                    <textarea class="form-control" rows="2" placeholder="描述">${data ? data.description : ''}</textarea>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px;">
+                    <input class="form-control" placeholder="备注链接" value="${data ? data.noteLink : ''}">
+                    <input class="form-control" placeholder="备注文字" value="${data ? data.noteText : ''}">
+                </div>
+            `;
             container.appendChild(div);
         }
 
@@ -1001,10 +1013,10 @@
             const group = document.createElement('div');
             group.className = 'detail-group';
             group.innerHTML = `
-            <input class="form-control" style="flex:0.7;" placeholder="条件" value="">
-            <input class="form-control" placeholder="值" value="">
-            <button type="button" class="btn-remove-item" onclick="this.closest('.detail-group').remove()">✕</button>
-        `;
+                <input class="form-control" style="flex:0.7;" placeholder="条件" value="">
+                <input class="form-control" placeholder="值" value="">
+                <button type="button" class="btn-remove-item" onclick="this.closest('.detail-group').remove()">✕</button>
+            `;
             if (wrapper.querySelector('div[style]')) wrapper.innerHTML = '';
             wrapper.appendChild(group);
         }
