@@ -1,0 +1,136 @@
+{
+  "id": "up-lustered-卡尼斯-炎魔",
+  "name": "UP/Lustered 卡尼斯 炎魔",
+  "category": "主线：节外生枝",
+  "difficulty": "★☆☆☆☆",
+  "description": "半限定平台的极易获取的稀有载具",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1TyfGYBEme",
+  "routeImage": "",
+  "update_date": "2026-07-20",
+  "variants": [
+    {
+      "name": "PS3 / Xbox360款",
+      "image": "up-lustered-卡尼斯-炎魔.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "金属黑",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "金属黑",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "合金色",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "磨损海蓝洗色  / 磨损蜂蜜米色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "accessory": "空车牌",
+      "explosion_data": [
+        914654722,
+        "炎魔 (UP/Lustered)",
+        {
+          "priColor": 0,
+          "secColor": 0,
+          "pearlColor": 111,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 0,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": 0,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "1": 1,
+            "11": 1,
+            "12": 1
+          }
+        }
+      ]
+    },
+    {
+      "name": "次世代款",
+      "image": "lustered-卡尼斯-炎魔.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "金属黑",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "金属黑",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "合金色",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "磨损海蓝洗色  / 磨损蜂蜜米色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        914654722,
+        "炎魔 (Lustered)",
+        {
+          "priColor": 0,
+          "secColor": 0,
+          "pearlColor": 111,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 0,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": 0,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "21CGX646",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "1": 1,
+            "11": 1,
+            "12": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

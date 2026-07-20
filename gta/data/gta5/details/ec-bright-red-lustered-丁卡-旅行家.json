@@ -1,0 +1,68 @@
+{
+  "id": "ec-bright-red-lustered-丁卡-旅行家",
+  "name": "EC Bright Red/Lustered 丁卡 旅行家",
+  "category": "主线：婚姻咨询",
+  "difficulty": "★★☆☆☆",
+  "description": "网球教练那辆车",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1ypNAepETY",
+  "routeImage": "",
+  "update_date": "2026-07-20",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec-bright-red-lustered-丁卡-旅行家.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "工业红",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "工业红",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "哑光橙",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        3950024287,
+        "旅行家 (EC Red/Lustered)",
+        {
+          "priColor": 43,
+          "secColor": 43,
+          "pearlColor": 41,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "67LEK416",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 1,
+            "12": 0
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

@@ -94,7 +94,7 @@
     "difficulty": "★☆☆☆☆",
     "description": "任务完成后记得顺带顺走",
     "update_date": "2026-07-19",
-    "bilibiliVideo": "",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1Ac411v74o",
     "coverImage": "ec-yellow-ec2-white-rims-奥北-密探.png",
     "variantsCount": 1
   },
@@ -103,21 +103,43 @@
     "name": "EC2 White Rims 卡林 碧杰XL",
     "category": "主线：节外生枝",
     "difficulty": "★☆☆☆☆",
-    "description": "请填写描述",
+    "description": "任务完成后记得顺带顺走",
     "update_date": "2026-07-19",
-    "bilibiliVideo": "",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1jdDaYpEPV",
     "coverImage": "ec2-white-rims-卡林-碧杰xl_2.png",
     "variantsCount": 2
   },
   {
-    "id": "9x-ec-ec2-colorless-rims-奥北-密探",
-    "name": "9x EC/EC2 Colorless Rims 奥北 密探",
+    "id": "up-lustered-卡尼斯-炎魔",
+    "name": "UP/Lustered 卡尼斯 炎魔",
     "category": "主线：节外生枝",
     "difficulty": "★☆☆☆☆",
-    "description": "请填写描述",
+    "description": "半限定平台的极易获取的稀有载具",
     "update_date": "2026-07-20",
-    "bilibiliVideo": "",
-    "coverImage": null,
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1TyfGYBEme",
+    "coverImage": "up-lustered-卡尼斯-炎魔.png",
+    "variantsCount": 2
+  },
+  {
+    "id": "ec-bright-red-lustered-丁卡-旅行家",
+    "name": "EC Bright Red/Lustered 丁卡 旅行家",
+    "category": "主线：婚姻咨询",
+    "difficulty": "★★☆☆☆",
+    "description": "网球教练那辆车",
+    "update_date": "2026-07-20",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1ypNAepETY",
+    "coverImage": "ec-bright-red-lustered-丁卡-旅行家.png",
     "variantsCount": 1
+  },
+  {
+    "id": "ec2-el-埃努斯-至尊慧眼敞篷版",
+    "name": "EC2/EL 埃努斯 至尊慧眼敞篷版",
+    "category": "主线：婚姻咨询",
+    "difficulty": "★★★★☆",
+    "description": "池子中污染巨多的稀有载具",
+    "update_date": "2026-07-20",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1ypNAepETY",
+    "coverImage": "ec2-el-埃努斯-至尊慧眼敞篷版_1.png",
+    "variantsCount": 5
   }
 ]

@@ -1,0 +1,298 @@
+{
+  "id": "ec2-el-埃努斯-至尊慧眼敞篷版",
+  "name": "EC2/EL 埃努斯 至尊慧眼敞篷版",
+  "category": "主线：婚姻咨询",
+  "difficulty": "★★★★☆",
+  "description": "池子中污染巨多的稀有载具",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1ypNAepETY",
+  "routeImage": "",
+  "update_date": "2026-07-20",
+  "variants": [
+    {
+      "name": "1 - 1",
+      "image": "ec2-el-埃努斯-至尊慧眼敞篷版_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "金属黑钢色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "金属石墨黑",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "合金色",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "磨损银",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        330661258,
+        "至尊慧眼敞篷版 001 (1-1)",
+        {
+          "priColor": 2,
+          "secColor": 1,
+          "pearlColor": 24,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "62AOG871",
+          "mods": {
+            "22": 0
+          },
+          "extras": {}
+        }
+      ]
+    },
+    {
+      "name": "1 - 2",
+      "image": "ec2-el-埃努斯-至尊慧眼敞篷版_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "金属影银色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "金属石墨黑",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "合金色",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "工业银",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        330661258,
+        "至尊慧眼敞篷版 009 (1-2)",
+        {
+          "priColor": 7,
+          "secColor": 1,
+          "pearlColor": 18,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "04KVY925",
+          "mods": {
+            "22": 0
+          },
+          "extras": {}
+        }
+      ]
+    },
+    {
+      "name": "1 - 3",
+      "image": "ec2-el-埃努斯-至尊慧眼敞篷版_3.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "橄榄绿",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "橄榄绿",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "合金色",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "磨损绿",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        330661258,
+        "至尊慧眼敞篷版 005 (1-3)",
+        {
+          "priColor": 52,
+          "secColor": 52,
+          "pearlColor": 59,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "87SIM976",
+          "mods": {
+            "22": 0
+          },
+          "extras": {}
+        }
+      ]
+    },
+    {
+      "name": "1 - 4",
+      "image": "ec2-el-埃努斯-至尊慧眼敞篷版_4.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "金属撒克逊蓝",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "金属撒克逊蓝",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "合金色",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "工业蓝紫色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        330661258,
+        "至尊慧眼敞篷版 011 (1-4)",
+        {
+          "priColor": 63,
+          "secColor": 63,
+          "pearlColor": 80,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "41EES223",
+          "mods": {
+            "22": 0
+          },
+          "extras": {}
+        }
+      ]
+    },
+    {
+      "name": "1 - 5",
+      "image": "ec2-el-埃努斯-至尊慧眼敞篷版_5.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "金属菲特者棕",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "金属菲特者棕",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "合金色",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "金属香槟色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★★☆"
+      },
+      "explosion_data": [
+        330661258,
+        "至尊慧眼敞篷版 012 (1-5)",
+        {
+          "priColor": 94,
+          "secColor": 94,
+          "pearlColor": 93,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "23QIV492",
+          "mods": {
+            "22": 0
+          },
+          "extras": {}
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
