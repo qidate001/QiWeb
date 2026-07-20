@@ -22,7 +22,83 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // 加载数据
+    // 获取列表（按 index.json 顺序）
+    if (pathname === '/api/list' && req.method === 'GET') {
+        const version = urlObj.searchParams.get('version') || 'gta5';
+        const dataDir = path.join(BASE_DIR, 'data', version);
+        const detailsDir = path.join(dataDir, 'details');
+        const indexFile = path.join(dataDir, 'index.json');
+
+        try {
+            let orderedIds = [];
+            // 1. 尝试从 index.json 读取顺序
+            if (fs.existsSync(indexFile)) {
+                const indexData = JSON.parse(fs.readFileSync(indexFile, 'utf8'));
+                orderedIds = indexData.map(item => item.id);
+                console.log(`📋 从 index.json 读取顺序: ${orderedIds.length} 辆`);
+            }
+
+            // 2. 读取所有详情文件
+            const vehicles = [];
+            if (fs.existsSync(detailsDir)) {
+                const files = fs.readdirSync(detailsDir);
+                
+                // 如果 index.json 存在，按 index 顺序加载
+                if (orderedIds.length > 0) {
+                    // 按 index 顺序遍历
+                    orderedIds.forEach(id => {
+                        const file = files.find(f => f === `${id}.json`);
+                        if (file) {
+                            try {
+                                const content = fs.readFileSync(path.join(detailsDir, file), 'utf8');
+                                vehicles.push(JSON.parse(content));
+                            } catch (e) {
+                                console.warn('读取文件失败:', file);
+                            }
+                        }
+                    });
+                    
+                    // 补充 index 中没有但实际存在的文件（放在后面）
+                    files.forEach(file => {
+                        if (file.endsWith('.json')) {
+                            const id = file.replace('.json', '');
+                            if (!orderedIds.includes(id)) {
+                                try {
+                                    const content = fs.readFileSync(path.join(detailsDir, file), 'utf8');
+                                    vehicles.push(JSON.parse(content));
+                                } catch (e) {
+                                    console.warn('读取文件失败:', file);
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    // 没有 index.json，按文件名排序
+                    files.sort();
+                    files.forEach(file => {
+                        if (file.endsWith('.json')) {
+                            try {
+                                const content = fs.readFileSync(path.join(detailsDir, file), 'utf8');
+                                vehicles.push(JSON.parse(content));
+                            } catch (e) {
+                                console.warn('读取文件失败:', file);
+                            }
+                        }
+                    });
+                }
+            }
+
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ vehicles }));
+        } catch (err) {
+            console.error('/api/list 错误:', err);
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ vehicles: [] }));
+        }
+        return;
+    }
+
+    // 加载数据（老接口）
     if (pathname === '/api/load' && req.method === 'GET') {
         const version = urlObj.searchParams.get('version') || 'gta5';
         const dataDir = path.join(BASE_DIR, 'data', version);
@@ -61,14 +137,16 @@ const server = http.createServer((req, res) => {
                     fs.mkdirSync(imagesDir, { recursive: true });
                 }
 
-                // 写入 vehicles.json
-                fs.writeFileSync(
-                    path.join(dataDir, 'vehicles.json'),
-                    JSON.stringify({ vehicles }, null, 2),
-                    'utf8'
-                );
+                // 写入 details/*.json（保持顺序，按数组顺序保存）
+                vehicles.forEach(v => {
+                    fs.writeFileSync(
+                        path.join(detailsDir, `${v.id}.json`),
+                        JSON.stringify(v, null, 2),
+                        'utf8'
+                    );
+                });
 
-                // 生成 index.json
+                // 生成 index.json（按传入顺序）
                 const index = vehicles.map(v => ({
                     id: v.id,
                     name: v.name,
@@ -86,21 +164,24 @@ const server = http.createServer((req, res) => {
                     'utf8'
                 );
 
-                // 写入详情文件
-                vehicles.forEach(v => {
-                    fs.writeFileSync(
-                        path.join(detailsDir, `${v.id}.json`),
-                        JSON.stringify(v, null, 2),
-                        'utf8'
-                    );
+                // 清理冗余文件（不在 vehicles 列表中的）
+                const existingFiles = fs.readdirSync(detailsDir);
+                const currentIds = new Set(vehicles.map(v => `${v.id}.json`));
+                let cleaned = 0;
+                existingFiles.forEach(file => {
+                    if (!currentIds.has(file) && file.endsWith('.json')) {
+                        fs.unlinkSync(path.join(detailsDir, file));
+                        cleaned++;
+                    }
                 });
 
                 res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
                 res.end(JSON.stringify({
                     success: true,
-                    message: `✅ 成功覆写 ${version} 版本 ${vehicles.length} 辆载具`
+                    message: `✅ 成功保存 ${vehicles.length} 辆载具 (${version})${cleaned ? `，清理 ${cleaned} 个冗余文件` : ''}`
                 }));
             } catch (err) {
+                console.error('/api/save 错误:', err);
                 res.writeHead(500);
                 res.end(JSON.stringify({ success: false, message: err.message }));
             }

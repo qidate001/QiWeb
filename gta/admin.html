@@ -539,6 +539,33 @@
             display: block;
             margin: 0 auto 12px;
         }
+
+        /* ===== 拖拽排序样式 ===== */
+        .vehicle-item.dragging {
+            opacity: 0.5;
+            background: #e2e8f0;
+        }
+
+        .vehicle-item.drag-over {
+            border-color: #8b5cf6;
+            background: #ede9fe;
+        }
+
+        .vehicle-item .drag-handle {
+            cursor: grab;
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-right: 8px;
+            user-select: none;
+        }
+
+        .vehicle-item .drag-handle:active {
+            cursor: grabbing;
+        }
+
+        .vehicle-item .drag-handle:hover {
+            color: #475569;
+        }
     </style>
 </head>
 
@@ -570,13 +597,16 @@
                     <span>📋 载具</span>
                     <span class="badge" id="vehicleCount">0</span>
                 </h2>
-                <div id="vehicleListContainer">
+                <div id="vehicleListContainer" style="min-height:100px;">
                     <div class="loading-state">
                         <div class="loading-spinner"></div>
                         <p>加载中...</p>
                     </div>
                 </div>
                 <button class="btn-add-new" onclick="createNewVehicle()">＋ 新建载具</button>
+                <p style="margin-top:8px; font-size:0.7rem; color:#94a3b8; text-align:center;">
+                    💡 拖拽左侧 ☰ 图标可调整顺序
+                </p>
             </div>
 
             <!-- ====== 右侧：编辑器 ====== -->
@@ -615,7 +645,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>B站视频链接</label>
-                            <input type="url" class="form-control" id="vBilibili" placeholder="https://www.bilibili.com/video/...">
+                            <input type="url" class="form-control" id="vBilibili"
+                                placeholder="https://www.bilibili.com/video/...">
                         </div>
                         <div class="form-group">
                             <label>更新日期</label>
@@ -654,7 +685,8 @@
                         </button>
                         <button type="button" class="btn-secondary" onclick="exportZIP()">📦 导出 data.zip</button>
                         <button type="button" class="btn-outline" onclick="exportIndexJSON()">📄 导出 index.json</button>
-                        <button type="button" class="btn-danger" onclick="if(confirm('确定删除当前载具？')){ deleteCurrentVehicle(); }">🗑️ 删除当前</button>
+                        <button type="button" class="btn-danger"
+                            onclick="if(confirm('确定删除当前载具？')){ deleteCurrentVehicle(); }">🗑️ 删除当前</button>
                     </div>
 
                     <p style="margin-top:14px; font-size:0.8rem; color:#94a3b8;">
@@ -773,13 +805,23 @@
             }
 
             let html = '';
-            vehicles.forEach((v) => {
+            vehicles.forEach((v, index) => {
                 const active = (v.id === currentEditId) ? 'active' : '';
                 const displayName = v.name || '未命名';
                 const category = v.category || '未分类';
                 html += `
-                    <div class="vehicle-item ${active}" onclick="selectVehicle('${v.id}')">
-                        <span class="name" title="${displayName}">${displayName}</span>
+                    <div class="vehicle-item ${active}" 
+                        data-id="${v.id}"
+                        data-index="${index}"
+                        onclick="selectVehicle('${v.id}')">
+                        <span style="display:flex; align-items:center; flex:1; min-width:0;">
+                            <span class="drag-handle" 
+                                draggable="true"
+                                title="拖拽调整顺序"
+                                ondragstart="onDragStart(event)"
+                                ondragend="onDragEnd(event)">☰</span>
+                            <span class="name" title="${displayName}">${displayName}</span>
+                        </span>
                         <span style="display:flex; gap:6px; align-items:center; flex-shrink:0;">
                             <span class="cat">${category}</span>
                             <button class="del-btn" onclick="event.stopPropagation(); deleteVehicle('${v.id}')" title="删除">✕</button>
@@ -843,11 +885,15 @@
             if (!vehicle) return;
             if (!confirm(`确定删除 "${vehicle.name}" 吗？`)) return;
 
-            vehicles = vehicles.filter(v => v.id !== id);
+            const index = vehicles.findIndex(v => v.id === id);
+            vehicles.splice(index, 1);
+
             if (currentEditId === id) {
                 currentEditId = null;
                 if (vehicles.length > 0) {
-                    selectVehicle(vehicles[0].id);
+                    // 选中删除位置的下一个，或最后一个
+                    const nextIndex = Math.min(index, vehicles.length - 1);
+                    selectVehicle(vehicles[nextIndex].id);
                 } else {
                     createNewVehicle();
                 }
@@ -1258,7 +1304,10 @@
                 const res = await fetch('/api/save', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ vehicles, version })
+                    body: JSON.stringify({
+                        vehicles: vehicles,  // 保持当前顺序
+                        version: version
+                    })
                 });
                 const result = await res.json();
                 if (result.success) {
@@ -1376,6 +1425,126 @@
         }
 
         // ================================================================
+        //  拖拽排序功能（修复点击冲突）
+        // ================================================================
+        let dragStartId = null;
+        let dragStartIndex = -1;
+        let isDragging = false;
+
+        function onDragStart(e) {
+            e.stopPropagation();  // ⭐ 阻止事件冒泡
+            const el = e.target.closest('.drag-handle');
+            if (!el) {
+                e.preventDefault();
+                return;
+            }
+
+            const item = el.closest('.vehicle-item');
+            if (!item) {
+                e.preventDefault();
+                return;
+            }
+
+            // 如果点击的是删除按钮，不触发拖拽
+            if (e.target.classList.contains('del-btn')) {
+                e.preventDefault();
+                return;
+            }
+
+            isDragging = true;
+            dragStartId = item.dataset.id;
+            dragStartIndex = parseInt(item.dataset.index);
+            item.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', dragStartId);
+        }
+
+        function onDragEnd(e) {
+            e.stopPropagation();
+            isDragging = false;
+            const item = e.target.closest('.vehicle-item');
+            if (item) {
+                item.classList.remove('dragging');
+            }
+            document.querySelectorAll('.vehicle-item.drag-over').forEach(item => {
+                item.classList.remove('drag-over');
+            });
+        }
+
+        // ⭐ 在容器上监听 dragover 和 drop，而不是每个 item
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.getElementById('vehicleListContainer');
+            if (container) {
+                container.addEventListener('dragover', function (e) {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+
+                    const targetEl = e.target.closest('.vehicle-item');
+                    if (!targetEl) return;
+
+                    document.querySelectorAll('.vehicle-item.drag-over').forEach(item => {
+                        if (item !== targetEl) item.classList.remove('drag-over');
+                    });
+                    targetEl.classList.add('drag-over');
+                });
+
+                container.addEventListener('drop', function (e) {
+                    e.preventDefault();
+
+                    document.querySelectorAll('.vehicle-item.dragging, .vehicle-item.drag-over').forEach(item => {
+                        item.classList.remove('dragging', 'drag-over');
+                    });
+
+                    if (!isDragging || !dragStartId) {
+                        isDragging = false;
+                        return;
+                    }
+
+                    const targetEl = e.target.closest('.vehicle-item');
+                    if (!targetEl) {
+                        isDragging = false;
+                        return;
+                    }
+
+                    const targetId = targetEl.dataset.id;
+                    if (dragStartId === targetId) {
+                        isDragging = false;
+                        return;
+                    }
+
+                    const startIndex = vehicles.findIndex(v => v.id === dragStartId);
+                    const endIndex = vehicles.findIndex(v => v.id === targetId);
+
+                    if (startIndex === -1 || endIndex === -1) {
+                        dragStartId = null;
+                        dragStartIndex = -1;
+                        isDragging = false;
+                        return;
+                    }
+
+                    const [movedItem] = vehicles.splice(startIndex, 1);
+                    const insertIndex = startIndex < endIndex ? endIndex - 1 : endIndex;
+                    vehicles.splice(insertIndex, 0, movedItem);
+
+                    dragStartId = null;
+                    dragStartIndex = -1;
+                    isDragging = false;
+                    isDirty = true;
+
+                    const oldEditId = currentEditId;
+                    renderVehicleList();
+
+                    const activeEl = document.querySelector(`.vehicle-item[data-id="${oldEditId}"]`);
+                    if (activeEl) {
+                        activeEl.classList.add('active');
+                    }
+
+                    showToast('📌 顺序已调整，点击 "直接覆写 data/" 保存', 'success');
+                });
+            }
+        });
+
+        // ================================================================
         //  Toast
         // ================================================================
         function showToast(msg, type = 'success') {
@@ -1391,7 +1560,7 @@
         // ================================================================
         //  版本切换
         // ================================================================
-        document.getElementById('versionSelect').addEventListener('change', function() {
+        document.getElementById('versionSelect').addEventListener('change', function () {
             if (isDirty) {
                 if (!confirm('当前有未保存的修改，切换版本将丢失。确定继续吗？')) {
                     this.value = currentVersion;

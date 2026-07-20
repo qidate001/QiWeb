@@ -1,0 +1,43 @@
+{
+  "id": "9x-ec-ec2-colorless-rims-奥北-密探",
+  "name": "9x EC/EC2 Colorless Rims 奥北 密探",
+  "category": "主线：节外生枝",
+  "difficulty": "★☆☆☆☆",
+  "description": "请填写描述",
+  "bilibiliVideo": "",
+  "routeImage": "",
+  "update_date": "2026-07-20",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      }
+    }
+  ],
+  "methods": []
+}
