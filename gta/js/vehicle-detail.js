@@ -1,4 +1,4 @@
-// vehicle-detail.js - 车辆详情页处理器（支持多版本 + 版本独立图片）
+// vehicle-detail.js - 车辆详情页处理器（支持多版本）
 class VehicleDetail {
   constructor() {
     this.vehicleId = null;
@@ -45,7 +45,11 @@ class VehicleDetail {
     }
 
     await this.loadConfig();
+
+    // ⭐ 安全地更新页面标题
     this.updatePageTitle();
+
+    // ⭐ 安全地高亮版本按钮
     this.highlightVersion();
 
     try {
@@ -70,22 +74,38 @@ class VehicleDetail {
 
   updatePageTitle() {
     const vc = this.config.versions[this.version];
-    if (vc) {
-      document.getElementById('siteTitle').textContent = vc.title;
-      const homeLink = document.getElementById('homeLink');
-      if (homeLink) {
-        homeLink.textContent = vc.navLabel || (this.version === 'gta5' ? 'GTA5首页' : 'GTA5OL首页');
-        homeLink.href = `./index.html?version=${this.version}`;
-      }
-      const vehiclesLink = document.getElementById('vehiclesLink');
-      if (vehiclesLink) {
-        vehiclesLink.href = `./vehicles.html?version=${this.version}`;
-      }
+    if (!vc) return;
+
+    // ⭐ 安全更新，检查元素是否存在
+    const siteTitle = document.getElementById('siteTitle');
+    if (siteTitle) {
+      siteTitle.textContent = vc.title;
+    }
+
+    const homeLink = document.getElementById('homeLink');
+    if (homeLink) {
+      homeLink.textContent = vc.navLabel || (this.version === 'gta5' ? 'GTA5首页' : 'GTA5OL首页');
+      homeLink.href = `./index.html?version=${this.version}`;
+    }
+
+    const vehiclesLink = document.getElementById('vehiclesLink');
+    if (vehiclesLink) {
+      vehiclesLink.href = `./vehicles.html?version=${this.version}`;
+    }
+
+    // ⭐ 更新页面标题
+    const pageTitle = document.getElementById('pageTitle');
+    if (pageTitle) {
+      pageTitle.textContent = vc.title + ' - 详情';
     }
   }
 
   highlightVersion() {
-    document.querySelectorAll('.version-btn').forEach(btn => {
+    // ⭐ 安全更新版本按钮
+    const versionBtns = document.querySelectorAll('.version-btn');
+    if (versionBtns.length === 0) return;
+
+    versionBtns.forEach(btn => {
       btn.style.background = btn.dataset.version === this.version ? '#8b5cf6' : '#2d2d2d';
       btn.style.color = btn.dataset.version === this.version ? '#fff' : '#aaa';
     });
@@ -200,7 +220,6 @@ class VehicleDetail {
       ? this.renderVariantExplosionData(variant.name, variant.explosion_data)
       : '';
 
-    // ⭐ 关键修改：图片路径改为版本目录下
     return `
       <div class="variant-card">
         <div class="variant-image">
@@ -305,7 +324,6 @@ class VehicleDetail {
 
       section.style.display = 'block';
 
-      // ⭐ 推荐图片也改为版本目录下
       container.innerHTML = similar.map(vehicle => `
         <div class="similar-card">
           <img 
