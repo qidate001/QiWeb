@@ -135,11 +135,22 @@
     "id": "ec2-el-埃努斯-至尊慧眼敞篷版",
     "name": "EC2/EL 埃努斯 至尊慧眼敞篷版",
     "category": "主线：婚姻咨询",
-    "difficulty": "★★★★☆",
+    "difficulty": "★★★☆☆",
     "description": "池子中污染巨多的稀有载具",
     "update_date": "2026-07-20",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1ypNAepETY",
     "coverImage": "ec2-el-埃努斯-至尊慧眼敞篷版_1.png",
     "variantsCount": 5
+  },
+  {
+    "id": "ec-white-and-blue-ec2-black-rims-赛柯尼-安旅者",
+    "name": "EC White and Blue/EC2 Black Rims 赛柯尼 安旅者",
+    "category": "主线：婚姻咨询",
+    "difficulty": "★★★★★",
+    "description": "极易获取的超稀有载具！",
+    "update_date": "2026-07-20",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1yT4y147uT",
+    "coverImage": "ec-white-and-blue-ec2-black-rims-赛柯尼-安旅者.png",
+    "variantsCount": 1
   }
 ]

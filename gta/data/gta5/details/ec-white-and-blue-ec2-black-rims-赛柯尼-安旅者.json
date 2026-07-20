@@ -1,0 +1,72 @@
+{
+  "id": "ec-white-and-blue-ec2-black-rims-赛柯尼-安旅者",
+  "name": "EC White and Blue/EC2 Black Rims 赛柯尼 安旅者",
+  "category": "主线：婚姻咨询",
+  "difficulty": "★★★★★",
+  "description": "极易获取的超稀有载具！",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1yT4y147uT",
+  "routeImage": "",
+  "update_date": "2026-07-20",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec-white-and-blue-ec2-black-rims-赛柯尼-安旅者.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "金属深蓝",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "哑光白 / 冰白",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "金属黑",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "金属黑",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★★★"
+      },
+      "explosion_data": [
+        4174679674,
+        "安旅者 (EC White and Blue/EC2 Black Rims)",
+        {
+          "priColor": 62,
+          "secColor": 131,
+          "pearlColor": 0,
+          "wheelColor": 0,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 3,
+          "plate": "84KWL048",
+          "mods": {},
+          "extras": {
+            "1": 0,
+            "2": 0,
+            "3": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
