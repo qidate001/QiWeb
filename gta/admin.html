@@ -61,6 +61,27 @@
             color: #991b1b;
         }
 
+        .top-bar .version-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .top-bar .version-selector select {
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .top-bar .version-selector select:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+        }
+
         .subtitle {
             color: #64748b;
             margin-bottom: 24px;
@@ -87,7 +108,7 @@
             border-radius: 16px;
             padding: 18px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-            max-height: calc(100vh - 160px);
+            max-height: calc(100vh - 180px);
             overflow-y: auto;
         }
 
@@ -131,6 +152,10 @@
         .vehicle-item .name {
             font-weight: 500;
             font-size: 0.95rem;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .vehicle-item .cat {
@@ -140,6 +165,7 @@
             padding: 2px 10px;
             border-radius: 12px;
             white-space: nowrap;
+            margin: 0 8px;
         }
 
         .vehicle-item .del-btn {
@@ -149,6 +175,7 @@
             cursor: pointer;
             font-size: 1rem;
             padding: 0 4px;
+            flex-shrink: 0;
         }
 
         .vehicle-item .del-btn:hover {
@@ -484,6 +511,34 @@
             background: #cbd5e1;
             border-radius: 10px;
         }
+
+        /* ===== 加载状态 ===== */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #e2e8f0;
+            border-top: 3px solid #8b5cf6;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-state {
+            text-align: center;
+            padding: 40px 0;
+            color: #94a3b8;
+        }
+
+        .loading-state .loading-spinner {
+            display: block;
+            margin: 0 auto 12px;
+        }
     </style>
 </head>
 
@@ -493,10 +548,19 @@
         <!-- 顶部 -->
         <div class="top-bar">
             <h1>🚗 稀有载具 · 本地管理</h1>
-            <span class="server-status" id="serverStatus">⏳ 检测中...</span>
+            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                <div class="version-selector">
+                    <label style="font-size:0.85rem; font-weight:600; color:#475569;">版本</label>
+                    <select id="versionSelect">
+                        <option value="gta5">GTA5 故事模式</option>
+                        <option value="gta5ol">GTA5 Online</option>
+                    </select>
+                </div>
+                <span class="server-status" id="serverStatus">⏳ 检测中...</span>
+            </div>
         </div>
         <div class="subtitle">
-            可视化编辑 · <strong>直接覆写</strong>项目中的 data/ 目录 · 编辑后推送 GitHub 即生效
+            基于 <strong>details/*.json</strong> 独立管理 · 每个载具一个文件 · 编辑后自动生成 <strong>index.json</strong>
         </div>
 
         <div class="admin-grid">
@@ -507,7 +571,10 @@
                     <span class="badge" id="vehicleCount">0</span>
                 </h2>
                 <div id="vehicleListContainer">
-                    <div class="empty-state">暂无载具，点击下方添加</div>
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <p>加载中...</p>
+                    </div>
                 </div>
                 <button class="btn-add-new" onclick="createNewVehicle()">＋ 新建载具</button>
             </div>
@@ -515,7 +582,7 @@
             <!-- ====== 右侧：编辑器 ====== -->
             <div class="editor-panel">
                 <form id="vehicleForm" onsubmit="return false;">
-                    <input type="hidden" id="editIndex" value="-1">
+                    <input type="hidden" id="editId" value="">
 
                     <div class="form-row">
                         <div class="form-group">
@@ -524,8 +591,8 @@
                                 oninput="autoGenerateId()">
                         </div>
                         <div class="form-group">
-                            <label>ID <span class="hint">(自动生成)</span></label>
-                            <input type="text" class="form-control" id="vId" placeholder="请输入唯一ID">
+                            <label>ID <span class="hint">(唯一标识)</span></label>
+                            <input type="text" class="form-control" id="vId" placeholder="自动生成，可手动修改">
                         </div>
                     </div>
 
@@ -548,8 +615,7 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>B站视频链接</label>
-                            <input type="url" class="form-control" id="vBilibili"
-                                placeholder="https://www.bilibili.com/video/...">
+                            <input type="url" class="form-control" id="vBilibili" placeholder="https://www.bilibili.com/video/...">
                         </div>
                         <div class="form-group">
                             <label>更新日期</label>
@@ -558,7 +624,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>路线图文件名 <span class="hint">(放在 images/ 下)</span></label>
+                        <label>路线图文件名 <span class="hint">(放在 data/{version}/images/ 下)</span></label>
                         <input type="text" class="form-control" id="vRouteImage" placeholder="路线图.png">
                     </div>
 
@@ -587,16 +653,14 @@
                             ⚡ 直接覆写 data/ (零下载)
                         </button>
                         <button type="button" class="btn-secondary" onclick="exportZIP()">📦 导出 data.zip</button>
-                        <button type="button" class="btn-outline" onclick="exportLegacyJSON()">📄 导出
-                            vehicles.json</button>
-                        <button type="button" class="btn-danger" onclick="if(confirm('清除所有数据？')){ clearAllData(); }">🗑️
-                            清空</button>
+                        <button type="button" class="btn-outline" onclick="exportIndexJSON()">📄 导出 index.json</button>
+                        <button type="button" class="btn-danger" onclick="if(confirm('确定删除当前载具？')){ deleteCurrentVehicle(); }">🗑️ 删除当前</button>
                     </div>
 
                     <p style="margin-top:14px; font-size:0.8rem; color:#94a3b8;">
                         💡 <strong>直接覆写</strong> 需要先运行 <code
                             style="background:#f1f5f9;padding:2px 8px;border-radius:4px;">node admin-server.js</code>
-                        · 覆写后项目 data/ 目录自动更新，推送 GitHub 即可
+                        · 每个载具独立保存为 <code>data/{version}/details/{id}.json</code>
                     </p>
                 </form>
             </div>
@@ -613,20 +677,40 @@
         // ================================================================
         //  全局数据
         // ================================================================
-        let vehicles = [];
-        let currentEditIndex = -1;
+        let vehicles = [];           // 所有车辆详情对象数组
+        let currentEditId = null;    // 当前编辑的车辆 ID
+        let currentVersion = 'gta5';
+        let isDirty = false;         // 是否有未保存的修改
 
         // ================================================================
-        //  初始化：从本地服务器加载数据
+        //  版本管理
+        // ================================================================
+        function getVersion() {
+            return document.getElementById('versionSelect').value;
+        }
+
+        // ================================================================
+        //  初始化：加载数据
         // ================================================================
         async function loadFromServer() {
+            const version = getVersion();
+            currentVersion = version;
+
+            const listContainer = document.getElementById('vehicleListContainer');
+            listContainer.innerHTML = `
+                <div class="loading-state">
+                    <div class="loading-spinner"></div>
+                    <p>加载 ${version} 版本数据...</p>
+                </div>
+            `;
+
             try {
-                const res = await fetch('/api/load');
+                const res = await fetch(`/api/list?version=${version}`);
                 if (res.ok) {
                     const data = await res.json();
                     if (data.vehicles && Array.isArray(data.vehicles)) {
                         vehicles = data.vehicles;
-                        console.log(`✅ 从服务器加载 ${vehicles.length} 辆载具`);
+                        console.log(`✅ 从服务器加载 ${vehicles.length} 辆载具 (${version})`);
                         document.getElementById('serverStatus').className = 'server-status online';
                         document.getElementById('serverStatus').textContent = '✅ 已连接';
                     } else {
@@ -636,27 +720,41 @@
                     throw new Error(`HTTP ${res.status}`);
                 }
             } catch (e) {
-                console.warn('⚠️ 无法连接本地服务器，尝试加载本地 vehicles.json', e);
+                console.warn('⚠️ 无法连接本地服务器，尝试加载本地 details/', e);
                 document.getElementById('serverStatus').className = 'server-status offline';
                 document.getElementById('serverStatus').textContent = '⚠️ 未连接 (仅能导出)';
-                // 降级：尝试加载项目中的 vehicles.json
+
+                // 降级：尝试从 index.json 加载列表
                 try {
-                    const fallbackRes = await fetch('./data/vehicles.json?t=' + Date.now());
+                    const fallbackRes = await fetch(`./data/${version}/index.json?t=${Date.now()}`);
                     if (fallbackRes.ok) {
-                        const data = await fallbackRes.json();
-                        if (data.vehicles) {
-                            vehicles = data.vehicles;
-                            console.log(`✅ 从本地文件加载 ${vehicles.length} 辆载具 (降级模式)`);
+                        const indexData = await fallbackRes.json();
+                        // 从 index 只能获取概要，需要再加载每个详情
+                        vehicles = [];
+                        for (const item of indexData) {
+                            try {
+                                const detailRes = await fetch(`./data/${version}/details/${item.id}.json?t=${Date.now()}`);
+                                if (detailRes.ok) {
+                                    const detail = await detailRes.json();
+                                    vehicles.push(detail);
+                                }
+                            } catch (e2) {
+                                console.warn('加载详情失败:', item.id);
+                            }
                         }
+                        console.log(`✅ 从本地文件加载 ${vehicles.length} 辆载具 (降级模式)`);
+                    } else {
+                        throw new Error('index.json 不存在');
                     }
                 } catch (e2) {
                     console.warn('⚠️ 本地文件也加载失败，使用空数据集');
                     vehicles = [];
                 }
             }
+
             renderVehicleList();
             if (vehicles.length > 0) {
-                selectVehicle(0);
+                selectVehicle(vehicles[0].id);
             } else {
                 createNewVehicle();
             }
@@ -675,17 +773,19 @@
             }
 
             let html = '';
-            vehicles.forEach((v, idx) => {
-                const active = (idx === currentEditIndex) ? 'active' : '';
+            vehicles.forEach((v) => {
+                const active = (v.id === currentEditId) ? 'active' : '';
+                const displayName = v.name || '未命名';
+                const category = v.category || '未分类';
                 html += `
-                <div class="vehicle-item ${active}" onclick="selectVehicle(${idx})">
-                    <span class="name">${v.name || '未命名'}</span>
-                    <span style="display:flex; gap:6px; align-items:center;">
-                        <span class="cat">${v.category || '未分类'}</span>
-                        <button class="del-btn" onclick="event.stopPropagation(); deleteVehicle(${idx})" title="删除">✕</button>
-                    </span>
-                </div>
-            `;
+                    <div class="vehicle-item ${active}" onclick="selectVehicle('${v.id}')">
+                        <span class="name" title="${displayName}">${displayName}</span>
+                        <span style="display:flex; gap:6px; align-items:center; flex-shrink:0;">
+                            <span class="cat">${category}</span>
+                            <button class="del-btn" onclick="event.stopPropagation(); deleteVehicle('${v.id}')" title="删除">✕</button>
+                        </span>
+                    </div>
+                `;
             });
             container.innerHTML = html;
         }
@@ -693,16 +793,20 @@
         // ================================================================
         //  选择 / 新建 / 删除
         // ================================================================
-        function selectVehicle(index) {
-            if (index < 0 || index >= vehicles.length) return;
-            currentEditIndex = index;
+        function selectVehicle(id) {
+            if (!id) return;
+            const vehicle = vehicles.find(v => v.id === id);
+            if (!vehicle) return;
+            currentEditId = id;
             renderVehicleList();
-            loadVehicleToForm(vehicles[index]);
+            loadVehicleToForm(vehicle);
+            isDirty = false;
         }
 
         function createNewVehicle() {
+            const newId = 'new-' + Date.now().toString(36);
             const newV = {
-                id: 'new-' + Date.now().toString(36),
+                id: newId,
                 name: '新载具',
                 category: '零散系列',
                 difficulty: '★★☆☆☆',
@@ -710,63 +814,59 @@
                 routeImage: '',
                 bilibiliVideo: '',
                 update_date: new Date().toISOString().split('T')[0],
-                variants: [
-                    {
-                        name: '默认款',
-                        image: '',
-                        specs: [
-                            { label: "主色调", value: "" },
-                            { label: "副色调", value: "" },
-                            { label: "轮胎色", value: "" },
-                            { label: "珠光", value: "" }
-                        ],
-                        properties: {
-                            "获取难度": "★★★☆☆",
-                            "收藏价值": "★★★☆☆"
-                        }
+                variants: [{
+                    name: '默认款',
+                    image: '',
+                    specs: [
+                        { label: "主色调", value: "" },
+                        { label: "副色调", value: "" },
+                        { label: "轮胎色", value: "" },
+                        { label: "珠光", value: "" }
+                    ],
+                    properties: {
+                        "获取难度": "★★★☆☆",
+                        "收藏价值": "★★★☆☆"
                     }
-                ],
+                }],
                 methods: []
             };
             vehicles.push(newV);
-            currentEditIndex = vehicles.length - 1;
+            currentEditId = newId;
             renderVehicleList();
             loadVehicleToForm(newV);
+            isDirty = false;
             showToast('✅ 已创建新载具', 'success');
         }
 
-        function deleteVehicle(index) {
-            if (!confirm(`确定删除 "${vehicles[index].name}" 吗？`)) return;
-            vehicles.splice(index, 1);
-            if (currentEditIndex === index) currentEditIndex = -1;
-            else if (currentEditIndex > index) currentEditIndex--;
-            renderVehicleList();
-            if (vehicles.length > 0) {
-                const newIdx = Math.min(currentEditIndex, vehicles.length - 1);
-                if (newIdx >= 0) selectVehicle(newIdx);
-                else createNewVehicle();
-            } else {
-                createNewVehicle();
+        function deleteVehicle(id) {
+            const vehicle = vehicles.find(v => v.id === id);
+            if (!vehicle) return;
+            if (!confirm(`确定删除 "${vehicle.name}" 吗？`)) return;
+
+            vehicles = vehicles.filter(v => v.id !== id);
+            if (currentEditId === id) {
+                currentEditId = null;
+                if (vehicles.length > 0) {
+                    selectVehicle(vehicles[0].id);
+                } else {
+                    createNewVehicle();
+                }
             }
-            showToast('🗑️ 已删除', 'error');
+            renderVehicleList();
+            showToast(`🗑️ 已删除 "${vehicle.name}"`, 'error');
+            isDirty = true;
         }
 
-        function clearAllData() {
-            vehicles = [];
-            currentEditIndex = -1;
-            renderVehicleList();
-            document.getElementById('vehicleForm').reset();
-            document.getElementById('variantsContainer').innerHTML = '';
-            document.getElementById('methodsContainer').innerHTML = '';
-            createNewVehicle();
-            showToast('已清空所有数据', 'error');
+        function deleteCurrentVehicle() {
+            if (!currentEditId) return;
+            deleteVehicle(currentEditId);
         }
 
         // ================================================================
         //  加载数据到表单
         // ================================================================
         function loadVehicleToForm(v) {
-            document.getElementById('editIndex').value = currentEditIndex;
+            document.getElementById('editId').value = v.id || '';
             document.getElementById('vName').value = v.name || '';
             document.getElementById('vId').value = v.id || '';
             document.getElementById('vCategory').value = v.category || '';
@@ -780,14 +880,30 @@
             const vContainer = document.getElementById('variantsContainer');
             vContainer.innerHTML = '';
             if (v.variants && v.variants.length > 0) {
-                v.variants.forEach((variant, idx) => addVariant(variant, idx));
+                v.variants.forEach((variant) => addVariant(variant));
+            } else {
+                // 至少有一个默认变体
+                addVariant({
+                    name: '默认款',
+                    image: '',
+                    specs: [
+                        { label: "主色调", value: "" },
+                        { label: "副色调", value: "" },
+                        { label: "轮胎色", value: "" },
+                        { label: "珠光", value: "" }
+                    ],
+                    properties: {
+                        "获取难度": "★★★☆☆",
+                        "收藏价值": "★★★☆☆"
+                    }
+                });
             }
 
             // 方法
             const mContainer = document.getElementById('methodsContainer');
             mContainer.innerHTML = '';
             if (v.methods && v.methods.length > 0) {
-                v.methods.forEach((method, idx) => addMethod(method, idx));
+                v.methods.forEach((method) => addMethod(method));
             }
         }
 
@@ -795,15 +911,14 @@
         //  保存当前编辑到内存
         // ================================================================
         function saveCurrentVehicle() {
-            const index = parseInt(document.getElementById('editIndex').value);
-            const name = document.getElementById('vName').value.trim();
             const id = document.getElementById('vId').value.trim();
+            const name = document.getElementById('vName').value.trim();
 
             if (!name) { showToast('⚠️ 请填写名称', 'error'); return; }
             if (!id) { showToast('⚠️ ID 不能为空', 'error'); return; }
 
-            // 检查ID唯一性
-            const duplicate = vehicles.some((v, i) => v.id === id && i !== index);
+            // 检查ID唯一性（排除自己）
+            const duplicate = vehicles.some(v => v.id === id && v.id !== currentEditId);
             if (duplicate) {
                 showToast('⚠️ ID "' + id + '" 已存在', 'error');
                 return;
@@ -822,42 +937,58 @@
                 methods: collectMethodsFromDOM()
             };
 
-            if (index === -1 || index >= vehicles.length) {
-                vehicles.push(vehicleData);
-                currentEditIndex = vehicles.length - 1;
+            // 更新或添加
+            const existingIndex = vehicles.findIndex(v => v.id === currentEditId);
+            if (existingIndex !== -1) {
+                // 如果ID变了，删除旧的
+                if (currentEditId !== id) {
+                    vehicles = vehicles.filter(v => v.id !== currentEditId);
+                }
+                // 更新数据
+                const idx = vehicles.findIndex(v => v.id === id);
+                if (idx !== -1) {
+                    vehicles[idx] = vehicleData;
+                } else {
+                    vehicles.push(vehicleData);
+                }
             } else {
-                vehicles[index] = vehicleData;
-                currentEditIndex = index;
+                vehicles.push(vehicleData);
             }
 
+            currentEditId = id;
             renderVehicleList();
-            document.getElementById('editIndex').value = currentEditIndex;
+            document.getElementById('editId').value = id;
+            isDirty = true;
             showToast(`✅ 已保存 "${vehicleData.name}"`, 'success');
-            loadVehicleToForm(vehicles[currentEditIndex]);
         }
 
         // ================================================================
-        //  根据名称自动生成 ID（支持中文转拼音式 slug）
+        //  根据名称自动生成 ID
         // ================================================================
         function autoGenerateId() {
             const nameInput = document.getElementById('vName');
             const idOutput = document.getElementById('vId');
             const rawName = nameInput.value.trim();
 
-            // 名称为空时清空 ID
             if (!rawName) {
-                idOutput.value = '';
+                if (!idOutput.value || idOutput.value.startsWith('new-')) {
+                    idOutput.value = 'new-' + Date.now().toString(36);
+                }
                 return;
             }
 
-            // 保留中英文、数字、空格和连字符，将其他字符转为连字符
-            let id = rawName
-                .replace(/[^\w\u4e00-\u9fa5\s/-]/g, '')   // 移除非法字符（保留 /）
-                .replace(/[\/\s]+/g, '-')                 // 将 / 和空白符转为连字符
-                .replace(/-+/g, '-')                      // 合并连续连字符
-                .toLowerCase();                           // 转小写
+            // 如果用户已经手动修改过ID，不再自动覆盖
+            const currentId = idOutput.value.trim();
+            if (currentId && !currentId.startsWith('new-') && !currentId.startsWith('')) {
+                return;
+            }
 
-            // 如果结果只含中文或连字符，追加时间戳后缀确保唯一性
+            let id = rawName
+                .replace(/[^\w\u4e00-\u9fa5\s/-]/g, '')
+                .replace(/[\/\s]+/g, '-')
+                .replace(/-+/g, '-')
+                .toLowerCase();
+
             if (/^[\u4e00-\u9fa5-]+$/.test(id)) {
                 id = id + '-' + Date.now().toString(36).slice(-4);
             }
@@ -868,22 +999,11 @@
         // ================================================================
         //  变体操作
         // ================================================================
-        function addVariant(data, index) {
+        function addVariant(data) {
             const container = document.getElementById('variantsContainer');
             const div = document.createElement('div');
             div.className = 'card-item';
 
-            // 处理爆炸数据转义
-            const explosionVal = data && data.explosion_data
-                ? (typeof data.explosion_data === 'string' ? data.explosion_data : JSON.stringify(data.explosion_data))
-                : '';
-            const escapedExplosionVal = explosionVal.replace(/"/g, '&quot;');
-
-            // 处理配件转义（可选）
-            const accessoryVal = (data && data.accessory) ? data.accessory : '';
-            const escapedAccessoryVal = accessoryVal.replace(/"/g, '&quot;');
-
-            // 如果 data 为 null 或 undefined，使用默认值
             const variantData = data || {
                 name: '特殊款',
                 image: '',
@@ -899,44 +1019,54 @@
                 }
             };
 
-            const specsHtml = (variantData.specs) ? variantData.specs.map((s, si) => `
-                <div class="spec-group" data-specindex="${si}">
-                    <input class="form-control" style="flex:0.7;" placeholder="标签" value="${s.label || ''}">
-                    <input class="form-control" placeholder="值" value="${s.value || ''}">
-                    <label class="spec-rare">
-                        <input type="checkbox" ${s.isRare ? 'checked' : ''}> 稀有
-                    </label>
-                    <button type="button" class="btn-remove-item" onclick="this.closest('.spec-group').remove()">✕</button>
-                </div>
-            `).join('') : '';
+            // 处理爆炸数据
+            const explosionVal = variantData.explosion_data
+                ? (typeof variantData.explosion_data === 'string' ? variantData.explosion_data : JSON.stringify(variantData
+                    .explosion_data, null, 2))
+                : '';
+            const escapedExplosionVal = explosionVal.replace(/"/g, '&quot;');
 
-            const propsHtml = (variantData.properties) ? Object.entries(variantData.properties).map(([key, value]) => `
-                <div class="prop-group">
-                    <input class="form-control" style="flex:0.7;" placeholder="键" value="${key}">
-                    <input class="form-control" placeholder="值" value="${value}">
-                    <button type="button" class="btn-remove-item" onclick="this.closest('.prop-group').remove()">✕</button>
-                </div>
-            `).join('') : '';
+            const accessoryVal = variantData.accessory || '';
+            const escapedAccessoryVal = accessoryVal.replace(/"/g, '&quot;');
+
+            const specsHtml = variantData.specs ? variantData.specs.map((s) => `
+                    <div class="spec-group">
+                        <input class="form-control" style="flex:0.7;" placeholder="标签" value="${s.label || ''}">
+                        <input class="form-control" placeholder="值" value="${s.value || ''}">
+                        <label class="spec-rare">
+                            <input type="checkbox" ${s.isRare ? 'checked' : ''}> 稀有
+                        </label>
+                        <button type="button" class="btn-remove-item" onclick="this.closest('.spec-group').remove()">✕</button>
+                    </div>
+                `).join('') : '';
+
+            const propsHtml = variantData.properties ? Object.entries(variantData.properties).map(([key, value]) => `
+                    <div class="prop-group">
+                        <input class="form-control" style="flex:0.7;" placeholder="键" value="${key}">
+                        <input class="form-control" placeholder="值" value="${value}">
+                        <button type="button" class="btn-remove-item" onclick="this.closest('.prop-group').remove()">✕</button>
+                    </div>
+                `).join('') : '';
 
             div.innerHTML = `
-                <button type="button" class="remove-btn" onclick="this.closest('.card-item').remove()">✕</button>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
-                    <input class="form-control" placeholder="变体名称 (如：铬合金款)" value="${variantData.name || ''}">
-                    <input class="form-control" placeholder="图片文件名 (如：迪布达2_1.png)" value="${variantData.image || ''}">
-                </div>
-                <div class="sub-label">🎨 规格 (Specs)</div>
-                <div class="specs-wrapper">${specsHtml || '<div style="color:#94a3b8;font-size:0.8rem;padding:4px 0;">暂无规格</div>'}</div>
-                <button type="button" class="btn-add" style="font-size:0.7rem; padding:3px 12px; margin:4px 0;" onclick="addSpec(this)">＋ 添加规格</button>
+                    <button type="button" class="remove-btn" onclick="this.closest('.card-item').remove()">✕</button>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+                        <input class="form-control" placeholder="变体名称 (如：铬合金款)" value="${variantData.name || ''}">
+                        <input class="form-control" placeholder="图片文件名 (如：迪布达2_1.png)" value="${variantData.image || ''}">
+                    </div>
+                    <div class="sub-label">🎨 规格 (Specs)</div>
+                    <div class="specs-wrapper">${specsHtml || '<div style="color:#94a3b8;font-size:0.8rem;padding:4px 0;">暂无规格</div>'}</div>
+                    <button type="button" class="btn-add" style="font-size:0.7rem; padding:3px 12px; margin:4px 0;" onclick="addSpec(this)">＋ 添加规格</button>
 
-                <div class="sub-label" style="margin-top:10px;">📊 属性 (Properties)</div>
-                <div class="props-wrapper">${propsHtml || '<div style="color:#94a3b8;font-size:0.8rem;padding:4px 0;">暂无属性</div>'}</div>
-                <button type="button" class="btn-add" style="font-size:0.7rem; padding:3px 12px; margin:4px 0;" onclick="addProperty(this)">＋ 添加属性</button>
+                    <div class="sub-label" style="margin-top:10px;">📊 属性 (Properties)</div>
+                    <div class="props-wrapper">${propsHtml || '<div style="color:#94a3b8;font-size:0.8rem;padding:4px 0;">暂无属性</div>'}</div>
+                    <button type="button" class="btn-add" style="font-size:0.7rem; padding:3px 12px; margin:4px 0;" onclick="addProperty(this)">＋ 添加属性</button>
 
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
-                    <input class="form-control" placeholder="配件 (可选)" value="${escapedAccessoryVal}">
-                    <input class="form-control" placeholder="爆炸数据 (可选)" value="${escapedExplosionVal}">
-                </div>
-            `;
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
+                        <input class="form-control" placeholder="配件 (可选)" value="${escapedAccessoryVal}">
+                        <input class="form-control" placeholder="爆炸数据 (可选)" value="${escapedExplosionVal}">
+                    </div>
+                `;
             container.appendChild(div);
         }
 
@@ -945,12 +1075,11 @@
             const group = document.createElement('div');
             group.className = 'spec-group';
             group.innerHTML = `
-                <input class="form-control" style="flex:0.7;" placeholder="标签" value="">
-                <input class="form-control" placeholder="值" value="">
-                <label class="spec-rare"><input type="checkbox"> 稀有</label>
-                <button type="button" class="btn-remove-item" onclick="this.closest('.spec-group').remove()">✕</button>
-            `;
-            // 移除"暂无规格"提示
+                    <input class="form-control" style="flex:0.7;" placeholder="标签" value="">
+                    <input class="form-control" placeholder="值" value="">
+                    <label class="spec-rare"><input type="checkbox"> 稀有</label>
+                    <button type="button" class="btn-remove-item" onclick="this.closest('.spec-group').remove()">✕</button>
+                `;
             if (wrapper.querySelector('div[style]')) wrapper.innerHTML = '';
             wrapper.appendChild(group);
         }
@@ -960,10 +1089,10 @@
             const group = document.createElement('div');
             group.className = 'prop-group';
             group.innerHTML = `
-                <input class="form-control" style="flex:0.7;" placeholder="键" value="">
-                <input class="form-control" placeholder="值" value="">
-                <button type="button" class="btn-remove-item" onclick="this.closest('.prop-group').remove()">✕</button>
-            `;
+                    <input class="form-control" style="flex:0.7;" placeholder="键" value="">
+                    <input class="form-control" placeholder="值" value="">
+                    <button type="button" class="btn-remove-item" onclick="this.closest('.prop-group').remove()">✕</button>
+                `;
             if (wrapper.querySelector('div[style]')) wrapper.innerHTML = '';
             wrapper.appendChild(group);
         }
@@ -971,40 +1100,50 @@
         // ================================================================
         //  方法操作
         // ================================================================
-        function addMethod(data, index) {
+        function addMethod(data) {
             const container = document.getElementById('methodsContainer');
             const div = document.createElement('div');
             div.className = 'card-item';
 
-            const detailsHtml = (data && data.details) ? Object.entries(data.details).map(([key, value]) => `
-                <div class="detail-group">
-                    <input class="form-control" style="flex:0.7;" placeholder="条件" value="${key}">
-                    <input class="form-control" placeholder="值" value="${value}">
-                    <button type="button" class="btn-remove-item" onclick="this.closest('.detail-group').remove()">✕</button>
-                </div>
-            `).join('') : '';
+            const methodData = data || {
+                title: '新方法',
+                number: 1,
+                details: {},
+                intro: '',
+                description: '',
+                noteLink: '',
+                noteText: ''
+            };
+
+            const detailsHtml = methodData.details ? Object.entries(methodData.details).map(([key, value]) => `
+                    <div class="detail-group">
+                        <input class="form-control" style="flex:0.7;" placeholder="条件" value="${key}">
+                        <input class="form-control" placeholder="值" value="${value}">
+                        <button type="button" class="btn-remove-item" onclick="this.closest('.detail-group').remove()">✕</button>
+                    </div>
+                `).join('') : '';
 
             div.innerHTML = `
-                <button type="button" class="remove-btn" onclick="this.closest('.card-item').remove()">✕</button>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
-                    <input class="form-control" placeholder="标题" value="${data ? data.title : ''}">
-                    <input class="form-control" placeholder="编号 (数字)" value="${data ? data.number : ''}">
-                </div>
-                <div class="sub-label">📌 详情条件</div>
-                <div class="method-details-wrapper">${detailsHtml || '<div style="color:#94a3b8;font-size:0.8rem;padding:4px 0;">暂无条件</div>'}</div>
-                <button type="button" class="btn-add" style="font-size:0.7rem; padding:3px 12px; margin:4px 0;" onclick="addMethodDetail(this)">＋ 添加条件</button>
+                    <button type="button" class="remove-btn" onclick="this.closest('.card-item').remove()">✕</button>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+                        <input class="form-control" placeholder="标题" value="${methodData.title || ''}">
+                        <input class="form-control" placeholder="编号 (数字)" value="${methodData.number || ''}">
+                    </div>
+                    <div class="sub-label">📌 详情条件</div>
+                    <div class="method-details-wrapper">${detailsHtml || '<div style="color:#94a3b8;font-size:0.8rem;padding:4px 0;">暂无条件</div>'}</div>
+                    <button type="button" class="btn-add" style="font-size:0.7rem; padding:3px 12px; margin:4px 0;" onclick="addMethodDetail(this)">＋ 添加条件</button>
 
-                <div style="margin-top:8px;">
-                    <input class="form-control" placeholder="简介" value="${data ? data.intro : ''}">
-                </div>
-                <div style="margin-top:6px;">
-                    <textarea class="form-control" rows="2" placeholder="描述">${data ? data.description : ''}</textarea>
-                </div>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px;">
-                    <input class="form-control" placeholder="备注链接" value="${data ? data.noteLink : ''}">
-                    <input class="form-control" placeholder="备注文字" value="${data ? data.noteText : ''}">
-                </div>
-            `;
+                    <div style="margin-top:8px;">
+                        <input class="form-control" placeholder="简介" value="${methodData.intro || ''}">
+                    </div>
+                    <div style="margin-top:6px;">
+                        <textarea class="form-control" rows="2" placeholder="描述">${methodData.description || ''}</textarea>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px;">
+                        <input class="form-control" placeholder="备注链接" value="${methodData.noteLink || ''}">
+                        <input class="form-control" placeholder="备注文字" value="${methodData.noteText || ''}">
+                    </div>
+                `;
             container.appendChild(div);
         }
 
@@ -1013,10 +1152,10 @@
             const group = document.createElement('div');
             group.className = 'detail-group';
             group.innerHTML = `
-                <input class="form-control" style="flex:0.7;" placeholder="条件" value="">
-                <input class="form-control" placeholder="值" value="">
-                <button type="button" class="btn-remove-item" onclick="this.closest('.detail-group').remove()">✕</button>
-            `;
+                    <input class="form-control" style="flex:0.7;" placeholder="条件" value="">
+                    <input class="form-control" placeholder="值" value="">
+                    <button type="button" class="btn-remove-item" onclick="this.closest('.detail-group').remove()">✕</button>
+                `;
             if (wrapper.querySelector('div[style]')) wrapper.innerHTML = '';
             wrapper.appendChild(group);
         }
@@ -1034,7 +1173,6 @@
                 const image = inputs[1]?.value || '';
                 if (!name) return;
 
-                // specs
                 const specGroups = el.querySelectorAll('.specs-wrapper .spec-group');
                 const specs = [];
                 specGroups.forEach(sg => {
@@ -1047,7 +1185,6 @@
                     });
                 });
 
-                // properties
                 const propGroups = el.querySelectorAll('.props-wrapper .prop-group');
                 const properties = {};
                 propGroups.forEach(pg => {
@@ -1057,13 +1194,11 @@
                     if (key) properties[key] = pgInputs[1].value || '';
                 });
 
-                // 配件 & 爆炸数据（最后两个 input）
                 const accessory = inputs[inputs.length - 2]?.value || '';
                 const explosionRaw = inputs[inputs.length - 1]?.value || '';
                 let explosion_data = null;
                 if (explosionRaw.trim()) {
-                    try { explosion_data = JSON.parse(explosionRaw); }
-                    catch { explosion_data = explosionRaw; }
+                    try { explosion_data = JSON.parse(explosionRaw); } catch { explosion_data = explosionRaw; }
                 }
 
                 const variant = { name, image, specs, properties };
@@ -1114,6 +1249,7 @@
                 return;
             }
 
+            const version = getVersion();
             const btn = document.getElementById('btnDirectSave');
             btn.textContent = '⏳ 保存中...';
             btn.disabled = true;
@@ -1122,14 +1258,14 @@
                 const res = await fetch('/api/save', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ vehicles })
+                    body: JSON.stringify({ vehicles, version })
                 });
                 const result = await res.json();
                 if (result.success) {
                     showToast(result.message, 'success');
-                    // 更新状态
                     document.getElementById('serverStatus').className = 'server-status online';
                     document.getElementById('serverStatus').textContent = '✅ 已同步';
+                    isDirty = false;
                 } else {
                     showToast('❌ ' + result.message, 'error');
                 }
@@ -1145,7 +1281,7 @@
         }
 
         // ================================================================
-        //  导出 ZIP（备选方案）
+        //  导出 ZIP
         // ================================================================
         async function exportZIP() {
             saveCurrentVehicle();
@@ -1153,11 +1289,14 @@
                 showToast('⚠️ 没有数据可导出', 'error');
                 return;
             }
+
+            const version = getVersion();
             try {
                 const zip = new JSZip();
-                const dataFolder = zip.folder('data');
+                const versionFolder = zip.folder(`data/${version}`);
+                const detailsFolder = versionFolder.folder('details');
 
-                // index.json
+                // 生成 index.json
                 const indexData = vehicles.map(v => ({
                     id: v.id,
                     name: v.name,
@@ -1169,10 +1308,9 @@
                     coverImage: v.variants?.[0]?.image || null,
                     variantsCount: v.variants?.length || 0
                 }));
-                dataFolder.file('index.json', JSON.stringify(indexData, null, 2));
+                versionFolder.file('index.json', JSON.stringify(indexData, null, 2));
 
-                // details/
-                const detailsFolder = dataFolder.folder('details');
+                // 写入每个详情
                 vehicles.forEach(v => {
                     const clean = JSON.parse(JSON.stringify(v));
                     if (!clean.bilibiliVideo) delete clean.bilibiliVideo;
@@ -1191,12 +1329,12 @@
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'data.zip';
+                a.download = `data-${version}.zip`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
-                showToast(`✅ 已导出 data.zip (${vehicles.length} 辆)`, 'success');
+                showToast(`✅ 已导出 data-${version}.zip (${vehicles.length} 辆)`, 'success');
             } catch (err) {
                 console.error(err);
                 showToast('❌ 导出失败: ' + err.message, 'error');
@@ -1204,25 +1342,37 @@
         }
 
         // ================================================================
-        //  导出 legacy vehicles.json
+        //  导出 index.json
         // ================================================================
-        function exportLegacyJSON() {
+        function exportIndexJSON() {
             saveCurrentVehicle();
             if (vehicles.length === 0) {
                 showToast('⚠️ 没有数据可导出', 'error');
                 return;
             }
-            const data = { vehicles: JSON.parse(JSON.stringify(vehicles)) };
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+
+            const indexData = vehicles.map(v => ({
+                id: v.id,
+                name: v.name,
+                category: v.category,
+                difficulty: v.difficulty,
+                description: v.description,
+                update_date: v.update_date,
+                bilibiliVideo: v.bilibiliVideo || '',
+                coverImage: v.variants?.[0]?.image || null,
+                variantsCount: v.variants?.length || 0
+            }));
+
+            const blob = new Blob([JSON.stringify(indexData, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'vehicles.json';
+            a.download = 'index.json';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            showToast(`✅ 已导出 vehicles.json (${vehicles.length} 辆)`, 'success');
+            showToast(`✅ 已导出 index.json (${vehicles.length} 辆)`, 'success');
         }
 
         // ================================================================
@@ -1237,6 +1387,20 @@
                 toast.classList.remove('show');
             }, 3500);
         }
+
+        // ================================================================
+        //  版本切换
+        // ================================================================
+        document.getElementById('versionSelect').addEventListener('change', function() {
+            if (isDirty) {
+                if (!confirm('当前有未保存的修改，切换版本将丢失。确定继续吗？')) {
+                    this.value = currentVersion;
+                    return;
+                }
+            }
+            currentVersion = this.value;
+            loadFromServer();
+        });
 
         // ================================================================
         //  启动

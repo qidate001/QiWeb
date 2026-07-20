@@ -119,6 +119,34 @@ const server = http.createServer((req, res) => {
         return;
     }
 
+    // 在 admin-server.js 中添加 /api/list 接口
+    if (pathname === '/api/list' && req.method === 'GET') {
+        const version = urlObj.searchParams.get('version') || 'gta5';
+        const detailsDir = path.join(BASE_DIR, 'data', version, 'details');
+        
+        try {
+            const files = fs.readdirSync(detailsDir);
+            const vehicles = [];
+            for (const file of files) {
+                if (file.endsWith('.json')) {
+                    try {
+                        const content = fs.readFileSync(path.join(detailsDir, file), 'utf8');
+                        vehicles.push(JSON.parse(content));
+                    } catch (e) {
+                        console.warn('读取文件失败:', file);
+                    }
+                }
+            }
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ vehicles }));
+        } catch (err) {
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ vehicles: [] }));
+        }
+        return;
+    }
+
+    
     res.writeHead(404);
     res.end('Not Found');
 });
