@@ -144,7 +144,7 @@
         {
           "label": "珠光",
           "value": "磨损绿",
-          "isRare": false
+          "isRare": true
         }
       ],
       "properties": {
