@@ -157,7 +157,77 @@ const SPREADS = {
                 </div>
             `;
         }
-    }
+    },
+    horseshoe: {
+            id: 'horseshoe',
+            label: '马蹄铁牌阵（7张）',
+            badge: '7张',
+            count: 7,
+            positions: [
+                { label: '① 过去 / 根基' },
+                { label: '② 现在 / 现状' },
+                { label: '③ 近未来（1个月内）' },
+                { label: '④ 障碍 / 挑战' },
+                { label: '⑤ 环境 / 他人影响' },
+                { label: '⑥ 优势 / 建议行动' },
+                { label: '⑦ 最终结果' }
+            ],
+            render: (cards) => {
+                const card0 = cards[0] ? renderCard(cards[0], 0, '① 过去/根基') : '';
+                const card1 = cards[1] ? renderCard(cards[1], 1, '② 现在/现状') : '';
+                const card2 = cards[2] ? renderCard(cards[2], 2, '③ 近未来') : '';
+                const card3 = cards[3] ? renderCard(cards[3], 3, '④ 障碍/挑战') : '';
+                const card4 = cards[4] ? renderCard(cards[4], 4, '⑤ 环境/他人') : '';
+                const card5 = cards[5] ? renderCard(cards[5], 5, '⑥ 优势/建议') : '';
+                const card6 = cards[6] ? renderCard(cards[6], 6, '⑦ 最终结果') : '';
+
+                return `
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:12px; width:100%; padding:10px 0;">
+                        <!-- 顶部行：③ 近未来  ④ 障碍/挑战  ⑤ 环境/他人 -->
+                        <div style="display:flex; justify-content:center; gap:60px;">
+                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                                ${card2}
+                                <div style="color:#6a5a7a; font-size:0.6rem;">左弧上</div>
+                            </div>
+                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                                ${card3}
+                                <div style="color:#6a5a7a; font-size:0.6rem;">顶弧中</div>
+                            </div>
+                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                                ${card4}
+                                <div style="color:#6a5a7a; font-size:0.6rem;">右弧上</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 中间行：② 现在/现状（左）  ⑥ 优势/建议（右） -->
+                        <!-- 使用负margin让左右两张牌向外突出，形成马蹄铁的弧度 -->
+                        <div style="display:flex; justify-content:space-between; width:100%; max-width:700px; margin-top:5px; padding:0 20px;">
+                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px; margin-left:-55px;">
+                                ${card1}
+                                <div style="color:#6a5a7a; font-size:0.6rem;">左弧下</div>
+                            </div>
+                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px; margin-right:-55px;">
+                                ${card5}
+                                <div style="color:#6a5a7a; font-size:0.6rem;">右弧下</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 底部行：① 过去/根基（左）  ⑦ 最终结果（右） -->
+                        <!-- 底部行与中间行的左右两端对齐 -->
+                        <div style="display:flex; justify-content:space-between; width:100%; max-width:700px; margin-top:5px; padding:0 20px;">
+                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px; margin-left:-75px;">
+                                ${card0}
+                                <div style="color:#6a5a7a; font-size:0.6rem;">底弧左</div>
+                            </div>
+                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px; margin-right:-75px;">
+                                ${card6}
+                                <div style="color:#6a5a7a; font-size:0.6rem;">底弧右</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
 };
 
 // 当前选中的牌阵 ID
