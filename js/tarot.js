@@ -296,6 +296,7 @@ function updateReading(cards) {
 function updateReadingWithAI(cards, reading) {
     const resultDiv = document.getElementById('readingResult');
     
+    // 牌面信息
     let cardInfo = '';
     cards.forEach((card) => {
         const orientation = card.isReversed ? '逆位' : '正位';
@@ -310,17 +311,33 @@ function updateReadingWithAI(cards, reading) {
         `;
     });
     
-    const formattedReading = reading
-        .split('\n')
-        .map(line => line.trim() ? `<p>${line}</p>` : '<br>')
-        .join('');
+    // 使用 marked 渲染 Markdown
+    let formattedReading = '';
+    try {
+        // 如果 marked 可用，渲染 Markdown
+        if (typeof marked !== 'undefined') {
+            formattedReading = marked.parse(reading);
+        } else {
+            // 降级方案：简单处理换行
+            formattedReading = reading
+                .split('\n')
+                .map(line => line.trim() ? `<p>${line}</p>` : '<br>')
+                .join('');
+        }
+    } catch (e) {
+        console.warn('Markdown 渲染失败，使用纯文本:', e);
+        formattedReading = reading
+            .split('\n')
+            .map(line => line.trim() ? `<p>${line}</p>` : '<br>')
+            .join('');
+    }
     
     resultDiv.innerHTML = `
         <h3>🔮 AI 塔罗解读</h3>
         <div style="margin-bottom: 15px; padding: 12px; background: rgba(255,215,0,0.05); border-radius: 10px;">
             ${cardInfo}
         </div>
-        <div style="color: #d8c8e0; line-height: 1.8; font-size: 0.95rem;">
+        <div class="markdown-body" style="color: #d8c8e0; line-height: 1.8; font-size: 0.95rem;">
             ${formattedReading}
         </div>
         <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,215,0,0.08); color: #6a5a7a; font-size: 0.8rem; text-align: right;">
