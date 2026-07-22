@@ -1,6 +1,5 @@
 /**
- * tarot.js - 塔罗占卜核心逻辑 + AI 解读
- * 支持 Cloudflare Worker 代理调用 DeepSeek API
+ * tarot.js - 塔罗占卜核心逻辑 + AI 解读（多牌阵 · 左右布局）
  */
 
 // ============================================
@@ -30,8 +29,7 @@ const TAROT_DECK = [
     { id: '19', name: '太阳', nameEn: 'The Sun' },
     { id: '20', name: '审判', nameEn: 'Judgement' },
     { id: '21', name: '世界', nameEn: 'The World' },
-
-    // 权杖 W
+    // 权杖
     { id: 'W1', name: '权杖一', nameEn: 'Ace of Wands' },
     { id: 'W2', name: '权杖二', nameEn: 'Two of Wands' },
     { id: 'W3', name: '权杖三', nameEn: 'Three of Wands' },
@@ -46,8 +44,7 @@ const TAROT_DECK = [
     { id: 'W骑士', name: '权杖骑士', nameEn: 'Knight of Wands' },
     { id: 'W皇后', name: '权杖皇后', nameEn: 'Queen of Wands' },
     { id: 'W国王', name: '权杖国王', nameEn: 'King of Wands' },
-
-    // 圣杯 C
+    // 圣杯
     { id: 'C1', name: '圣杯一', nameEn: 'Ace of Cups' },
     { id: 'C2', name: '圣杯二', nameEn: 'Two of Cups' },
     { id: 'C3', name: '圣杯三', nameEn: 'Three of Cups' },
@@ -62,8 +59,7 @@ const TAROT_DECK = [
     { id: 'C骑士', name: '圣杯骑士', nameEn: 'Knight of Cups' },
     { id: 'C皇后', name: '圣杯皇后', nameEn: 'Queen of Cups' },
     { id: 'C国王', name: '圣杯国王', nameEn: 'King of Cups' },
-
-    // 宝剑 S
+    // 宝剑
     { id: 'S1', name: '宝剑一', nameEn: 'Ace of Swords' },
     { id: 'S2', name: '宝剑二', nameEn: 'Two of Swords' },
     { id: 'S3', name: '宝剑三', nameEn: 'Three of Swords' },
@@ -78,8 +74,7 @@ const TAROT_DECK = [
     { id: 'S骑士', name: '宝剑骑士', nameEn: 'Knight of Swords' },
     { id: 'S皇后', name: '宝剑皇后', nameEn: 'Queen of Swords' },
     { id: 'S国王', name: '宝剑国王', nameEn: 'King of Swords' },
-
-    // 星币 P
+    // 星币
     { id: 'P1', name: '星币一', nameEn: 'Ace of Pentacles' },
     { id: 'P2', name: '星币二', nameEn: 'Two of Pentacles' },
     { id: 'P3', name: '星币三', nameEn: 'Three of Pentacles' },
@@ -97,17 +92,434 @@ const TAROT_DECK = [
 ];
 
 // ============================================
-// AI 解读配置
+// 牌阵定义（可扩展）
 // ============================================
+const SPREADS = {
+    single: {
+        id: 'single',
+        label: '单牌占卜',
+        badge: '1张',
+        count: 1,
+        positions: [
+            { label: '核心指引' }
+        ],
+        // 布局渲染函数，返回 HTML 字符串
+        render: (cards) => {
+            return cards.map((card, i) => renderCard(card, i, SPREADS.single.positions[i]?.label)).join('');
+        }
+    },
+    three: {
+        id: 'three',
+        label: '三牌占卜（时间之流）',
+        badge: '3张',
+        count: 3,
+        positions: [
+            { label: '过去 / 原因' },
+            { label: '现在 / 行动' },
+            { label: '未来 / 结果' }
+        ],
+        render: (cards) => {
+            return cards.map((card, i) => renderCard(card, i, SPREADS.three.positions[i]?.label)).join('');
+        }
+    },
+    choice: {
+        id: 'choice',
+        label: '抉择牌阵（二择一）',
+        badge: '5张',
+        count: 5,
+        positions: [
+            { label: '核心状态' },          // index 0
+            { label: 'A 过程' },            // index 1
+            { label: 'A 结果' },            // index 2
+            { label: 'B 过程' },            // index 3
+            { label: 'B 结果' }             // index 4
+        ],
+        render: (cards) => {
+            // 定制布局：中心1张，左列2张，右列2张
+            const center = cards[0] ? renderCard(cards[0], 0, '核心状态') : '';
+            const leftCards = cards.slice(1, 3).map((c, i) => renderCard(c, i + 1, SPREADS.choice.positions[i + 1]?.label)).join('');
+            const rightCards = cards.slice(3, 5).map((c, i) => renderCard(c, i + 3, SPREADS.choice.positions[i + 3]?.label)).join('');
+
+            return `
+                <div style="display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:30px;">
+                    <div class="spread-branch">
+                        <div class="branch-label">🌿 路径 A</div>
+                        <div class="branch-cards">${leftCards}</div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+                        ${center}
+                        <div style="color:#6a5a7a; font-size:0.8rem; letter-spacing:1px;">⚖️ 抉择</div>
+                    </div>
+                    <div class="spread-branch">
+                        <div class="branch-label">🌿 路径 B</div>
+                        <div class="branch-cards">${rightCards}</div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+};
+
+// 当前选中的牌阵 ID
+let currentSpreadId = 'three'; // 默认三牌
+
+// ============================================
+// 配置
+// ============================================
+const CONFIG = {
+    IMG_BASE: '/images/tarot_cards/',
+    BACK_IMG: '/images/tarot_cards/_.png',
+    REVERSED_PROBABILITY: 0.5,
+    FLIP_DELAY_BASE: 300,
+    FLIP_DELAY_STEP: 200,
+};
+
 const AI_CONFIG = {
     WORKER_URL: 'https://tarot-api.qidate001.workers.dev',
     ENABLE_AI: true,
-    FALLBACK_DATA: '/data/tarot-readings.json',
-    TYPING_SPEED: 20, // 打字速度（毫秒/字符）
+    TYPING_SPEED: 18,
 };
 
 // ============================================
-// 打字机效果类
+// 状态
+// ============================================
+let currentCards = [];
+
+// ============================================
+// 辅助函数
+// ============================================
+function shuffleArray(arr) {
+    const shuffled = [...arr];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+function drawRandomCards(n) {
+    if (n > TAROT_DECK.length) n = TAROT_DECK.length;
+    const shuffled = shuffleArray(TAROT_DECK);
+    return shuffled.slice(0, n).map(card => ({
+        ...card,
+        isReversed: Math.random() < CONFIG.REVERSED_PROBABILITY,
+    }));
+}
+
+// 渲染单张牌 HTML
+function renderCard(card, index, label) {
+    const imgSrc = `${CONFIG.IMG_BASE}${card.id}.png`;
+    const reversedClass = card.isReversed ? 'reversed' : '';
+    const labelHtml = label ? `<div class="card-label">${label}</div>` : '';
+    return `
+        <div class="card-slot" data-index="${index}" onclick="toggleCardFlip(${index})">
+            ${labelHtml}
+            <div class="card-inner">
+                <div class="card-back">
+                    <img src="${CONFIG.BACK_IMG}" alt="牌背" loading="lazy">
+                </div>
+                <div class="card-front ${reversedClass}" data-name="${card.name}">
+                    <img src="${imgSrc}" alt="${card.name}" loading="lazy">
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// ============================================
+// 渲染牌阵
+// ============================================
+function renderSpread(cards) {
+    const area = document.getElementById('spreadArea');
+    const spread = SPREADS[currentSpreadId];
+    if (!cards || cards.length === 0) {
+        area.innerHTML = `<div class="placeholder-text">🃏 选择牌阵后点击「抽牌」</div>`;
+        return;
+    }
+    // 根据牌阵的 render 方法生成 HTML
+    const html = spread.render(cards);
+    area.innerHTML = `<div class="spread-container">${html}</div>`;
+
+    // 自动翻牌
+    cards.forEach((_, index) => {
+        setTimeout(() => {
+            const slot = document.querySelector(`.card-slot[data-index="${index}"]`);
+            if (slot) slot.classList.add('flipped');
+        }, CONFIG.FLIP_DELAY_BASE + index * CONFIG.FLIP_DELAY_STEP);
+    });
+}
+
+// ============================================
+// 牌阵选择 UI
+// ============================================
+function initSpreadOptions() {
+    const container = document.getElementById('spreadOptions');
+    container.innerHTML = '';
+    Object.values(SPREADS).forEach(spread => {
+        const div = document.createElement('div');
+        div.className = `spread-option${spread.id === currentSpreadId ? ' active' : ''}`;
+        div.dataset.spreadId = spread.id;
+        div.innerHTML = `
+            <span>${spread.label}</span>
+            <span class="badge">${spread.badge}</span>
+        `;
+        div.addEventListener('click', () => {
+            // 切换激活状态
+            document.querySelectorAll('.spread-option').forEach(el => el.classList.remove('active'));
+            div.classList.add('active');
+            currentSpreadId = spread.id;
+            // 清空当前牌阵
+            currentCards = [];
+            renderSpread([]);
+            document.getElementById('readingResult').innerHTML = `<p class="placeholder-text">✨ 已切换牌阵，请点击「抽牌」</p>`;
+        });
+        container.appendChild(div);
+    });
+}
+
+// ============================================
+// 抽牌逻辑
+// ============================================
+async function handleDraw() {
+    const spread = SPREADS[currentSpreadId];
+    const count = spread.count;
+    const cards = drawRandomCards(count);
+    currentCards = cards;
+
+    // 渲染牌阵
+    renderSpread(cards);
+
+    // 显示解读占位
+    const resultDiv = document.getElementById('readingResult');
+    const cardInfo = buildCardInfoHTML(cards);
+    resultDiv.innerHTML = `
+        <h3>🔮 AI 塔罗解读</h3>
+        <div style="margin-bottom:15px; padding:12px; background:rgba(255,215,0,0.05); border-radius:10px;">
+            ${cardInfo}
+        </div>
+        <div class="markdown-body" id="typewriter-content" style="color:#d8c8e0; line-height:1.8; font-size:0.95rem; min-height:100px; max-height:600px; overflow-y:auto; padding:10px;">
+            <span style="color:#6a5a7a;">✨ AI 正在思考中...</span>
+        </div>
+        <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,215,0,0.08); color:#6a5a7a; font-size:0.8rem; text-align:right;">
+            <span id="typing-status">⏳ 正在连接 AI...</span>
+        </div>
+    `;
+
+    const contentDiv = document.getElementById('typewriter-content');
+    const statusSpan = document.getElementById('typing-status');
+
+    // 获取用户问题
+    const question = document.getElementById('questionInput').value.trim();
+
+    let typewriter = null;
+    let hasStarted = false;
+
+    try {
+        await getAIReading(
+            cards,
+            question,
+            // onChunk
+            (chunk, accumulated) => {
+                if (!hasStarted) {
+                    hasStarted = true;
+                }
+                if (!typewriter) {
+                    typewriter = new Typewriter(contentDiv, {
+                        speed: AI_CONFIG.TYPING_SPEED,
+                        renderFn: (text) => {
+                            try {
+                                if (typeof marked !== 'undefined') return marked.parse(text);
+                                return text;
+                            } catch (e) { return text; }
+                        },
+                        onComplete: () => {
+                            statusSpan.textContent = '✅ 解读完成';
+                            statusSpan.style.color = '#69f0ae';
+                        }
+                    });
+                    typewriter.start(accumulated);
+                } else {
+                    typewriter.updateContent(accumulated);
+                }
+                statusSpan.textContent = `✍️ 正在书写... (${accumulated.length} 字符)`;
+            },
+            // onComplete
+            (result) => {
+                if (!hasStarted && result && result.reading) {
+                    contentDiv.innerHTML = '';
+                    typewriter = new Typewriter(contentDiv, {
+                        speed: AI_CONFIG.TYPING_SPEED,
+                        renderFn: (text) => {
+                            try {
+                                if (typeof marked !== 'undefined') return marked.parse(text);
+                                return text;
+                            } catch (e) { return text; }
+                        },
+                        onComplete: () => {
+                            statusSpan.textContent = '✅ 解读完成';
+                            statusSpan.style.color = '#69f0ae';
+                        }
+                    });
+                    typewriter.start(result.reading);
+                    statusSpan.textContent = `✍️ 正在书写... (${result.reading.length} 字符)`;
+                }
+            }
+        );
+    } catch (error) {
+        console.error('解读出错:', error);
+        contentDiv.innerHTML = `
+            <div style="color:#ff7a7a; padding:20px; background:rgba(255,0,0,0.1); border-radius:8px;">
+                ⚠️ 解读生成失败，请稍后重试
+                <br><small style="color:#6a5a7a;">${error.message || ''}</small>
+            </div>
+        `;
+        statusSpan.textContent = '❌ 生成失败';
+        statusSpan.style.color = '#ff7a7a';
+    }
+}
+
+// ============================================
+// AI 解读（流式）
+// ============================================
+async function getAIReading(cards, question = '', onChunk = null, onComplete = null) {
+    if (!AI_CONFIG.ENABLE_AI) {
+        const result = await getFallbackReading(cards);
+        if (onComplete) onComplete(result);
+        return result;
+    }
+
+    try {
+        const response = await fetch(AI_CONFIG.WORKER_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                cards: cards.map(card => ({
+                    id: card.id,
+                    name: card.name,
+                    nameEn: card.nameEn,
+                    isReversed: card.isReversed,
+                })),
+                question: question,
+                stream: true,
+            }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.error || `HTTP ${response.status}`);
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let fullContent = '';
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split('\n');
+            buffer = lines.pop() || '';
+
+            for (const line of lines) {
+                const trimmed = line.trim();
+                if (!trimmed || !trimmed.startsWith('data: ')) continue;
+                const jsonStr = trimmed.slice(6);
+                if (jsonStr === '[DONE]') continue;
+
+                try {
+                    const parsed = JSON.parse(jsonStr);
+                    const delta = parsed.choices?.[0]?.delta;
+                    if (delta) {
+                        const content = delta.content || '';
+                        if (content) {
+                            fullContent += content;
+                            if (onChunk) onChunk(content, fullContent);
+                        }
+                    }
+                } catch (e) {
+                    console.debug('SSE parse error:', e);
+                }
+            }
+        }
+
+        // 处理剩余 buffer
+        if (buffer.trim()) {
+            const trimmed = buffer.trim();
+            if (trimmed.startsWith('data: ')) {
+                const jsonStr = trimmed.slice(6);
+                if (jsonStr !== '[DONE]') {
+                    try {
+                        const parsed = JSON.parse(jsonStr);
+                        const delta = parsed.choices?.[0]?.delta;
+                        if (delta) {
+                            const content = delta.content || '';
+                            if (content) {
+                                fullContent += content;
+                                if (onChunk) onChunk(content, fullContent);
+                            }
+                        }
+                    } catch (e) { /* ignore */ }
+                }
+            }
+        }
+
+        const result = { success: true, reading: fullContent, cards };
+        if (onComplete) onComplete(result);
+        return result;
+
+    } catch (error) {
+        console.error('AI 解读失败:', error);
+        const fallback = await getFallbackReading(cards);
+        if (onComplete) onComplete(fallback);
+        return fallback;
+    }
+}
+
+async function getFallbackReading(cards) {
+    // 简单降级 - 返回固定文本
+    let text = '📖 塔罗解读（预生成版本）：\n\n';
+    cards.forEach(card => {
+        const orient = card.isReversed ? '逆位' : '正位';
+        text += `【${card.name}】${orient}\n此牌暗示着内在的智慧与成长。请结合你的直觉来理解。\n\n`;
+    });
+    return { success: true, reading: text, isFallback: true };
+}
+
+// ============================================
+// 辅助 UI 函数
+// ============================================
+function buildCardInfoHTML(cards) {
+    let html = '';
+    cards.forEach((card) => {
+        const orientation = card.isReversed ? '逆位' : '正位';
+        const cls = card.isReversed ? 'reversed' : 'upright';
+        const icon = card.isReversed ? '⬇️' : '⬆️';
+        html += `
+            <div class="card-item">
+                <span class="card-name">${card.name}</span>
+                <span class="card-en">${card.nameEn}</span>
+                <span class="orientation ${cls}">${icon} ${orientation}</span>
+            </div>
+        `;
+    });
+    return html;
+}
+
+function toggleCardFlip(index) {
+    const slot = document.querySelector(`.card-slot[data-index="${index}"]`);
+    if (slot) slot.classList.toggle('flipped');
+}
+
+function resetAll() {
+    currentCards = [];
+    renderSpread([]);
+    document.getElementById('readingResult').innerHTML = `<p class="placeholder-text">点击「抽牌」开始你的占卜之旅...</p>`;
+}
+
+// ============================================
+// 打字机效果类（不变，保留原有实现）
 // ============================================
 class Typewriter {
     constructor(element, options = {}) {
@@ -117,45 +529,30 @@ class Typewriter {
         this.renderFn = options.renderFn || null;
         this.isRunning = false;
         this.isPaused = false;
-        this.fullContent = '';       // 完整目标内容
-        this.displayedContent = '';  // 已显示的内容
-        this.charIndex = 0;          // 已显示的字符数
+        this.fullContent = '';
+        this.displayedContent = '';
+        this.charIndex = 0;
         this.timer = null;
         this.isFinished = false;
     }
 
-    // 启动或更新内容
     updateContent(newFullContent) {
-        // 若新内容比当前全内容短，忽略（流式数据正常情况下不会发生）
-        if (newFullContent.length < this.fullContent.length) {
-            return;
-        }
-        // 内容无变化则忽略
-        if (newFullContent === this.fullContent) {
-            return;
-        }
-
-        // 更新完整内容
+        if (newFullContent.length < this.fullContent.length) return;
+        if (newFullContent === this.fullContent) return;
         this.fullContent = newFullContent;
-
-        // 如果之前已经打完（isFinished = true），现在有新内容，继续追加
         if (this.isFinished) {
-            this.isFinished = false;        // 取消完成状态
+            this.isFinished = false;
             this.isRunning = true;
-            this.typeNextChar();            // 继续从当前 charIndex 开始打印新增部分
+            this.typeNextChar();
             return;
         }
-
-        // 如果当前未在运行且未暂停，则启动打字
         if (!this.isRunning && !this.isPaused) {
             this.isRunning = true;
             this.typeNextChar();
         }
-        // 若正在运行，则无需额外操作，它会自动继续到新长度
     }
 
     start(content) {
-        // 重置所有状态
         this.stop();
         this.fullContent = content;
         this.displayedContent = '';
@@ -175,22 +572,12 @@ class Typewriter {
             if (this.callback) this.callback();
             return;
         }
-
-        // 每次添加 2-4 个字符
         const charsToAdd = 3;
         let endIndex = Math.min(this.charIndex + charsToAdd, this.fullContent.length);
-
-        // 如果遇到换行或标点，适当多打一些
-        let nextNewline = this.fullContent.indexOf('\n', this.charIndex);
-        if (nextNewline !== -1 && nextNewline - this.charIndex < 20) {
-            endIndex = nextNewline + 1;
-        }
-
         const chunk = this.fullContent.substring(this.charIndex, endIndex);
         this.displayedContent += chunk;
         this.charIndex = endIndex;
 
-        // 渲染
         if (this.renderFn) {
             this.element.innerHTML = this.renderFn(this.displayedContent);
         } else {
@@ -211,10 +598,8 @@ class Typewriter {
 
     pause() {
         this.isPaused = true;
-        if (this.timer) {
-            clearTimeout(this.timer);
-            this.timer = null;
-        }
+        if (this.timer) { clearTimeout(this.timer);
+            this.timer = null; }
     }
 
     resume() {
@@ -242,10 +627,8 @@ class Typewriter {
     stop() {
         this.isRunning = false;
         this.isPaused = false;
-        if (this.timer) {
-            clearTimeout(this.timer);
-            this.timer = null;
-        }
+        if (this.timer) { clearTimeout(this.timer);
+            this.timer = null; }
     }
 
     reset() {
@@ -259,553 +642,12 @@ class Typewriter {
 }
 
 // ============================================
-// AI 解读功能（支持SSE流式）
-// ============================================
-
-async function getAIReading(cards, question = '', onChunk = null, onComplete = null) {
-    if (!AI_CONFIG.ENABLE_AI) {
-        const result = await getFallbackReading(cards);
-        if (onComplete) onComplete(result);
-        return result;
-    }
-
-    try {
-        const response = await fetch(AI_CONFIG.WORKER_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                cards: cards.map(card => ({
-                    id: card.id,
-                    name: card.name,
-                    nameEn: card.nameEn,
-                    isReversed: card.isReversed,
-                })),
-                question: question,
-                stream: true,
-            }),
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.error || `HTTP ${response.status}`);
-        }
-
-        // ============================================
-        // 正确的 SSE 流式解析
-        // ============================================
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let buffer = '';
-        let fullContent = '';
-
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-
-            // 解码数据并添加到缓冲区
-            buffer += decoder.decode(value, { stream: true });
-
-            // 按行分割
-            const lines = buffer.split('\n');
-            // 保留最后一行（可能不完整）
-            buffer = lines.pop() || '';
-
-            for (const line of lines) {
-                const trimmedLine = line.trim();
-
-                // 跳过空行
-                if (!trimmedLine) continue;
-
-                // ✅ 只处理 data: 开头的行
-                if (!trimmedLine.startsWith('data: ')) continue;
-
-                // ✅ 去掉 "data: " 前缀，得到纯 JSON 字符串
-                const jsonStr = trimmedLine.slice(6);
-
-                // ✅ 跳过结束标记
-                if (jsonStr === '[DONE]') continue;
-
-                try {
-                    // ✅ 解析 JSON
-                    const parsed = JSON.parse(jsonStr);
-
-                    // DeepSeek 流式返回的数据结构：
-                    // {"id":"xxx","choices":[{"delta":{"content":"文字"},"index":0}]}
-                    const delta = parsed.choices?.[0]?.delta;
-                    if (delta) {
-                        // 普通内容
-                        const content = delta.content || '';
-                        if (content) {
-                            fullContent += content;
-                            if (onChunk) {
-                                onChunk(content, fullContent);
-                            }
-                        }
-                    }
-                } catch (e) {
-                    // 解析失败时打印日志（方便调试）
-                    console.debug('SSE 解析失败:', jsonStr.substring(0, 100) + '...');
-                }
-            }
-        }
-
-        // 处理缓冲区中剩余的数据
-        if (buffer.trim()) {
-            const trimmedLine = buffer.trim();
-            if (trimmedLine.startsWith('data: ')) {
-                const jsonStr = trimmedLine.slice(6);
-                if (jsonStr !== '[DONE]') {
-                    try {
-                        const parsed = JSON.parse(jsonStr);
-                        const delta = parsed.choices?.[0]?.delta;
-                        if (delta) {
-                            const content = delta.content || '';
-                            if (content) {
-                                fullContent += content;
-                                if (onChunk) {
-                                    onChunk(content, fullContent);
-                                }
-                            }
-                        }
-                    } catch (e) {
-                        // 忽略
-                    }
-                }
-            }
-        }
-
-        const result = {
-            success: true,
-            reading: fullContent,
-            cards: cards,
-            timestamp: new Date().toISOString(),
-        };
-
-        if (onComplete) onComplete(result);
-        return result;
-
-    } catch (error) {
-        console.error('AI 解读失败:', error);
-        const fallback = await getFallbackReading(cards);
-        if (onComplete) onComplete(fallback);
-        return fallback;
-    }
-}
-
-/**
- * 降级方案：使用预生成数据
- */
-async function getFallbackReading(cards) {
-    try {
-        const response = await fetch(AI_CONFIG.FALLBACK_DATA);
-        if (!response.ok) throw new Error('加载降级数据失败');
-
-        const readings = await response.json();
-        let result = '📖 塔罗解读（预生成版本）：\n\n';
-
-        cards.forEach(card => {
-            const orientation = card.isReversed ? 'reversed' : 'upright';
-            const reading = readings[card.id]?.[orientation] || '暂无解读';
-            result += `【${card.name}】${card.isReversed ? '（逆位）' : '（正位）'}\n${reading}\n\n`;
-        });
-
-        return {
-            success: true,
-            reading: result,
-            isFallback: true,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            error: '无法获取解读，请稍后重试',
-        };
-    }
-}
-
-// ============================================
-// 配置
-// ============================================
-const CONFIG = {
-    IMG_BASE: '/images/tarot_cards/',
-    BACK_IMG: '/images/tarot_cards/_.png',
-    REVERSED_PROBABILITY: 0.5,
-    FLIP_DELAY_BASE: 300,
-    FLIP_DELAY_STEP: 200,
-};
-
-// ============================================
-// 状态
-// ============================================
-let currentCards = [];
-
-// ============================================
-// 工具函数
-// ============================================
-function shuffleArray(arr) {
-    const shuffled = [...arr];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-}
-
-function drawRandomCards(n) {
-    if (n > TAROT_DECK.length) n = TAROT_DECK.length;
-    const shuffled = shuffleArray(TAROT_DECK);
-    return shuffled.slice(0, n).map(card => ({
-        ...card,
-        isReversed: Math.random() < CONFIG.REVERSED_PROBABILITY,
-    }));
-}
-
-// ============================================
-// AI 解读功能
-// ============================================
-
-// async function getAIReading(cards, question = '') {
-//     if (!AI_CONFIG.ENABLE_AI) {
-//         return getFallbackReading(cards);
-//     }
-
-//     try {
-//         const response = await fetch(AI_CONFIG.WORKER_URL, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({
-//                 cards: cards.map(card => ({
-//                     id: card.id,
-//                     name: card.name,
-//                     nameEn: card.nameEn,
-//                     isReversed: card.isReversed,
-//                 })),
-//                 question: question,
-//             }),
-//         });
-
-//         if (!response.ok) {
-//             const errorData = await response.json().catch(() => ({}));
-//             throw new Error(errorData.error || `HTTP ${response.status}`);
-//         }
-
-//         const data = await response.json();
-
-//         if (!data.success) {
-//             throw new Error(data.error || 'AI 解读失败');
-//         }
-
-//         return {
-//             success: true,
-//             reading: data.reading,
-//             cards: data.cards,
-//             timestamp: data.timestamp,
-//         };
-
-//     } catch (error) {
-//         console.error('AI 解读失败:', error);
-//         return getFallbackReading(cards);
-//     }
-// }
-
-// async function getFallbackReading(cards) {
-//     try {
-//         const response = await fetch(AI_CONFIG.FALLBACK_DATA);
-//         if (!response.ok) throw new Error('加载降级数据失败');
-
-//         const readings = await response.json();
-//         let result = '📖 塔罗解读（预生成版本）：\n\n';
-
-//         cards.forEach(card => {
-//             const orientation = card.isReversed ? 'reversed' : 'upright';
-//             const reading = readings[card.id]?.[orientation] || '暂无解读';
-//             result += `【${card.name}】${card.isReversed ? '（逆位）' : '（正位）'}\n${reading}\n\n`;
-//         });
-
-//         return {
-//             success: true,
-//             reading: result,
-//             isFallback: true,
-//         };
-//     } catch (error) {
-//         return {
-//             success: false,
-//             error: '无法获取解读，请稍后重试',
-//         };
-//     }
-// }
-
-// ============================================
-// 渲染函数
-// ============================================
-
-function renderCards(cards) {
-    const area = document.getElementById('spreadArea');
-    const resultDiv = document.getElementById('readingResult');
-
-    if (!cards || cards.length === 0) {
-        area.innerHTML = `<div class="placeholder-text">🃏 点击下方按钮开始抽牌</div>`;
-        resultDiv.innerHTML = `<p class="placeholder-text">点击「抽牌」开始你的占卜之旅...</p>`;
-        currentCards = [];
-        return;
-    }
-
-    currentCards = cards;
-
-    area.innerHTML = cards.map((card, index) => {
-        const imgSrc = `${CONFIG.IMG_BASE}${card.id}.png`;
-        const reversedClass = card.isReversed ? 'reversed' : '';
-        return `
-            <div class="card-slot" data-index="${index}" onclick="toggleCardFlip(${index})">
-                <div class="card-inner">
-                    <div class="card-back">
-                        <img src="${CONFIG.BACK_IMG}" alt="牌背" loading="lazy">
-                    </div>
-                    <div class="card-front ${reversedClass}" data-name="${card.name}">
-                        <img src="${imgSrc}" alt="${card.name}" loading="lazy">
-                    </div>
-                </div>
-            </div>
-        `;
-    }).join('');
-
-    cards.forEach((_, index) => {
-        setTimeout(() => {
-            const slot = document.querySelector(`.card-slot[data-index="${index}"]`);
-            if (slot) slot.classList.add('flipped');
-        }, CONFIG.FLIP_DELAY_BASE + index * CONFIG.FLIP_DELAY_STEP);
-    });
-}
-
-function updateReading(cards) {
-    const resultDiv = document.getElementById('readingResult');
-    if (!cards || cards.length === 0) {
-        resultDiv.innerHTML = `<p class="placeholder-text">点击「抽牌」开始你的占卜之旅...</p>`;
-        return;
-    }
-
-    let html = `<h3>🔮 占卜解读</h3>`;
-    cards.forEach((card) => {
-        const orientationText = card.isReversed ? '逆位' : '正位';
-        const orientationClass = card.isReversed ? 'reversed' : 'upright';
-        const orientationIcon = card.isReversed ? '⬇️' : '⬆️';
-        html += `
-            <div class="card-item">
-                <span class="card-name">${card.name}</span>
-                <span class="card-en">${card.nameEn}</span>
-                <span class="orientation ${orientationClass}">${orientationIcon} ${orientationText}</span>
-            </div>
-        `;
-    });
-
-    const hasReversed = cards.some(c => c.isReversed);
-    let note = '💡 正位代表积极、显化的能量；逆位代表内在课题、阻碍或需要反思的方向。';
-    if (cards.every(c => c.isReversed) && cards.length > 1) {
-        note = '🌙 所有牌均为逆位，提示你当前可能需要深入内省，重新审视当前的处境。';
-    } else if (hasReversed) {
-        note = '⚖️ 牌阵中既有正位也有逆位，暗示着平衡与挑战并存，需要综合考量。';
-    }
-    html += `<div class="reading-note">${note}</div>`;
-    resultDiv.innerHTML = html;
-}
-
-function updateReadingWithAI(cards, reading) {
-    const resultDiv = document.getElementById('readingResult');
-
-    // 牌面信息
-    let cardInfo = '';
-    cards.forEach((card) => {
-        const orientation = card.isReversed ? '逆位' : '正位';
-        const cls = card.isReversed ? 'reversed' : 'upright';
-        const icon = card.isReversed ? '⬇️' : '⬆️';
-        cardInfo += `
-            <div class="card-item">
-                <span class="card-name">${card.name}</span>
-                <span class="card-en">${card.nameEn}</span>
-                <span class="orientation ${cls}">${icon} ${orientation}</span>
-            </div>
-        `;
-    });
-
-    // 使用 marked 渲染 Markdown
-    let formattedReading = '';
-    try {
-        // 如果 marked 可用，渲染 Markdown
-        if (typeof marked !== 'undefined') {
-            formattedReading = marked.parse(reading);
-        } else {
-            // 降级方案：简单处理换行
-            formattedReading = reading
-                .split('\n')
-                .map(line => line.trim() ? `<p>${line}</p>` : '<br>')
-                .join('');
-        }
-    } catch (e) {
-        console.warn('Markdown 渲染失败，使用纯文本:', e);
-        formattedReading = reading
-            .split('\n')
-            .map(line => line.trim() ? `<p>${line}</p>` : '<br>')
-            .join('');
-    }
-
-    resultDiv.innerHTML = `
-        <h3>🔮 AI 塔罗解读</h3>
-        <div style="margin-bottom: 15px; padding: 12px; background: rgba(255,215,0,0.05); border-radius: 10px;">
-            ${cardInfo}
-        </div>
-        <div class="markdown-body" style="color: #d8c8e0; line-height: 1.8; font-size: 0.95rem;">
-            ${formattedReading}
-        </div>
-        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,215,0,0.08); color: #6a5a7a; font-size: 0.8rem; text-align: right;">
-            由 DeepSeek AI 生成 · ${new Date().toLocaleString()}
-        </div>
-    `;
-}
-
-// ============================================
-// 交互函数
-// ============================================
-
-async function drawCards(count = 3) {
-    if (count < 1) count = 1;
-    if (count > 10) count = 10;
-
-    const cards = drawRandomCards(count);
-    renderCards(cards);
-
-    const resultDiv = document.getElementById('readingResult');
-    const cardInfo = buildCardInfoHTML(cards);
-
-    resultDiv.innerHTML = `
-        <h3>🔮 AI 塔罗解读</h3>
-        <div style="margin-bottom: 15px; padding: 12px; background: rgba(255,215,0,0.05); border-radius: 10px;">
-            ${cardInfo}
-        </div>
-        <div class="markdown-body" id="typewriter-content" style="color: #d8c8e0; line-height: 1.8; font-size: 0.95rem; min-height: 100px; max-height: 600px; overflow-y: auto; padding: 10px;">
-            <span style="color: #6a5a7a;">✨ AI 正在思考中...</span>
-        </div>
-        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,215,0,0.08); color: #6a5a7a; font-size: 0.8rem; text-align: right;">
-            <span id="typing-status">⏳ 正在连接 AI...</span>
-        </div>
-    `;
-
-    const contentDiv = document.getElementById('typewriter-content');
-    const statusSpan = document.getElementById('typing-status');
-
-    let typewriter = null;
-    let hasStarted = false; // 标记是否已经开始接收数据
-
-    try {
-        await getAIReading(
-            cards,
-            '',
-            // onChunk
-            (chunk, accumulated) => {
-                if (!hasStarted) {
-                    hasStarted = true; // 标记已经开始
-                }
-                if (!typewriter) {
-                    // 第一次收到内容，创建打字机
-                    typewriter = new Typewriter(contentDiv, {
-                        speed: AI_CONFIG.TYPING_SPEED || 20,
-                        renderFn: (text) => {
-                            try {
-                                if (typeof marked !== 'undefined') return marked.parse(text);
-                                return text;
-                            } catch (e) { return text; }
-                        },
-                        onComplete: () => {
-                            statusSpan.textContent = '✅ 解读完成';
-                            statusSpan.style.color = '#69f0ae';
-                        }
-                    });
-                    typewriter.start(accumulated);
-                } else {
-                    // 追加内容
-                    typewriter.updateContent(accumulated);
-                }
-                statusSpan.textContent = `✍️ 正在书写... (${accumulated.length} 字符)`;
-            },
-            // onComplete
-            (result) => {
-                // 只有从未收到任何 chunk 时才使用降级方案
-                if (!hasStarted && result && result.reading) {
-                    // 直接显示完整内容（降级）
-                    contentDiv.innerHTML = '';
-                    typewriter = new Typewriter(contentDiv, {
-                        speed: AI_CONFIG.TYPING_SPEED || 20,
-                        renderFn: (text) => {
-                            try {
-                                if (typeof marked !== 'undefined') return marked.parse(text);
-                                return text;
-                            } catch (e) { return text; }
-                        },
-                        onComplete: () => {
-                            statusSpan.textContent = '✅ 解读完成';
-                            statusSpan.style.color = '#69f0ae';
-                        }
-                    });
-                    typewriter.start(result.reading);
-                    statusSpan.textContent = `✍️ 正在书写... (${result.reading.length} 字符)`;
-                }
-                // 如果已经收到过数据，什么也不做（打字机自己会完成）
-            }
-        );
-    } catch (error) {
-        console.error('解读出错:', error);
-        contentDiv.innerHTML = `
-            <div style="color: #ff7a7a; padding: 20px; background: rgba(255,0,0,0.1); border-radius: 8px;">
-                ⚠️ 解读生成失败，请稍后重试
-                <br><small style="color: #6a5a7a;">${error.message || ''}</small>
-            </div>
-        `;
-        statusSpan.textContent = '❌ 生成失败';
-        statusSpan.style.color = '#ff7a7a';
-    }
-}
-
-/**
- * 构建牌面信息 HTML
- */
-function buildCardInfoHTML(cards) {
-    let html = '';
-    cards.forEach((card) => {
-        const orientation = card.isReversed ? '逆位' : '正位';
-        const cls = card.isReversed ? 'reversed' : 'upright';
-        const icon = card.isReversed ? '⬇️' : '⬆️';
-        html += `
-            <div class="card-item">
-                <span class="card-name">${card.name}</span>
-                <span class="card-en">${card.nameEn}</span>
-                <span class="orientation ${cls}">${icon} ${orientation}</span>
-            </div>
-        `;
-    });
-    return html;
-}
-
-function toggleCardFlip(index) {
-    const slot = document.querySelector(`.card-slot[data-index="${index}"]`);
-    if (slot) {
-        slot.classList.toggle('flipped');
-    }
-}
-
-function resetAll() {
-    renderCards([]);
-    document.getElementById('readingResult').innerHTML =
-        `<p class="placeholder-text">点击「抽牌」开始你的占卜之旅...</p>`;
-}
-
-// ============================================
 // 初始化
 // ============================================
 document.addEventListener('DOMContentLoaded', function () {
-    renderCards([]);
-    console.log('🔮 塔罗占卜已加载');
-    console.log(`📚 共 ${TAROT_DECK.length} 张牌`);
-    console.log('🤖 AI 解读已启用:', AI_CONFIG.ENABLE_AI);
+    initSpreadOptions();
+    renderSpread([]);
+    document.getElementById('readingResult').innerHTML = `<p class="placeholder-text">选择牌阵，输入问题后点击「抽牌」</p>`;
+    console.log('🔮 塔罗占卜已加载 (多牌阵版)');
+    console.log(`📚 共 ${TAROT_DECK.length} 张牌，${Object.keys(SPREADS).length} 种牌阵`);
 });

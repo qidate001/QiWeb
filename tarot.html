@@ -2,48 +2,79 @@
 <html lang="zh-CN">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🔮 塔罗占卜</title>
-    <link rel="stylesheet" href="/css/tarot.css">
+    <link rel="stylesheet" href="/css/tarot.css" />
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js">
+    </script>
 </head>
 
 <body>
-    <div class="container">
-        <header>
+    <div class="app-container">
+
+        <!-- ===== 头部 ===== -->
+        <header class="app-header">
             <h1>🔮 塔罗占卜</h1>
-            <p class="subtitle">点击牌面翻牌 · 逆位自动旋转</p>
+            <p class="subtitle">选择牌阵 · 点击翻牌 · AI 智慧解读</p>
         </header>
 
-        <!-- 牌阵区域 -->
-        <div class="spread-area" id="spreadArea">
-            <div class="placeholder-text">🃏 点击下方按钮开始抽牌</div>
+        <!-- ===== 主体：左右布局 ===== -->
+        <div class="main-layout">
+
+            <!-- ===== 左侧面板 ===== -->
+            <aside class="sidebar">
+                <!-- 牌阵选择 -->
+                <div class="panel-section">
+                    <h3>📐 选择牌阵</h3>
+                    <div class="spread-options" id="spreadOptions">
+                        <!-- 由 JS 动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 分隔线 -->
+                <div class="divider"></div>
+
+                <!-- 用户输入 -->
+                <div class="panel-section">
+                    <h3>✍️ 你的问题</h3>
+                    <textarea id="questionInput" rows="3" placeholder="输入你想探索的问题或意图…（选填）"></textarea>
+                </div>
+
+                <!-- 抽牌按钮 -->
+                <button class="btn btn-primary btn-draw" id="drawBtn" onclick="handleDraw()">
+                    ✨ 抽牌
+                </button>
+
+                <!-- 重置按钮（轻量） -->
+                <button class="btn btn-reset" onclick="resetAll()">
+                    🔄 重置
+                </button>
+
+                <!-- 页脚信息（左侧底部） -->
+                <div class="sidebar-footer">
+                    <p>本程序仅供娱乐</p>
+                    <p><a href="/docs/tarot.html" target="_blank">📄 免责声明</a></p>
+                </div>
+            </aside>
+
+            <!-- ===== 右侧主区域 ===== -->
+            <main class="main-content">
+
+                <!-- 牌阵展示区 -->
+                <div class="spread-area" id="spreadArea">
+                    <div class="placeholder-text">🃏 选择牌阵后点击「抽牌」</div>
+                </div>
+
+                <!-- 解读区 -->
+                <div class="reading-result" id="readingResult">
+                    <p class="placeholder-text">✨ 解读将在这里呈现…</p>
+                </div>
+
+            </main>
         </div>
 
-        <!-- 控制按钮 -->
-        <div class="controls">
-            <button class="btn btn-primary" onclick="drawCards(3)">✨ 抽三张牌</button>
-            <button class="btn btn-secondary" onclick="drawCards(1)">🃏 抽一张</button>
-            <button class="btn btn-danger" onclick="resetAll()">🔄 重置</button>
-        </div>
-
-        <!-- 解读区 -->
-        <div class="reading-result" id="readingResult">
-            <p class="placeholder-text">点击「抽牌」开始你的占卜之旅...</p>
-        </div>
-
-        <!-- 页脚 -->
-        <footer>
-            <p>本程序仅供娱乐</p>
-            <p style="margin-top: 8px; font-size: 0.8rem;">
-                您使用本程序，表示您已详细阅读、理解并同意所有条款 
-                <a href="/docs/tarot.html" style="color: #f7aa04; text-decoration: underline; text-underline-offset: 2px;">
-                    <strong>📄 免责声明</strong>
-                </a>
-            </p>
-        </footer>
     </div>
 
     <script src="/js/tarot.js"></script>
