@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔮 塔罗占卜</title>
+    <link rel="stylesheet" href="/css/tarot.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🔮 塔罗占卜</h1>
+        <p class="subtitle">点击牌面翻牌 · 逆位自动旋转</p>
+    </header>
+
+    <!-- 牌阵区域 -->
+    <div class="spread-area" id="spreadArea">
+        <div class="placeholder-text">🃏 点击下方按钮开始抽牌</div>
+    </div>
+
+    <!-- 控制按钮 -->
+    <div class="controls">
+        <button class="btn btn-primary" onclick="drawCards(3)">✨ 抽三张牌</button>
+        <button class="btn btn-secondary" onclick="drawCards(1)">🃏 抽一张</button>
+        <button class="btn btn-danger" onclick="resetAll()">🔄 重置</button>
+    </div>
+
+    <!-- 解读区 -->
+    <div class="reading-result" id="readingResult">
+        <p class="placeholder-text">点击「抽牌」开始你的占卜之旅...</p>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>💫 每张牌都有正位与逆位两种解读</p>
+    </footer>
+</div>
+
+<script src="/js/tarot.js"></script>
+</body>
+</html>
