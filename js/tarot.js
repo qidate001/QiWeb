@@ -100,6 +100,7 @@ const SPREADS = {
         label: '单牌占卜',
         badge: '1张',
         count: 1,
+        description: '牌阵：单牌占卜。这张牌代表问题核心或当下的指引，请直接解读这张牌的核心含义。',
         positions: [
             { label: '核心指引' }
         ],
@@ -113,6 +114,7 @@ const SPREADS = {
         label: '三牌占卜',
         badge: '3张',
         count: 3,
+        description: '牌阵：三牌占卜（时间之流）。左为过去/原因，中为现在/行动，右为未来/结果。请按时间顺序解读。',
         positions: [
             { label: '过去 / 原因' },
             { label: '现在 / 行动' },
@@ -127,6 +129,7 @@ const SPREADS = {
         label: '抉择牌阵',
         badge: '5张',
         count: 5,
+        description: '牌阵：抉择牌阵（二择一）。中心为问题核心，左列为路径A（过程+结果），右列为路径B（过程+结果）。请对比两条路径的利弊。',
         positions: [
             { label: '核心状态' },          // index 0
             { label: 'A 过程' },            // index 1
@@ -163,6 +166,7 @@ const SPREADS = {
         label: '马蹄铁牌阵',
         badge: '7张',
         count: 7,
+        description: '牌阵：马蹄铁牌阵（倒U型，7张）。从①过去根基开始，沿弧线到②现在、③近未来，经过④障碍挑战，到⑤环境他人、⑥优势建议，最后⑦最终结果。请按这个时间线和逻辑进行解读。',
         positions: [
             { label: '① 过去 / 根基' },
             { label: '② 现在 / 现状' },
@@ -233,6 +237,7 @@ const SPREADS = {
         label: '凯尔特十字牌阵',
         badge: '10张',
         count: 10,
+        description: '牌阵：凯尔特十字牌阵（10张）。中央十字区：①核心现状、②挑战阻力（横跨）、③过去远因、④近期状态、⑤可能目标、⑥下一步。右侧列：⑦自我看法、⑧外界环境、⑨希望恐惧、⑩最终结局。请综合十字与右侧信息。',
         positions: [
             { label: '① 核心现状' },
             { label: '② 挑战/阻力' },
@@ -333,11 +338,13 @@ const SPREADS = {
             `;
         }
     },
-        venus: {
+    venus: {
         id: 'venus',
         label: '维纳斯之爱牌阵',
         badge: '8张',
         count: 8,
+        description: '牌阵：维纳斯之爱牌阵（8张，菱形布局）。上下为①你的内心和⑧关系走向，中间左列（②③④）分别为你的行为、你对他期待、你的情感发展；中间右列（⑤⑥⑦）分别为对方内心、对方行为、对方期待。请对比双方状态并推演关系走向。',
+        
         positions: [
             { label: '① 你的内心' },
             { label: '② 你的行为' },
@@ -615,6 +622,8 @@ async function getAIReading(cards, question = '', onChunk = null, onComplete = n
         return result;
     }
 
+    const spread = SPREADS[currentSpreadId];
+
     try {
         const response = await fetch(AI_CONFIG.WORKER_URL, {
             method: 'POST',
@@ -627,6 +636,8 @@ async function getAIReading(cards, question = '', onChunk = null, onComplete = n
                     isReversed: card.isReversed,
                 })),
                 question: question,
+                spreadDescription: spread.description,
+                positions: spread.positions,
                 stream: true,
             }),
         });
