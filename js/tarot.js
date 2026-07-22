@@ -112,114 +112,101 @@ const AI_CONFIG = {
 class Typewriter {
     constructor(element, options = {}) {
         this.element = element;
-        this.speed = options.speed || AI_CONFIG.TYPING_SPEED;
+        this.speed = options.speed || 20;
         this.callback = options.onComplete || null;
+        this.renderFn = options.renderFn || null;
         this.isRunning = false;
         this.isPaused = false;
-        this.content = '';
-        this.displayContent = '';
-        this.charIndex = 0;
+        this.fullContent = '';       // 完整目标内容
+        this.displayedContent = '';  // 已显示的内容
+        this.charIndex = 0;          // 已显示的字符数
         this.timer = null;
-
-        // 存储需要渲染的 Markdown 缓存
-        this.rawContent = '';
-        this.renderFn = options.renderFn || null;
+        this.isFinished = false;
     }
 
-    /**
-     * 开始打字效果
-     */
-    start(content) {
-        if (this.isRunning) {
-            this.stop();
+    // 启动或更新内容（追加模式）
+    updateContent(newFullContent) {
+        if (this.isFinished) {
+            // 如果已经完成，重新开始
+            this.start(newFullContent);
+            return;
         }
 
-        this.content = content;
-        this.rawContent = content;
+        // 如果新内容比旧内容短，可能是重置，重新开始
+        if (newFullContent.length < this.fullContent.length) {
+            this.start(newFullContent);
+            return;
+        }
+
+        // 如果内容没有变化，忽略
+        if (newFullContent === this.fullContent) return;
+
+        // 更新完整内容
+        this.fullContent = newFullContent;
+
+        // 如果当前没有运行，启动打字
+        if (!this.isRunning && !this.isPaused) {
+            this.isRunning = true;
+            this.typeNextChar();
+        }
+        // 如果正在运行，无需额外操作，因为它会继续从当前索引打印
+    }
+
+    start(content) {
+        // 重置所有状态
+        this.stop();
+        this.fullContent = content;
+        this.displayedContent = '';
         this.charIndex = 0;
-        this.displayContent = '';
-        this.element.innerHTML = '';
         this.isRunning = true;
         this.isPaused = false;
-
+        this.isFinished = false;
+        this.element.innerHTML = '';
         this.typeNextChar();
     }
 
-    /**
-     * 输入下一个字符
-     */
     typeNextChar() {
-        if (!this.isRunning || this.isPaused) {
-            return;
-        }
-
-        if (this.charIndex >= this.content.length) {
+        if (!this.isRunning || this.isPaused) return;
+        if (this.charIndex >= this.fullContent.length) {
             this.isRunning = false;
-            if (this.callback) {
-                this.callback();
-            }
+            this.isFinished = true;
+            if (this.callback) this.callback();
             return;
         }
 
-        // 一次添加多个字符以提高效率（但保持流畅感）
+        // 每次添加 2-4 个字符
         const charsToAdd = 3;
-        let endIndex = Math.min(this.charIndex + charsToAdd, this.content.length);
+        let endIndex = Math.min(this.charIndex + charsToAdd, this.fullContent.length);
 
-        // 如果遇到换行符，一次性添加整行
-        let nextNewline = this.content.indexOf('\n', this.charIndex);
+        // 如果遇到换行或标点，适当多打一些
+        let nextNewline = this.fullContent.indexOf('\n', this.charIndex);
         if (nextNewline !== -1 && nextNewline - this.charIndex < 20) {
             endIndex = nextNewline + 1;
         }
 
-        const chunk = this.content.substring(this.charIndex, endIndex);
-        this.displayContent += chunk;
+        const chunk = this.fullContent.substring(this.charIndex, endIndex);
+        this.displayedContent += chunk;
         this.charIndex = endIndex;
 
-        // 渲染 Markdown（如果提供了渲染函数）
+        // 渲染
         if (this.renderFn) {
-            try {
-                this.element.innerHTML = this.renderFn(this.displayContent);
-            } catch (e) {
-                this.element.textContent = this.displayContent;
-            }
+            this.element.innerHTML = this.renderFn(this.displayedContent);
         } else {
-            this.element.textContent = this.displayContent;
+            this.element.textContent = this.displayedContent;
         }
-
-        // 滚动到底部
         this.element.scrollTop = this.element.scrollHeight;
 
-        // 计算下一个字符的延迟（动态速度，让阅读更自然）
         const delay = this.calculateDelay(chunk);
-        this.timer = setTimeout(() => {
-            this.typeNextChar();
-        }, delay);
+        this.timer = setTimeout(() => this.typeNextChar(), delay);
     }
 
-    /**
-     * 计算动态延迟
-     */
     calculateDelay(chunk) {
-        const baseSpeed = this.speed;
-
-        // 如果 chunk 包含换行，稍微停顿
-        if (chunk.includes('\n')) {
-            return baseSpeed * 3;
-        }
-
-        // 如果 chunk 包含标点符号，稍微停顿
-        if (/[，。！？、；：""''（）]/.test(chunk)) {
-            return baseSpeed * 2;
-        }
-
-        // 随机变化，让打字更自然
-        const randomFactor = 0.5 + Math.random() * 0.5;
-        return baseSpeed * randomFactor;
+        const base = this.speed;
+        if (chunk.includes('\n')) return base * 3;
+        if (/[，。！？、；：""''（）]/.test(chunk)) return base * 2;
+        return base * (0.5 + Math.random() * 0.5);
     }
 
-    /**
-     * 暂停打字
-     */
     pause() {
         this.isPaused = true;
         if (this.timer) {
@@ -228,9 +215,6 @@ class Typewriter {
         }
     }
 
-    /**
-     * 继续打字
-     */
     resume() {
         if (this.isPaused && this.isRunning) {
             this.isPaused = false;
@@ -238,35 +222,21 @@ class Typewriter {
         }
     }
 
-    /**
-     * 立即完成（跳转到最后）
-     */
     finish() {
         this.isRunning = false;
         this.isPaused = false;
-        if (this.timer) {
-            clearTimeout(this.timer);
-            this.timer = null;
-        }
-
+        if (this.timer) clearTimeout(this.timer);
+        this.displayedContent = this.fullContent;
         if (this.renderFn) {
-            try {
-                this.element.innerHTML = this.renderFn(this.content);
-            } catch (e) {
-                this.element.textContent = this.content;
-            }
+            this.element.innerHTML = this.renderFn(this.fullContent);
         } else {
-            this.element.textContent = this.content;
+            this.element.textContent = this.fullContent;
         }
-
-        if (this.callback) {
-            this.callback();
-        }
+        this.charIndex = this.fullContent.length;
+        this.isFinished = true;
+        if (this.callback) this.callback();
     }
 
-    /**
-     * 停止打字
-     */
     stop() {
         this.isRunning = false;
         this.isPaused = false;
@@ -276,14 +246,12 @@ class Typewriter {
         }
     }
 
-    /**
-     * 重置
-     */
     reset() {
         this.stop();
-        this.content = '';
-        this.displayContent = '';
+        this.fullContent = '';
+        this.displayedContent = '';
         this.charIndex = 0;
+        this.isFinished = false;
         this.element.innerHTML = '';
     }
 }
@@ -702,13 +670,13 @@ function updateReadingWithAI(cards, reading) {
 async function drawCards(count = 3) {
     if (count < 1) count = 1;
     if (count > 10) count = 10;
-    
+
     const cards = drawRandomCards(count);
     renderCards(cards);
-    
+
     const resultDiv = document.getElementById('readingResult');
     const cardInfo = buildCardInfoHTML(cards);
-    
+
     resultDiv.innerHTML = `
         <h3>🔮 AI 塔罗解读</h3>
         <div style="margin-bottom: 15px; padding: 12px; background: rgba(255,215,0,0.05); border-radius: 10px;">
@@ -721,13 +689,13 @@ async function drawCards(count = 3) {
             <span id="typing-status">⏳ 正在连接 AI...</span>
         </div>
     `;
-    
+
     const contentDiv = document.getElementById('typewriter-content');
     const statusSpan = document.getElementById('typing-status');
-    
+
     let typewriter = null;
     let hasStarted = false;
-    
+
     try {
         // ✅ 调用流式版本，传入 onChunk 和 onComplete
         await getAIReading(
@@ -735,20 +703,15 @@ async function drawCards(count = 3) {
             '',
             // onChunk: 每收到一段文本就更新
             (chunk, accumulated) => {
-                if (!hasStarted) {
-                    hasStarted = true;
-                    contentDiv.innerHTML = '';
+                if (!typewriter) {
+                    // 第一次收到内容，创建打字机
                     typewriter = new Typewriter(contentDiv, {
                         speed: AI_CONFIG.TYPING_SPEED || 20,
                         renderFn: (text) => {
                             try {
-                                if (typeof marked !== 'undefined') {
-                                    return marked.parse(text);
-                                }
+                                if (typeof marked !== 'undefined') return marked.parse(text);
                                 return text;
-                            } catch (e) {
-                                return text;
-                            }
+                            } catch (e) { return text; }
                         },
                         onComplete: () => {
                             statusSpan.textContent = '✅ 解读完成';
@@ -757,17 +720,12 @@ async function drawCards(count = 3) {
                     });
                     typewriter.start(accumulated);
                 } else {
-                    // 如果打字机已存在，更新内容（accumulated 是完整内容）
-                    if (typewriter) {
-                        // 可以停止旧打字机，重新开始新内容（因为打字机通常只能从头开始）
-                        // 更好的做法：直接替换显示全部内容
-                        typewriter.stop();
-                        typewriter.start(accumulated);
-                    }
+                    // 追加内容
+                    typewriter.updateContent(accumulated);
                 }
                 statusSpan.textContent = `✍️ 正在书写... (${accumulated.length} 字符)`;
             },
-            // onComplete: 流式结束（可选）
+            // onComplete: 流式结束
             (result) => {
                 if (!hasStarted && result && result.reading) {
                     // 如果直接返回了完整内容（降级方案），直接显示
