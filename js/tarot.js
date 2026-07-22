@@ -694,15 +694,17 @@ async function drawCards(count = 3) {
     const statusSpan = document.getElementById('typing-status');
 
     let typewriter = null;
-    let hasStarted = false;
+    let hasStarted = false; // 标记是否已经开始接收数据
 
     try {
-        // ✅ 调用流式版本，传入 onChunk 和 onComplete
         await getAIReading(
             cards,
             '',
-            // onChunk: 每收到一段文本就更新
+            // onChunk
             (chunk, accumulated) => {
+                if (!hasStarted) {
+                    hasStarted = true; // 标记已经开始
+                }
                 if (!typewriter) {
                     // 第一次收到内容，创建打字机
                     typewriter = new Typewriter(contentDiv, {
@@ -725,23 +727,19 @@ async function drawCards(count = 3) {
                 }
                 statusSpan.textContent = `✍️ 正在书写... (${accumulated.length} 字符)`;
             },
-            // onComplete: 流式结束
+            // onComplete
             (result) => {
+                // 只有从未收到任何 chunk 时才使用降级方案
                 if (!hasStarted && result && result.reading) {
-                    // 如果直接返回了完整内容（降级方案），直接显示
-                    hasStarted = true;
+                    // 直接显示完整内容（降级）
                     contentDiv.innerHTML = '';
                     typewriter = new Typewriter(contentDiv, {
                         speed: AI_CONFIG.TYPING_SPEED || 20,
                         renderFn: (text) => {
                             try {
-                                if (typeof marked !== 'undefined') {
-                                    return marked.parse(text);
-                                }
+                                if (typeof marked !== 'undefined') return marked.parse(text);
                                 return text;
-                            } catch (e) {
-                                return text;
-                            }
+                            } catch (e) { return text; }
                         },
                         onComplete: () => {
                             statusSpan.textContent = '✅ 解读完成';
@@ -751,6 +749,7 @@ async function drawCards(count = 3) {
                     typewriter.start(result.reading);
                     statusSpan.textContent = `✍️ 正在书写... (${result.reading.length} 字符)`;
                 }
+                // 如果已经收到过数据，什么也不做（打字机自己会完成）
             }
         );
     } catch (error) {
