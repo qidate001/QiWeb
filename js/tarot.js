@@ -124,32 +124,34 @@ class Typewriter {
         this.isFinished = false;
     }
 
-    // 启动或更新内容（追加模式）
+    // 启动或更新内容
     updateContent(newFullContent) {
-        if (this.isFinished) {
-            // 如果已经完成，重新开始
-            this.start(newFullContent);
-            return;
-        }
-
-        // 如果新内容比旧内容短，可能是重置，重新开始
+        // 若新内容比当前全内容短，忽略（流式数据正常情况下不会发生）
         if (newFullContent.length < this.fullContent.length) {
-            this.start(newFullContent);
             return;
         }
-
-        // 如果内容没有变化，忽略
-        if (newFullContent === this.fullContent) return;
+        // 内容无变化则忽略
+        if (newFullContent === this.fullContent) {
+            return;
+        }
 
         // 更新完整内容
         this.fullContent = newFullContent;
 
-        // 如果当前没有运行，启动打字
+        // 如果之前已经打完（isFinished = true），现在有新内容，继续追加
+        if (this.isFinished) {
+            this.isFinished = false;        // 取消完成状态
+            this.isRunning = true;
+            this.typeNextChar();            // 继续从当前 charIndex 开始打印新增部分
+            return;
+        }
+
+        // 如果当前未在运行且未暂停，则启动打字
         if (!this.isRunning && !this.isPaused) {
             this.isRunning = true;
             this.typeNextChar();
         }
-        // 如果正在运行，无需额外操作，因为它会继续从当前索引打印
+        // 若正在运行，则无需额外操作，它会自动继续到新长度
     }
 
     start(content) {
