@@ -110,7 +110,7 @@ const SPREADS = {
     },
     three: {
         id: 'three',
-        label: '三牌占卜（时间之流）',
+        label: '三牌占卜',
         badge: '3张',
         count: 3,
         positions: [
@@ -124,7 +124,7 @@ const SPREADS = {
     },
     choice: {
         id: 'choice',
-        label: '抉择牌阵（二择一）',
+        label: '抉择牌阵',
         badge: '5张',
         count: 5,
         positions: [
@@ -160,7 +160,7 @@ const SPREADS = {
     },
     horseshoe: {
         id: 'horseshoe',
-        label: '马蹄铁牌阵（7张）',
+        label: '马蹄铁牌阵',
         badge: '7张',
         count: 7,
         positions: [
@@ -230,7 +230,7 @@ const SPREADS = {
     },
     celtcross: {
         id: 'celtcross',
-        label: '凯尔特十字牌阵（10张）',
+        label: '凯尔特十字牌阵',
         badge: '10张',
         count: 10,
         positions: [
@@ -329,6 +329,58 @@ const SPREADS = {
                         </div>
                     </div>
                     
+                </div>
+            `;
+        }
+    },
+        venus: {
+        id: 'venus',
+        label: '维纳斯之爱牌阵',
+        badge: '8张',
+        count: 8,
+        positions: [
+            { label: '① 你的内心' },
+            { label: '② 你的行为' },
+            { label: '③ 你对他期待' },
+            { label: '④ 你的情感发展' },
+            { label: '⑤ 对方内心' },
+            { label: '⑥ 对方行为' },
+            { label: '⑦ 对方期待' },
+            { label: '⑧ 关系走向' }
+        ],
+        render: (cards) => {
+            const card0 = cards[0] ? renderCard(cards[0], 0, '① 你的内心') : '';
+            const card1 = cards[1] ? renderCard(cards[1], 1, '② 你的行为') : '';
+            const card2 = cards[2] ? renderCard(cards[2], 2, '③ 你对他期待') : '';
+            const card3 = cards[3] ? renderCard(cards[3], 3, '④ 你的情感发展') : '';
+            const card4 = cards[4] ? renderCard(cards[4], 4, '⑤ 对方内心') : '';
+            const card5 = cards[5] ? renderCard(cards[5], 5, '⑥ 对方行为') : '';
+            const card6 = cards[6] ? renderCard(cards[6], 6, '⑦ 对方期待') : '';
+            const card7 = cards[7] ? renderCard(cards[7], 7, '⑧ 关系走向') : '';
+
+            return `
+                <div style="display:flex; flex-wrap:wrap; justify-content:center; align-items:flex-start; gap:40px; width:100%; padding:10px 0;">
+                    <!-- 左侧牌阵 (你的部分) -->
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:12px;">
+                        <div>${card0}</div>
+                        <div style="display:flex; gap:25px;">
+                            <div>${card1}</div>
+                            <div>${card2}</div>
+                        </div>
+                        <div>${card3}</div>
+                        <div style="color:#6a5a7a; font-size:0.7rem; letter-spacing:1px; margin-top:6px;">💖 你的部分</div>
+                    </div>
+
+                    <!-- 右侧牌阵 (对方的部分) -->
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:12px;">
+                        <div>${card4}</div>
+                        <div style="display:flex; gap:25px;">
+                            <div>${card5}</div>
+                            <div>${card6}</div>
+                        </div>
+                        <div>${card7}</div>
+                        <div style="color:#6a5a7a; font-size:0.7rem; letter-spacing:1px; margin-top:6px;">💫 对方的部分</div>
+                    </div>
                 </div>
             `;
         }
