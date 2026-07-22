@@ -4,7 +4,7 @@
  */
 
 // ============================================
-// 1. 牌组数据（78张完整塔罗牌）
+// 牌组数据（78张完整塔罗牌）
 // ============================================
 const TAROT_DECK = [
     // 大阿尔卡纳 (22张)
@@ -97,16 +97,337 @@ const TAROT_DECK = [
 ];
 
 // ============================================
-// 2. AI 解读配置
+// AI 解读配置
 // ============================================
 const AI_CONFIG = {
     WORKER_URL: 'https://tarot-api.qidate001.workers.dev',
     ENABLE_AI: true,
     FALLBACK_DATA: '/data/tarot-readings.json',
+    TYPING_SPEED: 20, // 打字速度（毫秒/字符）
 };
 
 // ============================================
-// 3. 配置
+// 打字机效果类
+// ============================================
+class Typewriter {
+    constructor(element, options = {}) {
+        this.element = element;
+        this.speed = options.speed || AI_CONFIG.TYPING_SPEED;
+        this.callback = options.onComplete || null;
+        this.isRunning = false;
+        this.isPaused = false;
+        this.content = '';
+        this.displayContent = '';
+        this.charIndex = 0;
+        this.timer = null;
+        
+        // 存储需要渲染的 Markdown 缓存
+        this.rawContent = '';
+        this.renderFn = options.renderFn || null;
+    }
+
+    /**
+     * 开始打字效果
+     */
+    start(content) {
+        if (this.isRunning) {
+            this.stop();
+        }
+        
+        this.content = content;
+        this.rawContent = content;
+        this.charIndex = 0;
+        this.displayContent = '';
+        this.element.innerHTML = '';
+        this.isRunning = true;
+        this.isPaused = false;
+        
+        this.typeNextChar();
+    }
+
+    /**
+     * 输入下一个字符
+     */
+    typeNextChar() {
+        if (!this.isRunning || this.isPaused) {
+            return;
+        }
+
+        if (this.charIndex >= this.content.length) {
+            this.isRunning = false;
+            if (this.callback) {
+                this.callback();
+            }
+            return;
+        }
+
+        // 一次添加多个字符以提高效率（但保持流畅感）
+        const charsToAdd = 3;
+        let endIndex = Math.min(this.charIndex + charsToAdd, this.content.length);
+        
+        // 如果遇到换行符，一次性添加整行
+        let nextNewline = this.content.indexOf('\n', this.charIndex);
+        if (nextNewline !== -1 && nextNewline - this.charIndex < 20) {
+            endIndex = nextNewline + 1;
+        }
+
+        const chunk = this.content.substring(this.charIndex, endIndex);
+        this.displayContent += chunk;
+        this.charIndex = endIndex;
+
+        // 渲染 Markdown（如果提供了渲染函数）
+        if (this.renderFn) {
+            try {
+                this.element.innerHTML = this.renderFn(this.displayContent);
+            } catch (e) {
+                this.element.textContent = this.displayContent;
+            }
+        } else {
+            this.element.textContent = this.displayContent;
+        }
+
+        // 滚动到底部
+        this.element.scrollTop = this.element.scrollHeight;
+
+        // 计算下一个字符的延迟（动态速度，让阅读更自然）
+        const delay = this.calculateDelay(chunk);
+        this.timer = setTimeout(() => {
+            this.typeNextChar();
+        }, delay);
+    }
+
+    /**
+     * 计算动态延迟
+     */
+    calculateDelay(chunk) {
+        const baseSpeed = this.speed;
+        
+        // 如果 chunk 包含换行，稍微停顿
+        if (chunk.includes('\n')) {
+            return baseSpeed * 3;
+        }
+        
+        // 如果 chunk 包含标点符号，稍微停顿
+        if (/[，。！？、；：""''（）]/.test(chunk)) {
+            return baseSpeed * 2;
+        }
+        
+        // 随机变化，让打字更自然
+        const randomFactor = 0.5 + Math.random() * 0.5;
+        return baseSpeed * randomFactor;
+    }
+
+    /**
+     * 暂停打字
+     */
+    pause() {
+        this.isPaused = true;
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
+    }
+
+    /**
+     * 继续打字
+     */
+    resume() {
+        if (this.isPaused && this.isRunning) {
+            this.isPaused = false;
+            this.typeNextChar();
+        }
+    }
+
+    /**
+     * 立即完成（跳转到最后）
+     */
+    finish() {
+        this.isRunning = false;
+        this.isPaused = false;
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
+        
+        if (this.renderFn) {
+            try {
+                this.element.innerHTML = this.renderFn(this.content);
+            } catch (e) {
+                this.element.textContent = this.content;
+            }
+        } else {
+            this.element.textContent = this.content;
+        }
+        
+        if (this.callback) {
+            this.callback();
+        }
+    }
+
+    /**
+     * 停止打字
+     */
+    stop() {
+        this.isRunning = false;
+        this.isPaused = false;
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
+    }
+
+    /**
+     * 重置
+     */
+    reset() {
+        this.stop();
+        this.content = '';
+        this.displayContent = '';
+        this.charIndex = 0;
+        this.element.innerHTML = '';
+    }
+}
+
+// ============================================
+// AI 解读功能（支持SSE流式）
+// ============================================
+
+async function getAIReading(cards, question = '', onChunk = null, onComplete = null) {
+    if (!AI_CONFIG.ENABLE_AI) {
+        const result = await getFallbackReading(cards);
+        if (onComplete) onComplete(result);
+        return result;
+    }
+
+    try {
+        const response = await fetch(AI_CONFIG.WORKER_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                cards: cards.map(card => ({
+                    id: card.id,
+                    name: card.name,
+                    nameEn: card.nameEn,
+                    isReversed: card.isReversed,
+                })),
+                question: question,
+                stream: true, // 启用流式
+            }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.error || `HTTP ${response.status}`);
+        }
+
+        // 处理流式响应
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let fullContent = '';
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+            
+            // 解析 SSE 数据
+            const lines = buffer.split('\n');
+            buffer = lines.pop() || '';
+
+            for (const line of lines) {
+                if (line.startsWith('data: ')) {
+                    const data = line.slice(6);
+                    if (data === '[DONE]') continue;
+                    
+                    try {
+                        const parsed = JSON.parse(data);
+                        const content = parsed.choices?.[0]?.delta?.content || '';
+                        if (content) {
+                            fullContent += content;
+                            if (onChunk) {
+                                onChunk(content, fullContent);
+                            }
+                        }
+                    } catch (e) {
+                        // 忽略解析错误
+                    }
+                }
+            }
+        }
+
+        // 处理剩余的 buffer
+        if (buffer.startsWith('data: ')) {
+            const data = buffer.slice(6);
+            if (data !== '[DONE]') {
+                try {
+                    const parsed = JSON.parse(data);
+                    const content = parsed.choices?.[0]?.delta?.content || '';
+                    if (content) {
+                        fullContent += content;
+                        if (onChunk) {
+                            onChunk(content, fullContent);
+                        }
+                    }
+                } catch (e) {
+                    // 忽略
+                }
+            }
+        }
+
+        const result = {
+            success: true,
+            reading: fullContent,
+            cards: cards,
+            timestamp: new Date().toISOString(),
+        };
+
+        if (onComplete) onComplete(result);
+        return result;
+
+    } catch (error) {
+        console.error('AI 解读失败:', error);
+        const fallback = await getFallbackReading(cards);
+        if (onComplete) onComplete(fallback);
+        return fallback;
+    }
+}
+
+/**
+ * 降级方案：使用预生成数据
+ */
+async function getFallbackReading(cards) {
+    try {
+        const response = await fetch(AI_CONFIG.FALLBACK_DATA);
+        if (!response.ok) throw new Error('加载降级数据失败');
+        
+        const readings = await response.json();
+        let result = '📖 塔罗解读（预生成版本）：\n\n';
+        
+        cards.forEach(card => {
+            const orientation = card.isReversed ? 'reversed' : 'upright';
+            const reading = readings[card.id]?.[orientation] || '暂无解读';
+            result += `【${card.name}】${card.isReversed ? '（逆位）' : '（正位）'}\n${reading}\n\n`;
+        });
+        
+        return {
+            success: true,
+            reading: result,
+            isFallback: true,
+        };
+    } catch (error) {
+        return {
+            success: false,
+            error: '无法获取解读，请稍后重试',
+        };
+    }
+}
+
+// ============================================
+// 配置
 // ============================================
 const CONFIG = {
     IMG_BASE: '/images/tarot_cards/',
@@ -117,12 +438,12 @@ const CONFIG = {
 };
 
 // ============================================
-// 4. 状态
+// 状态
 // ============================================
 let currentCards = [];
 
 // ============================================
-// 5. 工具函数
+// 工具函数
 // ============================================
 function shuffleArray(arr) {
     const shuffled = [...arr];
@@ -143,7 +464,7 @@ function drawRandomCards(n) {
 }
 
 // ============================================
-// 6. AI 解读功能
+// AI 解读功能
 // ============================================
 
 async function getAIReading(cards, question = '') {
@@ -220,7 +541,7 @@ async function getFallbackReading(cards) {
 }
 
 // ============================================
-// 7. 渲染函数
+// 渲染函数
 // ============================================
 
 function renderCards(cards) {
@@ -347,7 +668,7 @@ function updateReadingWithAI(cards, reading) {
 }
 
 // ============================================
-// 8. 交互函数
+// 交互函数
 // ============================================
 
 async function drawCards(count = 3) {
@@ -357,39 +678,135 @@ async function drawCards(count = 3) {
     const cards = drawRandomCards(count);
     renderCards(cards);
     
-    // 显示加载状态
+    // 准备解读容器
     const resultDiv = document.getElementById('readingResult');
+    const cardInfo = buildCardInfoHTML(cards);
+    
+    // 显示加载状态和牌面信息
     resultDiv.innerHTML = `
-        <h3>🔮 正在解读中...</h3>
-        <div style="text-align: center; padding: 20px;">
-            <div style="display: inline-block; width: 40px; height: 40px; border: 4px solid rgba(255,215,0,0.1); border-top-color: #ffd700; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-            <p style="color: #b8a0c0; margin-top: 10px;">AI 正在分析牌阵，请稍候...</p>
+        <h3>🔮 AI 塔罗解读</h3>
+        <div style="margin-bottom: 15px; padding: 12px; background: rgba(255,215,0,0.05); border-radius: 10px;">
+            ${cardInfo}
         </div>
-        <style>
-            @keyframes spin {
-                to { transform: rotate(360deg); }
-            }
-        </style>
+        <div class="markdown-body" id="typewriter-content" style="color: #d8c8e0; line-height: 1.8; font-size: 0.95rem; min-height: 100px;">
+            <span style="color: #6a5a7a;">✨ AI 正在思考中...</span>
+        </div>
+        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,215,0,0.08); color: #6a5a7a; font-size: 0.8rem; text-align: right;">
+            <span id="typing-status">正在生成解读...</span>
+        </div>
     `;
     
+    const contentDiv = document.getElementById('typewriter-content');
+    const statusSpan = document.getElementById('typing-status');
+    
+    // 创建打字机实例
+    let typewriter = null;
+    let fullContent = '';
+    
     try {
-        const result = await getAIReading(cards, '');
+        // 调用流式 API
+        const result = await getAIReading(
+            cards, 
+            '',
+            // onChunk: 每收到一个 chunk 就更新
+            (chunk, accumulated) => {
+                fullContent = accumulated;
+                if (!typewriter) {
+                    // 首次收到内容，初始化打字机
+                    typewriter = new Typewriter(contentDiv, {
+                        speed: AI_CONFIG.TYPING_SPEED,
+                        renderFn: (text) => {
+                            try {
+                                if (typeof marked !== 'undefined') {
+                                    return marked.parse(text);
+                                }
+                                return text.split('\n').map(line => line.trim() ? `<p>${line}</p>` : '<br>').join('');
+                            } catch (e) {
+                                return text;
+                            }
+                        },
+                        onComplete: () => {
+                            statusSpan.textContent = '✅ 解读完成';
+                            statusSpan.style.color = '#69f0ae';
+                        }
+                    });
+                }
+                
+                // 如果打字机还没开始，或者已经完成，重新开始
+                if (!typewriter.isRunning) {
+                    typewriter.start(fullContent);
+                }
+                statusSpan.textContent = `✍️ 正在书写... (${fullContent.length} 字符)`;
+            },
+            // onComplete: 流式完成
+            (result) => {
+                if (!typewriter) {
+                    // 如果没有打字机（极少情况），直接显示
+                    try {
+                        contentDiv.innerHTML = marked.parse(fullContent || result.reading);
+                    } catch (e) {
+                        contentDiv.textContent = fullContent || result.reading;
+                    }
+                    statusSpan.textContent = '✅ 解读完成';
+                    statusSpan.style.color = '#69f0ae';
+                }
+            }
+        );
         
-        if (result.success) {
-            updateReadingWithAI(cards, result.reading);
-        } else {
-            throw new Error(result.error || '解读失败');
+        // 如果 result 已经有内容但没触发流式（fallback 情况）
+        if (result && result.reading && !fullContent) {
+            fullContent = result.reading;
+            typewriter = new Typewriter(contentDiv, {
+                speed: AI_CONFIG.TYPING_SPEED,
+                renderFn: (text) => {
+                    try {
+                        if (typeof marked !== 'undefined') {
+                            return marked.parse(text);
+                        }
+                        return text.split('\n').map(line => line.trim() ? `<p>${line}</p>` : '<br>').join('');
+                    } catch (e) {
+                        return text;
+                    }
+                },
+                onComplete: () => {
+                    statusSpan.textContent = '✅ 解读完成';
+                    statusSpan.style.color = '#69f0ae';
+                }
+            });
+            typewriter.start(fullContent);
         }
+        
     } catch (error) {
         console.error('解读出错:', error);
-        updateReading(cards);
-        const resultDiv = document.getElementById('readingResult');
-        resultDiv.innerHTML += `
-            <div style="color: #ff7a7a; margin-top: 10px; padding: 10px; background: rgba(255,0,0,0.1); border-radius: 8px;">
-                ⚠️ AI 解读暂时不可用，已显示基础信息
+        contentDiv.innerHTML = `
+            <div style="color: #ff7a7a; padding: 20px; background: rgba(255,0,0,0.1); border-radius: 8px;">
+                ⚠️ 解读生成失败，请稍后重试
+                <br><small style="color: #6a5a7a;">${error.message || ''}</small>
             </div>
         `;
+        statusSpan.textContent = '❌ 生成失败';
+        statusSpan.style.color = '#ff7a7a';
     }
+}
+
+/**
+ * 构建牌面信息 HTML
+ */
+function buildCardInfoHTML(cards) {
+    let html = '';
+    cards.forEach((card) => {
+        const orientation = card.isReversed ? '逆位' : '正位';
+        const cls = card.isReversed ? 'reversed' : 'upright';
+        const icon = card.isReversed ? '⬇️' : '⬆️';
+        html += `
+            <div class="card-item">
+                <span class="card-name">${card.name}</span>
+                <span class="card-en">${card.nameEn}</span>
+                <span class="orientation ${cls}">${icon} ${orientation}</span>
+            </div>
+        `;
+    });
+    return html;
 }
 
 function toggleCardFlip(index) {
@@ -406,7 +823,7 @@ function resetAll() {
 }
 
 // ============================================
-// 9. 初始化
+// 初始化
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
     renderCards([]);
