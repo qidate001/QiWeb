@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <title>免责条款 · 塔罗占卜</title>
+    <style>
+        /* ========================================
+           全局重置 & 紫色主题
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0d0a12;
+            color: #e0d6e8;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ========================================
+           主卡片 — 紫色神秘风格
+           ======================================== */
+        .disclaimer-container {
+            max-width: 960px;
+            width: 100%;
+            background: linear-gradient(145deg, #1a1225, #261a33);
+            border-radius: 28px;
+            padding: 45px 50px;
+            box-shadow: 0 20px 60px rgba(80, 40, 120, 0.35),
+                        0 0 0 1px rgba(150, 80, 200, 0.12);
+            border: 1px solid rgba(160, 100, 200, 0.15);
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景光晕 */
+        .disclaimer-container::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -20%;
+            width: 70%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(120, 60, 180, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ========================================
+           头部
+           ======================================== */
+        .disclaimer-header {
+            text-align: center;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(150, 80, 200, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .disclaimer-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #c084e8, #a855f7, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+        }
+
+        .disclaimer-header .sub {
+            font-size: 1rem;
+            color: #b8a0cc;
+            margin-top: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .disclaimer-header .sub strong {
+            color: #c084e8;
+            font-weight: 600;
+        }
+
+        /* ========================================
+           作者 / 品牌横幅
+           ======================================== */
+        .brand-bar {
+            background: rgba(40, 25, 60, 0.6);
+            border-radius: 14px;
+            padding: 14px 22px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px 28px;
+            font-size: 0.92rem;
+            border: 1px solid rgba(150, 80, 200, 0.12);
+            backdrop-filter: blur(4px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand-bar span {
+            color: #ccc0d8;
+        }
+
+        .brand-bar strong {
+            color: #c084e8;
+            font-weight: 600;
+        }
+
+        .brand-bar .highlight {
+            color: #d8b4fe;
+        }
+
+        /* ========================================
+           正文 — 条款块
+           ======================================== */
+        .disclaimer-body {
+            display: flex;
+            flex-direction: column;
+            gap: 26px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 每个条款块 */
+        .clause {
+            background: rgba(30, 18, 48, 0.7);
+            border-radius: 16px;
+            padding: 22px 28px;
+            border-left: 4px solid rgba(120, 60, 180, 0.3);
+            transition: border-color 0.3s ease, background 0.3s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .clause:hover {
+            border-left-color: #a855f7;
+            background: rgba(40, 25, 60, 0.5);
+        }
+
+        .clause h2 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #c084e8;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .clause h2 .badge {
+            font-size: 0.65rem;
+            background: rgba(120, 60, 180, 0.25);
+            color: #b8a0cc;
+            padding: 0 14px;
+            border-radius: 30px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(150, 80, 200, 0.12);
+        }
+
+        .clause h2 .badge-danger {
+            background: rgba(180, 40, 80, 0.2);
+            color: #e8a0b8;
+            border-color: rgba(200, 60, 100, 0.15);
+        }
+
+        .clause p,
+        .clause li {
+            color: #d0c4dc;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .clause ul,
+        .clause ol {
+            padding-left: 24px;
+            margin: 8px 0 4px 0;
+        }
+
+        .clause li {
+            margin-bottom: 4px;
+        }
+
+        .clause li strong {
+            color: #d8b4fe;
+        }
+
+        /* 高亮框 — 紫色风格 */
+        .highlight-box {
+            background: rgba(40, 20, 60, 0.5);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 12px 0 4px 0;
+            border: 1px solid rgba(150, 80, 200, 0.12);
+            color: #ccc0d8;
+            font-size: 0.92rem;
+        }
+
+        .highlight-box strong {
+            color: #c084e8;
+        }
+
+        .highlight-box .danger {
+            color: #e8a0b8;
+            font-weight: 600;
+        }
+
+        .highlight-box .warn {
+            color: #f0c8a0;
+            font-weight: 500;
+        }
+
+        /* 禁区列表 — 特殊标记 */
+        .forbidden-list {
+            list-style: none;
+            padding-left: 0 !important;
+            margin: 8px 0 4px 0;
+        }
+
+        .forbidden-list li {
+            padding: 4px 0 4px 28px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>') left center no-repeat;
+            background-size: 16px;
+        }
+
+        /* ========================================
+           底部接受声明
+           ======================================== */
+        .acceptance {
+            margin-top: 20px;
+            padding: 20px 28px;
+            background: rgba(40, 20, 60, 0.4);
+            border-radius: 16px;
+            border: 1px solid rgba(150, 80, 200, 0.12);
+            text-align: center;
+            font-size: 1rem;
+            color: #c8b8d8;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(2px);
+        }
+
+        .acceptance strong {
+            color: #c084e8;
+        }
+
+        .acceptance .btn-group {
+            margin-top: 16px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .acceptance .btn {
+            padding: 10px 40px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-agree {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-agree:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 24px rgba(124, 58, 237, 0.45);
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+
+        .btn-disagree {
+            background: rgba(60, 30, 80, 0.4);
+            color: #b8a0cc;
+            border: 1px solid rgba(150, 80, 200, 0.15);
+        }
+
+        .btn-disagree:hover {
+            background: rgba(80, 40, 100, 0.5);
+            color: #e0d6e8;
+        }
+
+        /* ========================================
+           响应式
+           ======================================== */
+        @media (max-width: 700px) {
+            .disclaimer-container {
+                padding: 28px 20px;
+                border-radius: 20px;
+            }
+
+            .disclaimer-header h1 {
+                font-size: 1.7rem;
+            }
+
+            .clause {
+                padding: 18px 18px;
+            }
+
+            .clause h2 {
+                font-size: 1.05rem;
+            }
+
+            .brand-bar {
+                flex-direction: column;
+                align-items: center;
+                gap: 6px;
+                font-size: 0.85rem;
+            }
+
+            .acceptance .btn {
+                padding: 8px 28px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 450px) {
+            body {
+                padding: 16px 10px;
+            }
+            .disclaimer-container {
+                padding: 18px 14px;
+                border-radius: 16px;
+            }
+            .clause {
+                padding: 14px 14px;
+            }
+            .clause h2 {
+                font-size: 0.95rem;
+            }
+            .clause p,
+            .clause li {
+                font-size: 0.88rem;
+            }
+            .highlight-box {
+                font-size: 0.85rem !important;
+                padding: 12px 14px !important;
+            }
+            .forbidden-list li {
+                padding-left: 24px !important;
+                background-size: 14px !important;
+            }
+        }
+
+        /* ========================================
+           滚动条美化
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0a12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a2a6a;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6a3a8a;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="disclaimer-container">
+
+        <!-- 头部 -->
+        <div class="disclaimer-header">
+            <h1>🔮 免责条款</h1>
+            <div class="sub">
+                <strong>LLM 解读式塔罗占卜</strong> &nbsp;|&nbsp; 版本 v1.0
+            </div>
+        </div>
+
+        <!-- 品牌 / 版权横幅 -->
+        <div class="brand-bar">
+            <span>🎨 牌面美术：<strong>齐（齐date）</strong> · 全网同名</span>
+            <span>⚡ 生成引擎：<span class="highlight">AI 大语言模型</span></span>
+            <span>📧 <span class="highlight">3563532971@qq.com</span></span>
+        </div>
+
+        <!-- 正文 -->
+        <div class="disclaimer-body">
+
+            <!-- 引言 -->
+            <div class="clause">
+                <h2>📌 总则 <span class="badge">虚构创作</span></h2>
+                <p>
+                    本程序内所有塔罗牌面美术设计（下称“牌面素材”）均为<strong>虚构二次元美术创作</strong>，
+                    与任何现实宗教、神秘学流派、历史人物或事件无关。
+                </p>
+            </div>
+
+            <!-- 1. 生成内容性质声明 -->
+            <div class="clause">
+                <h2>1. 生成内容性质声明 <span class="badge">AI 生成</span></h2>
+                <ul>
+                    <li><strong>1.1</strong> 本网站输出的所有“解读文本”均由人工智能大语言模型（LLM）根据随机算法实时生成，<strong>不具备</strong>任何预测未来、洞察人心、诊断问题或指导决策的超自然或科学功能。</li>
+                    <li><strong>1.2</strong> 每次抽牌结果为<strong>伪随机数生成</strong>，与您个人的现实境遇、生辰八字、星座命理无任何因果逻辑关联。</li>
+                </ul>
+            </div>
+
+            <!-- 2. 核心功能限制（绝对禁区） -->
+            <div class="clause">
+                <h2>2. 核心功能限制 <span class="badge badge-danger">⛔ 绝对禁区</span></h2>
+
+                <p><strong>2.1 非专业性：</strong>本程序及牌面素材<strong>绝不替代</strong>以下专业服务：</p>
+                <ul class="forbidden-list">
+                    <li>心理咨询与精神治疗；</li>
+                    <li>法律诉讼、合同签订与合规审查；</li>
+                    <li>股票、基金、加密货币等金融投资建议；</li>
+                    <li>生理疾病诊断、用药指导及健康管理。</li>
+                </ul>
+
+                <div class="highlight-box" style="margin-top:14px;">
+                    <strong>2.2 年龄限制：</strong><br />
+                    本程序包含部分基于二次元风格的隐喻表达，建议 <strong>18 周岁及以上</strong> 成年人使用。
+                    未成年人须在监护人陪同下使用，且监护人需承担全部监督责任。
+                </div>
+            </div>
+
+            <!-- 3. 用户行为责任（最硬核条款） -->
+            <div class="clause">
+                <h2>3. 用户行为责任 <span class="badge badge-danger">⚡ 硬核条款</span></h2>
+
+                <div class="highlight-box">
+                    <strong>3.1 独立决策</strong><br />
+                    您承认并同意，基于本程序输出结果所引发的任何现实行动（包括但不限于情感复合/分手、辞职/入职、大额消费、社交冲突），均由您本人<strong>独立承担全部法律及道德后果</strong>。开发者及画师不承担任何直接、间接、附带或惩罚性赔偿责任。
+                </div>
+
+                <div class="highlight-box" style="margin-top:10px;">
+                    <strong>3.2 心理预期</strong><br />
+                    若您在抽牌后产生焦虑、不安等情绪波动，建议<strong>立即关闭程序</strong>，并寻求现实好友或专业心理咨询师帮助，请勿持续依赖本程序进行情绪安抚。
+                </div>
+            </div>
+
+            <!-- 4. 知识产权与用户约束 -->
+            <div class="clause">
+                <h2>4. 知识产权与用户约束 <span class="badge">🛡️ 保护你的画</span></h2>
+                <ul>
+                    <li><strong>4.1 版权归属：</strong>本程序内所有塔罗牌面美术作品（含线稿、上色、构图）的著作权、复制权及信息网络传播权均归 <strong>齐（齐date）</strong> 所有。</li>
+                    <li><strong>4.2 禁止行为：</strong>严禁用户对牌面素材进行<strong>截取、抠图、二次加工、训练 AI 模型或用于商业周边制作</strong>。一经发现，开发者保留追究侵权法律责任的权利。</li>
+                </ul>
+            </div>
+
+            <!-- 5. 服务中断与变更 -->
+            <div class="clause">
+                <h2>5. 服务中断与变更 <span class="badge">现状提供</span></h2>
+                <p>本程序为“现状”提供，开发者有权随时调整解读风格、下架部分牌面或终止服务，<strong>无需提前告知</strong>，且不因此对您承担任何责任。</p>
+            </div>
+
+            <!-- 6. 法律适用 -->
+            <div class="clause">
+                <h2>6. 法律适用 <span class="badge">中华人民共和国</span></h2>
+                <p>本协议的订立、执行和解释均适用 <strong>中华人民共和国法律法规</strong>。如发生争议，双方应友好协商，协商不成时，由开发者所在地有管辖权的人民法院管辖。</p>
+            </div>
+
+        </div>
+
+        <!-- 底部接受声明 -->
+        <div class="acceptance">
+            <p>
+                <strong>📌 若您继续使用本程序，表示您已阅读、理解并同意上述所有条款。</strong><br />
+                若不同意，请立即关闭页面并删除本程序。
+            </p>
+            <div class="btn-group">
+                <a href="/tarot.html" class="btn btn-agree">我同意</a>
+                <a href="/index.html" class="btn btn-disagree">不同意</a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
