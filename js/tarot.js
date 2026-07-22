@@ -313,7 +313,7 @@ async function getAIReading(cards, question = '', onChunk = null, onComplete = n
                     isReversed: card.isReversed,
                 })),
                 question: question,
-                stream: true, // 启用流式
+                stream: true,
             }),
         });
 
@@ -332,19 +332,26 @@ async function getAIReading(cards, question = '', onChunk = null, onComplete = n
             const { done, value } = await reader.read();
             if (done) break;
 
+            // 解码并添加到缓冲区
             buffer += decoder.decode(value, { stream: true });
             
-            // 解析 SSE 数据
+            // 按行分割
             const lines = buffer.split('\n');
-            buffer = lines.pop() || '';
+            buffer = lines.pop() || ''; // 保留最后不完整的行
 
             for (const line of lines) {
-                if (line.startsWith('data: ')) {
-                    const data = line.slice(6);
-                    if (data === '[DONE]') continue;
+                const trimmedLine = line.trim();
+                if (!trimmedLine) continue;
+                
+                // 只处理 data: 开头的行
+                if (trimmedLine.startsWith('data: ')) {
+                    const dataStr = trimmedLine.slice(6); // 去掉 "data: "
+                    
+                    // 跳过 [DONE]
+                    if (dataStr === '[DONE]') continue;
                     
                     try {
-                        const parsed = JSON.parse(data);
+                        const parsed = JSON.parse(dataStr);
                         const content = parsed.choices?.[0]?.delta?.content || '';
                         if (content) {
                             fullContent += content;
@@ -353,27 +360,31 @@ async function getAIReading(cards, question = '', onChunk = null, onComplete = n
                             }
                         }
                     } catch (e) {
-                        // 忽略解析错误
+                        // 如果解析失败，可能是格式问题，忽略
+                        console.debug('解析 SSE 数据失败:', dataStr);
                     }
                 }
             }
         }
 
         // 处理剩余的 buffer
-        if (buffer.startsWith('data: ')) {
-            const data = buffer.slice(6);
-            if (data !== '[DONE]') {
-                try {
-                    const parsed = JSON.parse(data);
-                    const content = parsed.choices?.[0]?.delta?.content || '';
-                    if (content) {
-                        fullContent += content;
-                        if (onChunk) {
-                            onChunk(content, fullContent);
+        if (buffer.trim()) {
+            const trimmedLine = buffer.trim();
+            if (trimmedLine.startsWith('data: ')) {
+                const dataStr = trimmedLine.slice(6);
+                if (dataStr !== '[DONE]') {
+                    try {
+                        const parsed = JSON.parse(dataStr);
+                        const content = parsed.choices?.[0]?.delta?.content || '';
+                        if (content) {
+                            fullContent += content;
+                            if (onChunk) {
+                                onChunk(content, fullContent);
+                            }
                         }
+                    } catch (e) {
+                        // 忽略
                     }
-                } catch (e) {
-                    // 忽略
                 }
             }
         }
@@ -688,11 +699,11 @@ async function drawCards(count = 3) {
         <div style="margin-bottom: 15px; padding: 12px; background: rgba(255,215,0,0.05); border-radius: 10px;">
             ${cardInfo}
         </div>
-        <div class="markdown-body" id="typewriter-content" style="color: #d8c8e0; line-height: 1.8; font-size: 0.95rem; min-height: 100px;">
+        <div class="markdown-body" id="typewriter-content" style="color: #d8c8e0; line-height: 1.8; font-size: 0.95rem; min-height: 100px; max-height: 600px; overflow-y: auto; padding: 10px;">
             <span style="color: #6a5a7a;">✨ AI 正在思考中...</span>
         </div>
         <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,215,0,0.08); color: #6a5a7a; font-size: 0.8rem; text-align: right;">
-            <span id="typing-status">正在生成解读...</span>
+            <span id="typing-status">⏳ 正在连接 AI...</span>
         </div>
     `;
     
