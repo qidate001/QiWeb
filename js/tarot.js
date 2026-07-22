@@ -159,75 +159,180 @@ const SPREADS = {
         }
     },
     horseshoe: {
-            id: 'horseshoe',
-            label: '马蹄铁牌阵（7张）',
-            badge: '7张',
-            count: 7,
-            positions: [
-                { label: '① 过去 / 根基' },
-                { label: '② 现在 / 现状' },
-                { label: '③ 近未来（1个月内）' },
-                { label: '④ 障碍 / 挑战' },
-                { label: '⑤ 环境 / 他人影响' },
-                { label: '⑥ 优势 / 建议行动' },
-                { label: '⑦ 最终结果' }
-            ],
-            render: (cards) => {
-                const card0 = cards[0] ? renderCard(cards[0], 0, '① 过去/根基') : '';
-                const card1 = cards[1] ? renderCard(cards[1], 1, '② 现在/现状') : '';
-                const card2 = cards[2] ? renderCard(cards[2], 2, '③ 近未来') : '';
-                const card3 = cards[3] ? renderCard(cards[3], 3, '④ 障碍/挑战') : '';
-                const card4 = cards[4] ? renderCard(cards[4], 4, '⑤ 环境/他人') : '';
-                const card5 = cards[5] ? renderCard(cards[5], 5, '⑥ 优势/建议') : '';
-                const card6 = cards[6] ? renderCard(cards[6], 6, '⑦ 最终结果') : '';
+        id: 'horseshoe',
+        label: '马蹄铁牌阵（7张）',
+        badge: '7张',
+        count: 7,
+        positions: [
+            { label: '① 过去 / 根基' },
+            { label: '② 现在 / 现状' },
+            { label: '③ 近未来（1个月内）' },
+            { label: '④ 障碍 / 挑战' },
+            { label: '⑤ 环境 / 他人影响' },
+            { label: '⑥ 优势 / 建议行动' },
+            { label: '⑦ 最终结果' }
+        ],
+        render: (cards) => {
+            const card0 = cards[0] ? renderCard(cards[0], 0, '① 过去/根基') : '';
+            const card1 = cards[1] ? renderCard(cards[1], 1, '② 现在/现状') : '';
+            const card2 = cards[2] ? renderCard(cards[2], 2, '③ 近未来') : '';
+            const card3 = cards[3] ? renderCard(cards[3], 3, '④ 障碍/挑战') : '';
+            const card4 = cards[4] ? renderCard(cards[4], 4, '⑤ 环境/他人') : '';
+            const card5 = cards[5] ? renderCard(cards[5], 5, '⑥ 优势/建议') : '';
+            const card6 = cards[6] ? renderCard(cards[6], 6, '⑦ 最终结果') : '';
 
-                return `
-                    <div style="display:flex; flex-direction:column; align-items:center; gap:12px; width:100%; padding:10px 0;">
-                        <!-- 顶部行：③ 近未来  ④ 障碍/挑战  ⑤ 环境/他人 -->
-                        <div style="display:flex; justify-content:center; gap:60px;">
-                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
-                                ${card2}
-                                <div style="color:#6a5a7a; font-size:0.6rem;">左弧上</div>
-                            </div>
-                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
-                                ${card3}
-                                <div style="color:#6a5a7a; font-size:0.6rem;">顶弧中</div>
-                            </div>
+            return `
+                <div style="display:flex; flex-direction:column; align-items:center; gap:12px; width:100%; padding:10px 0;">
+                    <!-- 顶部行：③ 近未来  ④ 障碍/挑战  ⑤ 环境/他人 -->
+                    <div style="display:flex; justify-content:center; gap:60px;">
+                        <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                            ${card2}
+                            <div style="color:#6a5a7a; font-size:0.6rem;">左弧上</div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                            ${card3}
+                            <div style="color:#6a5a7a; font-size:0.6rem;">顶弧中</div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                            ${card4}
+                            <div style="color:#6a5a7a; font-size:0.6rem;">右弧上</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 中间行：② 现在/现状（左）  ⑥ 优势/建议（右） -->
+                    <!-- 使用负margin让左右两张牌向外突出，形成马蹄铁的弧度 -->
+                    <div style="display:flex; justify-content:space-between; width:100%; max-width:700px; margin-top:5px; padding:0 20px;">
+                        <div style="display:flex; flex-direction:column; align-items:center; gap:5px; margin-left:-55px;">
+                            ${card1}
+                            <div style="color:#6a5a7a; font-size:0.6rem;">左弧下</div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; align-items:center; gap:5px; margin-right:-55px;">
+                            ${card5}
+                            <div style="color:#6a5a7a; font-size:0.6rem;">右弧下</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 底部行：① 过去/根基（左）  ⑦ 最终结果（右） -->
+                    <!-- 底部行与中间行的左右两端对齐 -->
+                    <div style="display:flex; justify-content:space-between; width:100%; max-width:700px; margin-top:5px; padding:0 20px;">
+                        <div style="display:flex; flex-direction:column; align-items:center; gap:5px; margin-left:-75px;">
+                            ${card0}
+                            <div style="color:#6a5a7a; font-size:0.6rem;">底弧左</div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; align-items:center; gap:5px; margin-right:-75px;">
+                            ${card6}
+                            <div style="color:#6a5a7a; font-size:0.6rem;">底弧右</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    },
+    celtcross: {
+        id: 'celtcross',
+        label: '凯尔特十字牌阵（10张）',
+        badge: '10张',
+        count: 10,
+        positions: [
+            { label: '① 核心现状' },
+            { label: '② 挑战/阻力' },
+            { label: '③ 过去远因' },
+            { label: '④ 近期状态' },
+            { label: '⑤ 可能性/目标' },
+            { label: '⑥ 下一步发展' },
+            { label: '⑦ 自我看法' },
+            { label: '⑧ 外界环境' },
+            { label: '⑨ 希望/恐惧' },
+            { label: '⑩ 最终结局' }
+        ],
+        render: (cards) => {
+            const card0 = cards[0] ? renderCard(cards[0], 0, '① 核心现状') : '';
+            const card1 = cards[1] ? renderCard(cards[1], 1, '② 挑战/阻力') : '';
+            const card2 = cards[2] ? renderCard(cards[2], 2, '③ 过去远因') : '';
+            const card3 = cards[3] ? renderCard(cards[3], 3, '④ 近期状态') : '';
+            const card4 = cards[4] ? renderCard(cards[4], 4, '⑤ 可能性/目标') : '';
+            const card5 = cards[5] ? renderCard(cards[5], 5, '⑥ 下一步发展') : '';
+            const card6 = cards[6] ? renderCard(cards[6], 6, '⑦ 自我看法') : '';
+            const card7 = cards[7] ? renderCard(cards[7], 7, '⑧ 外界环境') : '';
+            const card8 = cards[8] ? renderCard(cards[8], 8, '⑨ 希望/恐惧') : '';
+            const card9 = cards[9] ? renderCard(cards[9], 9, '⑩ 最终结局') : '';
+
+            return `
+                <div style="display:flex; justify-content:center; align-items:flex-start; gap:40px; width:100%; padding:10px 0; flex-wrap:wrap;">
+                    
+                    <!-- 左侧：中央十字区 -->
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+                        <!-- 顶部：⑤ 可能性/目标 -->
+                        <div style="display:flex; justify-content:center;">
                             <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
                                 ${card4}
-                                <div style="color:#6a5a7a; font-size:0.6rem;">右弧上</div>
+                                <div style="color:#6a5a7a; font-size:0.6rem;">⑤ 上方</div>
                             </div>
                         </div>
                         
-                        <!-- 中间行：② 现在/现状（左）  ⑥ 优势/建议（右） -->
-                        <!-- 使用负margin让左右两张牌向外突出，形成马蹄铁的弧度 -->
-                        <div style="display:flex; justify-content:space-between; width:100%; max-width:700px; margin-top:5px; padding:0 20px;">
-                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px; margin-left:-55px;">
-                                ${card1}
-                                <div style="color:#6a5a7a; font-size:0.6rem;">左弧下</div>
+                        <!-- 中间行：④ 左侧 | 中心十字（①+②） | ⑥ 右侧 -->
+                        <div style="display:flex; justify-content:center; align-items:center; gap:25px;">
+                            <!-- ④ 左侧 -->
+                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                                ${card3}
+                                <div style="color:#6a5a7a; font-size:0.6rem;">④ 左侧</div>
                             </div>
-                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px; margin-right:-55px;">
+                            
+                            <!-- 中心十字：① + ②（②横跨在①之上，旋转90°并缩小） -->
+                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                                <div style="display:flex; justify-content:center; align-items:center; position:relative; width:150px; height:250px;">
+                                    <!-- ① 核心现状（底层，完整显示） -->
+                                    <div style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1;">
+                                        ${card0}
+                                    </div>
+                                    <!-- ② 挑战/阻力（上层，旋转90°横跨，缩小到75%让①露出来） -->
+                                    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%) rotate(90deg) scale(0.72); z-index:2; transform-origin:center center;">
+                                        ${card1}
+                                    </div>
+                                </div>
+                                <div style="color:#6a5a7a; font-size:0.6rem; margin-top:5px;">① 中心 ＋ ② 横跨</div>
+                            </div>
+                            
+                            <!-- ⑥ 右侧 -->
+                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
                                 ${card5}
-                                <div style="color:#6a5a7a; font-size:0.6rem;">右弧下</div>
+                                <div style="color:#6a5a7a; font-size:0.6rem;">⑥ 右侧</div>
                             </div>
                         </div>
                         
-                        <!-- 底部行：① 过去/根基（左）  ⑦ 最终结果（右） -->
-                        <!-- 底部行与中间行的左右两端对齐 -->
-                        <div style="display:flex; justify-content:space-between; width:100%; max-width:700px; margin-top:5px; padding:0 20px;">
-                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px; margin-left:-75px;">
-                                ${card0}
-                                <div style="color:#6a5a7a; font-size:0.6rem;">底弧左</div>
-                            </div>
-                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px; margin-right:-75px;">
-                                ${card6}
-                                <div style="color:#6a5a7a; font-size:0.6rem;">底弧右</div>
+                        <!-- 底部：③ 过去远因 -->
+                        <div style="display:flex; justify-content:center;">
+                            <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                                ${card2}
+                                <div style="color:#6a5a7a; font-size:0.6rem;">③ 下方</div>
                             </div>
                         </div>
                     </div>
-                `;
-            }
+                    
+                    <!-- 右侧：辅助列（从下往上：⑦→⑧→⑨→⑩） -->
+                    <div style="display:flex; flex-direction:column-reverse; align-items:center; gap:15px; border-left:1px solid rgba(255,215,0,0.12); padding-left:30px; min-height:420px; justify-content:center;">
+                        <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                            ${card6}
+                            <div style="color:#6a5a7a; font-size:0.6rem;">⑦ 自我看法</div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                            ${card7}
+                            <div style="color:#6a5a7a; font-size:0.6rem;">⑧ 外界环境</div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                            ${card8}
+                            <div style="color:#6a5a7a; font-size:0.6rem;">⑨ 希望/恐惧</div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                            ${card9}
+                            <div style="color:#6a5a7a; font-size:0.6rem;">⑩ 最终结局</div>
+                        </div>
+                    </div>
+                    
+                </div>
+            `;
         }
+    }
 };
 
 // 当前选中的牌阵 ID
