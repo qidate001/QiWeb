@@ -120,7 +120,7 @@ class Typewriter {
         this.displayContent = '';
         this.charIndex = 0;
         this.timer = null;
-        
+
         // 存储需要渲染的 Markdown 缓存
         this.rawContent = '';
         this.renderFn = options.renderFn || null;
@@ -133,7 +133,7 @@ class Typewriter {
         if (this.isRunning) {
             this.stop();
         }
-        
+
         this.content = content;
         this.rawContent = content;
         this.charIndex = 0;
@@ -141,7 +141,7 @@ class Typewriter {
         this.element.innerHTML = '';
         this.isRunning = true;
         this.isPaused = false;
-        
+
         this.typeNextChar();
     }
 
@@ -164,7 +164,7 @@ class Typewriter {
         // 一次添加多个字符以提高效率（但保持流畅感）
         const charsToAdd = 3;
         let endIndex = Math.min(this.charIndex + charsToAdd, this.content.length);
-        
+
         // 如果遇到换行符，一次性添加整行
         let nextNewline = this.content.indexOf('\n', this.charIndex);
         if (nextNewline !== -1 && nextNewline - this.charIndex < 20) {
@@ -201,17 +201,17 @@ class Typewriter {
      */
     calculateDelay(chunk) {
         const baseSpeed = this.speed;
-        
+
         // 如果 chunk 包含换行，稍微停顿
         if (chunk.includes('\n')) {
             return baseSpeed * 3;
         }
-        
+
         // 如果 chunk 包含标点符号，稍微停顿
         if (/[，。！？、；：""''（）]/.test(chunk)) {
             return baseSpeed * 2;
         }
-        
+
         // 随机变化，让打字更自然
         const randomFactor = 0.5 + Math.random() * 0.5;
         return baseSpeed * randomFactor;
@@ -248,7 +248,7 @@ class Typewriter {
             clearTimeout(this.timer);
             this.timer = null;
         }
-        
+
         if (this.renderFn) {
             try {
                 this.element.innerHTML = this.renderFn(this.content);
@@ -258,7 +258,7 @@ class Typewriter {
         } else {
             this.element.textContent = this.content;
         }
-        
+
         if (this.callback) {
             this.callback();
         }
@@ -322,7 +322,9 @@ async function getAIReading(cards, question = '', onChunk = null, onComplete = n
             throw new Error(errorData.error || `HTTP ${response.status}`);
         }
 
-        // 处理流式响应
+        // ============================================
+        // 正确的 SSE 流式解析
+        // ============================================
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let buffer = '';
@@ -332,54 +334,69 @@ async function getAIReading(cards, question = '', onChunk = null, onComplete = n
             const { done, value } = await reader.read();
             if (done) break;
 
-            // 解码并添加到缓冲区
+            // 解码数据并添加到缓冲区
             buffer += decoder.decode(value, { stream: true });
-            
+
             // 按行分割
             const lines = buffer.split('\n');
-            buffer = lines.pop() || ''; // 保留最后不完整的行
+            // 保留最后一行（可能不完整）
+            buffer = lines.pop() || '';
 
             for (const line of lines) {
                 const trimmedLine = line.trim();
+
+                // 跳过空行
                 if (!trimmedLine) continue;
-                
-                // 只处理 data: 开头的行
-                if (trimmedLine.startsWith('data: ')) {
-                    const dataStr = trimmedLine.slice(6); // 去掉 "data: "
-                    
-                    // 跳过 [DONE]
-                    if (dataStr === '[DONE]') continue;
-                    
-                    try {
-                        const parsed = JSON.parse(dataStr);
-                        const content = parsed.choices?.[0]?.delta?.content || '';
+
+                // ✅ 只处理 data: 开头的行
+                if (!trimmedLine.startsWith('data: ')) continue;
+
+                // ✅ 去掉 "data: " 前缀，得到纯 JSON 字符串
+                const jsonStr = trimmedLine.slice(6);
+
+                // ✅ 跳过结束标记
+                if (jsonStr === '[DONE]') continue;
+
+                try {
+                    // ✅ 解析 JSON
+                    const parsed = JSON.parse(jsonStr);
+
+                    // DeepSeek 流式返回的数据结构：
+                    // {"id":"xxx","choices":[{"delta":{"content":"文字"},"index":0}]}
+                    const delta = parsed.choices?.[0]?.delta;
+                    if (delta) {
+                        // 普通内容
+                        const content = delta.content || '';
                         if (content) {
                             fullContent += content;
                             if (onChunk) {
                                 onChunk(content, fullContent);
                             }
                         }
-                    } catch (e) {
-                        // 如果解析失败，可能是格式问题，忽略
-                        console.debug('解析 SSE 数据失败:', dataStr);
                     }
+                } catch (e) {
+                    // 解析失败时打印日志（方便调试）
+                    console.debug('SSE 解析失败:', jsonStr.substring(0, 100) + '...');
                 }
             }
         }
 
-        // 处理剩余的 buffer
+        // 处理缓冲区中剩余的数据
         if (buffer.trim()) {
             const trimmedLine = buffer.trim();
             if (trimmedLine.startsWith('data: ')) {
-                const dataStr = trimmedLine.slice(6);
-                if (dataStr !== '[DONE]') {
+                const jsonStr = trimmedLine.slice(6);
+                if (jsonStr !== '[DONE]') {
                     try {
-                        const parsed = JSON.parse(dataStr);
-                        const content = parsed.choices?.[0]?.delta?.content || '';
-                        if (content) {
-                            fullContent += content;
-                            if (onChunk) {
-                                onChunk(content, fullContent);
+                        const parsed = JSON.parse(jsonStr);
+                        const delta = parsed.choices?.[0]?.delta;
+                        if (delta) {
+                            const content = delta.content || '';
+                            if (content) {
+                                fullContent += content;
+                                if (onChunk) {
+                                    onChunk(content, fullContent);
+                                }
                             }
                         }
                     } catch (e) {
@@ -414,16 +431,16 @@ async function getFallbackReading(cards) {
     try {
         const response = await fetch(AI_CONFIG.FALLBACK_DATA);
         if (!response.ok) throw new Error('加载降级数据失败');
-        
+
         const readings = await response.json();
         let result = '📖 塔罗解读（预生成版本）：\n\n';
-        
+
         cards.forEach(card => {
             const orientation = card.isReversed ? 'reversed' : 'upright';
             const reading = readings[card.id]?.[orientation] || '暂无解读';
             result += `【${card.name}】${card.isReversed ? '（逆位）' : '（正位）'}\n${reading}\n\n`;
         });
-        
+
         return {
             success: true,
             reading: result,
@@ -528,16 +545,16 @@ async function getFallbackReading(cards) {
     try {
         const response = await fetch(AI_CONFIG.FALLBACK_DATA);
         if (!response.ok) throw new Error('加载降级数据失败');
-        
+
         const readings = await response.json();
         let result = '📖 塔罗解读（预生成版本）：\n\n';
-        
+
         cards.forEach(card => {
             const orientation = card.isReversed ? 'reversed' : 'upright';
             const reading = readings[card.id]?.[orientation] || '暂无解读';
             result += `【${card.name}】${card.isReversed ? '（逆位）' : '（正位）'}\n${reading}\n\n`;
         });
-        
+
         return {
             success: true,
             reading: result,
@@ -627,7 +644,7 @@ function updateReading(cards) {
 
 function updateReadingWithAI(cards, reading) {
     const resultDiv = document.getElementById('readingResult');
-    
+
     // 牌面信息
     let cardInfo = '';
     cards.forEach((card) => {
@@ -642,7 +659,7 @@ function updateReadingWithAI(cards, reading) {
             </div>
         `;
     });
-    
+
     // 使用 marked 渲染 Markdown
     let formattedReading = '';
     try {
@@ -663,7 +680,7 @@ function updateReadingWithAI(cards, reading) {
             .map(line => line.trim() ? `<p>${line}</p>` : '<br>')
             .join('');
     }
-    
+
     resultDiv.innerHTML = `
         <h3>🔮 AI 塔罗解读</h3>
         <div style="margin-bottom: 15px; padding: 12px; background: rgba(255,215,0,0.05); border-radius: 10px;">
@@ -710,9 +727,9 @@ async function drawCards(count = 3) {
     const contentDiv = document.getElementById('typewriter-content');
     const statusSpan = document.getElementById('typing-status');
     
-    // 创建打字机实例
     let typewriter = null;
     let fullContent = '';
+    let hasStarted = false;
     
     try {
         // 调用流式 API
@@ -722,10 +739,15 @@ async function drawCards(count = 3) {
             // onChunk: 每收到一个 chunk 就更新
             (chunk, accumulated) => {
                 fullContent = accumulated;
-                if (!typewriter) {
-                    // 首次收到内容，初始化打字机
+                
+                if (!hasStarted) {
+                    hasStarted = true;
+                    // 清空占位文本
+                    contentDiv.innerHTML = '';
+                    
+                    // 创建打字机
                     typewriter = new Typewriter(contentDiv, {
-                        speed: AI_CONFIG.TYPING_SPEED,
+                        speed: AI_CONFIG.TYPING_SPEED || 20,
                         renderFn: (text) => {
                             try {
                                 if (typeof marked !== 'undefined') {
@@ -741,40 +763,53 @@ async function drawCards(count = 3) {
                             statusSpan.style.color = '#69f0ae';
                         }
                     });
-                }
-                
-                // 如果打字机还没开始，或者已经完成，重新开始
-                if (!typewriter.isRunning) {
                     typewriter.start(fullContent);
                 }
+                
                 statusSpan.textContent = `✍️ 正在书写... (${fullContent.length} 字符)`;
             },
             // onComplete: 流式完成
             (result) => {
-                if (!typewriter) {
-                    // 如果没有打字机（极少情况），直接显示
-                    try {
-                        contentDiv.innerHTML = marked.parse(fullContent || result.reading);
-                    } catch (e) {
-                        contentDiv.textContent = fullContent || result.reading;
-                    }
-                    statusSpan.textContent = '✅ 解读完成';
-                    statusSpan.style.color = '#69f0ae';
+                if (!hasStarted && result.reading) {
+                    // 如果没有收到任何 chunk（降级方案），直接显示
+                    hasStarted = true;
+                    contentDiv.innerHTML = '';
+                    typewriter = new Typewriter(contentDiv, {
+                        speed: AI_CONFIG.TYPING_SPEED || 20,
+                        renderFn: (text) => {
+                            try {
+                                if (typeof marked !== 'undefined') {
+                                    return marked.parse(text);
+                                }
+                                return text;
+                            } catch (e) {
+                                return text;
+                            }
+                        },
+                        onComplete: () => {
+                            statusSpan.textContent = '✅ 解读完成';
+                            statusSpan.style.color = '#69f0ae';
+                        }
+                    });
+                    typewriter.start(result.reading);
+                    statusSpan.textContent = `✍️ 正在书写... (${result.reading.length} 字符)`;
                 }
             }
         );
         
-        // 如果 result 已经有内容但没触发流式（fallback 情况）
-        if (result && result.reading && !fullContent) {
+        // 如果 result 直接返回了内容（非流式 fallback）
+        if (result && result.reading && !hasStarted) {
+            hasStarted = true;
             fullContent = result.reading;
+            contentDiv.innerHTML = '';
             typewriter = new Typewriter(contentDiv, {
-                speed: AI_CONFIG.TYPING_SPEED,
+                speed: AI_CONFIG.TYPING_SPEED || 20,
                 renderFn: (text) => {
                     try {
                         if (typeof marked !== 'undefined') {
                             return marked.parse(text);
                         }
-                        return text.split('\n').map(line => line.trim() ? `<p>${line}</p>` : '<br>').join('');
+                        return text;
                     } catch (e) {
                         return text;
                     }
@@ -785,6 +820,7 @@ async function drawCards(count = 3) {
                 }
             });
             typewriter.start(fullContent);
+            statusSpan.textContent = `✍️ 正在书写... (${fullContent.length} 字符)`;
         }
         
     } catch (error) {
@@ -836,7 +872,7 @@ function resetAll() {
 // ============================================
 // 初始化
 // ============================================
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     renderCards([]);
     console.log('🔮 塔罗占卜已加载');
     console.log(`📚 共 ${TAROT_DECK.length} 张牌`);
