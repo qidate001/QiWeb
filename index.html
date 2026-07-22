@@ -167,26 +167,18 @@
         <script>
             document.getElementById('year').textContent = new Date().getFullYear();
 
-            // ========== 动态设置所有链接和版本号 ==========
             document.addEventListener('DOMContentLoaded', function () {
-                // 设置版本号
                 document.getElementById('toolkitVersion').textContent = APP_CONFIG.version;
-
-                // 设置工具包首页链接
-                document.getElementById('toolkitHomeLink').href = APP_CONFIG.toolkit.home;
-
-                // 设置所有下载链接
-                document.getElementById('releaseCard').href = APP_CONFIG.toolkit.release;
-                document.getElementById('dlFullExe').href = APP_CONFIG.toolkit.fullExe;
-                document.getElementById('dlFullRar').href = APP_CONFIG.toolkit.fullRar;
-                document.getElementById('dlLiteExe').href = APP_CONFIG.toolkit.liteExe;
-                document.getElementById('dlLiteRar').href = APP_CONFIG.toolkit.liteRar;
-
-                // 设置辅助链接
-                document.getElementById('licenseLink').href = APP_CONFIG.toolkit.license;
-                document.getElementById('baiduLink').href = APP_CONFIG.toolkit.baiduPan;
-                document.getElementById('githubLink').href = APP_CONFIG.toolkit.github;
-                document.getElementById('eulaLink').href = APP_CONFIG.toolkit.eula;
+                document.getElementById('toolkitHomeLink').href = APP_CONFIG.urls.release;
+                document.getElementById('releaseCard').href = APP_CONFIG.urls.release;
+                document.getElementById('dlFullExe').href = APP_CONFIG.urls.fullExe;
+                document.getElementById('dlFullRar').href = APP_CONFIG.urls.fullRar;
+                document.getElementById('dlLiteExe').href = APP_CONFIG.urls.liteExe;
+                document.getElementById('dlLiteRar').href = APP_CONFIG.urls.liteRar;
+                document.getElementById('licenseLink').href = APP_CONFIG.urls.license;
+                document.getElementById('baiduLink').href = APP_CONFIG.urls.baiduPan;
+                document.getElementById('githubLink').href = APP_CONFIG.urls.github;
+                document.getElementById('eulaLink').href = APP_CONFIG.urls.eula;
             });
         </script>
     </footer>
