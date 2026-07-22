@@ -495,78 +495,78 @@ function drawRandomCards(n) {
 // AI 解读功能
 // ============================================
 
-async function getAIReading(cards, question = '') {
-    if (!AI_CONFIG.ENABLE_AI) {
-        return getFallbackReading(cards);
-    }
+// async function getAIReading(cards, question = '') {
+//     if (!AI_CONFIG.ENABLE_AI) {
+//         return getFallbackReading(cards);
+//     }
 
-    try {
-        const response = await fetch(AI_CONFIG.WORKER_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                cards: cards.map(card => ({
-                    id: card.id,
-                    name: card.name,
-                    nameEn: card.nameEn,
-                    isReversed: card.isReversed,
-                })),
-                question: question,
-            }),
-        });
+//     try {
+//         const response = await fetch(AI_CONFIG.WORKER_URL, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({
+//                 cards: cards.map(card => ({
+//                     id: card.id,
+//                     name: card.name,
+//                     nameEn: card.nameEn,
+//                     isReversed: card.isReversed,
+//                 })),
+//                 question: question,
+//             }),
+//         });
 
-        if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.error || `HTTP ${response.status}`);
-        }
+//         if (!response.ok) {
+//             const errorData = await response.json().catch(() => ({}));
+//             throw new Error(errorData.error || `HTTP ${response.status}`);
+//         }
 
-        const data = await response.json();
+//         const data = await response.json();
 
-        if (!data.success) {
-            throw new Error(data.error || 'AI 解读失败');
-        }
+//         if (!data.success) {
+//             throw new Error(data.error || 'AI 解读失败');
+//         }
 
-        return {
-            success: true,
-            reading: data.reading,
-            cards: data.cards,
-            timestamp: data.timestamp,
-        };
+//         return {
+//             success: true,
+//             reading: data.reading,
+//             cards: data.cards,
+//             timestamp: data.timestamp,
+//         };
 
-    } catch (error) {
-        console.error('AI 解读失败:', error);
-        return getFallbackReading(cards);
-    }
-}
+//     } catch (error) {
+//         console.error('AI 解读失败:', error);
+//         return getFallbackReading(cards);
+//     }
+// }
 
-async function getFallbackReading(cards) {
-    try {
-        const response = await fetch(AI_CONFIG.FALLBACK_DATA);
-        if (!response.ok) throw new Error('加载降级数据失败');
+// async function getFallbackReading(cards) {
+//     try {
+//         const response = await fetch(AI_CONFIG.FALLBACK_DATA);
+//         if (!response.ok) throw new Error('加载降级数据失败');
 
-        const readings = await response.json();
-        let result = '📖 塔罗解读（预生成版本）：\n\n';
+//         const readings = await response.json();
+//         let result = '📖 塔罗解读（预生成版本）：\n\n';
 
-        cards.forEach(card => {
-            const orientation = card.isReversed ? 'reversed' : 'upright';
-            const reading = readings[card.id]?.[orientation] || '暂无解读';
-            result += `【${card.name}】${card.isReversed ? '（逆位）' : '（正位）'}\n${reading}\n\n`;
-        });
+//         cards.forEach(card => {
+//             const orientation = card.isReversed ? 'reversed' : 'upright';
+//             const reading = readings[card.id]?.[orientation] || '暂无解读';
+//             result += `【${card.name}】${card.isReversed ? '（逆位）' : '（正位）'}\n${reading}\n\n`;
+//         });
 
-        return {
-            success: true,
-            reading: result,
-            isFallback: true,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            error: '无法获取解读，请稍后重试',
-        };
-    }
-}
+//         return {
+//             success: true,
+//             reading: result,
+//             isFallback: true,
+//         };
+//     } catch (error) {
+//         return {
+//             success: false,
+//             error: '无法获取解读，请稍后重试',
+//         };
+//     }
+// }
 
 // ============================================
 // 渲染函数
@@ -706,11 +706,9 @@ async function drawCards(count = 3) {
     const cards = drawRandomCards(count);
     renderCards(cards);
     
-    // 准备解读容器
     const resultDiv = document.getElementById('readingResult');
     const cardInfo = buildCardInfoHTML(cards);
     
-    // 显示加载状态和牌面信息
     resultDiv.innerHTML = `
         <h3>🔮 AI 塔罗解读</h3>
         <div style="margin-bottom: 15px; padding: 12px; background: rgba(255,215,0,0.05); border-radius: 10px;">
@@ -728,24 +726,18 @@ async function drawCards(count = 3) {
     const statusSpan = document.getElementById('typing-status');
     
     let typewriter = null;
-    let fullContent = '';
     let hasStarted = false;
     
     try {
-        // 调用流式 API
-        const result = await getAIReading(
-            cards, 
+        // ✅ 调用流式版本，传入 onChunk 和 onComplete
+        await getAIReading(
+            cards,
             '',
-            // onChunk: 每收到一个 chunk 就更新
+            // onChunk: 每收到一段文本就更新
             (chunk, accumulated) => {
-                fullContent = accumulated;
-                
                 if (!hasStarted) {
                     hasStarted = true;
-                    // 清空占位文本
                     contentDiv.innerHTML = '';
-                    
-                    // 创建打字机
                     typewriter = new Typewriter(contentDiv, {
                         speed: AI_CONFIG.TYPING_SPEED || 20,
                         renderFn: (text) => {
@@ -753,7 +745,7 @@ async function drawCards(count = 3) {
                                 if (typeof marked !== 'undefined') {
                                     return marked.parse(text);
                                 }
-                                return text.split('\n').map(line => line.trim() ? `<p>${line}</p>` : '<br>').join('');
+                                return text;
                             } catch (e) {
                                 return text;
                             }
@@ -763,15 +755,22 @@ async function drawCards(count = 3) {
                             statusSpan.style.color = '#69f0ae';
                         }
                     });
-                    typewriter.start(fullContent);
+                    typewriter.start(accumulated);
+                } else {
+                    // 如果打字机已存在，更新内容（accumulated 是完整内容）
+                    if (typewriter) {
+                        // 可以停止旧打字机，重新开始新内容（因为打字机通常只能从头开始）
+                        // 更好的做法：直接替换显示全部内容
+                        typewriter.stop();
+                        typewriter.start(accumulated);
+                    }
                 }
-                
-                statusSpan.textContent = `✍️ 正在书写... (${fullContent.length} 字符)`;
+                statusSpan.textContent = `✍️ 正在书写... (${accumulated.length} 字符)`;
             },
-            // onComplete: 流式完成
+            // onComplete: 流式结束（可选）
             (result) => {
-                if (!hasStarted && result.reading) {
-                    // 如果没有收到任何 chunk（降级方案），直接显示
+                if (!hasStarted && result && result.reading) {
+                    // 如果直接返回了完整内容（降级方案），直接显示
                     hasStarted = true;
                     contentDiv.innerHTML = '';
                     typewriter = new Typewriter(contentDiv, {
@@ -796,33 +795,6 @@ async function drawCards(count = 3) {
                 }
             }
         );
-        
-        // 如果 result 直接返回了内容（非流式 fallback）
-        if (result && result.reading && !hasStarted) {
-            hasStarted = true;
-            fullContent = result.reading;
-            contentDiv.innerHTML = '';
-            typewriter = new Typewriter(contentDiv, {
-                speed: AI_CONFIG.TYPING_SPEED || 20,
-                renderFn: (text) => {
-                    try {
-                        if (typeof marked !== 'undefined') {
-                            return marked.parse(text);
-                        }
-                        return text;
-                    } catch (e) {
-                        return text;
-                    }
-                },
-                onComplete: () => {
-                    statusSpan.textContent = '✅ 解读完成';
-                    statusSpan.style.color = '#69f0ae';
-                }
-            });
-            typewriter.start(fullContent);
-            statusSpan.textContent = `✍️ 正在书写... (${fullContent.length} 字符)`;
-        }
-        
     } catch (error) {
         console.error('解读出错:', error);
         contentDiv.innerHTML = `
