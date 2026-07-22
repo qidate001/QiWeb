@@ -2,175 +2,194 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <title>齐的网站</title>
-  <link rel="stylesheet" href="/css/style.css" />
-  <link rel="stylesheet" href="/css/index_style.css" />
-  <link rel="stylesheet" href="/css/gta5lo.css" />
-  <link rel="stylesheet" href="/qistoolkit3/css/qistoolkit3-page.css" />
-  <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
-  <script src="/js/config.js"></script>
+    <meta charset="utf-8" />
+    <title>齐的网站</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/index_style.css" />
+    <link rel="stylesheet" href="/css/gta5lo.css" />
+    <link rel="stylesheet" href="/qistoolkit3/css/qistoolkit3-page.css" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <script src="/js/config.js"></script>
 </head>
 
 <body>
-  <theme-button value="dark" id="btn" size="3"></theme-button>
+    <theme-button value="dark" id="btn" size="3"></theme-button>
 
-  <header>
-    <h1>欢迎来到齐的网站</h1>
-    <nav>
-      <ul>
-        <li><a href="/index.html">首页</a></li>
-        <li><a href="/about.html">关于我</a></li>
-        <li><a href="/contact.html">联系我</a></li>
-      </ul>
-    </nav>
-  </header>
+    <header>
+        <h1>欢迎来到齐的网站</h1>
+        <nav>
+            <ul>
+                <li><a href="/index.html">首页</a></li>
+                <li><a href="/about.html">关于我</a></li>
+                <li><a href="/contact.html">联系我</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <main>
-    <!-- ========== 齐的工具包3 下载区 ========== -->
-    <h2>
-      <a id="toolkitHomeLink" href="./qistoolkit3" style="text-decoration: none;">🛠️ 齐的工具包3 </a>
-      <span id="toolkitVersion" style="font-size:0.7rem;font-weight:400;color:#aaa;margin-left:12px;">#</span>
-    </h2>
+    <main>
+        <!-- ========== 齐的工具包3 下载区 ========== -->
+        <h2>
+            <a id="toolkitHomeLink" href="./qistoolkit3" style="text-decoration: none;">🛠️ 齐的工具包3 </a>
+            <span id="toolkitVersion" style="font-size:0.7rem;font-weight:400;color:#aaa;margin-left:12px;">#</span>
+        </h2>
 
-    <div class="toolkit-grid">
-      <!-- ===== 左侧：Releases 大卡片 ===== -->
-      <a id="releaseCard" href="#" target="_blank" class="toolkit-card card-release-big">
-        <div class="card-glow"></div>
-        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 0;">
-          <div style="font-size:3.2rem;margin-bottom:8px;">📦</div>
-          <h3 style="margin:0;font-size:1.5rem;font-weight:700;">Releases</h3>
-          <p style="margin:6px 0 0 0;font-size:0.9rem;opacity:0.8;">查看所有版本 &amp; 更新日志</p>
-          <div style="margin-top:14px;font-size:1.2rem;opacity:0.6;transition:all 0.3s ease;">点击进入 ➜</div>
+        <div class="toolkit-grid">
+            <!-- ===== 左侧：Releases 大卡片 ===== -->
+            <a id="releaseCard" href="#" target="_blank" class="toolkit-card card-release-big">
+                <div class="card-glow"></div>
+                <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 0;">
+                    <div style="font-size:3.2rem;margin-bottom:8px;">📦</div>
+                    <h3 style="margin:0;font-size:1.5rem;font-weight:700;">Releases</h3>
+                    <p style="margin:6px 0 0 0;font-size:0.9rem;opacity:0.8;">查看所有版本 &amp; 更新日志</p>
+                    <div style="margin-top:14px;font-size:1.2rem;opacity:0.6;transition:all 0.3s ease;">点击进入 ➜</div>
+                </div>
+            </a>
+
+            <!-- ===== 右侧：四个版本卡片 ===== -->
+            <div class="toolkit-right-grid">
+                <!-- 完整版 EXE -->
+                <a id="dlFullExe" href="#" target="_blank" class="toolkit-card card-exe">
+                    <div class="card-glow"></div>
+                    <div class="toolkit-card-icon">⚡</div>
+                    <div class="toolkit-card-content">
+                        <h4>完整版 EXE</h4>
+                        <p>全功能 · 安装包</p>
+                    </div>
+                    <div class="card-arrow">➜</div>
+                </a>
+
+                <!-- 完整版 RAR -->
+                <a id="dlFullRar" href="#" target="_blank" class="toolkit-card card-rar">
+                    <div class="card-glow"></div>
+                    <div class="toolkit-card-icon">🗜️</div>
+                    <div class="toolkit-card-content">
+                        <h4>完整版 RAR</h4>
+                        <p>全功能 · 压缩包</p>
+                    </div>
+                    <div class="card-arrow">➜</div>
+                </a>
+
+                <!-- 基础版 EXE -->
+                <a id="dlLiteExe" href="#" target="_blank" class="toolkit-card card-lite-exe">
+                    <div class="card-glow"></div>
+                    <div class="toolkit-card-icon">🔹</div>
+                    <div class="toolkit-card-content">
+                        <h4>基础版 EXE</h4>
+                        <p>轻量 · 安装包</p>
+                    </div>
+                    <div class="card-arrow">➜</div>
+                </a>
+
+                <!-- 基础版 RAR -->
+                <a id="dlLiteRar" href="#" target="_blank" class="toolkit-card card-lite-rar">
+                    <div class="card-glow"></div>
+                    <div class="toolkit-card-icon">📁</div>
+                    <div class="toolkit-card-content">
+                        <h4>基础版 RAR</h4>
+                        <p>轻量 · 压缩包</p>
+                    </div>
+                    <div class="card-arrow">➜</div>
+                </a>
+            </div>
         </div>
-      </a>
 
-      <!-- ===== 右侧：四个版本卡片 ===== -->
-      <div class="toolkit-right-grid">
-        <!-- 完整版 EXE -->
-        <a id="dlFullExe" href="#" target="_blank" class="toolkit-card card-exe">
-          <div class="card-glow"></div>
-          <div class="toolkit-card-icon">⚡</div>
-          <div class="toolkit-card-content">
-            <h4>完整版 EXE</h4>
-            <p>全功能 · 安装包</p>
-          </div>
-          <div class="card-arrow">➜</div>
-        </a>
+        <div class="toolkit-legal-bar">
+            <p>
+                <span style="color: #8bc34a;">💡 本软件完全免费</span> ·
+                <a id="licenseLink" href="#" target="_blank"
+                    style="color: #64b5f6; text-decoration: underline;">完全开源</a>
+                ！
+                <span style="color: #aaa; font-weight: 300;">
+                    若难以访问 GitHub，可尝试
+                    <a id="baiduLink" href="#" target="_blank"
+                        style="color: #64b5f6; text-decoration: underline;">百度网盘</a>
+                    ，但仍推荐从
+                    <a id="githubLink" href="#" target="_blank"
+                        style="color: #64b5f6; text-decoration: underline;">GitHub Releases</a>
+                    下载最新版本。
+                </span>
+            </p>
+            <p style="margin-top: 8px; font-size: 0.95rem;">
+                <strong style="color: #f0c27a;">📌 若您点击下载或安装本软件，表示您已阅读、理解并同意
+                    <a id="eulaLink" href="#" target="_blank"
+                        style="color: #64b5f6; text-decoration: underline;">EULA</a>
+                    中所述所有条款。若不同意，请勿下载本软件。
+                </strong>
+            </p>
+        </div>
+        <!-- ========== 工具包下载区结束 ========== -->
 
-        <!-- 完整版 RAR -->
-        <a id="dlFullRar" href="#" target="_blank" class="toolkit-card card-rar">
-          <div class="card-glow"></div>
-          <div class="toolkit-card-icon">🗜️</div>
-          <div class="toolkit-card-content">
-            <h4>完整版 RAR</h4>
-            <p>全功能 · 压缩包</p>
-          </div>
-          <div class="card-arrow">➜</div>
-        </a>
+        <!-- ========== GTA双按钮卡片区 ========== -->
+        <h2>🎮 Grand Theft Auto V 载具收藏</h2>
 
-        <!-- 基础版 EXE -->
-        <a id="dlLiteExe" href="#" target="_blank" class="toolkit-card card-lite-exe">
-          <div class="card-glow"></div>
-          <div class="toolkit-card-icon">🔹</div>
-          <div class="toolkit-card-content">
-            <h4>基础版 EXE</h4>
-            <p>轻量 · 安装包</p>
-          </div>
-          <div class="card-arrow">➜</div>
-        </a>
+        <div class="game-buttons-container">
+            <!-- 线上模式卡片 -->
+            <a href="./gta/index.html?version=gta5ol" class="game-card card-online">
+                <div class="card-glow"></div>
+                <div class="card-icon">🌐</div>
+                <div class="card-content">
+                    <h3 class="card-title">GTA5 Online</h3>
+                    <p class="card-sub">稀有载具收集 · 线上模式</p>
+                </div>
+                <div class="card-arrow">➜</div>
+            </a>
 
-        <!-- 基础版 RAR -->
-        <a id="dlLiteRar" href="#" target="_blank" class="toolkit-card card-lite-rar">
-          <div class="card-glow"></div>
-          <div class="toolkit-card-icon">📁</div>
-          <div class="toolkit-card-content">
-            <h4>基础版 RAR</h4>
-            <p>轻量 · 压缩包</p>
-          </div>
-          <div class="card-arrow">➜</div>
-        </a>
-      </div>
-    </div>
+            <!-- 故事模式卡片 -->
+            <a href="./gta/index.html?version=gta5" class="game-card card-story">
+                <div class="card-glow"></div>
+                <div class="card-icon">🚗</div>
+                <div class="card-content">
+                    <h3 class="card-title">GTA5 故事模式</h3>
+                    <p class="card-sub">稀有载具收集 · 故事模式</p>
+                </div>
+                <div class="card-arrow">➜</div>
+            </a>
+        </div>
 
-    <div class="toolkit-legal-bar">
-      <p>
-        <span style="color: #8bc34a;">💡 本软件完全免费</span> ·
-        <a id="licenseLink" href="#" target="_blank" style="color: #64b5f6; text-decoration: underline;">完全开源</a>
-        ！
-        <span style="color: #aaa; font-weight: 300;">
-          若难以访问 GitHub，可尝试
-          <a id="baiduLink" href="#" target="_blank" style="color: #64b5f6; text-decoration: underline;">百度网盘</a>
-          ，但仍推荐从
-          <a id="githubLink" href="#" target="_blank" style="color: #64b5f6; text-decoration: underline;">GitHub Releases</a>
-          下载最新版本。
-        </span>
-      </p>
-      <p style="margin-top: 8px; font-size: 0.95rem;">
-        <strong style="color: #f0c27a;">📌 若您点击下载或安装本软件，表示您已阅读、理解并同意
-          <a id="eulaLink" href="#" target="_blank" style="color: #64b5f6; text-decoration: underline;">EULA</a>
-          中所述所有条款。若不同意，请勿下载本软件。
-        </strong>
-      </p>
-    </div>
-    <!-- ========== 工具包下载区结束 ========== -->
+        <!-- ========== 塔罗占卜入口 ========== -->
+<h2>🔮 塔罗占卜</h2>
 
-    <!-- ========== GTA双按钮卡片区 ========== -->
-    <h2>🎮 Grand Theft Auto V 载具收藏</h2>
-
-    <div class="game-buttons-container">
-      <!-- 线上模式卡片 -->
-      <a href="./gta/index.html?version=gta5ol" class="game-card card-online">
+<div class="tarot-entry-container">
+    <a href="/tarot.html" class="tarot-card">
         <div class="card-glow"></div>
-        <div class="card-icon">🌐</div>
+        <div class="card-icon">🃏</div>
         <div class="card-content">
-          <h3 class="card-title">GTA5 Online</h3>
-          <p class="card-sub">稀有载具收集 · 线上模式</p>
+            <h3 class="card-title">AI 塔罗占卜</h3>
+            <p class="card-sub">78张完整牌组 · AI智能解读</p>
         </div>
         <div class="card-arrow">➜</div>
-      </a>
+    </a>
+</div>
+    </main>
 
-      <!-- 故事模式卡片 -->
-      <a href="./gta/index.html?version=gta5" class="game-card card-story">
-        <div class="card-glow"></div>
-        <div class="card-icon">🚗</div>
-        <div class="card-content">
-          <h3 class="card-title">GTA5 故事模式</h3>
-          <p class="card-sub">稀有载具收集 · 故事模式</p>
-        </div>
-        <div class="card-arrow">➜</div>
-      </a>
-    </div>
-  </main>
+    <footer>
+        <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
 
-  <footer>
-    <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-      
-      // ========== 动态设置所有链接和版本号 ==========
-      document.addEventListener('DOMContentLoaded', function() {
-        // 设置版本号
-        document.getElementById('toolkitVersion').textContent = APP_CONFIG.version;
-        
-        // 设置工具包首页链接
-        document.getElementById('toolkitHomeLink').href = APP_CONFIG.toolkit.home;
-        
-        // 设置所有下载链接
-        document.getElementById('releaseCard').href = APP_CONFIG.toolkit.release;
-        document.getElementById('dlFullExe').href = APP_CONFIG.toolkit.fullExe;
-        document.getElementById('dlFullRar').href = APP_CONFIG.toolkit.fullRar;
-        document.getElementById('dlLiteExe').href = APP_CONFIG.toolkit.liteExe;
-        document.getElementById('dlLiteRar').href = APP_CONFIG.toolkit.liteRar;
-        
-        // 设置辅助链接
-        document.getElementById('licenseLink').href = APP_CONFIG.toolkit.license;
-        document.getElementById('baiduLink').href = APP_CONFIG.toolkit.baiduPan;
-        document.getElementById('githubLink').href = APP_CONFIG.toolkit.github;
-        document.getElementById('eulaLink').href = APP_CONFIG.toolkit.eula;
-      });
-    </script>
-  </footer>
+            // ========== 动态设置所有链接和版本号 ==========
+            document.addEventListener('DOMContentLoaded', function () {
+                // 设置版本号
+                document.getElementById('toolkitVersion').textContent = APP_CONFIG.version;
+
+                // 设置工具包首页链接
+                document.getElementById('toolkitHomeLink').href = APP_CONFIG.toolkit.home;
+
+                // 设置所有下载链接
+                document.getElementById('releaseCard').href = APP_CONFIG.toolkit.release;
+                document.getElementById('dlFullExe').href = APP_CONFIG.toolkit.fullExe;
+                document.getElementById('dlFullRar').href = APP_CONFIG.toolkit.fullRar;
+                document.getElementById('dlLiteExe').href = APP_CONFIG.toolkit.liteExe;
+                document.getElementById('dlLiteRar').href = APP_CONFIG.toolkit.liteRar;
+
+                // 设置辅助链接
+                document.getElementById('licenseLink').href = APP_CONFIG.toolkit.license;
+                document.getElementById('baiduLink').href = APP_CONFIG.toolkit.baiduPan;
+                document.getElementById('githubLink').href = APP_CONFIG.toolkit.github;
+                document.getElementById('eulaLink').href = APP_CONFIG.toolkit.eula;
+            });
+        </script>
+    </footer>
 </body>
 
 </html>
