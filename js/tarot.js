@@ -2,6 +2,34 @@
  * tarot.js - 塔罗占卜核心逻辑
  */
 
+// ============================================
+// 简易 Markdown 解析器（降级方案）
+// ============================================
+function simpleMarkdown(text) {
+    if (!text) return '';
+    // 转义 HTML 特殊字符（防止注入）
+    let html = text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+
+    // 粗体 **text**
+    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    // 斜体 *text* 或 _text_
+    html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+    html = html.replace(/_(.+?)_/g, '<em>$1</em>');
+    // 行内代码 `code`
+    html = html.replace(/`(.+?)`/g, '<code>$1</code>');
+    // 换行（保留段落）
+    html = html.replace(/\n/g, '<br>');
+    // 简单的标题（可选）
+    html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+    html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+    html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+    return html;
+}
 
 // ============================================
 // 状态
@@ -10,7 +38,6 @@ let currentCards = [];
 
 // 当前选中的牌阵 ID
 let currentSpreadId = 'three'; // 默认三牌
-
 
 // ============================================
 // 辅助函数
@@ -141,6 +168,20 @@ async function handleDraw() {
     let typewriter = null;
     let hasStarted = false;
 
+    // ---- 定义渲染函数（支持降级） ----
+    const renderMarkdown = (text) => {
+        try {
+            if (typeof marked !== 'undefined') {
+                return marked.parse(text);
+            }
+            // 降级：使用简易解析
+            return simpleMarkdown(text);
+        } catch (e) {
+            console.warn('Markdown 解析失败，使用简易解析:', e);
+            return simpleMarkdown(text);
+        }
+    };
+
     try {
         await getAIReading(
             cards,
@@ -153,15 +194,15 @@ async function handleDraw() {
                 if (!typewriter) {
                     typewriter = new Typewriter(contentDiv, {
                         speed: AI_CONFIG.TYPING_SPEED,
-                        renderFn: (text) => {
-                            try {
-                                if (typeof marked !== 'undefined') return marked.parse(text);
-                                return text;
-                            } catch (e) { return text; }
-                        },
+                        renderFn: renderMarkdown,
                         onComplete: () => {
                             statusSpan.textContent = '✅ 解读完成';
                             statusSpan.style.color = '#69f0ae';
+                            // 完成时再强制渲染一次，确保完整内容正确
+                            if (typewriter) {
+                                const finalText = typewriter.fullContent;
+                                contentDiv.innerHTML = renderMarkdown(finalText);
+                            }
                         }
                     });
                     typewriter.start(accumulated);
@@ -176,15 +217,15 @@ async function handleDraw() {
                     contentDiv.innerHTML = '';
                     typewriter = new Typewriter(contentDiv, {
                         speed: AI_CONFIG.TYPING_SPEED,
-                        renderFn: (text) => {
-                            try {
-                                if (typeof marked !== 'undefined') return marked.parse(text);
-                                return text;
-                            } catch (e) { return text; }
-                        },
+                        renderFn: renderMarkdown,
                         onComplete: () => {
                             statusSpan.textContent = '✅ 解读完成';
                             statusSpan.style.color = '#69f0ae';
+                            // 完成时再强制渲染一次，确保完整内容正确
+                            if (typewriter) {
+                                const finalText = typewriter.fullContent;
+                                contentDiv.innerHTML = renderMarkdown(finalText);
+                            }
                         }
                     });
                     typewriter.start(result.reading);
