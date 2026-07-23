@@ -488,6 +488,104 @@ const SPREADS = {
                 </div>
             `;
         }
+    },
+    seasonal: {
+        id: 'seasonal',
+        label: '四季牌阵',
+        badge: '4张',
+        count: 4,
+        description: '牌阵：四季牌阵（4张，十字布局）。仅限春分、夏至、秋分、冬至四个节气使用，用于预测未来一季度的综合运势。上方（火）代表行动力/事业/创造力，下方（水）代表情感/直觉/人际关系，左侧（风）代表思维/计划/沟通，右侧（土）代表物质/健康/财运。',
+        positions: [
+            { label: '↑ 火（行动/事业）' },
+            { label: '↓ 水（情感/人际）' },
+            { label: '← 风（思维/沟通）' },
+            { label: '→ 土（物质/健康）' }
+        ],
+        render: (cards) => {
+            const cardTop = cards[0] ? renderCard(cards[0], 0, '↑ 火 (行动/事业)') : '';
+            const cardBottom = cards[1] ? renderCard(cards[1], 1, '↓ 水 (情感/人际)') : '';
+            const cardLeft = cards[2] ? renderCard(cards[2], 2, '← 风 (思维/沟通)') : '';
+            const cardRight = cards[3] ? renderCard(cards[3], 3, '→ 土 (物质/健康)') : '';
+
+            return `
+                <div style="display:flex; flex-direction:column; align-items:center; gap:15px; padding:10px 0;">
+                    <!-- 上方火牌 -->
+                    <div>${cardTop}</div>
+                    
+                    <!-- 中间行：左侧风、中心留空、右侧土 -->
+                    <div style="display:flex; align-items:center; gap:40px;">
+                        <div>${cardLeft}</div>
+                        <!-- 中间不放牌，增加一个淡淡的象限装饰 -->
+                        <div style="color:#6a5a7a; font-size:0.8rem; width:60px; text-align:center; letter-spacing:2px; border:1px dashed rgba(255,215,0,0.15); border-radius:50%; padding:10px 0; background:rgba(0,0,0,0.2);">
+                            ⚖️<br>季<br>度
+                        </div>
+                        <div>${cardRight}</div>
+                    </div>
+                    
+                    <!-- 下方水牌 -->
+                    <div>${cardBottom}</div>
+                </div>
+            `;
+        }
+    },
+    zodiac: {
+        id: 'zodiac',
+        label: '黄道十二宫牌阵',
+        badge: '12张',
+        count: 12,
+        description: '牌阵：黄道十二宫牌阵（12张，圆形钟表盘布局）。适合占卜年运，或某个问题的12个月逐月发展。1号牌置于正下方（代表起点/第1个月），顺时针依次摆放至12号（终局/第12个月）。此阵极具宏观视野，建议结合占星知识进行深度解读。',
+        positions: [
+            { label: '① 起点 / 一月 (正下)' },
+            { label: '② 二月' },
+            { label: '③ 三月' },
+            { label: '④ 四月' },
+            { label: '⑤ 五月' },
+            { label: '⑥ 六月' },
+            { label: '⑦ 七月 (正上)' },
+            { label: '⑧ 八月' },
+            { label: '⑨ 九月' },
+            { label: '⑩ 十月' },
+            { label: '⑪ 十一月' },
+            { label: '⑫ 终局 / 十二月' }
+        ],
+        render: (cards) => {
+            const radius = 190; // 圆环半径，可根据卡片实际大小微调
+            const baseAngle = 270; // 起点为正下方（6点钟方向）
+            
+            let html = `<div style="position:relative; width:${radius*2+160}px; height:${radius*2+160}px; margin:0 auto; max-width:100%;">`;
+            
+            // 中心装饰（可选）
+            html += `
+                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); 
+                            color:#6a5a7a; font-size:1rem; letter-spacing:2px; z-index:0; 
+                            background:rgba(0,0,0,0.4); width:80px; height:80px; border-radius:50%;
+                            display:flex; align-items:center; justify-content:center; border:1px dashed rgba(255,215,0,0.15);">
+                    🌌<br>年运
+                </div>
+            `;
+
+            // 循环生成12张牌的位置
+            cards.forEach((card, i) => {
+                const angle = baseAngle + i * 30; // 每张牌顺时针旋转30度
+                // 获取对应的位置标签
+                const positionLabel = SPREADS.zodiac.positions[i]?.label || `第${i+1}月`;
+
+                // 注意：renderCard 会根据 slot 自动渲染 label 和 card
+                const cardHtml = renderCard(card, i, positionLabel);
+
+                // 核心技巧：利用 transform 径向平移，并且反向旋转纠正卡片自身角度，使其保持直立
+                html += `
+                    <div style="position:absolute; top:50%; left:50%; width:150px; height:250px;
+                                transform: translate(-50%, -50%) rotate(${angle}deg) translateX(${radius}px) rotate(${-angle}deg);
+                                transform-origin: center center; z-index:1;">
+                        ${cardHtml}
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            return html;
+        }
     }
 };
 
