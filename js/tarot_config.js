@@ -185,7 +185,7 @@ const FALLBACK_MEANINGS = {
     'P侍从': { upright: '学习、实践、稳健', reversed: '懒惰、拖延、缺乏规划' },
     'P骑士': { upright: '效率、稳定、责任', reversed: '固执、守旧、乏味' },
     'P皇后': { upright: '务实、滋养、安全感', reversed: '物质主义、过度保护、浪费' },
-    'P国王': { upright: '财富、稳定、掌控', reversed: '贪婪、保守、滥用财富' }
+    'P国王': { upright: '财富、稳定、掌控', reversed: '贪婪、保守、滥用财富' },
 };
 
 // ============================================

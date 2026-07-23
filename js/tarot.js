@@ -405,6 +405,103 @@ async function getFallbackReading(cards) {
     return { success: true, reading: text, isFallback: true };
 }
 
+
+// ============================================
+// 加载占卜记录
+// ============================================
+async function loadSharedReading(shareCode) {
+    const resultDiv = document.getElementById('readingResult');
+    const spreadArea = document.getElementById('spreadArea');
+
+    // 显示加载状态
+    spreadArea.innerHTML = `<div class="placeholder-text">⏳ 正在加载占卜记录...</div>`;
+    resultDiv.innerHTML = `<p class="placeholder-text">✨ 正在读取历史解读...</p>`;
+
+    try {
+        const response = await fetch(`https://tarot-api.qidate001.workers.dev?share_code=${shareCode}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.error || `HTTP ${response.status}`);
+        }
+
+        const result = await response.json();
+        if (!result.success || !result.data) {
+            throw new Error('数据格式异常');
+        }
+
+        const data = result.data;
+
+        // 1. 还原牌阵
+        // 由于我们需要牌的图片信息，需要将存储的 cards 数据（包含 id, name, nameEn, isReversed）
+        // 与完整的 TAROT_DECK 映射，以获取完整信息。
+        const fullCards = data.cards.map(storedCard => {
+            const deckCard = TAROT_DECK.find(c => c.id === storedCard.id);
+            return {
+                ...deckCard,
+                ...storedCard, // 覆盖 name, nameEn, isReversed
+            };
+        });
+
+        // 临时设置当前牌阵 ID（为了使用正确的 render 函数）
+        // 注意：SPREADS 中可能不存在历史记录的 spreadId，需要做兼容
+        const spreadId = data.spreadId && SPREADS[data.spreadId] ? data.spreadId : 'three';
+        const originalSpreadId = currentSpreadId;
+        currentSpreadId = spreadId;
+
+        // 渲染牌阵
+        renderSpread(fullCards);
+
+        // 2. 渲染解读内容（显示完整的 Markdown）
+        const readingHtml = data.reading 
+            ? (typeof marked !== 'undefined' ? marked.parse(data.reading) : data.reading)
+            : '<p class="placeholder-text">暂无解读内容。</p>';
+
+        const cardInfo = buildCardInfoHTML(fullCards);
+
+        resultDiv.innerHTML = `
+            <h3>🔮 历史占卜解读</h3>
+            ${data.question ? `<p style="color:#b8a0c0; margin-bottom:10px;"><strong>问题：</strong>${data.question}</p>` : ''}
+            <div style="margin-bottom:15px; padding:12px; background:rgba(255,215,0,0.05); border-radius:10px;">
+                ${cardInfo}
+            </div>
+            <div class="markdown-body" style="color:#d8c8e0; line-height:1.8; font-size:0.95rem; max-height:600px; overflow-y:auto; padding:10px;">
+                ${readingHtml}
+            </div>
+            <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,215,0,0.08); color:#6a5a7a; font-size:0.8rem; text-align:right;">
+                📅 ${data.createdAt ? new Date(data.createdAt).toLocaleString('zh-CN') : '时间未知'} 
+                &nbsp;|&nbsp; 🔗 分享码: ${data.shareCode}
+            </div>
+        `;
+
+        // 恢复当前牌阵 ID（避免影响后续操作，但在分享模式下抽牌按钮已隐藏）
+        currentSpreadId = originalSpreadId;
+
+        // 自动翻转所有牌（模拟抽牌效果）
+        fullCards.forEach((_, index) => {
+            setTimeout(() => {
+                const slot = document.querySelector(`.card-slot[data-index="${index}"]`);
+                if (slot) slot.classList.add('flipped');
+            }, CONFIG.FLIP_DELAY_BASE + index * CONFIG.FLIP_DELAY_STEP);
+        });
+
+        console.log('✅ 分享记录加载完成');
+
+    } catch (error) {
+        console.error('加载分享记录失败:', error);
+        spreadArea.innerHTML = `<div class="placeholder-text">⚠️ 无法加载占卜记录</div>`;
+        resultDiv.innerHTML = `
+            <div style="color:#ff7a7a; padding:20px; background:rgba(255,0,0,0.1); border-radius:8px;">
+                ⚠️ 加载失败：${error.message || '请检查分享码是否正确'}
+                <br><small style="color:#6a5a7a;">您可以返回 <a href="/tarot.html" style="color:#ffd700;">首页</a> 重新开始占卜。</small>
+            </div>
+        `;
+    }
+}
+
 // ============================================
 // 辅助 UI 函数
 // ============================================
@@ -563,9 +660,21 @@ class Typewriter {
 // 初始化
 // ============================================
 document.addEventListener('DOMContentLoaded', function () {
-    initSpreadOptions();
-    renderSpread([]);
-    document.getElementById('readingResult').innerHTML = `<p class="placeholder-text">选择牌阵，输入问题后点击「抽牌」</p>`;
-    console.log('🔮 塔罗占卜已加载 (多牌阵版)');
-    console.log(`📚 共 ${TAROT_DECK.length} 张牌，${Object.keys(SPREADS).length} 种牌阵`);
+    if (shareCode) {
+        // 进入分享查看模式
+        console.log(`🔗 正在加载分享记录: ${shareCode}`);
+        loadSharedReading(shareCode);
+        // 隐藏或禁用抽牌、重置等操作按钮
+        document.getElementById('drawBtn').style.display = 'none';
+        document.querySelector('.btn-reset').style.display = 'none';
+        document.getElementById('questionInput').disabled = true;
+        document.getElementById('questionInput').placeholder = '正在查看历史占卜...';
+    } else {
+        // 正常初始化
+        initSpreadOptions();
+        renderSpread([]);
+        document.getElementById('readingResult').innerHTML = `<p class="placeholder-text">选择牌阵，输入问题后点击「抽牌」</p>`;
+        console.log('🔮 塔罗占卜已加载 (多牌阵版)');
+        console.log(`📚 共 ${TAROT_DECK.length} 张牌，${Object.keys(SPREADS).length} 种牌阵`);
+    }
 });
