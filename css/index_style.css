@@ -375,37 +375,38 @@ body.light-theme .toolkit-right-grid .toolkit-card:hover {
    塔罗占卜入口卡片样式
    ======================================== */
 
-/* --- 独立卡片样式 --- */
-.tarot-entry-container {
+/* --- 双卡片弹性容器 --- */
+.tarot-buttons-container {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;           /* 手机端自动换行 */
+    justify-content: center;   /* 水平居中 */
+    align-items: stretch;     /* 让卡片高度一致 */
+    gap: 30px;                /* 卡片间距 */
     margin: 30px 0;
     padding: 10px 0;
 }
 
+/* --- 塔罗卡片通用基础样式 --- */
 .tarot-card {
     position: relative;
     display: flex;
     align-items: center;
     gap: 20px;
     padding: 28px 40px;
-    min-width: 280px;
+    min-width: 260px;
     max-width: 420px;
     flex: 1 1 auto;
     
     border-radius: 18px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-    
     text-decoration: none;
     color: #ffffff;
-    
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
                 box-shadow 0.3s ease;
-    
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.15);
     
-    /* 紫色渐变 - 塔罗神秘风格 */
+    /* 默认紫色渐变 - 塔罗神秘风格 */
     background: linear-gradient(145deg, #2d1a3d, #6a3a7a);
 }
 
@@ -481,13 +482,12 @@ body.light-theme .toolkit-right-grid .toolkit-card:hover {
     opacity: 1;
 }
 
-/* --- 与 GTA 卡片并列的塔罗卡片配色 --- */
-.card-tarot {
-    background: linear-gradient(145deg, #2d1a3d, #6a3a7a) !important;
+/* --- 图鉴卡片：幽蓝配色 --- */
+.tarot-card.card-collection {
+    background: linear-gradient(145deg, #1a2d4a, #2a4a7a);
 }
-
-.card-tarot:hover {
-    box-shadow: 0 18px 45px rgba(106, 58, 122, 0.5) !important;
+.tarot-card.card-collection:hover {
+    box-shadow: 0 18px 45px rgba(42, 74, 122, 0.5);
 }
 
 /* --- 亮色主题适配 --- */
@@ -495,22 +495,18 @@ body.light-theme .tarot-card {
     border-color: rgba(0, 0, 0, 0.08);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
-
 body.light-theme .tarot-card:hover {
-    box-shadow: 0 18px 40px rgba(106, 58, 122, 0.25);
+    box-shadow: 0 18px 45px rgba(106, 58, 122, 0.25);
+}
+body.light-theme .tarot-card.card-collection:hover {
+    box-shadow: 0 18px 45px rgba(42, 74, 122, 0.25);
 }
 
-body.light-theme .card-tarot {
-    border-color: rgba(0, 0, 0, 0.08);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme .card-tarot:hover {
-    box-shadow: 0 18px 40px rgba(106, 58, 122, 0.2);
-}
-
-/* --- 手机适配 --- */
+/* --- 手机屏幕适配 --- */
 @media (max-width: 600px) {
+    .tarot-buttons-container {
+        gap: 20px;
+    }
     .tarot-card {
         min-width: 100%;
         padding: 18px 22px;
