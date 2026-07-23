@@ -638,6 +638,7 @@ async function getAIReading(cards, question = '', onChunk = null, onComplete = n
                 question: question,
                 spreadDescription: spread.description,
                 positions: spread.positions,
+                spreadId: currentSpreadId,
                 stream: true,
             }),
         });
