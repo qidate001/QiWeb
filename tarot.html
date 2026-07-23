@@ -76,6 +76,48 @@
 
     <script src="/js/tarot_config.js"></script>
     <script src="/js/tarot.js"></script>
+    <script>
+        // ============================================
+        // 页面加载后的额外初始化（分享检测）
+        // ============================================
+        (function() {
+            // 检测 URL 中的分享码参数
+            const urlParams = new URLSearchParams(window.location.search);
+            const shareCodeFromUrl = urlParams.get('share_code');
+
+            if (shareCodeFromUrl) {
+                // 进入分享查看模式
+                console.log(`🔗 正在加载分享记录: ${shareCodeFromUrl}`);
+                
+                // 等待 tarot.js 完全加载后再执行
+                // 因为 loadSharedReading 函数在 tarot.js 中定义
+                if (typeof loadSharedReading === 'function') {
+                    loadSharedReading(shareCodeFromUrl);
+                } else {
+                    // 如果 tarot.js 还没加载完，等待一下
+                    window.addEventListener('load', function() {
+                        if (typeof loadSharedReading === 'function') {
+                            loadSharedReading(shareCodeFromUrl);
+                        } else {
+                            console.error('❌ loadSharedReading 函数未找到');
+                        }
+                    });
+                }
+
+                // 隐藏操作按钮，进入只读模式
+                const drawBtn = document.getElementById('drawBtn');
+                const resetBtn = document.querySelector('.btn-reset');
+                const questionInput = document.getElementById('questionInput');
+                
+                if (drawBtn) drawBtn.style.display = 'none';
+                if (resetBtn) resetBtn.style.display = 'none';
+                if (questionInput) {
+                    questionInput.disabled = true;
+                    questionInput.placeholder = '📖 正在查看历史占卜...';
+                }
+            }
+        })();
+    </script>
 </body>
 
 </html>

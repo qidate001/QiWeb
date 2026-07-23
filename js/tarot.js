@@ -660,21 +660,10 @@ class Typewriter {
 // 初始化
 // ============================================
 document.addEventListener('DOMContentLoaded', function () {
-    if (shareCode) {
-        // 进入分享查看模式
-        console.log(`🔗 正在加载分享记录: ${shareCode}`);
-        loadSharedReading(shareCode);
-        // 隐藏或禁用抽牌、重置等操作按钮
-        document.getElementById('drawBtn').style.display = 'none';
-        document.querySelector('.btn-reset').style.display = 'none';
-        document.getElementById('questionInput').disabled = true;
-        document.getElementById('questionInput').placeholder = '正在查看历史占卜...';
-    } else {
-        // 正常初始化
-        initSpreadOptions();
-        renderSpread([]);
-        document.getElementById('readingResult').innerHTML = `<p class="placeholder-text">选择牌阵，输入问题后点击「抽牌」</p>`;
-        console.log('🔮 塔罗占卜已加载 (多牌阵版)');
-        console.log(`📚 共 ${TAROT_DECK.length} 张牌，${Object.keys(SPREADS).length} 种牌阵`);
-    }
+    // 正常初始化
+    initSpreadOptions();
+    renderSpread([]);
+    document.getElementById('readingResult').innerHTML = `<p class="placeholder-text">选择牌阵，输入问题后点击「抽牌」</p>`;
+    console.log('🔮 塔罗占卜已加载 (多牌阵版)');
+    console.log(`📚 共 ${TAROT_DECK.length} 张牌，${Object.keys(SPREADS).length} 种牌阵`);
 });
