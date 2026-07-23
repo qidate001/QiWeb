@@ -836,3 +836,35 @@ body::before {
         padding: 8px 14px;
     }
 }
+
+
+
+/* ---------- 解读区滚动条美化 ---------- */
+/* WebKit 浏览器 (Chrome, Edge, Safari) */
+.markdown-body::-webkit-scrollbar,
+#typewriter-content::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.markdown-body::-webkit-scrollbar-track,
+#typewriter-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 6px;
+}
+.markdown-body::-webkit-scrollbar-thumb,
+#typewriter-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 215, 0, 0.25);
+    border-radius: 6px;
+    transition: background 0.3s ease;
+}
+.markdown-body::-webkit-scrollbar-thumb:hover,
+#typewriter-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 215, 0, 0.5);
+}
+
+/* Firefox 兼容 */
+.markdown-body,
+#typewriter-content {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 215, 0, 0.25) rgba(255, 255, 255, 0.04);
+}

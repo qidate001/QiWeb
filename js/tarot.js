@@ -39,6 +39,9 @@ let currentCards = [];
 // 当前选中的牌阵 ID
 let currentSpreadId = 'three'; // 默认三牌
 
+// 当前分享码
+let currentShareCode = null;
+
 // ============================================
 // 辅助函数
 // ============================================
@@ -154,7 +157,8 @@ async function handleDraw() {
         <div class="markdown-body" id="typewriter-content" style="color:#d8c8e0; line-height:1.8; font-size:0.95rem; min-height:100px; max-height:600px; overflow-y:auto; padding:10px;">
             <span style="color:#6a5a7a;">✨ AI 正在思考中...</span>
         </div>
-        <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,215,0,0.08); color:#6a5a7a; font-size:0.8rem; text-align:right;">
+        <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,215,0,0.08); display:flex; justify-content:space-between; align-items:center; color:#6a5a7a; font-size:0.8rem;">
+            <div id="share-button-container" style="display:flex; gap:8px; align-items:center;"></div>
             <span id="typing-status">⏳ 正在连接 AI...</span>
         </div>
     `;
@@ -231,6 +235,12 @@ async function handleDraw() {
                     typewriter.start(result.reading);
                     statusSpan.textContent = `✍️ 正在书写... (${result.reading.length} 字符)`;
                 }
+            },
+            // onShareCode 
+            (shareCode) => {
+                currentShareCode = shareCode;
+                // 在解读区底部添加"复制分享链接"按钮
+                addShareButton(shareCode);
             }
         );
     } catch (error) {
@@ -249,7 +259,7 @@ async function handleDraw() {
 // ============================================
 // AI 解读（流式）
 // ============================================
-async function getAIReading(cards, question = '', onChunk = null, onComplete = null) {
+async function getAIReading(cards, question = '', onChunk = null, onComplete = null, onShareCode = null) {
     if (!AI_CONFIG.ENABLE_AI) {
         const result = await getFallbackReading(cards);
         if (onComplete) onComplete(result);
@@ -303,6 +313,20 @@ async function getAIReading(cards, question = '', onChunk = null, onComplete = n
 
                 try {
                     const parsed = JSON.parse(jsonStr);
+
+                    // 检查是否是 share_code 消息
+                    if (parsed.type === 'share_code') {
+                        if (parsed.shareCode) {
+                            currentShareCode = parsed.shareCode;
+                            console.log('🔗 分享码已获取:', currentShareCode);
+                            // 触发一个自定义事件或回调，通知 UI 更新
+                            if (typeof onShareCode === 'function') {
+                                onShareCode(currentShareCode);
+                            }
+                        }
+                        continue; // 跳过后续处理
+                    }
+
                     const delta = parsed.choices?.[0]?.delta;
                     if (delta) {
                         const content = delta.content || '';
@@ -456,7 +480,7 @@ async function loadSharedReading(shareCode) {
         renderSpread(fullCards);
 
         // 2. 渲染解读内容（显示完整的 Markdown）
-        const readingHtml = data.reading 
+        const readingHtml = data.reading
             ? (typeof marked !== 'undefined' ? marked.parse(data.reading) : data.reading)
             : '<p class="placeholder-text">暂无解读内容。</p>';
 
@@ -471,9 +495,9 @@ async function loadSharedReading(shareCode) {
             <div class="markdown-body" style="color:#d8c8e0; line-height:1.8; font-size:0.95rem; max-height:600px; overflow-y:auto; padding:10px;">
                 ${readingHtml}
             </div>
-            <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,215,0,0.08); color:#6a5a7a; font-size:0.8rem; text-align:right;">
-                📅 ${data.createdAt ? new Date(data.createdAt).toLocaleString('zh-CN') : '时间未知'} 
-                &nbsp;|&nbsp; 🔗 分享码: ${data.shareCode}
+            <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,215,0,0.08); display:flex; justify-content:space-between; align-items:center; color:#6a5a7a; font-size:0.8rem;">
+                <div id="share-button-container" style="display:flex; gap:8px; align-items:center;"></div>
+                <span id="typing-status">⏳ 正在连接 AI...</span>
             </div>
         `;
 
@@ -534,7 +558,104 @@ function resetAll() {
 }
 
 // ============================================
-// 打字机效果类（不变，保留原有实现）
+// 添加复制分享链接按钮
+// ============================================
+function addShareButton(shareCode) {
+    const container = document.getElementById('share-button-container');
+    if (!container) return;
+
+    // 检查是否已存在按钮，避免重复添加
+    if (container.querySelector('.share-btn')) return;
+
+    const shareUrl = `${window.location.origin}${window.location.pathname}?share_code=${shareCode}`;
+
+    // 创建按钮
+    const button = document.createElement('button');
+    button.className = 'share-btn';
+    button.style.cssText = `
+        background: rgba(255,215,0,0.12);
+        color: #ffd700;
+        border: 1px solid rgba(255,215,0,0.2);
+        border-radius: 50px;
+        padding: 4px 14px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: inherit;
+    `;
+    button.textContent = '🔗 复制分享链接';
+    button.onclick = function() { copyShareLink(shareCode); };
+
+    // 创建提示标签
+    const tip = document.createElement('span');
+    tip.id = 'share-tip';
+    tip.style.cssText = `
+        color: #69f0ae;
+        font-size: 0.75rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    `;
+    tip.textContent = '✅ 已复制！';
+
+    // 清空容器并添加元素
+    container.innerHTML = '';
+    container.appendChild(button);
+    container.appendChild(tip);
+}
+
+// ============================================
+// 复制分享链接
+// ============================================
+function copyShareLink(shareCode) {
+    const shareUrl = `${window.location.origin}${window.location.pathname}?share_code=${shareCode}`;
+    
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+            showCopyTip(true);
+        }).catch(() => {
+            // 降级方案
+            fallbackCopy(shareUrl);
+        });
+    } else {
+        // 降级方案
+        fallbackCopy(shareUrl);
+    }
+}
+
+// 降级复制方案
+function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    textarea.style.left = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+        document.execCommand('copy');
+        showCopyTip(true);
+    } catch (e) {
+        showCopyTip(false);
+    }
+    document.body.removeChild(textarea);
+}
+
+// 显示复制提示
+function showCopyTip(success) {
+    const tip = document.getElementById('share-tip');
+    if (!tip) return;
+    tip.textContent = success ? '✅ 已复制！' : '❌ 复制失败，请手动复制';
+    tip.style.opacity = '1';
+    setTimeout(() => {
+        tip.style.opacity = '0';
+    }, 3000);
+}
+
+// ============================================
+// 打字机效果类
 // ============================================
 class Typewriter {
     constructor(element, options = {}) {
@@ -613,8 +734,10 @@ class Typewriter {
 
     pause() {
         this.isPaused = true;
-        if (this.timer) { clearTimeout(this.timer);
-            this.timer = null; }
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
     }
 
     resume() {
@@ -642,8 +765,10 @@ class Typewriter {
     stop() {
         this.isRunning = false;
         this.isPaused = false;
-        if (this.timer) { clearTimeout(this.timer);
-            this.timer = null; }
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
     }
 
     reset() {
