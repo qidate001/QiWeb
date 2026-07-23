@@ -350,13 +350,58 @@ async function getAIReading(cards, question = '', onChunk = null, onComplete = n
     }
 }
 
+/**
+ * 获取牌的降级含义（如果没有定义则返回通用）
+ */
+function getCardMeaning(card) {
+    const meaning = FALLBACK_MEANINGS[card.id];
+    if (!meaning) {
+        // 未定义的小阿尔卡纳通用含义
+        return {
+            upright: '成长、机遇、平衡',
+            reversed: '阻碍、延迟、需要反思'
+        };
+    }
+    return meaning;
+}
+
+// ============================================
+// 降级解读
+// ============================================
 async function getFallbackReading(cards) {
-    // 简单降级 - 返回固定文本
-    let text = '📖 塔罗解读（预生成版本）：\n\n';
-    cards.forEach(card => {
-        const orient = card.isReversed ? '逆位' : '正位';
-        text += `【${card.name}】${orient}\n此牌暗示着内在的智慧与成长。请结合你的直觉来理解。\n\n`;
+    // 获取当前牌阵信息
+    const spread = SPREADS[currentSpreadId];
+    const positions = spread.positions || [];
+
+    let text = '📖 塔罗降级解读（AI 服务暂时不可用，以下为预置牌意）：\n\n';
+    text += `您选择了「${spread.label}」，共 ${cards.length} 张牌。\n\n`;
+
+    cards.forEach((card, index) => {
+        const meaning = getCardMeaning(card);
+        const orientation = card.isReversed ? '逆位' : '正位';
+        const meaningText = card.isReversed ? meaning.reversed : meaning.upright;
+
+        // 获取位置标签（如果有）
+        const posLabel = positions[index]?.label || `位置 ${index + 1}`;
+        text += `【${posLabel}】 ${card.name}（${card.nameEn}）— ${orientation}\n`;
+        text += `  核心含义：${meaningText}\n`;
+        text += `  提示：结合你目前的情况，这张牌在 ${posLabel} 的位置上，暗示着你需要关注此方面的能量流动。\n\n`;
     });
+
+    // 添加整体总结（根据牌的数量和正逆位比例简单总结）
+    const reversedCount = cards.filter(c => c.isReversed).length;
+    const total = cards.length;
+    let summary = '';
+    if (reversedCount === 0) {
+        summary = '所有牌均为正位，整体能量较为顺畅，发展态势积极。';
+    } else if (reversedCount === total) {
+        summary = '所有牌均为逆位，提示你可能面临较多阻碍，需要重新审视方向。';
+    } else {
+        summary = `有 ${reversedCount} 张逆位牌，建议关注这些位置的挑战，正位牌则为你提供支持。`;
+    }
+    text += `✨ 整体总结：${summary}\n\n`;
+    text += '⚠️ 注意：此为降级解读，仅供参考。建议在 AI 恢复后重新抽牌以获得更深入的解析。';
+
     return { success: true, reading: text, isFallback: true };
 }
 
