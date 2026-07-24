@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>高级文本生成 · 齐的工具包3</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/index_style.css" />
+    <link rel="stylesheet" href="./css/qistoolkit3-page.css" />
+    <link rel="stylesheet" href="./css/qistoolkit3-8card.css" />
+    <link rel="stylesheet" href="./css/text-generate-plus.css" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <script src="/js/config.js"></script>
+</head>
+
+<body>
+    <theme-button value="dark" id="btn" size="3"></theme-button>
+
+    <header>
+        <h1>齐的工具包3 <span class="version-badge" id="versionBadge">#</span></h1>
+        <nav>
+            <ul>
+                <li><a href="/index.html">首页</a></li>
+                <li><a href="/about.html">关于我</a></li>
+                <li><a href="/contact.html">联系我</a></li>
+                <li><a href="./index.html">返回专区</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="toolkit-special-page text-plus-main">
+        <h2>
+            <a href="./index.html" style="text-decoration: none;">📝 高级文本生成器</a>
+            <span class="mode-badge deprecated">高级模式（已过时）</span>
+        </h2>
+
+        <!-- ====== 一句话描述 ====== -->
+        <p class="text-plus-description">
+            基于循环与条件的高级文本生成工具，支持多变量、条件判断和遍历功能。
+            <span style="color: #f0c27a; display: inline-block; margin-top: 4px;">⚠️ 此模块已过时，未来将使用 LLM 技术重制。</span>
+        </p>
+
+        <!-- ====== 返回基础模式卡片 ====== -->
+        <a href="./TextGenerate.html" class="back-basic-card">
+            <div class="back-card-glow"></div>
+            <div class="back-card-content">
+                <span class="back-icon">⬅️</span>
+                <div class="back-text">
+                    <h4>返回基础模式</h4>
+                    <p>简单循环 · 三个基本变量</p>
+                </div>
+                <span class="back-arrow">➜</span>
+            </div>
+        </a>
+
+        <!-- ====== 功能概述 ====== -->
+        <div class="features-summary">
+            <div class="summary-item">
+                <span class="summary-icon">📋</span>
+                <div>
+                    <h4>三个输入框</h4>
+                    <p>文本首 · 文本尾 · 循环文本</p>
+                </div>
+            </div>
+            <div class="summary-item">
+                <span class="summary-icon">🔄</span>
+                <div>
+                    <h4>循环变量</h4>
+                    <p>&lt;i&gt; · &lt;j&gt; · &lt;k&gt;（支持罗马数字/ASCII码）</p>
+                </div>
+            </div>
+            <div class="summary-item">
+                <span class="summary-icon">🔀</span>
+                <div>
+                    <h4>条件变量</h4>
+                    <p>&lt;x&gt; · 根据倍数判定替换为不同内容</p>
+                </div>
+            </div>
+            <div class="summary-item">
+                <span class="summary-icon">📂</span>
+                <div>
+                    <h4>遍历变量</h4>
+                    <p>&lt;y&gt; · 遍历下方输入框中的每一行字符串</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== 变量配置说明 ====== -->
+        <div class="var-config-section">
+            <div class="var-config-header">
+                <span class="var-config-icon">⚙️</span>
+                <h3>变量配置说明</h3>
+            </div>
+            <div class="var-config-body">
+                <div class="var-config-grid">
+                    <!-- 循环变量 -->
+                    <div class="var-type-group">
+                        <h4>循环变量 <span class="var-badge">i / j / k</span></h4>
+                        <ul>
+                            <li><strong>起始值</strong>：数值起始点</li>
+                            <li><strong>循环操作</strong>：自增/自减/加/减/乘/除</li>
+                            <li><strong>罗马数字</strong>：转换为罗马数字表示</li>
+                            <li><strong>ASCII码</strong>：将数值转换为ASCII字符</li>
+                        </ul>
+                    </div>
+                    <!-- 条件变量 -->
+                    <div class="var-type-group">
+                        <h4>条件变量 <span class="var-badge condition">x</span></h4>
+                        <ul>
+                            <li><strong>倍数判定</strong>：检查指定变量的值是否为某数的倍数</li>
+                            <li><strong>True 替换</strong>：条件成立时替换 &lt;x&gt; 的内容</li>
+                            <li><strong>False 替换</strong>：条件不成立时替换 &lt;x&gt; 的内容</li>
+                            <li><strong>判定变量</strong>：选择 &lt;i&gt;、&lt;j&gt;、&lt;k&gt; 或内置 &lt;class&gt;</li>
+                        </ul>
+                    </div>
+                    <!-- 遍历变量 -->
+                    <div class="var-type-group">
+                        <h4>遍历变量 <span class="var-badge traverse">y</span></h4>
+                        <ul>
+                            <li><strong>遍历数据</strong>：下方输入框中每行作为一个元素</li>
+                            <li><strong>内置变量</strong>：&lt;class&gt; 初始值0，每次循环自增1</li>
+                            <li><strong>不可插入</strong>：&lt;class&gt; 仅供条件变量中引用</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="var-rule-note">
+                    <span class="note-icon">💡</span>
+                    <span>插入变量需 <strong>新起一行</strong>，仅包含 <code>&lt;i&gt;</code>、<code>&lt;j&gt;</code>、<code>&lt;k&gt;</code>、<code>&lt;x&gt;</code> 或 <code>&lt;y&gt;</code>，不含其他字符。</span>
+                </div>
+                <div class="var-rule-note special">
+                    <span class="note-icon">📌</span>
+                    <span>高级模式下，换行符和纯空格/制表符 <strong>不再自动保留</strong>，需手动插入 <code>&lt;n&gt;</code>（换行）、<code>&lt;r&gt;</code>（回车）、<code>&lt;rn&gt;</code>（换行+回车）或 <code>&lt;t&gt;</code>（制表符）。</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== 预设示例 ====== -->
+
+        <!-- 预设1：基础预设 -->
+        <div class="preset-box">
+            <div class="preset-header">
+                <span class="preset-icon">🧪</span>
+                <h4>基础预设 · 输出1~100（制表符分隔，每5个换行）</h4>
+                <span class="preset-tag">示例</span>
+            </div>
+            <div class="preset-body">
+                <p style="font-size:0.85rem; color:#888; margin:0 0 12px 0;">
+                    演示循环变量、条件变量和制表符/换行符的配合使用。
+                </p>
+                <div class="preset-grid">
+                    <div class="preset-item">
+                        <span class="preset-label">文本首</span>
+                        <pre class="preset-code">----------------------------------------------------------------------------------
+&lt;rn&gt;</pre>
+                    </div>
+                    <div class="preset-item">
+                        <span class="preset-label">文本尾</span>
+                        <pre class="preset-code">----------------------------------------------------------------------------------</pre>
+                    </div>
+                    <div class="preset-item full-width">
+                        <span class="preset-label">循环文本</span>
+                        <pre class="preset-code">&lt;j&gt;
+&lt;x&gt;</pre>
+                    </div>
+                    <div class="preset-item full-width">
+                        <span class="preset-label">变量配置</span>
+                        <div class="preset-vars">
+                            <div class="var-config">
+                                <span class="var-name">&lt;i&gt;</span>
+                                <span>启用：✔</span>
+                                <span>起始值：<strong>6</strong></span>
+                                <span>操作：<strong>自增一</strong></span>
+                                <span>罗马数字：否</span>
+                                <span>ASCII：否</span>
+                            </div>
+                            <div class="var-config">
+                                <span class="var-name">&lt;j&gt;</span>
+                                <span>启用：✔</span>
+                                <span>起始值：<strong>1</strong></span>
+                                <span>操作：<strong>自增一</strong></span>
+                                <span>罗马数字：否</span>
+                                <span>ASCII：否</span>
+                            </div>
+                            <div class="var-config">
+                                <span class="var-name">&lt;k&gt;</span>
+                                <span>启用：✘</span>
+                                <span style="color:#888;">（已禁用）</span>
+                            </div>
+                            <div class="var-config condition-var">
+                                <span class="var-name">&lt;x&gt;</span>
+                                <span>启用：✔</span>
+                                <span>倍数：<strong>5</strong></span>
+                                <span>判定变量：<strong>&lt;i&gt;</strong></span>
+                                <span>True 替换：<code>&lt;rn&gt;</code></span>
+                                <span>False 替换：<code>&lt;t&gt;&lt;t&gt;</code></span>
+                            </div>
+                            <div class="var-config">
+                                <span class="var-name">&lt;y&gt;</span>
+                                <span>启用：✘</span>
+                                <span style="color:#888;">（已禁用）</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 预设2：JSON预设 -->
+        <div class="preset-box">
+            <div class="preset-header">
+                <span class="preset-icon">🧪</span>
+                <h4>JSON预设 · 生成结构化JSON数据</h4>
+                <span class="preset-tag">示例</span>
+            </div>
+            <div class="preset-body">
+                <p style="font-size:0.85rem; color:#888; margin:0 0 12px 0;">
+                    演示循环变量（含罗马数字）、缩进和换行符的组合。
+                </p>
+                <div class="preset-grid">
+                    <div class="preset-item">
+                        <span class="preset-label">文本首</span>
+                        <pre class="preset-code">{
+&lt;rn&gt;
+&lt;t&gt;
+"Data1": {
+&lt;rn&gt;
+&lt;t&gt;
+&lt;t&gt;
+"Level": 1,
+&lt;rn&gt;
+&lt;t&gt;
+&lt;t&gt;
+"Text": "I"
+&lt;rn&gt;
+&lt;t&gt;
+}
+&lt;rn&gt;</pre>
+                    </div>
+                    <div class="preset-item">
+                        <span class="preset-label">文本尾</span>
+                        <pre class="preset-code">&lt;rn&gt;
+}</pre>
+                    </div>
+                    <div class="preset-item full-width">
+                        <span class="preset-label">循环文本</span>
+                        <pre class="preset-code">,
+&lt;rn&gt;
+&lt;t&gt;
+"Data
+&lt;i&gt;
+": {
+&lt;rn&gt;
+&lt;t&gt;
+&lt;t&gt;
+"Level": 
+&lt;i&gt;
+,
+&lt;rn&gt;
+&lt;t&gt;
+&lt;t&gt;
+"Text": "
+&lt;j&gt;
+"
+&lt;rn&gt;
+&lt;t&gt;
+}</pre>
+                    </div>
+                    <div class="preset-item full-width">
+                        <span class="preset-label">变量配置</span>
+                        <div class="preset-vars">
+                            <div class="var-config">
+                                <span class="var-name">&lt;i&gt;</span>
+                                <span>启用：✔</span>
+                                <span>起始值：<strong>2</strong></span>
+                                <span>操作：<strong>自增一</strong></span>
+                                <span>罗马数字：否</span>
+                                <span>ASCII：否</span>
+                            </div>
+                            <div class="var-config">
+                                <span class="var-name">&lt;j&gt;</span>
+                                <span>启用：✔</span>
+                                <span>起始值：<strong>2</strong></span>
+                                <span>操作：<strong>自增一</strong></span>
+                                <span>罗马数字：<strong>是</strong></span>
+                                <span>ASCII：否</span>
+                            </div>
+                            <div class="var-config">
+                                <span class="var-name">&lt;k&gt;</span>
+                                <span>启用：✘</span>
+                                <span style="color:#888;">（已禁用）</span>
+                            </div>
+                            <div class="var-config">
+                                <span class="var-name">&lt;x&gt;</span>
+                                <span>启用：✘</span>
+                                <span style="color:#888;">（已禁用）</span>
+                            </div>
+                            <div class="var-config">
+                                <span class="var-name">&lt;y&gt;</span>
+                                <span>启用：✘</span>
+                                <span style="color:#888;">（已禁用）</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== 过时说明 ====== -->
+        <div class="deprecated-notice">
+            <div class="deprecated-header">
+                <span class="deprecated-icon">⏳</span>
+                <h4>模块状态</h4>
+            </div>
+            <div class="deprecated-body">
+                <p>
+                    此模块为早期版本中的高级实验功能，基于循环与条件逻辑生成文本。
+                    <strong style="color:#f0c27a;">未来计划使用 LLM（大语言模型）技术进行重制。</strong>
+                </p>
+                <!-- <ul>
+                    <li>自然语言指令生成文本</li>
+                    <li>上下文感知与风格迁移</li>
+                    <li>多语言与模板适配</li>
+                </ul> -->
+                <p style="margin-top:8px; color:#888; font-size:0.85rem;">
+                    当前版本保留仅为兼容旧项目，新用户请期待后续更新。
+                </p>
+            </div>
+        </div>
+
+        <!-- ====== 辅助信息 ====== -->
+        <div class="toolkit-legal-bar text-plus-legal">
+            <p>
+                <span style="color: #8bc34a;">💡 预设示例可帮助理解高级变量的用法</span>
+                <span style="color: #aaa; margin-left: 16px;">📌 实际生成时请根据需求调整参数</span>
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const versionBadge = document.getElementById('versionBadge');
+                if (versionBadge && typeof APP_CONFIG !== 'undefined') {
+                    versionBadge.textContent = APP_CONFIG.version;
+                }
+            });
+        </script>
+    </footer>
+</body>
+
+</html>
