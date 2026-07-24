@@ -4,7 +4,7 @@
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue?logo=github)](https://qidate001.github.io/QiWeb/)
 [![Website](https://img.shields.io/badge/Website-www.qidate001.com-brightgreen)](http://www.qidate001.com/)
-[![License](https://img.shields.io/badge/License-GPL--3.0-red)](LICENSE)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 ## 📖 项目简介
 
