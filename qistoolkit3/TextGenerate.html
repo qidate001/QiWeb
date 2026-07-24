@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文本生成 · 齐的工具包3</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/index_style.css" />
+    <link rel="stylesheet" href="./css/qistoolkit3-page.css" />
+    <link rel="stylesheet" href="./css/qistoolkit3-8card.css" />
+    <link rel="stylesheet" href="./css/text-generate.css" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <script src="/js/config.js"></script>
+</head>
+
+<body>
+    <theme-button value="dark" id="btn" size="3"></theme-button>
+
+    <header>
+        <h1>齐的工具包3 <span class="version-badge" id="versionBadge">#</span></h1>
+        <nav>
+            <ul>
+                <li><a href="/index.html">首页</a></li>
+                <li><a href="/about.html">关于我</a></li>
+                <li><a href="/contact.html">联系我</a></li>
+                <li><a href="./index.html">返回专区</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="toolkit-special-page text-main">
+        <h2>
+            <a href="./index.html" style="text-decoration: none;">📝 文本生成</a>
+            <span class="mode-badge deprecated">基础模式（已过时）</span>
+        </h2>
+
+        <!-- ====== 一句话描述 ====== -->
+        <p class="text-description">
+            基于循环的文本生成工具，通过设定首尾文本和循环体，批量生成结构化内容。
+            <span style="color: #f0c27a; display: inline-block; margin-top: 4px;">⚠️ 此模块已过时，未来将使用 LLM 技术重制。</span>
+        </p>
+
+        <!-- ====== 跳转卡片：高级模式 ====== -->
+        <a href="./TextGeneratePlus.html" class="plus-mode-card">
+            <div class="plus-card-glow"></div>
+            <div class="plus-card-content">
+                <span class="plus-icon">🚀</span>
+                <div class="plus-text">
+                    <h4>高级模式</h4>
+                    <p>更可读的语法，更多循环功能，但同样已过时</p>
+                </div>
+                <span class="plus-arrow">➜</span>
+            </div>
+        </a>
+
+        <!-- ====== 功能说明 ====== -->
+        <div class="functions-list">
+
+            <!-- 1. 输入框 -->
+            <div class="function-item">
+                <div class="func-header">
+                    <span class="func-icon">📋</span>
+                    <h3>输入框</h3>
+                    <span class="func-tag">基础</span>
+                </div>
+                <div class="func-body">
+                    <ul>
+                        <li><strong>文本首</strong>：固定添加在生成内容开头的文本。</li>
+                        <li><strong>文本尾</strong>：固定添加在生成内容结尾的文本。</li>
+                        <li><strong>循环文本</strong>：循环生成的主体内容，可包含变量占位符。</li>
+                        <li><strong>循环次数</strong>：指定循环体重复的次数。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 2. 循环变量 -->
+            <div class="function-item">
+                <div class="func-header">
+                    <span class="func-icon">🔄</span>
+                    <h3>循环变量</h3>
+                    <span class="func-tag">核心</span>
+                </div>
+                <div class="func-body">
+                    <p style="font-size:0.85rem; color:#888; margin:0 0 8px 0;">
+                        支持三个循环变量：<strong>&lt;i&gt;</strong>、<strong>&lt;j&gt;</strong>、<strong>&lt;k&gt;</strong>，每个变量可独立配置：
+                    </p>
+                    <ul>
+                        <li><strong>起始值</strong>：变量初始数值。</li>
+                        <li><strong>循环操作</strong>：每次循环后执行的操作（自增一、自减一、加、减、乘、除）。</li>
+                        <li><strong>罗马数字</strong>：启用后，变量值会转换为罗马数字表示（适用于游戏内等级、章节等）。</li>
+                    </ul>
+                    <div
+                        style="margin-top:10px; padding:8px 12px; background:rgba(52,152,219,0.04); border-radius:6px; border-left:3px solid #3498db;">
+                        <span style="font-size:0.8rem; color:#aaa;">💡 在循环文本中插入变量：<strong>新起一行</strong>，仅包含 <code
+                                style="background:rgba(255,255,255,0.06); padding:1px 8px; border-radius:4px;">&lt;i&gt;</code>、<code
+                                style="background:rgba(255,255,255,0.06); padding:1px 8px; border-radius:4px;">&lt;j&gt;</code>
+                            或 <code
+                                style="background:rgba(255,255,255,0.06); padding:1px 8px; border-radius:4px;">&lt;k&gt;</code>（不含其他字符）。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 生成规则 -->
+            <div class="function-item">
+                <div class="func-header">
+                    <span class="func-icon">⚙️</span>
+                    <h3>生成规则</h3>
+                    <span class="func-tag">机制</span>
+                </div>
+                <div class="func-body">
+                    <ul>
+                        <li><strong>循环体展开</strong>：循环文本按次数重复，每次替换变量占位符为当前值。</li>
+                        <li><strong>非变量换行</strong>：循环文本中，非变量行的换行符会被保留，作为字符串的一部分参与生成。</li>
+                        <li><strong>组合顺序</strong>：最终内容 = 文本首 + 循环展开内容 + 文本尾。</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ====== 预设示例 ====== -->
+        <div class="preset-box">
+            <div class="preset-header">
+                <span class="preset-icon">🧪</span>
+                <h4>Minecraft 附魔键预设（微预设）</h4>
+                <span class="preset-tag">示例</span>
+            </div>
+            <div class="preset-body">
+                <p style="font-size:0.85rem; color:#888; margin:0 0 12px 0;">
+                    此预设演示如何生成 Minecraft 附魔等级键（注意：0→1 级附魔为错误示例，仅用于展示循环变量用法）。
+                </p>
+
+                <div class="preset-grid">
+                    <!-- 文本首 -->
+                    <div class="preset-item">
+                        <span class="preset-label">文本首</span>
+                        <pre class="preset-code">{
+    "enchantment.level.1": "I"</pre>
+                    </div>
+                    <!-- 文本尾 -->
+                    <div class="preset-item">
+                        <span class="preset-label">文本尾</span>
+                        <pre class="preset-code"><br/>}</pre>
+                    </div>
+                    <!-- 循环文本 -->
+                    <div class="preset-item full-width">
+                        <span class="preset-label">循环文本</span>
+                        <pre class="preset-code">,
+&lt;rn&gt;
+    "enchantment.level.
+&lt;i&gt;
+": "
+&lt;j&gt;
+"</pre>
+                    </div>
+                    <!-- 循环变量配置 -->
+                    <div class="preset-item full-width">
+                        <span class="preset-label">循环变量配置</span>
+                        <div class="preset-vars">
+                            <div class="var-config">
+                                <span class="var-name">&lt;i&gt;</span>
+                                <span>启用：✔</span>
+                                <span>起始值：<strong>2</strong></span>
+                                <span>操作：<strong>自增一</strong></span>
+                                <span>罗马数字：<strong>否</strong></span>
+                            </div>
+                            <div class="var-config">
+                                <span class="var-name">&lt;j&gt;</span>
+                                <span>启用：✔</span>
+                                <span>起始值：<strong>2</strong></span>
+                                <span>操作：<strong>自增一</strong></span>
+                                <span>罗马数字：<strong>是</strong></span>
+                            </div>
+                            <div class="var-config">
+                                <span class="var-name">&lt;k&gt;</span>
+                                <span>启用：✘</span>
+                                <span style="color:#888;">（已禁用）</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 其他 -->
+                    <div class="preset-item full-width">
+                        <span class="preset-label">循环次数</span>
+                        <span style="font-size:0.9rem; color:#aaa;">（预设中未指定，实际使用时可自定义）</span>
+                    </div>
+                </div>
+
+                <div
+                    style="margin-top:12px; padding:8px 14px; background:rgba(241,196,15,0.04); border-radius:6px; border-left:3px solid #f0c27a;">
+                    <span style="font-size:0.8rem; color:#aaa;">⚠️ 注意：此示例中 0 → 1 级附魔的映射是错误的，仅用于展示变量嵌套与罗马数字转换功能。</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== 过时说明 ====== -->
+        <div class="deprecated-notice">
+            <div class="deprecated-header">
+                <span class="deprecated-icon">⏳</span>
+                <h4>模块状态</h4>
+            </div>
+            <div class="deprecated-body">
+                <p>
+                    此模块为早期版本中的实验性功能，基于简单的字符串循环生成，功能有限且灵活性不足。
+                    <strong style="color:#f0c27a;">未来计划使用 LLM（大语言模型）技术进行重制</strong>，将支持：
+                </p>
+                <ul>
+                    <li>自然语言指令生成文本</li>
+                    <li>上下文感知与风格迁移</li>
+                    <li>多语言与模板适配</li>
+                </ul>
+                <p style="margin-top:8px; color:#888; font-size:0.85rem;">
+                    当前版本保留仅为兼容旧项目，新用户请期待后续更新。
+                </p>
+            </div>
+        </div>
+
+        <!-- ====== 辅助信息 ====== -->
+        <div class="toolkit-legal-bar text-legal">
+            <p>
+                <span style="color: #8bc34a;">💡 预设示例可帮助理解循环变量的用法</span>
+                <span style="color: #aaa; margin-left: 16px;">📌 实际生成时请根据需求调整参数</span>
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const versionBadge = document.getElementById('versionBadge');
+                if (versionBadge && typeof APP_CONFIG !== 'undefined') {
+                    versionBadge.textContent = APP_CONFIG.version;
+                }
+            });
+        </script>
+    </footer>
+</body>
+
+</html>
