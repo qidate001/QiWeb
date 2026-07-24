@@ -154,8 +154,19 @@
     "variantsCount": 1
   },
   {
-    "id": "up-威皮-劲速",
-    "name": "UP 威皮 劲速",
+    "id": "ec-white-ne-警用巡逻车",
+    "name": "EC White/NE 警用巡逻车",
+    "category": "主线：模范丈夫",
+    "difficulty": "★★☆☆☆",
+    "description": "纯白的无警灯警车，比较看脸",
+    "update_date": "2026-07-24",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1pN4y1J7Yx",
+    "coverImage": "ec-white-ne-警用巡逻车.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "sp-威皮-劲速",
+    "name": "SP 威皮 劲速",
     "category": "主线：小查",
     "difficulty": "★★☆☆☆",
     "description": "特殊车牌载具，任务完成记得顺走",
@@ -165,14 +176,25 @@
     "variantsCount": 1
   },
   {
-    "id": "ec-white-ne-警用巡逻车",
-    "name": "EC White/NE 警用巡逻车",
-    "category": "主线：模范丈夫",
-    "difficulty": "★★☆☆☆",
-    "description": "纯白的无警灯警车，比较看脸",
+    "id": "ec-black-roof-sp-亚班尼-皇霸天",
+    "name": "EC Black Roof/SP 亚班尼 皇霸天",
+    "category": "主线：误入陷阱",
+    "difficulty": "★★★☆☆",
+    "description": "少见的好车",
     "update_date": "2026-07-24",
-    "bilibiliVideo": "https://www.bilibili.com/video/BV1pN4y1J7Yx",
-    "coverImage": "ec-white-ne-警用巡逻车.png",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1JF4m1u7X3",
+    "coverImage": "ec-black-roof-sp-亚班尼-皇霸天.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "sp-亚班尼-骑兵",
+    "name": "SP 亚班尼 骑兵",
+    "category": "主线：误入陷阱",
+    "difficulty": "★☆☆☆☆",
+    "description": "任务完成后记得顺带顺走",
+    "update_date": "2026-07-24",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1w6421V7pu",
+    "coverImage": "sp-亚班尼-骑兵.png",
     "variantsCount": 1
   }
 ]

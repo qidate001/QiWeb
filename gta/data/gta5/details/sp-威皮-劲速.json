@@ -1,0 +1,71 @@
+{
+  "id": "sp-威皮-劲速",
+  "name": "SP 威皮 劲速",
+  "category": "主线：小查",
+  "difficulty": "★★☆☆☆",
+  "description": "特殊车牌载具，任务完成记得顺走",
+  "bilibiliVideo": "",
+  "routeImage": "",
+  "update_date": "2026-07-24",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "up-威皮-劲速.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "冰雪白",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "黑色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "☆☆☆☆☆",
+        "收藏价值": "★★☆☆☆"
+      },
+      "accessory": "特殊车牌LAMAR G ",
+      "explosion_data": [
+        3484649228,
+        "劲速 (SP)",
+        {
+          "priColor": 111,
+          "secColor": 0,
+          "pearlColor": 0,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 0,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": 0,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "LAMAR G ",
+          "mods": {
+            "22": 0
+          },
+          "extras": {}
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
