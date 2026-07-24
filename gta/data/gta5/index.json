@@ -152,5 +152,27 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1yT4y147uT",
     "coverImage": "ec-white-and-blue-ec2-black-rims-赛柯尼-安旅者.png",
     "variantsCount": 1
+  },
+  {
+    "id": "up-威皮-劲速",
+    "name": "UP 威皮 劲速",
+    "category": "主线：小查",
+    "difficulty": "★★☆☆☆",
+    "description": "特殊车牌载具，任务完成记得顺走",
+    "update_date": "2026-07-24",
+    "bilibiliVideo": "",
+    "coverImage": "up-威皮-劲速.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-white-ne-警用巡逻车",
+    "name": "EC White/NE 警用巡逻车",
+    "category": "主线：模范丈夫",
+    "difficulty": "★★☆☆☆",
+    "description": "纯白的无警灯警车，比较看脸",
+    "update_date": "2026-07-24",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1pN4y1J7Yx",
+    "coverImage": "ec-white-ne-警用巡逻车.png",
+    "variantsCount": 1
   }
 ]
