@@ -1,0 +1,532 @@
+/* ============================================================
+   options.css - 软件设置（Options）专属样式
+   仅包含页面特有样式，通用组件已移至 qistoolkit3-page.css
+   ============================================================ */
+
+/* --- 页面标题 --- */
+.options-main h2 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    border-bottom: 2px solid rgba(52, 152, 219, 0.12);
+    padding-bottom: 10px;
+}
+
+.options-main h2 a {
+    color: #3498db;
+    transition: color 0.3s ease;
+}
+
+.options-main h2 a:hover {
+    color: #5dade2;
+}
+
+body.light-theme .options-main h2 a {
+    color: #2980b9;
+}
+
+body.light-theme .options-main h2 a:hover {
+    color: #3498db;
+}
+
+/* --- 一句话描述 --- */
+.options-description {
+    font-size: 0.95rem;
+    color: #aaa;
+    margin: -4px 0 18px 0;
+    padding-left: 14px;
+    border-left: 3px solid rgba(52, 152, 219, 0.2);
+}
+
+body.light-theme .options-description {
+    color: #666;
+}
+
+/* --- 选项卡导航 --- */
+.tabs-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 22px;
+    padding: 6px 8px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+body.light-theme .tabs-nav {
+    background: rgba(0, 0, 0, 0.01);
+    border-color: rgba(0, 0, 0, 0.04);
+}
+
+.tab-btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #888;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.04);
+    color: #b0d4f0;
+}
+
+.tab-btn.active {
+    background: rgba(52, 152, 219, 0.12);
+    color: #64b5f6;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.05);
+}
+
+body.light-theme .tab-btn:hover {
+    background: rgba(0, 0, 0, 0.03);
+    color: #2c3e50;
+}
+
+body.light-theme .tab-btn.active {
+    background: rgba(41, 128, 185, 0.08);
+    color: #2980b9;
+}
+
+/* --- 选项卡内容 --- */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- 设置分组 --- */
+.settings-group {
+    background: rgba(255, 255, 255, 0.015);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    overflow: hidden;
+}
+
+body.light-theme .settings-group {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.04);
+}
+
+.settings-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+body.light-theme .settings-header {
+    background: rgba(0, 0, 0, 0.01);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.settings-icon {
+    font-size: 1.2rem;
+}
+
+.settings-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #b0d4f0;
+}
+
+body.light-theme .settings-header h3 {
+    color: #2c3e50;
+}
+
+.settings-badge {
+    font-size: 0.55rem;
+    font-weight: 600;
+    padding: 1px 12px;
+    border-radius: 30px;
+    background: rgba(139, 195, 74, 0.1);
+    color: #8bc34a;
+    border: 1px solid rgba(139, 195, 74, 0.04);
+    margin-left: auto;
+    letter-spacing: 0.3px;
+}
+
+.settings-badge.placeholder-badge {
+    background: rgba(255, 255, 255, 0.04);
+    color: #666;
+    border-color: rgba(255, 255, 255, 0.04);
+}
+
+body.light-theme .settings-badge {
+    background: rgba(139, 195, 74, 0.05);
+    color: #558b2f;
+}
+
+body.light-theme .settings-badge.placeholder-badge {
+    background: rgba(0, 0, 0, 0.03);
+    color: #999;
+    border-color: rgba(0, 0, 0, 0.04);
+}
+
+/* --- 设置列表 --- */
+.settings-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    transition: background 0.15s ease;
+    gap: 16px;
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.setting-item:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+body.light-theme .setting-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+body.light-theme .setting-item:hover {
+    background: rgba(0, 0, 0, 0.01);
+}
+
+.setting-item.deprecated {
+    opacity: 0.5;
+}
+
+.setting-item.half-deprecated {
+    opacity: 0.7;
+}
+
+.setting-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.setting-name {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #c8d8e8;
+}
+
+.setting-desc {
+    font-size: 0.78rem;
+    color: #888;
+    line-height: 1.4;
+}
+
+body.light-theme .setting-name {
+    color: #1a237e;
+}
+
+body.light-theme .setting-desc {
+    color: #666;
+}
+
+.setting-type {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 2px 12px;
+    border-radius: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.setting-type.button {
+    background: rgba(52, 152, 219, 0.1);
+    color: #64b5f6;
+}
+
+.setting-type.option {
+    background: rgba(139, 195, 74, 0.08);
+    color: #8bc34a;
+}
+
+.deprecated-tag {
+    background: rgba(231, 76, 60, 0.12) !important;
+    color: #e74c3c !important;
+}
+
+.half-deprecated-tag {
+    background: rgba(241, 196, 15, 0.12) !important;
+    color: #f0c27a !important;
+}
+
+body.light-theme .setting-type.button {
+    background: rgba(41, 128, 185, 0.06);
+    color: #2980b9;
+}
+
+body.light-theme .setting-type.option {
+    background: rgba(139, 195, 74, 0.05);
+    color: #558b2f;
+}
+
+body.light-theme .deprecated-tag {
+    background: rgba(231, 76, 60, 0.06) !important;
+    color: #c0392b !important;
+}
+
+body.light-theme .half-deprecated-tag {
+    background: rgba(241, 196, 15, 0.06) !important;
+    color: #b7950b !important;
+}
+
+/* --- 占位符内容 --- */
+.settings-group.placeholder {
+    border-color: rgba(255, 255, 255, 0.02);
+}
+
+body.light-theme .settings-group.placeholder {
+    border-color: rgba(0, 0, 0, 0.02);
+}
+
+.placeholder-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.placeholder-icon {
+    font-size: 3rem;
+    opacity: 0.3;
+    margin-bottom: 12px;
+}
+
+.placeholder-content p {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+}
+
+.placeholder-sub {
+    font-size: 0.82rem;
+    color: #555;
+    margin-top: 4px;
+}
+
+body.light-theme .placeholder-content p {
+    color: #888;
+}
+
+body.light-theme .placeholder-sub {
+    color: #999;
+}
+
+/* --- 关于页面链接 --- */
+.about-links {
+    padding: 6px 0;
+}
+
+.link-section {
+    padding: 10px 18px;
+}
+
+.link-section:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+body.light-theme .link-section:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.link-section h4 {
+    margin: 0 0 8px 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #b0d4f0;
+}
+
+body.light-theme .link-section h4 {
+    color: #2c3e50;
+}
+
+.link-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 0;
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.link-icon {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+.link-item a {
+    color: #64b5f6;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.link-item a:hover {
+    color: #81d4fa;
+}
+
+.link-url {
+    font-size: 0.7rem;
+    color: #666;
+    font-family: monospace;
+    word-break: break-all;
+}
+
+body.light-theme .link-item a {
+    color: #2980b9;
+}
+
+body.light-theme .link-item a:hover {
+    color: #42a5f5;
+}
+
+body.light-theme .link-url {
+    color: #888;
+}
+
+/* --- 辅助信息 --- */
+.options-legal {
+    margin-top: 16px;
+    padding: 14px 24px;
+}
+
+/* --- 响应式 --- */
+@media (max-width: 700px) {
+    .tabs-nav {
+        gap: 4px;
+        padding: 4px 6px;
+    }
+
+    .tab-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+
+    .options-main h2 {
+        font-size: 1.4rem;
+    }
+
+    .options-description {
+        font-size: 0.85rem;
+        padding-left: 10px;
+    }
+
+    .setting-item {
+        flex-wrap: wrap;
+        padding: 8px 14px;
+    }
+
+    .setting-info {
+        width: 100%;
+    }
+
+    .setting-type {
+        margin-left: auto;
+    }
+
+    .link-section {
+        padding: 8px 14px;
+    }
+
+    .link-item {
+        font-size: 0.8rem;
+        gap: 6px;
+    }
+
+    .link-url {
+        font-size: 0.65rem;
+        width: 100%;
+        padding-left: 28px;
+    }
+
+    .placeholder-content {
+        padding: 30px 16px;
+    }
+
+    .placeholder-icon {
+        font-size: 2.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tabs-nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 3px;
+        padding: 4px 4px;
+        scrollbar-width: none;
+    }
+
+    .tabs-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab-btn {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+        white-space: nowrap;
+    }
+
+    .options-main h2 {
+        font-size: 1.2rem;
+    }
+
+    .options-description {
+        font-size: 0.8rem;
+    }
+
+    .settings-header h3 {
+        font-size: 0.9rem;
+    }
+
+    .setting-name {
+        font-size: 0.82rem;
+    }
+
+    .setting-desc {
+        font-size: 0.72rem;
+    }
+
+    .setting-type {
+        font-size: 0.6rem;
+        padding: 1px 10px;
+    }
+
+    .options-legal {
+        padding: 10px 16px;
+        font-size: 0.8rem;
+    }
+}
