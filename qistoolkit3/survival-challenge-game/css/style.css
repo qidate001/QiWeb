@@ -1,0 +1,305 @@
+/* 全局重置与字体设定 */
+:root {
+    /* 亮色模式定义 */
+    --bg-color: #dff5f5;
+    --panel-bg: #fefefe;
+    --sidebar-bg: #fffce1;
+    --text-main: #333;
+    --text-sub: #555;
+    --accent-red: #c0392b;
+    --accent-green: #27ae60;
+    --accent-gold: #f1c40f;
+    --border-color: #b0b0b0;
+    --alert-bg: #fff8dc;
+    --widget-bg: #fff;
+    --footer-color: #888;
+    --shadow-color: rgba(0,0,0,0.1);
+}
+
+/* 暗色模式颜色覆盖 */
+body.dark-theme {
+    --bg-color: #1a1a1a;
+    --panel-bg: #2c2c2c;
+    --sidebar-bg: #262626;
+    --text-main: #e0e0e0;
+    --text-sub: #a0a0a0;
+    --border-color: #444444;
+    --alert-bg: #2e2b1f;
+    --widget-bg: #2a2a2a;
+    --footer-color: #666;
+    --shadow-color: rgba(0,0,0,0.5);
+}
+
+body {
+    margin: 0;
+    font-family: '华文楷体', 'KaiTi', 'Microsoft YaHei', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.wiki-container {
+    display: flex;
+    max-width: 1400px;
+    margin: 20px auto;
+    background: var(--panel-bg);
+    box-shadow: 0 0 15px var(--shadow-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: background 0.3s;
+}
+
+/* 主题切换按钮 */
+.theme-switch {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+    padding: 8px 18px;
+    background: var(--panel-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transition: 0.3s;
+    font-size: 14px;
+}
+.theme-switch:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px var(--shadow-color);
+}
+
+/* 侧边导航 */
+.sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background-color: var(--sidebar-bg);
+    padding: 20px;
+    border-right: 1px solid var(--border-color);
+    transition: background 0.3s;
+}
+
+.game-title h1 {
+    margin: 0 0 5px 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+.subtitle {
+    font-size: 12px;
+    color: var(--text-sub);
+    margin-bottom: 25px;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px 0;
+}
+.menu li {
+    margin-bottom: 8px;
+}
+.menu a {
+    text-decoration: none;
+    color: var(--text-main);
+    display: block;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+    font-size: 16px;
+}
+.menu a:hover {
+    background-color: #eae5d2;
+    color: var(--accent-red);
+}
+body.dark-theme .menu a:hover {
+    background-color: #3a3a3a;
+}
+
+/* 气运模拟器小部件 */
+.widget-box {
+    border-top: 2px solid var(--border-color);
+    padding-top: 15px;
+}
+.widget-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.widget-content input[type="range"] {
+    width: 100%;
+    margin: 8px 0;
+    background: var(--widget-bg);
+    accent-color: var(--accent-gold);
+}
+.prob-results {
+    font-size: 14px;
+}
+.prob-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 4px 0;
+    padding: 2px 0;
+}
+.prob-item.good { color: var(--accent-green); }
+.prob-item.bad { color: var(--accent-red); }
+.prob-item.neutral { color: var(--text-sub); }
+
+/* 主内容区 */
+.content {
+    flex: 1;
+    padding: 25px;
+    background: var(--panel-bg);
+    overflow-y: auto;
+    transition: background 0.3s;
+}
+
+.panel {
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+    transition: border-color 0.3s;
+}
+.panel:last-child {
+    border-bottom: none;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+h2 {
+    font-size: 24px;
+    margin-top: 0;
+    border-left: 4px solid var(--accent-red);
+    padding-left: 10px;
+}
+.tag {
+    background: var(--border-color);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    color: var(--text-sub);
+}
+
+.alert-box {
+    background: var(--alert-bg);
+    border-left: 5px solid var(--accent-gold);
+    padding: 10px 15px;
+    margin: 15px 0;
+    transition: background 0.3s;
+}
+.alert-box ul {
+    margin: 5px 0;
+    padding-left: 20px;
+}
+
+/* 数值卡片网格 */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+.stat-card {
+    background: var(--sidebar-bg);
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    transition: background 0.3s, border-color 0.3s;
+}
+.stat-card h3 { margin: 0 0 5px 0; font-size: 16px; }
+
+/* 行动列表 */
+.action-list .action-item {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border-color);
+}
+.action-list .action-item:last-child { border-bottom: none; }
+.tree {
+    font-size: 13px;
+    color: var(--text-sub);
+    margin-top: 5px;
+}
+
+/* 道具网格 */
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+.item-card {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 12px;
+    transition: transform 0.1s;
+}
+.item-card:hover { transform: translateY(-3px); box-shadow: 0 4px 8px var(--shadow-color); }
+.item-name { font-weight: bold; font-size: 15px; margin-bottom: 6px; }
+.item-desc { font-size: 13px; color: var(--text-main); }
+.faith-item { border-left: 3px solid #e1b12c; }
+
+/* 塔罗牌网格 */
+.tarot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+.tarot-card {
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 12px;
+    background: var(--sidebar-bg);
+    transition: background 0.3s;
+}
+.tarot-card h3 { margin: 0 0 8px 0; font-size: 16px; text-align: center;}
+.green { color: var(--accent-green); font-size: 13px; margin: 3px 0; }
+.red { color: var(--accent-red); font-size: 13px; margin: 3px 0; }
+.note { font-size: 12px; color: var(--text-sub); margin-top: 8px; font-style: italic; }
+
+/* 挑战区 */
+.challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+.chal-card {
+    background: var(--sidebar-bg);
+    padding: 15px;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+.chal-card h3 { margin-top: 0; text-align: center; }
+.chal-card ul { padding-left: 20px; }
+.flavor {
+    font-size: 12px;
+    color: var(--text-sub);
+    font-style: italic;
+    text-align: right;
+    margin-top: 10px;
+}
+
+/* 结局区 */
+.ending-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.ending-card {
+    flex: 1;
+    min-width: 150px;
+    background: var(--sidebar-bg);
+    padding: 15px;
+    border-radius: 6px;
+    text-align: center;
+    transition: background 0.3s;
+}
+.ending-card h4 { margin: 0 0 8px 0; }
+.diff { font-size: 12px; color: var(--text-sub); }
+
+.wiki-footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--footer-color);
+    font-size: 13px;
+}

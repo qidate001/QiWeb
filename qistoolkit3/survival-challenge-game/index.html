@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《问身 问己 问心》Wiki · 首页</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="dark-theme">
+    <!-- 主题切换按钮 -->
+    <button id="theme-toggle" class="theme-switch">🌓 暗色模式</button>
+
+    <div class="wiki-container">
+        <!-- 侧边导航 -->
+        <nav class="sidebar">
+            <div class="game-title">
+                <h1>问身 问己 问心</h1>
+                <div class="subtitle">WIKI · 生存手册</div>
+            </div>
+            <ul class="menu">
+                <li><a href="#overview">📖 游戏总览</a></li>
+                <li><a href="#stats">📊 数值详解</a></li>
+                <li><a href="#actions">🎯 日常行动</a></li>
+                <li><a href="#items">🎒 道具图鉴</a></li>
+                <li><a href="#tarot">🔮 塔罗牌</a></li>
+                <li><a href="#challenge">⛰️ 问心崖</a></li>
+                <li><a href="#endings">🏆 结局</a></li>
+            </ul>
+            <div class="widget-box">
+                <div class="widget-title">气运模拟器</div>
+                <div class="widget-content">
+                    <label>当前气运 (L): <span id="luck-display">0</span></label>
+                    <input type="range" id="luck-slider" min="-100" max="100" value="0">
+                    <div class="prob-results">
+                        <div class="prob-item good">好事件: <span id="p-good">30.0%</span></div>
+                        <div class="prob-item bad">坏事件: <span id="p-bad">20.0%</span></div>
+                        <div class="prob-item neutral">平常事件: <span id="p-neutral">50.0%</span></div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 主体内容区 -->
+        <main class="content">
+            <section id="overview" class="panel">
+                <div class="panel-header">
+                    <h2>游戏总览</h2>
+                    <span class="tag">版本: 1.0</span>
+                </div>
+                <div class="panel-body">
+                    <p><strong>问身·问己·问心</strong>，是一款集生存、数值平衡与概率博弈于一体的文字探索游戏。</p>
+                    <p><strong>核心目标：</strong>在这座世界里坚持生活 100 天。每天只能干两件事，且需要时刻关注你的理智、心情、饥饿与口渴。</p>
+                    <div class="alert-box">
+                        <strong>⚠️ 注意事项：</strong>
+                        <ul>
+                            <li>饥饿值与口渴值大于100或小于等于0即死。</li>
+                            <li>理智低于0即死，心情低于10会开始扣除理智，心情大于等于200即死。</li>
+                            <li>污染值达到100即死；健康值为0即死。</li>
+                            <li>各项数值每天都会自动衰减。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="stats" class="panel">
+                <h2>生存数值</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>💰 金币</h3>
+                        <p>日常消耗必需品。可由工作获取，二阶段后每日会受（天数-10）*2的税金影响。</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>🧠 理智</h3>
+                        <p>低于0即死。可通过知识区恢复。关键数值，影响部分特殊剧情的触发。</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>😊 心情</h3>
+                        <p>低于0扣理智，高于200即死。可通过外出游玩恢复。</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>🍔 饥饿/口渴</h3>
+                        <p>基础上限100，每天递减15。超出上限或低于0都会导致死亡。可通过“美食街”补充。</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>💪 健康/污染</h3>
+                        <p>健康值受极端天气影响，二阶段后每日衰减。污染值达到100即死。</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>🍀 气运</h3>
+                        <p>影响每日随机事件是好是坏。点击左侧滑块，查看气运值对事件的概率影响。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="actions" class="panel">
+                <h2>日常行动</h2>
+                <div class="action-list">
+                    <div class="action-item">
+                        <h4>💼 去挣钱 <span class="tag">解锁</span></h4>
+                        <p>基础收益：30-70G，消耗心情。</p>
+                        <div class="tree">
+                            <span>打零工 (初)</span> ➔ <span>跑外卖 (经验15)</span> ➔ <span>做代购 (经验40)</span> ➔ <span>去上班 (经验80)</span> ➔ <span>做开发 (经验120)</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <h4>🍜 美食街</h4>
+                        <p>补充饥饿值和口渴值（有饺子、肉夹馍、冰淇淋等）。高价格的高品质食物（如餐餐盛宴）可大量恢复。</p>
+                    </div>
+                    <div class="action-item">
+                        <h4>📚 知识区</h4>
+                        <p>恢复理智，是生存的关键。</p>
+                    </div>
+                    <div class="action-item">
+                        <h4>🎡 出去玩</h4>
+                        <p>稳定恢复心情值。</p>
+                    </div>
+                    <div class="action-item">
+                        <h4>⛰️ 去冒险</h4>
+                        <p>主线剧情触发点，可能遭遇极端天气、污染事件或故事线。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="items" class="panel">
+                <h2>道具图鉴 (已知15/16种)</h2>
+                <div class="items-grid">
+                    <div class="item-card">
+                        <div class="item-name">黑暗屏蔽器</div>
+                        <div class="item-desc">屏蔽主线黑暗文字。神秘商店 100理智购买。</div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-name">御寒/御焰服</div>
+                        <div class="item-desc">基础版抵抗 -10℃ / 55℃。可在超市购买，使用水滴升级至抵抗 -50℃ / 100℃。</div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-name">急救包/解毒剂/幸运符</div>
+                        <div class="item-desc">超市1000G购买。分别抵消健康归零、误食毒蘑菇、被车撞事件。</div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-name">污染干扰器</div>
+                        <div class="item-desc">使每天污染下降5点。需在工作坊使用多种资源合成。</div>
+                    </div>
+                    <div class="item-card faith-item">
+                        <div class="item-name">🕯️ 欺诈之面</div>
+                        <div class="item-desc">被动：25%概率欺骗死亡。主动：重置一切属性，重开人生。</div>
+                    </div>
+                    <div class="item-card faith-item">
+                        <div class="item-name">🎲 命运之殷</div>
+                        <div class="item-desc">被动：每5天触发命运投掷（恢复数值/金币）。主动：篡改命运，3天内必出好事件。</div>
+                    </div>
+                    <div class="item-card faith-item">
+                        <div class="item-name">🗡️ 死亡之镰</div>
+                        <div class="item-desc">主动：进入生死之间，3天内无视死亡。</div>
+                    </div>
+                    <div class="item-card faith-item">
+                        <div class="item-name">📖 秩序之杖</div>
+                        <div class="item-desc">主动：规则附身，3天内所有数值获取/扣除翻倍。</div>
+                    </div>
+                    <div class="item-card faith-item">
+                        <div class="item-name">📕 记忆之书</div>
+                        <div class="item-desc">主动：绝对理智，3天内理智无限。</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tarot" class="panel">
+                <h2>塔罗牌系统 (乘区加成)</h2>
+                <p>塔罗牌可为角色提供强大的全局修正。绿色词条为增益，红色为减益。</p>
+                <div class="tarot-grid">
+                    <div class="tarot-card">
+                        <h3>0 · 愚者</h3>
+                        <p class="green">[增益] 增加的理智翻倍。</p>
+                        <p class="red">[减益] 每日减少的心情值/金钱值加倍。</p>
+                        <p class="note">获取：生存100天且**未选择**任何信仰。</p>
+                    </div>
+                    <div class="tarot-card">
+                        <h3>1 · 魔术师</h3>
+                        <p class="green">[增益] 获得工作经验翻倍。</p>
+                        <p class="red">[减益] 扣除的理智翻倍。</p>
+                        <p class="note">获取：暂未实装</p>
+                    </div>
+                    <div class="tarot-card">
+                        <h3>2 · 女祭司</h3>
+                        <p class="green">[增益] 增加的理智翻倍。</p>
+                        <p class="red">[减益] 获得工作经验效率减半。</p>
+                        <p class="note">获取：达成真我结局。</p>
+                    </div>
+                    <div class="tarot-card">
+                        <h3>3 · 皇后</h3>
+                        <p class="green">[增益] 不会丢失/结交新朋友。</p>
+                        <p class="red">[减益] 心情过低时扣除双倍理智。</p>
+                    </div>
+                    <div class="tarot-card">
+                        <h3>18 · 月亮</h3>
+                        <p class="green">[增益] 每日不再减少心情与理智。</p>
+                        <p class="red">[减益] 工作经验上限减少至100%</p>
+                        <p class="note">获取：生存100天且**选择**了任意信仰。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="challenge" class="panel">
+                <h2>问心崖 · 终极挑战</h2>
+                <div class="challenge-grid">
+                    <div class="chal-card">
+                        <h3>🧘 问身</h3>
+                        <ul>
+                            <li>一阶：将健康控制在 <strong>60~100</strong></li>
+                            <li>二阶：将健康控制在 <strong>40~60</strong></li>
+                            <li>三阶：将健康控制在 <strong>1~40</strong></li>
+                        </ul>
+                        <p class="flavor">“你拖着残破的身躯抵达了那崖边，看到了空虚的天空。”</p>
+                    </div>
+                    <div class="chal-card">
+                        <h3>💭 问己</h3>
+                        <ul>
+                            <li>一阶：将心情控制在 <strong>100~200</strong></li>
+                            <li>二阶：将心情控制在 <strong>50~100</strong></li>
+                            <li>三阶：将心情控制在 <strong>1~50</strong></li>
+                        </ul>
+                        <p class="flavor">“他一跃而下，你无论如何都无法救下他...就如同自己。”</p>
+                    </div>
+                    <div class="chal-card">
+                        <h3>🫀 问心</h3>
+                        <ul>
+                            <li>一阶：将理智控制在 <strong>≥100</strong></li>
+                            <li>二阶：将理智控制在 <strong>50~100</strong></li>
+                            <li>三阶：将理智控制在 <strong>1~50</strong></li>
+                        </ul>
+                        <p class="flavor">“你拖着残破的身躯抵达了那崖边，你看到了空虚的天空。”</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="endings" class="panel">
+                <h2>结局说明</h2>
+                <div class="ending-flex">
+                    <div class="ending-card">
+                        <h4>🃏 平常结局 (愚者)</h4>
+                        <p><strong>条件：</strong>生存100天，且不选择任何信仰。<br><span class="diff">难度：★★★★★★★★☆☆</span></p>
+                    </div>
+                    <div class="ending-card">
+                        <h4>🌙 普通结局 (月亮)</h4>
+                        <p><strong>条件：</strong>生存100天，并选择任意信仰。<br><span class="diff">难度：★★★★★☆☆☆☆☆</span></p>
+                    </div>
+                    <div class="ending-card">
+                        <h4>🔮 真我结局 (女祭司)</h4>
+                        <p><strong>条件：</strong>前往问心崖，完成<strong>问身·问己·问心</strong>三项挑战。<br><span class="diff">难度：★★★★★★★★★☆</span></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <footer class="wiki-footer">
+         <p>《问身 问己 问心》玩家Wiki · 数据基于游戏文档整理 · 持续更新中</p>
+    </footer>
+    <script src="./js/main.js"></script>
+</body>
+</html>
