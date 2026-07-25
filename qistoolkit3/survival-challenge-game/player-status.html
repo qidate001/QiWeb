@@ -413,8 +413,12 @@
         </main>
     </div>
     <footer class="wiki-footer">
-         <p>《问身 问己 问心》玩家Wiki · 数据基于游戏文档整理 · 持续更新中</p>
+        <p>《问身 问己 问心》官方Wiki · 持续更新中</p>
+        <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
     </footer>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
     
     <!-- 引用主站JS，实现暗色模式共享 -->
     <script src="js/main.js"></script>
