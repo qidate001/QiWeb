@@ -10,7 +10,7 @@
         .stat-section {
             margin-bottom: 30px;
             border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 20px;
+            padding-bottom: 25px;
         }
         .stat-section:last-child { border-bottom: none; }
         .stat-title {
@@ -79,6 +79,38 @@
             color: var(--accent-red);
             font-weight: bold;
         }
+
+        /* 侧边栏子菜单样式 */
+        #page-anchor-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+        #page-anchor-menu .nav-header {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+            color: var(--text-sub);
+        }
+        #page-anchor-menu li a {
+            padding: 6px 12px;
+            padding-left: 20px; /* 子级缩进 */
+            font-size: 14px;
+            text-decoration: none;
+            color: var(--text-main);
+            display: block;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+        #page-anchor-menu li a:hover {
+            background-color: #eae5d2;
+            color: var(--accent-red);
+        }
+        body.dark-theme #page-anchor-menu li a:hover {
+            background-color: #3a3a3a;
+        }
     </style>
 </head>
 <body>
@@ -92,9 +124,11 @@
                 <h1>问身 问己 问心</h1>
                 <div class="subtitle">WIKI · 生存手册</div>
             </div>
+            
+            <!-- 页面顶部的全局导航 -->
             <ul class="menu">
                 <li><a href="index.html">📖 游戏总览 / 新手指引</a></li>
-                <li><a href="player-status.html" style="background-color: #eae5d2; color: var(--accent-red);">📊 生存数值</a></li>
+                <li><a href="player-status.html">📊 生存数值</a></li>
                 <li><a href="#">🎒 道具图鉴</a></li>
                 <li><a href="#">🌪️ 随机事件</a></li>
                 <li><a href="#">🎯 主界行动</a></li>
@@ -103,7 +137,35 @@
                 <li><a href="#">🔮 塔罗牌</a></li>
                 <li><a href="#">🏆 结局</a></li>
             </ul>
-            <div class="widget-box">
+            
+            <!-- 当前页面的内部锚点导航 -->
+            <div style="margin-top: 10px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                <div style="font-weight: bold; margin-bottom: 10px; color: var(--text-sub); font-size: 14px;">📌 当前页索引</div>
+                <ul id="page-anchor-menu">
+                    <li><a href="#explicit">📈 显式数值列表</a></li>
+                    <li><a href="#hidden">🤫 隐藏数值列表</a></li>
+                    <li><a href="#days">📅 天数</a></li>
+                    <li><a href="#gold">💰 金钱</a></li>
+                    <li><a href="#san">🧠 理智</a></li>
+                    <li><a href="#mood">😊 心情</a></li>
+                    <li><a href="#health">❤️ 健康</a></li>
+                    <li><a href="#luck">🍀 气运</a></li>
+                    <li><a href="#lost">🌫️ 迷失</a></li>
+                    <li><a href="#pollution">☠️ 污染</a></li>
+                    <li><a href="#hunger">🍔 饥饿值</a></li>
+                    <li><a href="#thirsty">🥤 口渴值</a></li>
+                    <li><a href="#max-hunger">📈 最大饥饿值</a></li>
+                    <li><a href="#max-thirsty">📈 最大口渴值</a></li>
+                    <li><a href="#max-health">❤️‍🔥 最大健康值</a></li>
+                    <li><a href="#work-exp">💼 工作经验</a></li>
+                    <li><a href="#temperature">🌡️ 室外温度</a></li>
+                    <li><a href="#reset-count">⏳ 时空回溯</a></li>
+                    <li><a href="#friend">👥 朋友</a></li>
+                    <li><a href="#weather-events">🌪️ 极寒/极热起止</a></li>
+                </ul>
+            </div>
+            
+            <div class="widget-box" style="margin-top: 20px;">
                 <div class="widget-title">气运模拟器</div>
                 <div class="widget-content">
                     <label>当前气运 (L): <span id="luck-display">0</span></label>
@@ -119,7 +181,7 @@
 
         <!-- 主体内容区 -->
         <main class="content">
-            <div class="panel-header">
+            <div class="panel-header" id="top">
                 <h2>生存数值</h2>
                 <span class="tag">核心机制</span>
             </div>
@@ -130,7 +192,7 @@
                 </div>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="explicit">
                 <h3 class="stat-title">【显式数值】</h3>
                 <div style="display: flex; flex-wrap: wrap; gap: 15px;">
                     <div style="border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 6px; background: var(--sidebar-bg);">📅 天数 Days</div>
@@ -153,7 +215,7 @@
                 <div style="margin-top: 10px; font-size: 14px; color: var(--text-sub);">*时空回溯：时空碎块限定。</div>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="hidden">
                 <h3 class="stat-title">【隐藏数值】</h3>
                 <div>
                     <span class="hidden-tag">朋友 Friend</span>
@@ -164,7 +226,7 @@
                 </div>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="days">
                 <h3 class="stat-title">【天数】</h3>
                 <p>你存活的天数，随着天数上涨，难度会逐渐增高</p>
                 <ul class="stat-list">
@@ -184,7 +246,7 @@
                 </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="gold">
                 <h3 class="stat-title">【金钱】</h3>
                 <p>金钱 —— 非神秘中重要的资源与货币</p>
                 <ul class="stat-list">
@@ -192,7 +254,7 @@
                 </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="san">
                 <h3 class="stat-title">【理智】</h3>
                 <p>理智 —— 神秘中重要的资源与货币</p>
                 <ul class="stat-list">
@@ -211,7 +273,7 @@
                 </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="mood">
                 <h3 class="stat-title">【心情】</h3>
                 <p>心情 —— 一个与理智大幅绑定的数值。</p>
                 <ul class="stat-list">
@@ -227,7 +289,7 @@
                 </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="health">
                 <h3 class="stat-title">【健康】</h3>
                 <ul class="stat-list">
                     <li>健康可以通过 【前往医院】 或 【强健项目】 恢复。</li>
@@ -240,12 +302,62 @@
                 </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="luck">
                 <h3 class="stat-title">【气运】</h3>
-                <p>（文档都有写，照着来就行，就不复述了）</p>
+                <p>气运值计算过程较为复杂，且受多种因素影响。</p>
+                <ul class="stat-list">
+                    <li><strong>基础概率定义：</strong>
+                        <ul>
+                            <li>好事件：0.3</li>
+                            <li>坏事件：0.2</li>
+                            <li>平常事件：0.5</li>
+                        </ul>
+                    </li>
+                    <li><strong>气运值影响公式：</strong>
+                        <ul>
+                            <li>设 L = 实际气运值（范围：-100到100）</li>
+                            <li>设 k = 0.002（气运值影响系数）</li>
+                            <li>气运值影响量： E = L × k</li>
+                        </ul>
+                    </li>
+                    <li><strong>初步调整概率：</strong>
+                        <ul>
+                            <li>好事件 = 0.3 + E</li>
+                            <li>坏事件 = 0.2 - E</li>
+                            <li>平常事件 = 0.5</li>
+                        </ul>
+                    </li>
+                    <li><strong>概率限制函数：</strong>
+                        <ul>
+                            <li>clamp(x, min, max)：限制数值范围在 min 和 max 之间。</li>
+                            <li>应用范围：概率限制为 0.1 ~ 0.6 之间。</li>
+                        </ul>
+                    </li>
+                    <li><strong>重新平衡概率（归一化）：</strong>
+                        <ul>
+                            <li>计算三个概率的【总概率】，然后将每个概率除以【总概率】。</li>
+                        </ul>
+                    </li>
+                    <li><strong>当 L = 100 时的具体计算：</strong>
+                        <ul>
+                            <li>步骤1：计算影响量 E = 100 × 0.002 = 0.2</li>
+                            <li>步骤2：初步调整，好=0.5，坏=0.0，平常=0.5</li>
+                            <li>步骤3：概率限制 clamp，好=0.5，坏=0.1（因为坏限制在0.1~0.6），平常=0.5</li>
+                            <li>步骤4：重新平衡，好≈45.45%，坏≈9.09%，平常≈45.45%</li>
+                        </ul>
+                    </li>
+                    <li><strong>不同气运值对比：</strong>
+                        <ul>
+                            <li>气运值 = -100（显示0）：好≈18.2%，坏≈36.4%，平常≈45.5%</li>
+                            <li>气运值 = 0（显示100）：好30%，坏20%，平常50%</li>
+                            <li>气运值 = 50（显示150）：好≈40%，坏≈10%，平常≈50%</li>
+                            <li>气运值 = 100（显示200）：好≈45.5%，坏≈9.1%，平常≈45.5%</li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="lost">
                 <h3 class="stat-title">【迷失】</h3>
                 <ul class="stat-list">
                     <li>该数值未完全开发完成。</li>
@@ -253,7 +365,7 @@
                 </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="pollution">
                 <h3 class="stat-title">【污染】</h3>
                 <p>严重的威胁，可通过食用 【净化套餐】，制作 【污染干扰器】 来减少自身污染。</p>
                 <ul class="stat-list">
@@ -265,7 +377,7 @@
                 </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="hunger">
                 <h3 class="stat-title">【饥饿值】</h3>
                 <p>饥饿值，通过前往 【美食区】 进食回复，推荐在小于等于30时食用饺子。</p>
                 <ul class="stat-list">
@@ -276,7 +388,7 @@
                 </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="thirsty">
                 <h3 class="stat-title">【口渴值】</h3>
                 <p>口渴值，通过前往 【美食区】 进食回复，推荐在小于等于30时食用柠檬水。</p>
                 <ul class="stat-list">
@@ -287,7 +399,7 @@
                 </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="max-hunger">
                 <h3 class="stat-title">【最大饥饿值】</h3>
                 <p>影响什么时候撑死。</p>
                 <ul class="stat-list">
@@ -295,7 +407,7 @@
                 </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="max-thirsty">
                 <h3 class="stat-title">【最大口渴值】</h3>
                 <p>影响什么时候胀死。</p>
                 <ul class="stat-list">
@@ -303,7 +415,7 @@
                 </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="max-health">
                 <h3 class="stat-title">【最大健康值】</h3>
                 <ul class="stat-list">
                     <li>影响健康值的上限。</li>
@@ -311,7 +423,7 @@
                 </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="work-exp">
                 <h3 class="stat-title">【工作经验】</h3>
                 <ul class="stat-list">
                     <li>工作经验可以解锁更高级别的工作，且工作会获得额外金钱，公式如下</li>
@@ -319,7 +431,7 @@
                 </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="temperature">
                 <h3 class="stat-title">【室外温度】</h3>
                 <p>受极寒与极热波动的值。</p>
                 <p>波动详见【天数】。</p>
@@ -367,7 +479,7 @@
                 </div>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="reset-count">
                 <h3 class="stat-title">【时空回溯】</h3>
                 <ul class="stat-list">
                     <li>仅时空碎片可用的数值。</li>
@@ -375,7 +487,7 @@
                 </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="friend">
                 <h3 class="stat-title">【朋友】</h3>
                 <p>影响 【出去玩】 获得的心情值。</p>
                 <div class="mechanics-box">
@@ -400,7 +512,7 @@
                 </ul>
             </div>
 
-            <div class="stat-section">
+            <div class="stat-section" id="weather-events">
                 <h3 class="stat-title">【极寒开始/结束 极热开始/结束】</h3>
                 <ul class="stat-list">
                     <li>极寒开始在 第 (20 ~ 30) 天</li>
