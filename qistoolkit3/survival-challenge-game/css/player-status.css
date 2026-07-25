@@ -1,0 +1,125 @@
+.stat-section {
+    margin-bottom: 30px;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 25px;
+}
+
+.stat-section:last-child {
+    border-bottom: none;
+}
+
+.stat-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    border-left: 4px solid var(--accent-red);
+    padding-left: 10px;
+}
+
+.stat-subtitle {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+    color: var(--text-sub);
+}
+
+.stat-list {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.stat-list li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.stat-list p {
+    margin: 6px 0 6px 0;
+    line-height: 1.6;
+}
+
+.mechanics-box {
+    background: var(--alert-bg);
+    padding: 15px 20px;
+    border-radius: 8px;
+    border-left: 5px solid var(--accent-gold);
+    margin: 15px 0;
+}
+
+.hidden-tag {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    padding: 5px 12px;
+    display: inline-block;
+    margin: 5px 5px 5px 0;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* 天气伤害表格 */
+.table-wrapper {
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+.damage-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    background: var(--sidebar-bg);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.damage-table th,
+.damage-table td {
+    border: 1px solid var(--border-color);
+    padding: 10px 15px;
+    text-align: center;
+}
+
+.damage-table th {
+    background-color: var(--border-color);
+    font-weight: bold;
+}
+
+.red-text {
+    color: var(--accent-red);
+    font-weight: bold;
+}
+
+/* 侧边栏子菜单样式 */
+#page-anchor-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
+}
+
+#page-anchor-menu .nav-header {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: var(--text-sub);
+}
+
+#page-anchor-menu li a {
+    padding: 6px 12px;
+    padding-left: 20px;
+    /* 子级缩进 */
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--text-main);
+    display: block;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+
+#page-anchor-menu li a:hover {
+    background-color: #eae5d2;
+    color: var(--accent-red);
+}
+
+body.dark-theme #page-anchor-menu li a:hover {
+    background-color: #3a3a3a;
+}
