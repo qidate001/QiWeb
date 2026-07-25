@@ -1,0 +1,74 @@
+[
+  {
+    "Text": "边缘型人格障碍的缩写是？",
+    "OptionA": "NPD",
+    "OptionB": "BPD",
+    "OptionC": "KPD",
+    "OptionD": "RPG",
+    "CorrectOptions": 2,
+    "Explanation": "BPD是边缘型人格障碍（Borderline Personality Disorder）的缩写，特征包括情绪不稳定、人际关系紧张等。"
+  },
+  {
+    "Text": "自恋型人格障碍的缩写是？",
+    "OptionA": "NPD",
+    "OptionB": "CPD",
+    "OptionC": "KPD",
+    "OptionD": "RPG",
+    "CorrectOptions": 1,
+    "Explanation": "NPD是自恋型人格障碍（Narcissistic Personality Disorder）的缩写"
+  },
+  {
+    "Text": "偏执型人格障碍的缩写是？",
+    "OptionA": "LPD",
+    "OptionB": "BPD",
+    "OptionC": "PPD",
+    "OptionD": "RPG",
+    "CorrectOptions": 3,
+    "Explanation": "PPD是偏执型人格障碍（Paranoid Personality Disorder）的缩写，特征包括不信任和猜疑他人。"
+  },
+  {
+    "Text": "表演型人格障碍的缩写是？",
+    "OptionA": "OPD",
+    "OptionB": "HPD",
+    "OptionC": "KPD",
+    "OptionD": "APD",
+    "CorrectOptions": 2,
+    "Explanation": "HPD是表演型人格障碍（Histrionic Personality Disorder）的缩写，特征包括过度情绪化和寻求关注。"
+  },
+  {
+    "Text": "分裂型人格障碍的缩写是？",
+    "OptionA": "SPD",
+    "OptionB": "GPD",
+    "OptionC": "KPD",
+    "OptionD": "JPD",
+    "CorrectOptions": 1,
+    "Explanation": "SPD是分裂型人格障碍（Schizotypal Personality Disorder）的缩写，特征包括社交焦虑和古怪信念。"
+  },
+  {
+    "Text": "冲动型人格障碍的缩写是？",
+    "OptionA": "BPD",
+    "OptionB": "GPD",
+    "OptionC": "FPD",
+    "OptionD": "IPD",
+    "CorrectOptions": 4,
+    "Explanation": "IPD是冲动型人格障碍（Impulsive Personality Disorder）的缩写，特征包括冲动行为和情绪不稳定。"
+  },
+  {
+    "Text": "依赖型人格障碍的缩写是？",
+    "OptionA": "NPD",
+    "OptionB": "IPD",
+    "OptionC": "DPD",
+    "OptionD": "VPD",
+    "CorrectOptions": 3,
+    "Explanation": "DPD是依赖型人格障碍（Dependent Personality Disorder）的缩写，特征包括过度依赖他人和缺乏自信。"
+  },
+  {
+    "Text": "强迫型人格障碍的缩写是？",
+    "OptionA": "VKPD",
+    "OptionB": "FXPD",
+    "OptionC": "OMPD",
+    "OptionD": "OCPD",
+    "CorrectOptions": 4,
+    "Explanation": "OCPD是强迫型人格障碍（Obsessive-Compulsive Personality Disorder）的缩写，特征包括完美主义和控制欲。"
+  }
+]

@@ -1,0 +1,578 @@
+[
+  {
+    "Text": "Baruuk作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "火焰",
+    "OptionC": "冰冻",
+    "OptionD": "电击",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Baruuk归属于“冲击”分组。因此以Baruuk作为源身战甲生成玄骸时，武器附加属性为冲击。"
+  },
+  {
+    "Text": "Dante作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "电击",
+    "OptionB": "冲击",
+    "OptionC": "火焰",
+    "OptionD": "冰冻",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Dante归属于“冲击”分组。因此以Dante作为源身战甲生成玄骸时，武器附加属性为冲击。"
+  },
+  {
+    "Text": "Gauss作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "电击",
+    "OptionC": "冲击",
+    "OptionD": "火焰",
+    "CorrectOptions": 3,
+    "Explanation": "根据源身战甲附加元素对应表，Gauss归属于“冲击”分组。因此以Gauss作为源身战甲生成玄骸时，武器附加属性为冲击。"
+  },
+  {
+    "Text": "Grendel作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "火焰",
+    "OptionB": "冰冻",
+    "OptionC": "电击",
+    "OptionD": "冲击",
+    "CorrectOptions": 4,
+    "Explanation": "根据源身战甲附加元素对应表，Grendel归属于“冲击”分组。因此以Grendel作为源身战甲生成玄骸时，武器附加属性为冲击。"
+  },
+  {
+    "Text": "Rhino作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "电击",
+    "OptionC": "冰冻",
+    "OptionD": "火焰",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Rhino归属于“冲击”分组。因此以Rhino作为源身战甲生成玄骸时，武器附加属性为冲击。"
+  },
+  {
+    "Text": "Sevagoth作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "火焰",
+    "OptionB": "冲击",
+    "OptionC": "电击",
+    "OptionD": "冰冻",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Sevagoth归属于“冲击”分组。因此以Sevagoth作为源身战甲生成玄骸时，武器附加属性为冲击。"
+  },
+  {
+    "Text": "Wukong作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "火焰",
+    "OptionC": "冲击",
+    "OptionD": "电击",
+    "CorrectOptions": 3,
+    "Explanation": "根据源身战甲附加元素对应表，Wukong归属于“冲击”分组。因此以Wukong作为源身战甲生成玄骸时，武器附加属性为冲击。"
+  },
+  {
+    "Text": "Zephyr作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "电击",
+    "OptionB": "冰冻",
+    "OptionC": "火焰",
+    "OptionD": "冲击",
+    "CorrectOptions": 4,
+    "Explanation": "根据源身战甲附加元素对应表，Zephyr归属于“冲击”分组。因此以Zephyr作为源身战甲生成玄骸时，武器附加属性为冲击。"
+  },
+  {
+    "Text": "Chroma作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "火焰",
+    "OptionB": "冲击",
+    "OptionC": "冰冻",
+    "OptionD": "电击",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Chroma归属于“火焰”分组。因此以Chroma作为源身战甲生成玄骸时，武器附加属性为火焰。"
+  },
+  {
+    "Text": "Ember作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "火焰",
+    "OptionC": "电击",
+    "OptionD": "冰冻",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Ember归属于“火焰”分组。因此以Ember作为源身战甲生成玄骸时，武器附加属性为火焰。"
+  },
+  {
+    "Text": "Inaros作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "电击",
+    "OptionC": "火焰",
+    "OptionD": "冲击",
+    "CorrectOptions": 3,
+    "Explanation": "根据源身战甲附加元素对应表，Inaros归属于“火焰”分组。因此以Inaros作为源身战甲生成玄骸时，武器附加属性为火焰。"
+  },
+  {
+    "Text": "Jade作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "电击",
+    "OptionB": "冰冻",
+    "OptionC": "冲击",
+    "OptionD": "火焰",
+    "CorrectOptions": 4,
+    "Explanation": "根据源身战甲附加元素对应表，Jade归属于“火焰”分组。因此以Jade作为源身战甲生成玄骸时，武器附加属性为火焰。"
+  },
+  {
+    "Text": "Kullervo作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "火焰",
+    "OptionB": "冰冻",
+    "OptionC": "冲击",
+    "OptionD": "电击",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Kullervo归属于“火焰”分组。因此以Kullervo作为源身战甲生成玄骸时，武器附加属性为火焰。"
+  },
+  {
+    "Text": "Nezha作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "火焰",
+    "OptionC": "电击",
+    "OptionD": "冰冻",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Nezha归属于“火焰”分组。因此以Nezha作为源身战甲生成玄骸时，武器附加属性为火焰。"
+  },
+  {
+    "Text": "Protea作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "冲击",
+    "OptionC": "火焰",
+    "OptionD": "电击",
+    "CorrectOptions": 3,
+    "Explanation": "根据源身战甲附加元素对应表，Protea归属于“火焰”分组。因此以Protea作为源身战甲生成玄骸时，武器附加属性为火焰。"
+  },
+  {
+    "Text": "Temple作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "电击",
+    "OptionB": "冰冻",
+    "OptionC": "冲击",
+    "OptionD": "火焰",
+    "CorrectOptions": 4,
+    "Explanation": "根据源身战甲附加元素对应表，Temple归属于“火焰”分组。因此以Temple作为源身战甲生成玄骸时，武器附加属性为火焰。"
+  },
+  {
+    "Text": "Uriel作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "火焰",
+    "OptionB": "电击",
+    "OptionC": "冰冻",
+    "OptionD": "冲击",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Uriel归属于“火焰”分组。因此以Uriel作为源身战甲生成玄骸时，武器附加属性为火焰。"
+  },
+  {
+    "Text": "Vauban作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "火焰",
+    "OptionC": "电击",
+    "OptionD": "冰冻",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Vauban归属于“火焰”分组。因此以Vauban作为源身战甲生成玄骸时，武器附加属性为火焰。"
+  },
+  {
+    "Text": "Wisp作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "冲击",
+    "OptionC": "火焰",
+    "OptionD": "电击",
+    "CorrectOptions": 3,
+    "Explanation": "根据源身战甲附加元素对应表，Wisp归属于“火焰”分组。因此以Wisp作为源身战甲生成玄骸时，武器附加属性为火焰。"
+  },
+  {
+    "Text": "Frost作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "火焰",
+    "OptionC": "冲击",
+    "OptionD": "电击",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Frost归属于“冰冻”分组。因此以Frost作为源身战甲生成玄骸时，武器附加属性为冰冻。"
+  },
+  {
+    "Text": "Gara作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "冰冻",
+    "OptionC": "电击",
+    "OptionD": "火焰",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Gara归属于“冰冻”分组。因此以Gara作为源身战甲生成玄骸时，武器附加属性为冰冻。"
+  },
+  {
+    "Text": "Hildryn作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "电击",
+    "OptionB": "火焰",
+    "OptionC": "冰冻",
+    "OptionD": "冲击",
+    "CorrectOptions": 3,
+    "Explanation": "根据源身战甲附加元素对应表，Hildryn归属于“冰冻”分组。因此以Hildryn作为源身战甲生成玄骸时，武器附加属性为冰冻。"
+  },
+  {
+    "Text": "Koumei作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "火焰",
+    "OptionB": "冲击",
+    "OptionC": "电击",
+    "OptionD": "冰冻",
+    "CorrectOptions": 4,
+    "Explanation": "根据源身战甲附加元素对应表，Koumei归属于“冰冻”分组。因此以Koumei作为源身战甲生成玄骸时，武器附加属性为冰冻。"
+  },
+  {
+    "Text": "Revenant作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "冲击",
+    "OptionC": "火焰",
+    "OptionD": "电击",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Revenant归属于“冰冻”分组。因此以Revenant作为源身战甲生成玄骸时，武器附加属性为冰冻。"
+  },
+  {
+    "Text": "Styanax作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "冰冻",
+    "OptionC": "电击",
+    "OptionD": "火焰",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Styanax归属于“冰冻”分组。因此以Styanax作为源身战甲生成玄骸时，武器附加属性为冰冻。"
+  },
+  {
+    "Text": "Titania作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "火焰",
+    "OptionB": "电击",
+    "OptionC": "冰冻",
+    "OptionD": "冲击",
+    "CorrectOptions": 3,
+    "Explanation": "根据源身战甲附加元素对应表，Titania归属于“冰冻”分组。因此以Titania作为源身战甲生成玄骸时，武器附加属性为冰冻。"
+  },
+  {
+    "Text": "Trinity作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "电击",
+    "OptionC": "冲击",
+    "OptionD": "火焰",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Trinity归属于“冰冻”分组。因此以Trinity作为源身战甲生成玄骸时，武器附加属性为冰冻。"
+  },
+  {
+    "Text": "Banshee作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "电击",
+    "OptionB": "冰冻",
+    "OptionC": "火焰",
+    "OptionD": "冲击",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Banshee归属于“电击”分组。因此以Banshee作为源身战甲生成玄骸时，武器附加属性为电击。"
+  },
+  {
+    "Text": "Caliban作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "电击",
+    "OptionC": "冲击",
+    "OptionD": "火焰",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Caliban归属于“电击”分组。因此以Caliban作为源身战甲生成玄骸时，武器附加属性为电击。"
+  },
+  {
+    "Text": "Excalibur作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "火焰",
+    "OptionB": "冲击",
+    "OptionC": "电击",
+    "OptionD": "冰冻",
+    "CorrectOptions": 3,
+    "Explanation": "根据源身战甲附加元素对应表，Excalibur归属于“电击”分组。因此以Excalibur作为源身战甲生成玄骸时，武器附加属性为电击。"
+  },
+  {
+    "Text": "Follie作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "冰冻",
+    "OptionC": "火焰",
+    "OptionD": "电击",
+    "CorrectOptions": 4,
+    "Explanation": "根据源身战甲附加元素对应表，Follie归属于“电击”分组。因此以Follie作为源身战甲生成玄骸时，武器附加属性为电击。"
+  },
+  {
+    "Text": "Gyre作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "电击",
+    "OptionB": "火焰",
+    "OptionC": "冰冻",
+    "OptionD": "冲击",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Gyre归属于“电击”分组。因此以Gyre作为源身战甲生成玄骸时，武器附加属性为电击。"
+  },
+  {
+    "Text": "Limbo作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "电击",
+    "OptionC": "冲击",
+    "OptionD": "火焰",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Limbo归属于“电击”分组。因此以Limbo作为源身战甲生成玄骸时，武器附加属性为电击。"
+  },
+  {
+    "Text": "Nova作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "火焰",
+    "OptionB": "冲击",
+    "OptionC": "冰冻",
+    "OptionD": "电击",
+    "CorrectOptions": 4,
+    "Explanation": "根据源身战甲附加元素对应表，Nova归属于“电击”分组。因此以Nova作为源身战甲生成玄骸时，武器附加属性为电击。"
+  },
+  {
+    "Text": "Valkyr作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "冰冻",
+    "OptionC": "电击",
+    "OptionD": "火焰",
+    "CorrectOptions": 3,
+    "Explanation": "根据源身战甲附加元素对应表，Valkyr归属于“电击”分组。因此以Valkyr作为源身战甲生成玄骸时，武器附加属性为电击。"
+  },
+  {
+    "Text": "Volt作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "电击",
+    "OptionB": "冰冻",
+    "OptionC": "冲击",
+    "OptionD": "火焰",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Volt归属于“电击”分组。因此以Volt作为源身战甲生成玄骸时，武器附加属性为电击。"
+  },
+  {
+    "Text": "Atlas作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "毒素",
+    "OptionB": "冲击",
+    "OptionC": "火焰",
+    "OptionD": "冰冻",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Atlas归属于“毒素”分组。因此以Atlas作为源身战甲生成玄骸时，武器附加属性为毒素。"
+  },
+  {
+    "Text": "Dagath作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "毒素",
+    "OptionC": "电击",
+    "OptionD": "火焰",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Dagath归属于“毒素”分组。因此以Dagath作为源身战甲生成玄骸时，武器附加属性为毒素。"
+  },
+  {
+    "Text": "Ivara作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "火焰",
+    "OptionB": "冰冻",
+    "OptionC": "毒素",
+    "OptionD": "冲击",
+    "CorrectOptions": 3,
+    "Explanation": "根据源身战甲附加元素对应表，Ivara归属于“毒素”分组。因此以Ivara作为源身战甲生成玄骸时，武器附加属性为毒素。"
+  },
+  {
+    "Text": "Khora作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "火焰",
+    "OptionC": "冲击",
+    "OptionD": "毒素",
+    "CorrectOptions": 4,
+    "Explanation": "根据源身战甲附加元素对应表，Khora归属于“毒素”分组。因此以Khora作为源身战甲生成玄骸时，武器附加属性为毒素。"
+  },
+  {
+    "Text": "Nekros作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "毒素",
+    "OptionB": "冰冻",
+    "OptionC": "冲击",
+    "OptionD": "火焰",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Nekros归属于“毒素”分组。因此以Nekros作为源身战甲生成玄骸时，武器附加属性为毒素。"
+  },
+  {
+    "Text": "Nidus作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "毒素",
+    "OptionC": "火焰",
+    "OptionD": "冰冻",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Nidus归属于“毒素”分组。因此以Nidus作为源身战甲生成玄骸时，武器附加属性为毒素。"
+  },
+  {
+    "Text": "Nokko作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "火焰",
+    "OptionB": "冲击",
+    "OptionC": "毒素",
+    "OptionD": "电击",
+    "CorrectOptions": 3,
+    "Explanation": "根据源身战甲附加元素对应表，Nokko归属于“毒素”分组。因此以Nokko作为源身战甲生成玄骸时，武器附加属性为毒素。"
+  },
+  {
+    "Text": "Oberon作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "火焰",
+    "OptionC": "冲击",
+    "OptionD": "毒素",
+    "CorrectOptions": 4,
+    "Explanation": "根据源身战甲附加元素对应表，Oberon归属于“毒素”分组。因此以Oberon作为源身战甲生成玄骸时，武器附加属性为毒素。"
+  },
+  {
+    "Text": "Orazia作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "毒素",
+    "OptionB": "冲击",
+    "OptionC": "冰冻",
+    "OptionD": "火焰",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Orazia归属于“毒素”分组。因此以Orazia作为源身战甲生成玄骸时，武器附加属性为毒素。"
+  },
+  {
+    "Text": "Saryn作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "毒素",
+    "OptionC": "火焰",
+    "OptionD": "冰冻",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Saryn归属于“毒素”分组。因此以Saryn作为源身战甲生成玄骸时，武器附加属性为毒素。"
+  },
+  {
+    "Text": "Citrine作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "磁力",
+    "OptionB": "冲击",
+    "OptionC": "冰冻",
+    "OptionD": "火焰",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Citrine归属于“磁力”分组。因此以Citrine作为源身战甲生成玄骸时，武器附加属性为磁力。"
+  },
+  {
+    "Text": "Cyte-09作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "磁力",
+    "OptionC": "电击",
+    "OptionD": "冰冻",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Cyte-09归属于“磁力”分组。因此以Cyte-09作为源身战甲生成玄骸时，武器附加属性为磁力。"
+  },
+  {
+    "Text": "Harrow作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "火焰",
+    "OptionC": "磁力",
+    "OptionD": "冲击",
+    "CorrectOptions": 3,
+    "Explanation": "根据源身战甲附加元素对应表，Harrow归属于“磁力”分组。因此以Harrow作为源身战甲生成玄骸时，武器附加属性为磁力。"
+  },
+  {
+    "Text": "Hydroid作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "火焰",
+    "OptionB": "冰冻",
+    "OptionC": "冲击",
+    "OptionD": "磁力",
+    "CorrectOptions": 4,
+    "Explanation": "根据源身战甲附加元素对应表，Hydroid归属于“磁力”分组。因此以Hydroid作为源身战甲生成玄骸时，武器附加属性为磁力。"
+  },
+  {
+    "Text": "Lavos作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "磁力",
+    "OptionB": "火焰",
+    "OptionC": "冲击",
+    "OptionD": "冰冻",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Lavos归属于“磁力”分组。因此以Lavos作为源身战甲生成玄骸时，武器附加属性为磁力。"
+  },
+  {
+    "Text": "Mag作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "磁力",
+    "OptionC": "冰冻",
+    "OptionD": "火焰",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Mag归属于“磁力”分组。因此以Mag作为源身战甲生成玄骸时，武器附加属性为磁力。"
+  },
+  {
+    "Text": "Mesa作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "冲击",
+    "OptionC": "磁力",
+    "OptionD": "电击",
+    "CorrectOptions": 3,
+    "Explanation": "根据源身战甲附加元素对应表，Mesa归属于“磁力”分组。因此以Mesa作为源身战甲生成玄骸时，武器附加属性为磁力。"
+  },
+  {
+    "Text": "Xaku作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "火焰",
+    "OptionB": "冰冻",
+    "OptionC": "冲击",
+    "OptionD": "磁力",
+    "CorrectOptions": 4,
+    "Explanation": "根据源身战甲附加元素对应表，Xaku归属于“磁力”分组。因此以Xaku作为源身战甲生成玄骸时，武器附加属性为磁力。"
+  },
+  {
+    "Text": "Yareli作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "磁力",
+    "OptionB": "冲击",
+    "OptionC": "火焰",
+    "OptionD": "冰冻",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Yareli归属于“磁力”分组。因此以Yareli作为源身战甲生成玄骸时，武器附加属性为磁力。"
+  },
+  {
+    "Text": "Ash作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "辐射",
+    "OptionB": "冲击",
+    "OptionC": "冰冻",
+    "OptionD": "火焰",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Ash归属于“辐射”分组。因此以Ash作为源身战甲生成玄骸时，武器附加属性为辐射。"
+  },
+  {
+    "Text": "Equinox作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "辐射",
+    "OptionC": "电击",
+    "OptionD": "冰冻",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Equinox归属于“辐射”分组。因此以Equinox作为源身战甲生成玄骸时，武器附加属性为辐射。"
+  },
+  {
+    "Text": "Garuda作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "火焰",
+    "OptionC": "辐射",
+    "OptionD": "冲击",
+    "CorrectOptions": 3,
+    "Explanation": "根据源身战甲附加元素对应表，Garuda归属于“辐射”分组。因此以Garuda作为源身战甲生成玄骸时，武器附加属性为辐射。"
+  },
+  {
+    "Text": "Loki作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "火焰",
+    "OptionB": "冲击",
+    "OptionC": "冰冻",
+    "OptionD": "辐射",
+    "CorrectOptions": 4,
+    "Explanation": "根据源身战甲附加元素对应表，Loki归属于“辐射”分组。因此以Loki作为源身战甲生成玄骸时，武器附加属性为辐射。"
+  },
+  {
+    "Text": "Mirage作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "辐射",
+    "OptionB": "冰冻",
+    "OptionC": "冲击",
+    "OptionD": "火焰",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Mirage归属于“辐射”分组。因此以Mirage作为源身战甲生成玄骸时，武器附加属性为辐射。"
+  },
+  {
+    "Text": "Nyx作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冲击",
+    "OptionB": "辐射",
+    "OptionC": "冰冻",
+    "OptionD": "电击",
+    "CorrectOptions": 2,
+    "Explanation": "根据源身战甲附加元素对应表，Nyx归属于“辐射”分组。因此以Nyx作为源身战甲生成玄骸时，武器附加属性为辐射。"
+  },
+  {
+    "Text": "Octavia作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "冰冻",
+    "OptionB": "冲击",
+    "OptionC": "辐射",
+    "OptionD": "火焰",
+    "CorrectOptions": 3,
+    "Explanation": "根据源身战甲附加元素对应表，Octavia归属于“辐射”分组。因此以Octavia作为源身战甲生成玄骸时，武器附加属性为辐射。"
+  },
+  {
+    "Text": "Qorvex作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "火焰",
+    "OptionB": "冰冻",
+    "OptionC": "冲击",
+    "OptionD": "辐射",
+    "CorrectOptions": 4,
+    "Explanation": "根据源身战甲附加元素对应表，Qorvex归属于“辐射”分组。因此以Qorvex作为源身战甲生成玄骸时，武器附加属性为辐射。"
+  },
+  {
+    "Text": "Voruna作为源身战甲时，其击杀生成的玄骸武器附加属性是以下哪种？",
+    "OptionA": "辐射",
+    "OptionB": "冲击",
+    "OptionC": "冰冻",
+    "OptionD": "火焰",
+    "CorrectOptions": 1,
+    "Explanation": "根据源身战甲附加元素对应表，Voruna归属于“辐射”分组。因此以Voruna作为源身战甲生成玄骸时，武器附加属性为辐射。"
+  }
+]

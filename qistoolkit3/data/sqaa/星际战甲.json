@@ -1,0 +1,389 @@
+[
+  {
+    "Text": "星际战甲：战甲是由谁创造的？",
+    "OptionA": "天诺",
+    "OptionB": "Ballas",
+    "OptionC": "Orokin 科学家集体",
+    "OptionD": "Hunhow",
+    "CorrectOptions": 2,
+    "Explanation": "在《星际战甲》剧情中，战甲（Warframe）是由奥罗金帝国的执政官Ballas（拜勒斯）主导设计和创造的。他利用了一种名为“感染”的技术，将自愿或非自愿的宿主（如Margulis的克隆体）与Technocyte病毒结合，制成了第一批用于战争的生物机械外壳，后来成为天诺操控的载体。"
+  },
+  {
+    "Text": "星际战甲：在《牺牲》系列任务中，Umbra Excalibur 被植入的记忆核心痛苦源于以下哪个事件？",
+    "OptionA": "目睹儿子被 Ballas 转化为 Infested",
+    "OptionB": "被迫亲手杀死自己的儿子",
+    "OptionC": "被 Ballas 强制植入 Technocyte 病毒",
+    "OptionD": "被 Tenno 操控而屠杀同胞",
+    "CorrectOptions": 2,
+    "Explanation": "根据《牺牲》剧情与维基记载，Umbra Excalibur 原本是奥罗金战士 Isaah 的父亲，Ballas 为了惩罚他，将其转化为 Warframe 并植入一段不断重复的记忆——亲手杀死自己的儿子 Isaah，这段记忆成为其永恒的痛苦核心。"
+  },
+  {
+    "Text": "星际战甲：下列哪一种 Infested 单位是由 Corpus 船员变异而来，且首次出现于更新《猩红之矛》？",
+    "OptionA": "疾冲者",
+    "OptionB": "疫变之巢",
+    "OptionC": "病变虫母",
+    "OptionD": "疫变之喉",
+    "CorrectOptions": 4,
+    "Explanation": "疫变之喉（Volitile）是一种由 Corpus 船员变异而成的 Infested 单位，首次登场于行动《猩红之矛》，其特点是会冲向玩家并自爆，造成范围辐射伤害。"
+  },
+  {
+    "Text": "星际战甲：在《双衍悖论》更新前，以下哪一把武器无法通过常规游戏途径获得，仅能通过 Baro Ki'Teer 或活动获取？",
+    "OptionA": "奥席金属鱼叉",
+    "OptionB": "恸哭女妖",
+    "OptionC": "食人鱼 Prime",
+    "OptionD": "布莱顿 Prime",
+    "CorrectOptions": 1,
+    "Explanation": "奥席金属鱼叉（Sybaris Prime）在《双衍悖论》推出双衍王境常规获取途径前，仅能通过 Baro Ki'Teer 携带的虚空遗物或特定活动获得，属于较难获取的 Prime 武器之一。"
+  },
+  {
+    "Text": "星际战甲：根据 Simaris 资料库，Sentient 战舰“Murex”的护盾是由哪种 Sentient 核心单位生成的？",
+    "OptionA": "锐捷号",
+    "OptionB": "哨戒使",
+    "OptionC": "武装使",
+    "OptionD": "震荡使",
+    "CorrectOptions": 3,
+    "Explanation": "在《猩红之矛》与《九重天》剧情中，Sentient 战舰 Murex 的护盾由“武装使”（Anu）生成，玩家需要进入其内部破坏核心才能解除护盾。"
+  },
+  {
+    "Text": "星际战甲：以下哪一位 Ostron 家族成员并非位于希图斯，而是常驻于福尔图娜？",
+    "OptionA": "Old Man Suumbaat",
+    "OptionB": "Eudico",
+    "OptionC": "Hok",
+    "OptionD": "The Business",
+    "CorrectOptions": 4,
+    "Explanation": "The Business 是 Solaris United 的成员，常驻于福尔图娜，负责保育任务和动物保护。其他三位均为希图斯的 Ostron 成员。"
+  },
+  {
+    "Text": "星际战甲：在《内战》任务中，Teshin 曾在以下哪个地点与 Tenno 进行“决斗”训练？",
+    "OptionA": "月球·奥罗金废墟",
+    "OptionB": "虚空·裂隙之间",
+    "OptionC": "塞德娜·Judgement Points",
+    "OptionD": "天王星·Tyl Regor 实验室",
+    "CorrectOptions": 1,
+    "Explanation": "在《内战》系列任务中，Teshin 在月球的奥罗金废墟中与 Tenno 进行了一场决斗训练，教导玩家使用近战格挡与反击。"
+  },
+  {
+    "Text": "星际战甲：以下哪种资源无法在火星任务中直接获取？",
+    "OptionA": "电路",
+    "OptionB": "铁氧体",
+    "OptionC": "红化结晶",
+    "OptionD": "生物质",
+    "CorrectOptions": 4,
+    "Explanation": "生物质主要在地球、土星、天王星等湿地或生态地图获取，火星无法直接掉落生物质。"
+  },
+  {
+    "Text": "星际战甲：Kahl-175 在《新纪之战》后所属的派系是？",
+    "OptionA": "Steel Meridian",
+    "OptionB": "Kahl's Garrison",
+    "OptionC": "Solaris United",
+    "OptionD": "The Vox Solaris",
+    "CorrectOptions": 2,
+    "Explanation": "Kahl-175 在《新纪之战》后脱离 Grineer 统治，成立了自己的小团体“Kahl's Garrison”，并在每周任务中带领玩家进行搜救与破坏行动。"
+  },
+  {
+    "Text": "星际战甲：以下哪个战甲的技能名称与希腊神话中的人物没有直接关联？",
+    "OptionA": "Atlas（拳师）",
+    "OptionB": "Nyx（冥灵）",
+    "OptionC": "Chroma（怒炎龙骑）",
+    "OptionD": "Nova（超能新星）",
+    "CorrectOptions": 4,
+    "Explanation": "Atlas（阿特拉斯，希腊神话的擎天神），Nyx（倪克斯，黑夜女神），Chroma（源自希腊语chroma，但战甲主题更偏向龙与元素）。Nova的技能名称多与反物质、宇宙科学相关，如“反物质释放”、“零重力”，与希腊神话无直接关联。"
+  },
+  {
+    "Text": "星际战甲：下列哪一个赋能（Arcane）是只能通过击败“三傻”之一“ hydrolyst ”（水力使）获取的？",
+    "OptionA": "复仇赋能",
+    "OptionB": "保卫者赋能",
+    "OptionC": "消磁赋能",
+    "OptionD": "加速赋能",
+    "CorrectOptions": 4,
+    "Explanation": "Arcane Acceleration（加速赋能）只能通过击败夜灵平原三傻中的水力使（Hydrolyst）掉落获得，属于高级夜灵BOSS专属掉落。"
+  },
+  {
+    "Text": "星际战甲：根据 lore，下列哪位角色曾是一名“ Archimedean ”（奥罗金学术等级）？",
+    "OptionA": "Cephalon Suda",
+    "OptionB": "Ballas",
+    "OptionC": "Alad V",
+    "OptionD": "Tyl Regor",
+    "CorrectOptions": 1,
+    "Explanation": "根据碎片背景，Cephalon Suda 生前是一名奥罗金帝国的“Archimedean”，即高级学者/科学家，她死后意识被转化为中枢苏达。"
+  },
+  {
+    "Text": "星际战甲：在《破障者》更新中，Kahl-175 的每周任务“逃兵”中，他需要收集多少颗“兄弟之泪”来完成任务目标？",
+    "OptionA": "3颗",
+    "OptionB": "5颗",
+    "OptionC": "10颗",
+    "OptionD": "15颗",
+    "CorrectOptions": 2,
+    "Explanation": "在Kahl-175的“逃兵”任务中，收集5颗“兄弟之泪”是固定目标之一，用于纪念他牺牲的Grineer同伴。"
+  },
+  {
+    "Text": "星际战甲：下列哪个组合 Mod 是“双衍王境”独有的，且无法在常规星图任务中获得？",
+    "OptionA": "Sacrificial Steel",
+    "OptionB": "Amalgam Organ Shatter",
+    "OptionC": "Galvanized Crosshairs",
+    "OptionD": "Surging Blades",
+    "CorrectOptions": 4,
+    "Explanation": "“Surging Blades”（涌流突进）是双衍王境独有的组合 Mod，通过完成双衍王境中的“勇气试炼”获得，能提升近战攻击范围与伤害。"
+  },
+  {
+    "Text": "星际战甲：以下哪一把武器是“圣殿突袭”（Sanctuary Onslaught）模式中，仅能通过达到特定波次并兑换获得的，而非直接掉落？",
+    "OptionA": "Braton Vandal",
+    "OptionB": "Lato Vandal",
+    "OptionC": "Khora 系统蓝图",
+    "OptionD": "Euphona Prime 蓝图",
+    "CorrectOptions": 2,
+    "Explanation": "Lato Vandal 部件（枪管、枪机）只能在圣殿突袭中通过“韵律”兑换获得，而非击杀敌人直接掉落。Braton Vandal 可直接在精英模式掉落。"
+  },
+  {
+    "Text": "星际战甲：根据《第二场梦》资料，Margulis 是被奥罗金以什么罪名处决的？",
+    "OptionA": "叛国罪",
+    "OptionB": "异端罪",
+    "OptionC": "违反“进化原则”",
+    "OptionD": "保护 Tenno 儿童",
+    "CorrectOptions": 4,
+    "Explanation": "Margulis 因拒绝放弃对 Tenno 儿童的治疗与保护，并反对奥罗金将他们武器化，被 Ballas 指控“违反帝国安全利益”，最终被处以“灭绝令”（即死刑）。"
+  },
+  {
+    "Text": "星际战甲：下列哪一个“幻影装置”场景是更新《破障者》后新增的？",
+    "OptionA": "Grineer 深海实验室",
+    "OptionB": "Corpus 舰桥",
+    "OptionC": "Orokin 宫殿",
+    "OptionD": "Sentient 战舰内部",
+    "CorrectOptions": 1,
+    "Explanation": "Grineer 深海实验室场景是《破障者》更新后新增的幻影装置测试场景，对应 Kahl 任务中的水下关卡。"
+  },
+  {
+    "Text": "星际战甲：在《内战》系列任务中，Teshin 所使用的独特武器“暗影长剑”（Orvius）实际上源自哪个派系的技术？",
+    "OptionA": "Orokin",
+    "OptionB": "Sentient",
+    "OptionC": "Dax",
+    "OptionD": "Tenno",
+    "CorrectOptions": 3,
+    "Explanation": "Orvius 是 Dax 战士使用的传统武器，Teshin 作为最后一名 Dax，使用并传授该武器给 Tenno。其设计和技术源自 Dax 武士传统，而非 Orokin 或 Tenno 常见武器风格。"
+  },
+  {
+    "Text": "星际战甲：在《新纪之战》中，玩家操作“指挥官”进入“虚空模式”躲避 Sentient 侦测时，下列哪种敌人仍然能发现并攻击指挥官？",
+    "OptionA": "Sentient 战斗员",
+    "OptionB": "Sentient 震荡使",
+    "OptionC": "Sentient 武装使",
+    "OptionD": "Sentient 锐将",
+    "CorrectOptions": 4,
+    "Explanation": "在《新纪之战》任务中，Sentient 锐将（Sentient Aerolyst）具有特殊能力，能够侦测到处于虚空模式的指挥官并发动攻击，是任务中的高威胁单位。"
+  },
+  {
+    "Text": "星际战甲：下列哪个战甲的技能“不会”在施放时触发“能力强度”类 Mod（如“聚精会神”）的效果？",
+    "OptionA": "Rhino 的“钢化皮肤”",
+    "OptionB": "Trinity 的“祝福”",
+    "OptionC": "Ivara 的“潜影猎手”",
+    "OptionD": "Nezha 的“混天火绫”",
+    "CorrectOptions": 3,
+    "Explanation": "Ivara 的“潜影猎手”技能持续时间受“能力持续时间”影响，但其隐身效果本身不受“能力强度”影响，强度仅影响其附加的“潜行倍率”伤害。"
+  },
+  {
+    "Text": "星际战甲：在《僵局协议》系列任务中，玩家最终需要与哪位 Corpus 董事会成员进行“ Profit-Taker ”级别的对决？",
+    "OptionA": "Nef Anyo",
+    "OptionB": "Alad V",
+    "OptionC": "Frohd Bek",
+    "OptionD": "Sergeant",
+    "CorrectOptions": 1,
+    "Explanation": "《僵局协议》最终 Boss 战是对抗 Nef Anyo 控制的“巨型蜘蛛”——Razorback，这是一个与“Profit-Taker”同级的 Corpus 大型机甲单位。"
+  },
+  {
+    "Text": "星际战甲：下列哪个“Prime”战甲是首次通过“Prime Resurgence”（Prime  resurgence）活动回归，而非通过遗物掉落获取的？",
+    "OptionA": "Ash Prime",
+    "OptionB": "Trinity Prime",
+    "OptionC": "Nyx Prime",
+    "OptionD": "Mag Prime",
+    "CorrectOptions": 4,
+    "Explanation": "Mag Prime 是首批通过“Prime Resurgence”活动回归的 Prime 战甲之一，在此之前其遗物已从掉落表中移除多年，玩家只能通过交易获取。"
+  },
+  {
+    "Text": "星际战甲：在“九重天”模式中，下列哪种“航电设备”（Avionic）是“仅限”从“Corpus 冰原星舰”任务中获取的？",
+    "OptionA": "掠袭飞弹",
+    "OptionB": "虚空洞穿",
+    "OptionC": "粒子冲撞",
+    "OptionD": "急冻爆破",
+    "CorrectOptions": 4,
+    "Explanation": "“急冻爆破”（Freeze Burst）是一种航电设备，只能从 Corpus 冰原星舰任务（如“冥王星 Proxima”或“海王星 Proxima”）中的敌人掉落或任务奖励获取。"
+  },
+  {
+    "Text": "星际战甲：在《牺牲》系列任务中，Umbra Excalibur 的记忆碎片显示他曾是一名：",
+    "OptionA": "Orokin 议员",
+    "OptionB": "Dax 战士",
+    "OptionC": "Tenno 导师",
+    "OptionD": "Sentient 研究者",
+    "CorrectOptions": 2,
+    "Explanation": "Umbra Excalibur 的记忆碎片显示他生前是一名 Dax 战士，名为“Isaah 的父亲”，因反抗 Ballas 而被转化为战甲。"
+  },
+  {
+    "Text": "星际战甲：下列哪一项“午夜电波”的“声望等级”奖励是“无法”通过后续轮次或 Nora 的商店兑换获取的？",
+    "OptionA": "Umbra Forma 蓝图",
+    "OptionB": "特殊护甲套装",
+    "OptionC": "Nora 的混音带",
+    "OptionD": "专属 Captura 场景",
+    "CorrectOptions": 3,
+    "Explanation": "Nora 的混音带（如“Nora's Choice Volume 1”）通常作为特定午夜电波系列的最终奖励或特定等级奖励，不会在 Nora 的商店中出售，也无法在后续轮次中获取，具有时效性。"
+  },
+  {
+    "Text": "星际战甲：在奥罗金语中，\"Tenno\"一词的本意是什么？",
+    "OptionA": "虚空之子",
+    "OptionB": "星辰战士",
+    "OptionC": "天堂之刃",
+    "OptionD": "地狱之眼",
+    "CorrectOptions": 3,
+    "Explanation": "根据游戏内 lore 碎片及官方资料，\"Tenno\"在古奥罗金语中意为\"天堂之刃\"（Heaven's Blade），象征着他们作为奥罗金帝国的终极武器。"
+  },
+  {
+    "Text": "星际战甲：在《双衍悖论》中，玩家在双衍王境中可以通过哪种方式获得“资源增幅”效果？",
+    "OptionA": "击败禁卫骑兵",
+    "OptionB": "完成勇毅试炼",
+    "OptionC": "喂食恩典兽",
+    "OptionD": "点燃永恒火炬",
+    "CorrectOptions": 3,
+    "Explanation": "在双衍王境中，找到并喂食“恩典兽”（一种发光的猫形生物）可以获得持续到本次循环结束的“资源增幅”效果，提高资源获取量。"
+  },
+  {
+    "Text": "星际战甲：以下哪一位中枢的“碎片”背景故事揭示了其生前是奥罗金帝国的“处刑者”？",
+    "OptionA": "中枢苏达",
+    "OptionB": "中枢西姆里斯",
+    "OptionC": "中枢奥佐",
+    "OptionD": "中枢瑟玛里斯",
+    "CorrectOptions": 4,
+    "Explanation": "根据瑟玛里斯的碎片背景，其生前是奥罗金帝国的“处刑者”之一，专门负责执行对罪犯和叛徒的死刑。"
+  },
+  {
+    "Text": "星际战甲：在《僵局协议》系列任务中，普罗透斯（Parvos Granum）所使用的独特武器“信条·典客”原本属于谁？",
+    "OptionA": "他的女儿",
+    "OptionB": "他的兄弟",
+    "OptionC": "他的导师",
+    "OptionD": "他的妻子",
+    "CorrectOptions": 1,
+    "Explanation": "根据任务对话和背景，普罗透斯使用的“信条·典客”原本属于他失踪的女儿，这也是他创立 Corpus 和寻找继承人的重要动机之一。"
+  },
+  {
+    "Text": "星际战甲：在《新纪之战》中，Lotus/Natah 最终选择的形态名称是？",
+    "OptionA": "Margulis",
+    "OptionB": "Hunhow",
+    "OptionC": "Praghasa",
+    "OptionD": "以上都不正确",
+    "CorrectOptions": 4,
+    "Explanation": "在《新纪之战》结局中，Lotus/Natah 没有选择成为 Margulis、Natah 或任何单一身份，而是选择成为一个融合了多重身份的新存在，玩家可以自定义她的新名字和外观。"
+  },
+  {
+    "Text": "星际战甲：下列哪种“幻纹”只能通过击败“Exploiter Orb”获得，而非“Profit-Taker Orb”？",
+    "OptionA": "冰雪寒霜幻纹",
+    "OptionB": "蛛形机闪光幻纹",
+    "OptionC": "墓煞辐射幻纹",
+    "OptionD": "剥削者热浪幻纹",
+    "CorrectOptions": 4,
+    "Explanation": "“剥削者热浪幻纹”（Exploiter Orb Ephemera）是击败福尔图娜的 Exploiter Orb 独有的掉落物，具有独特的火焰和蒸汽效果。"
+  },
+  {
+    "Text": "星际战甲：在《破障者》更新中，Kahl-175 的“兄弟连”任务中，下列哪项不是他必须收集的“纪念品”？",
+    "OptionA": "兄弟之泪",
+    "OptionB": "辛烷的燃料罐",
+    "OptionC": "魔典之页",
+    "OptionD": "远古雕像",
+    "CorrectOptions": 4,
+    "Explanation": "在 Kahl 的任务中，他需要收集“兄弟之泪”、“辛烷的燃料罐”和“魔典之页”等纪念品，但“远古雕像”不是他的收集目标之一。"
+  },
+  {
+    "Text": "星际战甲：在《双衍悖论》中，开启“钢铁之路”难度后，双衍王境中的勇毅试炼奖励会额外包含哪种专属资源？",
+    "OptionA": "内融核心",
+    "OptionB": "钢铁精华",
+    "OptionC": "执刑官源力石",
+    "OptionD": "双衍英萃",
+    "CorrectOptions": 4,
+    "Explanation": "根据官方资料，在钢铁之路难度的双衍王境中，成功完成勇毅试炼后，除了常规奖励，还会额外获得“双衍英萃”，这是一种用于兑换钢铁之路专属奖励（如组合MOD“执刑官 生命之力”）的货币。"
+  },
+  {
+    "Text": "星际战甲：根据《Saya的守夜》与《夜灵平野》系列任务，夜灵平野上首次出现的巨型Sentient残骸“白骨”属于以下哪一位Sentient个体？",
+    "OptionA": "Hunhow",
+    "OptionB": "Praghasa",
+    "OptionC": "Natah",
+    "OptionD": "Eidolon",
+    "CorrectOptions": 1,
+    "Explanation": "根据任务对话与碎片化叙事，夜灵平野上巨大的Sentient骨架残骸被证实属于Sentient巨兽“Hunhow”的一部分。在旧战争期间，它在试图穿越大气层攻击奥罗金时被击落并坠毁于地球，形成了夜灵平野的核心地貌。"
+  },
+  {
+    "Text": "星际战甲：下列哪一把武器的“灵化形态”进化路线中，要求玩家在单次任务中“爆头击杀20名 Sentient 敌人”？",
+    "OptionA": "拉托  Prime",
+    "OptionB": "布莱顿  Prime",
+    "OptionC": "斯特朗  Prime",
+    "OptionD": "螺钉步枪  Prime",
+    "CorrectOptions": 2,
+    "Explanation": "根据“灵化之源”系统，布莱顿 Prime 的灵化形态进化挑战之一，即为“在一次任务中爆头击杀20名 Sentient 敌人”。这是一个难度较高且针对性很强的挑战任务。"
+  },
+  {
+    "Text": "星际战甲：在《新纪之战》任务中，指挥官/漂泊者潜入Sentient母舰“Praghasa”时，背景中持续吟唱的歌曲名称是？",
+    "OptionA": "《We All Lift Together》",
+    "OptionB": "《Sleeping in the Cold Below》",
+    "OptionC": "《This is What You Are》",
+    "OptionD": "《For Narmer》",
+    "CorrectOptions": 2,
+    "Explanation": "在潜入Sentient母舰“Praghasa”内部时，背景音乐是歌曲《Sleeping in the Cold Below》。这首歌由船员们演唱，讲述了海王星遇难船只的故事，与任务中在巨大生物体内潜行的氛围高度契合。"
+  },
+  {
+    "Text": "星际战甲：下列哪一种“结合目标”的效果，是只能通过装备“结合目标裂罅”并完成其挑战来获得的？",
+    "OptionA": "+100% 技能范围",
+    "OptionB": "+100% 技能强度",
+    "OptionC": "+100% 技能效率",
+    "OptionD": "+100% 技能持续时间",
+    "CorrectOptions": 4,
+    "Explanation": "“+100% 技能持续时间”是“结合目标裂罅”（Melee Riven Mod）在完成其特定挑战后，可能为近战武器赋予的一种“结合目标”效果。其他三种常见的结合目标效果（如强度、范围、效率）则可以通过普通方式（如使用“结合目标”Mod）叠加。"
+  },
+  {
+    "Text": "星际战甲：根据碎片信息，在奥罗金时代，被称为“执刑官”的精英战士团体，其主要职责是什么？",
+    "OptionA": "进行虚空实验",
+    "OptionB": "猎杀Sentient",
+    "OptionC": "处决叛变的 Orokin",
+    "OptionD": "守卫黄金之门",
+    "CorrectOptions": 3,
+    "Explanation": "“执刑官”（Archons）在奥罗金时代是一个精英战士团体，其核心职责是追捕并公开处决那些犯下重罪（尤其是叛国罪）的 Orokin 贵族，以维护帝国的“黄金秩序”和威慑力。"
+  },
+  {
+    "Text": "星际战甲：在九重天任务中，从“前兆”系列的 Corpus 战舰上可以掠夺到一种独特资源，用于制造“航道星舰”的某个部件。这种资源是？",
+    "OptionA": "钛",
+    "OptionB": "立方二极管",
+    "OptionC": "残差碳化物",
+    "OptionD": "伊斯塔",
+    "CorrectOptions": 3,
+    "Explanation": "“残差碳化物”是一种罕见的九重天资源，只能通过使用“前兆”系列 Corpus 战舰上的“资源掠夺”功能（装备相应航电设备后）获得，是制造“航道星舰”反应堆等高级部件的必要材料。"
+  },
+  {
+    "Text": "星际战甲：轨道飞行器内用于替换战甲技能的“大嘴”模块，其正式名称是什么？",
+    "OptionA": "Helminth",
+    "OptionB": "Infested",
+    "OptionC": "Nidus",
+    "OptionD": "Ordis",
+    "CorrectOptions": 1,
+    "Explanation": "“大嘴”是玩家俗称，其正式名称为Helminth，是一种独特的Infested生物体。Infested是阵营名，Nidus是战甲，Ordis是飞船中枢，均非该模块名称。"
+  },
+  {
+    "Text": "星际战甲：Helminth所属的株群（即其同类群体）被称为什么？",
+    "OptionA": "Helminth群株",
+    "OptionB": "Infested群株",
+    "OptionC": "共生株群",
+    "OptionD": "虚空株群",
+    "CorrectOptions": 1,
+    "Explanation": "游戏设定中Helminth属于“Helminth群株”（Helminth Strain），这是其特定株系名称，与其他Infested变种（如古者、毒化者等）的株系不同。"
+  },
+  {
+    "Text": "星际战甲：喂食Helminth以下哪种资源，可以获得双倍数量的“金属垩”分泌物？",
+    "OptionA": "泰罗光球",
+    "OptionB": "神经节囊",
+    "OptionC": "阿耶檀识塑像",
+    "OptionD": "虚空光体",
+    "CorrectOptions": 1,
+    "Explanation": "泰罗光球（Thaumic Distillate）是魔胎之境的资源，因此喂食后可使Helminth分泌双倍金属垩（Metallic Ebon）。神经节囊对应的是双倍微生泥，其他选项不产生该效果。"
+  },
+  {
+    "Text": "星际战甲：喂食Helminth以下哪种资源，可以获得双倍数量的“微生泥”分泌物？",
+    "OptionA": "泰罗光球",
+    "OptionB": "神经节囊",
+    "OptionC": "生物质",
+    "OptionD": "红化结晶",
+    "CorrectOptions": 2,
+    "Explanation": "神经节囊（Ganglionic）是魔胎之境的资源，因此喂食后可使Helminth分泌双倍微生泥（Microbial Mud）。泰罗光球对应金属垩，生物质和红化结晶无此特殊加成。"
+  }
+]

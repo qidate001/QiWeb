@@ -1,0 +1,137 @@
+[
+  {
+    "Text": "中国古代被称为 诗神 的是谁？",
+    "OptionA": "苏轼",
+    "OptionB": "欧阳修",
+    "OptionC": "谢灵运",
+    "OptionD": "李白",
+    "CorrectOptions": 1,
+    "Explanation": "苏轼（苏东坡）被称为\"诗神\"，因其诗歌才情横溢，作品意境开阔，风格豪放。"
+  },
+  {
+    "Text": "中国古代被称为 诗仙 的是谁？",
+    "OptionA": "陶渊明",
+    "OptionB": "李白",
+    "OptionC": "陈子昂",
+    "OptionD": "王维",
+    "CorrectOptions": 2,
+    "Explanation": "李白被称为\"诗仙\"，因其诗歌想象奇特，风格飘逸，有\"谪仙人\"之称。"
+  },
+  {
+    "Text": "中国古代被称为 诗圣 的是谁？",
+    "OptionA": "王维",
+    "OptionB": "陶渊明",
+    "OptionC": "杜甫",
+    "OptionD": "白居易",
+    "CorrectOptions": 3,
+    "Explanation": "杜甫被称为\"诗圣\"，因其诗歌思想深刻，关注社会现实，艺术成就极高。"
+  },
+  {
+    "Text": "中国古代被称为 诗史 的是谁？",
+    "OptionA": "陆游",
+    "OptionB": "杜牧",
+    "OptionC": "白居易",
+    "OptionD": "杜甫",
+    "CorrectOptions": 4,
+    "Explanation": "杜甫的诗歌真实反映了唐代由盛转衰的历史过程，被称为\"诗史\"。"
+  },
+  {
+    "Text": "中国古代被称为 诗佛 的是谁？",
+    "OptionA": "王维",
+    "OptionB": "白居易",
+    "OptionC": "陆游",
+    "OptionD": "陶渊明",
+    "CorrectOptions": 1,
+    "Explanation": "王维被称为\"诗佛\"，因其诗歌富有禅意，意境空灵，与佛教思想密切相关。"
+  },
+  {
+    "Text": "中国古代被称为 诗魔 的是谁？",
+    "OptionA": "辛弃疾",
+    "OptionB": "白居易",
+    "OptionC": "欧阳修",
+    "OptionD": "贺知章",
+    "CorrectOptions": 2,
+    "Explanation": "白居易被称为\"诗魔\"，因其作诗刻苦，如着魔一般，自言\"酒狂又引诗魔发，日午悲吟到日西\"。"
+  },
+  {
+    "Text": "中国古代被称为 诗鬼 的是谁？",
+    "OptionA": "谢灵运",
+    "OptionB": "陈子昂",
+    "OptionC": "李贺",
+    "OptionD": "贺知章",
+    "CorrectOptions": 3,
+    "Explanation": "李贺被称为\"诗鬼\"，因其诗歌想象诡谲，意境奇特，风格独特。"
+  },
+  {
+    "Text": "中国古代被称为 诗豪 的是谁？",
+    "OptionA": "李白",
+    "OptionB": "谢灵运",
+    "OptionC": "李煜",
+    "OptionD": "刘禹锡",
+    "CorrectOptions": 4,
+    "Explanation": "刘禹锡被称为\"诗豪\"，因其诗歌豪迈雄健，乐观向上，白居易赞其\"诗豪者也\"。"
+  },
+  {
+    "Text": "中国古代被称为 诗魂 的是谁？",
+    "OptionA": "屈原",
+    "OptionB": "范仲淹",
+    "OptionC": "杜牧",
+    "OptionD": "孟浩然",
+    "CorrectOptions": 1,
+    "Explanation": "屈原被称为\"诗魂\"或\"辞赋之祖\"，是中国浪漫主义诗歌的奠基人。"
+  },
+  {
+    "Text": "中国古代被称为 诗囚 的是谁？",
+    "OptionA": "李白",
+    "OptionB": "孟郊",
+    "OptionC": "陈子昂",
+    "OptionD": "欧阳修",
+    "CorrectOptions": 2,
+    "Explanation": "孟郊被称为\"诗囚\"，因其作诗刻苦，穷愁潦倒，元好问评其\"东野穷愁死不休，高天厚地一诗囚\"。"
+  },
+  {
+    "Text": "中国古代被称为 诗奴 的是谁？",
+    "OptionA": "陶渊明",
+    "OptionB": "辛弃疾",
+    "OptionC": "贾岛",
+    "OptionD": "李煜",
+    "CorrectOptions": 3,
+    "Explanation": "贾岛被称为\"诗奴\"，因其作诗刻苦推敲，自谓\"二句三年得，一吟双泪流\"，似为诗所奴役。"
+  },
+  {
+    "Text": "中国古代被称为 诗骨 的是谁？",
+    "OptionA": "范仲淹",
+    "OptionB": "杜牧",
+    "OptionC": "贾岛",
+    "OptionD": "陈子昂",
+    "CorrectOptions": 4,
+    "Explanation": "陈子昂被称为\"诗骨\"，因其诗歌刚健质朴，一扫六朝绮靡诗风，为唐诗革新先驱。"
+  },
+  {
+    "Text": "中国古代被称为 诗杰 的是谁？",
+    "OptionA": "王勃",
+    "OptionB": "王维",
+    "OptionC": "白居易",
+    "OptionD": "陆游",
+    "CorrectOptions": 1,
+    "Explanation": "王勃被称为\"诗杰\"，作为初唐四杰之首，其诗才敏捷，风格清新刚健。"
+  },
+  {
+    "Text": "中国古代被称为 诗狂 的是谁？",
+    "OptionA": "贾岛",
+    "OptionB": "范仲淹",
+    "OptionC": "贺知章",
+    "OptionD": "孟浩然",
+    "CorrectOptions": 3,
+    "Explanation": "贺知章被称为\"诗狂\"，因其性格豪放旷达，自号\"四明狂客\"。"
+  },
+  {
+    "Text": "中国古代被称为 诗家天子 的是谁？",
+    "OptionA": "贾岛",
+    "OptionB": "陶渊明",
+    "OptionC": "贺知章",
+    "OptionD": "王昌龄",
+    "CorrectOptions": 4,
+    "Explanation": "王昌龄被称为\"诗家天子\"或\"七绝圣手\"，其七言绝句成就极高，被誉为唐诗七绝的巅峰。"
+  }
+]

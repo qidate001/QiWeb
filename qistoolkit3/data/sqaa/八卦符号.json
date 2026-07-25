@@ -1,0 +1,74 @@
+[
+  {
+    "Text": "八卦图中的 \"乾\" 符代表什么？",
+    "OptionA": "天",
+    "OptionB": "雷",
+    "OptionC": "风",
+    "OptionD": "地",
+    "CorrectOptions": 1,
+    "Explanation": "在八卦中，乾卦（☰）代表天，象征刚健、创始、父亲等含义，是八卦之首。"
+  },
+  {
+    "Text": "八卦图中的 \"坤\" 符代表什么？",
+    "OptionA": "天",
+    "OptionB": "泽",
+    "OptionC": "火",
+    "OptionD": "地",
+    "CorrectOptions": 4,
+    "Explanation": "坤卦（☷）代表地，象征柔顺、承载、母亲等含义，与乾卦相对应。"
+  },
+  {
+    "Text": "八卦图中的 \"坎\" 符代表什么？",
+    "OptionA": "火",
+    "OptionB": "山",
+    "OptionC": "泽",
+    "OptionD": "水",
+    "CorrectOptions": 4,
+    "Explanation": "坎卦（☵）代表水，象征险陷、流动、智慧等含义，卦象如流水。"
+  },
+  {
+    "Text": "八卦图中的 \"离\" 符代表什么？",
+    "OptionA": "水",
+    "OptionB": "火",
+    "OptionC": "天",
+    "OptionD": "雷",
+    "CorrectOptions": 2,
+    "Explanation": "离卦（☲）代表火，象征光明、依附、美丽等含义，卦象如火焰。"
+  },
+  {
+    "Text": "八卦图中的 \"震\" 符代表什么？",
+    "OptionA": "雷",
+    "OptionB": "地",
+    "OptionC": "水",
+    "OptionD": "天",
+    "CorrectOptions": 1,
+    "Explanation": "震卦（☳）代表雷，象征震动、行动、长子等含义，卦象如雷声震动。"
+  },
+  {
+    "Text": "八卦图中的 \"巽\" 符代表什么？",
+    "OptionA": "泽",
+    "OptionB": "地",
+    "OptionC": "风",
+    "OptionD": "水",
+    "CorrectOptions": 3,
+    "Explanation": "巽卦（☴）代表风，象征进入、顺从、长女等含义，卦象如风吹拂。"
+  },
+  {
+    "Text": "八卦图中的 \"艮\" 符代表什么？",
+    "OptionA": "火",
+    "OptionB": "水",
+    "OptionC": "地",
+    "OptionD": "山",
+    "CorrectOptions": 4,
+    "Explanation": "艮卦（☶）代表山，象征静止、稳重、少男等含义，卦象如山岳。"
+  },
+  {
+    "Text": "八卦图中的 \"兑\" 符代表什么？",
+    "OptionA": "火",
+    "OptionB": "泽",
+    "OptionC": "雷",
+    "OptionD": "水",
+    "CorrectOptions": 2,
+    "Explanation": "兑卦（☱）代表泽，象征喜悦、言说、少女等含义，卦象如沼泽。"
+  }
+]

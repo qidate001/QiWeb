@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>奇葩问答 · 齐的工具包3</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/index_style.css" />
+    <link rel="stylesheet" href="./css/qistoolkit3-page.css" />
+    <link rel="stylesheet" href="./css/qistoolkit3-8card.css" />
+    <link rel="stylesheet" href="./css/strange-question-and-answer.css" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <script src="/js/config.js"></script>
+</head>
+
+<body>
+    <theme-button value="dark" id="btn" size="3"></theme-button>
+
+    <header>
+        <h1>齐的工具包3 <span class="version-badge" id="versionBadge">#</span></h1>
+        <nav>
+            <ul>
+                <li><a href="/index.html">首页</a></li>
+                <li><a href="/about.html">关于我</a></li>
+                <li><a href="/contact.html">联系我</a></li>
+                <li><a href="./index.html">返回专区</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="toolkit-special-page strange-qa-main">
+        <h2>
+            <a href="./index.html" style="text-decoration: none;">❓ 奇葩问答</a>
+        </h2>
+
+        <!-- ====== 一句话描述 ====== -->
+        <p class="strange-qa-description">
+            此问答题非彼正常问答题，题目可能源于各行各业，五湖四海。有些非常正常，也有些角度刁钻。
+        </p>
+
+        <!-- ====== 游戏规则 ====== -->
+        <div class="rule-box">
+            <div class="rule-header">
+                <span class="rule-icon">📋</span>
+                <h3>游戏规则</h3>
+            </div>
+            <div class="rule-body">
+                <ul>
+                    <li>从题池中随机抽取 <strong>10 道题</strong>，全部答对即可获胜。</li>
+                    <li><strong>不限时间</strong>，您可以凭知识或运气作答，也可以通过搜索“作弊”查找答案。</li>
+                    <li>题库分为两类：
+                        <ul>
+                            <li><strong>主题库</strong>（<code>0.json</code>）：可被无限次抽取。</li>
+                            <li><strong>次题库</strong>（其他 <code>*.json</code>）：整个题库仅可被抽取一次。</li>
+                        </ul>
+                    </li>
+                    <!-- <li>题库持续更新，需通过 <strong>加载按钮</strong> 实时读取 JSON 文件（总大小约 240KB）。</li> -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- ====== 加载区域 ====== -->
+        <div class="load-box">
+            <div class="load-header">
+                <span class="load-icon">🔄</span>
+                <h3>题库加载</h3>
+                <span class="load-badge">实时</span>
+            </div>
+            <div class="load-body">
+                <p>从 <code>./data/sqaa/</code> 目录加载所有 JSON 题库文件。</p>
+                <div class="load-controls">
+                    <button class="load-btn" id="loadBtn">
+                        <span class="btn-icon">📥</span> 加载题库
+                    </button>
+                    <span class="load-status" id="loadStatus">就绪</span>
+                </div>
+                <div class="load-progress" id="loadProgress" style="display:none;">
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill" id="progressFill" style="width:0%;"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0 / 0</span>
+                </div>
+                <div class="load-result" id="loadResult" style="display:none;">
+                    <span class="result-icon" id="resultIcon">✅</span>
+                    <span class="result-text" id="resultText">加载完成</span>
+                </div>
+                <div class="load-note">
+                    <span class="note-icon">💡</span>
+                    <span>总大小约 240 KB，加载可能需要几秒钟，请耐心等待。</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== 题库列表（动态） ====== -->
+        <div class="question-bank-box" id="bankBox">
+            <div class="question-bank-header">
+                <span class="question-bank-icon">📚</span>
+                <h3>已加载题库</h3>
+                <span class="question-bank-badge" id="bankCount">等待加载</span>
+            </div>
+            <div class="question-bank-body" id="bankBody">
+                <div class="bank-placeholder" id="bankPlaceholder">
+                    <span class="placeholder-icon">📭</span>
+                    <p>点击「加载题库」按钮获取所有题目</p>
+                </div>
+                <div class="bank-grid" id="bankGrid" style="display:none;"></div>
+                <div class="bank-footer" id="bankFooter" style="display:none;">
+                    <span class="bank-total" id="bankTotal">📂 总题目：0 道</span>
+                    <span class="bank-path">📁 路径：./data/sqaa/</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== 题库预览（展开查看题目） ====== -->
+        <div class="preview-box" id="previewBox" style="display:none;">
+            <div class="preview-header">
+                <span class="preview-icon">📖</span>
+                <h3 id="previewTitle">题库预览</h3>
+                <button class="preview-close" id="previewClose">✕</button>
+            </div>
+            <div class="preview-body" id="previewBody">
+                <!-- 动态渲染题目 -->
+            </div>
+        </div>
+
+        <!-- ====== 辅助信息 ====== -->
+        <div class="toolkit-legal-bar strange-qa-legal">
+            <p>
+                <span style="color: #8bc34a;">💡 祝您游玩愉快！</span>
+                <span style="color: #aaa; margin-left: 16px;">📌 题库持续更新中，欢迎反馈新题目</span>
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const versionBadge = document.getElementById('versionBadge');
+                if (versionBadge && typeof APP_CONFIG !== 'undefined') {
+                    versionBadge.textContent = APP_CONFIG.version;
+                }
+
+                // ============================================================
+                // 题库加载功能
+                // ============================================================
+
+                // 题库文件列表（按用户提供的文件列表）
+                const BANK_FILES = [
+                    '0.json',
+                    '人格障碍缩写.json',
+                    '八卦符号.json',
+                    '十二时辰.json',
+                    '十日终焉.json',
+                    '古代诗人称号.json',
+                    '我的世界：版本.json',
+                    '星际战甲.json',
+                    '星际战甲：玄骸属性.json',
+                    '星际战甲：虚空.json',
+                    '永恒论.json',
+                    '洪荒.json'
+                ];
+
+                const BASE_PATH = './data/sqaa/';
+                let loadedBanks = {}; // { fileName: { name, questions, size, isTheme } }
+                let totalQuestions = 0;
+
+                // DOM 引用
+                const loadBtn = document.getElementById('loadBtn');
+                const loadStatus = document.getElementById('loadStatus');
+                const loadProgress = document.getElementById('loadProgress');
+                const progressFill = document.getElementById('progressFill');
+                const progressText = document.getElementById('progressText');
+                const loadResult = document.getElementById('loadResult');
+                const resultIcon = document.getElementById('resultIcon');
+                const resultText = document.getElementById('resultText');
+
+                const bankGrid = document.getElementById('bankGrid');
+                const bankPlaceholder = document.getElementById('bankPlaceholder');
+                const bankFooter = document.getElementById('bankFooter');
+                const bankCount = document.getElementById('bankCount');
+                const bankTotal = document.getElementById('bankTotal');
+
+                const previewBox = document.getElementById('previewBox');
+                const previewTitle = document.getElementById('previewTitle');
+                const previewBody = document.getElementById('previewBody');
+                const previewClose = document.getElementById('previewClose');
+
+                // 加载题库
+                async function loadAllBanks() {
+                    const startTime = Date.now();
+
+                    // 重置状态
+                    loadedBanks = {};
+                    totalQuestions = 0;
+                    loadBtn.disabled = true;
+                    loadBtn.style.opacity = '0.6';
+                    loadStatus.textContent = '⏳ 加载中...';
+                    loadResult.style.display = 'none';
+
+                    // 显示进度条
+                    loadProgress.style.display = 'block';
+                    const totalFiles = BANK_FILES.length;
+                    let completed = 0;
+                    let failedFiles = [];
+
+                    for (let i = 0; i < totalFiles; i++) {
+                        const fileName = BANK_FILES[i];
+                        try {
+                            const response = await fetch(BASE_PATH + fileName);
+                            if (!response.ok) {
+                                throw new Error(`HTTP ${response.status}`);
+                            }
+                            const data = await response.json();
+
+                            // 判断是否为主题库（0.json）
+                            const isTheme = fileName === '0.json';
+
+                            // 存储题库信息
+                            loadedBanks[fileName] = {
+                                name: fileName,
+                                questions: data,
+                                count: data.length,
+                                size: new Blob([JSON.stringify(data)]).size,
+                                isTheme: isTheme
+                            };
+
+                            totalQuestions += data.length;
+                            completed++;
+
+                        } catch (err) {
+                            console.warn(`加载 ${fileName} 失败:`, err);
+                            failedFiles.push(fileName);
+                            completed++;
+                        }
+
+                        // 更新进度
+                        const progress = Math.round((completed / totalFiles) * 100);
+                        progressFill.style.width = progress + '%';
+                        progressText.textContent = `${completed} / ${totalFiles}`;
+
+                        // 给UI一点喘息时间
+                        await new Promise(r => setTimeout(r, 50));
+                    }
+
+                    // 加载完成
+                    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+
+                    loadBtn.disabled = false;
+                    loadBtn.style.opacity = '1';
+                    loadProgress.style.display = 'none';
+
+                    if (failedFiles.length === totalFiles) {
+                        // 全部失败
+                        loadStatus.textContent = '❌ 加载失败';
+                        resultIcon.textContent = '❌';
+                        resultText.textContent = `无法连接到题库服务器，请检查网络或路径`;
+                        loadResult.style.display = 'block';
+                        return;
+                    }
+
+                    // 显示加载结果
+                    loadStatus.textContent = `✅ 加载完成 (${elapsed}s)`;
+                    resultIcon.textContent = '✅';
+                    const successCount = totalFiles - failedFiles.length;
+                    const failMsg = failedFiles.length > 0 ? `，${failedFiles.length} 个失败` : '';
+                    resultText.textContent = `成功加载 ${successCount} 个题库${failMsg}，共 ${totalQuestions} 道题目`;
+                    loadResult.style.display = 'block';
+
+                    // 渲染题库列表
+                    renderBankList();
+
+                    // 更新统计
+                    bankCount.textContent = `${successCount} 个题库`;
+                    bankTotal.textContent = `📂 总题目：${totalQuestions} 道`;
+                    bankFooter.style.display = 'flex';
+                }
+
+                // 渲染题库列表
+                function renderBankList() {
+                    const entries = Object.entries(loadedBanks);
+
+                    if (entries.length === 0) {
+                        bankPlaceholder.style.display = 'block';
+                        bankGrid.style.display = 'none';
+                        return;
+                    }
+
+                    bankPlaceholder.style.display = 'none';
+                    bankGrid.style.display = 'grid';
+                    bankGrid.innerHTML = '';
+
+                    // 按是否主题库排序（主题库排最前）
+                    entries.sort((a, b) => {
+                        if (a[1].isTheme && !b[1].isTheme) return -1;
+                        if (!a[1].isTheme && b[1].isTheme) return 1;
+                        return a[0].localeCompare(b[0]);
+                    });
+
+                    for (const [fileName, info] of entries) {
+                        const item = document.createElement('div');
+                        item.className = `bank-item ${info.isTheme ? 'featured' : ''}`;
+
+                        const icon = info.isTheme ? '⭐' : '📄';
+                        const typeLabel = info.isTheme ? '主题库 · 无限次' : '次题库 · 一次';
+                        const sizeKB = (info.size / 1024).toFixed(1);
+
+                        item.innerHTML = `
+                            <span class="bank-icon">${icon}</span>
+                            <span class="bank-name">${fileName}</span>
+                            <span class="bank-size">${sizeKB} KB</span>
+                            <span class="bank-type ${info.isTheme ? 'theme' : 'sub'}">${typeLabel}</span>
+                            <span class="bank-count">${info.count} 题</span>
+                            <button class="bank-preview-btn" data-file="${fileName}">预览</button>
+                        `;
+
+                        bankGrid.appendChild(item);
+                    }
+
+                    // 绑定预览按钮事件
+                    document.querySelectorAll('.bank-preview-btn').forEach(btn => {
+                        btn.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            const fileName = this.dataset.file;
+                            openPreview(fileName);
+                        });
+                    });
+                }
+
+                // 打开预览
+                function openPreview(fileName) {
+                    const info = loadedBanks[fileName];
+                    if (!info) return;
+
+                    previewTitle.textContent = `📖 ${fileName}（${info.count} 道题）`;
+                    previewBody.innerHTML = '';
+
+                    info.questions.forEach((q, idx) => {
+                        const div = document.createElement('div');
+                        div.className = 'preview-question';
+
+                        const correctLabel = ['A', 'B', 'C', 'D'][q.CorrectOptions - 1] || '?';
+
+                        div.innerHTML = `
+                            <div class="preview-q-header">
+                                <span class="preview-q-num">#${idx + 1}</span>
+                                <span class="preview-q-text">${q.Text}</span>
+                            </div>
+                            <div class="preview-q-options">
+                                <span>A. ${q.OptionA || '—'}</span>
+                                <span>B. ${q.OptionB || '—'}</span>
+                                <span>C. ${q.OptionC || '—'}</span>
+                                <span>D. ${q.OptionD || '—'}</span>
+                            </div>
+                            <div class="preview-q-answer">
+                                ✅ 正确答案：<strong>${correctLabel}</strong>
+                                ${q.Explanation ? `<span class="preview-q-explain">💬 ${q.Explanation}</span>` : ''}
+                            </div>
+                        `;
+
+                        previewBody.appendChild(div);
+                    });
+
+                    previewBox.style.display = 'block';
+                    previewBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+
+                // 关闭预览
+                previewClose.addEventListener('click', function() {
+                    previewBox.style.display = 'none';
+                });
+
+                // 点击预览外部关闭（点击背景）
+                previewBox.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.style.display = 'none';
+                    }
+                });
+
+                // 绑定加载按钮
+                loadBtn.addEventListener('click', loadAllBanks);
+
+                // 如果有加载失败的，显示提示
+                console.log('🧩 奇葩问答已准备就绪');
+            });
+        </script>
+    </footer>
+</body>
+
+</html>

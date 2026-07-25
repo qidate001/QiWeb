@@ -1,0 +1,47 @@
+[
+  {
+    "Text": "我的世界：Java版1.12版本的官方更新名称是什么？",
+    "OptionA": "多彩世界更新（World of Color Update）",
+    "OptionB": "水域更新（Update Aquatic）",
+    "OptionC": "村庄与掠夺（Village & Pillage）",
+    "OptionD": "下界更新（Nether Update）",
+    "CorrectOptions": 1,
+    "Explanation": "1.12版本官方名为“多彩世界更新”，主要加入了混凝土、带釉陶瓦、鹦鹉等色彩丰富的方块和生物。水域更新是1.13，村庄与掠夺是1.14，下界更新是1.16。"
+  },
+  {
+    "Text": "我的世界：官方更新“水域更新（Update Aquatic）”对应的是哪个Java版版本号？",
+    "OptionA": "1.12",
+    "OptionB": "1.13",
+    "OptionC": "1.14",
+    "OptionD": "1.15",
+    "CorrectOptions": 2,
+    "Explanation": "水域更新是Java版1.13的官方名称，该版本重写了海洋生物群系，加入了海龟、三叉戟、珊瑚等水下内容。1.12为多彩世界，1.14为村庄与掠夺，1.15为嗡嗡蜜蜂。"
+  },
+  {
+    "Text": "我的世界：Java版1.14版本的官方更新名称是什么？",
+    "OptionA": "嗡嗡蜜蜂（Buzzy Bees）",
+    "OptionB": "荒野更新（The Wild Update）",
+    "OptionC": "村庄与掠夺（Village & Pillage）",
+    "OptionD": "足迹与故事（Trails & Tales）",
+    "CorrectOptions": 3,
+    "Explanation": "1.14官方名为“村庄与掠夺”，重做了村民交易、袭击事件，并加入了掠夺者、熊猫等。嗡嗡蜜蜂是1.15，荒野更新是1.19，足迹与故事是1.20。"
+  },
+  {
+    "Text": "我的世界：“下界更新（Nether Update）”是哪个Java版版本的官方名称？",
+    "OptionA": "1.15",
+    "OptionB": "1.16",
+    "OptionC": "1.17",
+    "OptionD": "1.18",
+    "CorrectOptions": 2,
+    "Explanation": "下界更新对应Java版1.16，该版本彻底翻新了下界，新增了绯红森林、诡异森林等生物群系，以及下界合金装备。1.15是嗡嗡蜜蜂，1.17是洞穴与山崖第一部分，1.18是第二部分。"
+  },
+  {
+    "Text": "我的世界：Java版1.19版本的官方更新名称是？",
+    "OptionA": "洞穴与山崖（Caves & Cliffs）",
+    "OptionB": "荒野更新（The Wild Update）",
+    "OptionC": "棘巧试炼（Tricky Trials）",
+    "OptionD": "末地更新（End Update）",
+    "CorrectOptions": 2,
+    "Explanation": "1.19官方名为“荒野更新”，加入了红树林沼泽、深暗之域、古城、监守者等。洞穴与山崖是1.17/1.18，棘巧试炼是1.21，末地更新尚未正式推出。"
+  }
+]

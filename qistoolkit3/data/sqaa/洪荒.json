@@ -1,0 +1,119 @@
+[
+  {
+    "Text": "以下不是洪荒创世神 盘古 伴生法宝是",
+    "OptionA": "混沌青莲",
+    "OptionB": "开天神斧",
+    "OptionC": "造化玉蝶",
+    "OptionD": "混沌珠",
+    "CorrectOptions": 4,
+    "Explanation": "混沌珠不是盘古的伴生法宝。盘古的伴生法宝是混沌青莲、开天神斧和造化玉蝶。混沌珠是其他先天至宝。"
+  },
+  {
+    "Text": "属于洪荒人物 东皇太一 的法宝是",
+    "OptionA": "混沌钟",
+    "OptionB": "诛仙四剑",
+    "OptionC": "盘古幡",
+    "OptionD": "三宝玉如意",
+    "CorrectOptions": 1,
+    "Explanation": "东皇太一的法宝是混沌钟（又称东皇钟），是先天至宝之一，具有镇压混沌之威。"
+  },
+  {
+    "Text": "属于洪荒人物 元始 的法宝是",
+    "OptionA": "混沌钟",
+    "OptionB": "诛仙四剑",
+    "OptionC": "盘古幡",
+    "OptionD": "三宝玉如意",
+    "CorrectOptions": 3,
+    "Explanation": "元始天尊的法宝是盘古幡，是三大先天至宝之一，拥有撕裂混沌之能。"
+  },
+  {
+    "Text": "属于洪荒人物 通天 的法宝是",
+    "OptionA": "混沌钟",
+    "OptionB": "诛仙四剑",
+    "OptionC": "盘古幡",
+    "OptionD": "三宝玉如意",
+    "CorrectOptions": 2,
+    "Explanation": "通天教主的法宝是诛仙四剑（诛仙剑、戮仙剑、陷仙剑、绝仙剑），配合诛仙阵图可布诛仙剑阵。"
+  },
+  {
+    "Text": "属于洪荒人物 通天 的法宝是",
+    "OptionA": "混沌钟",
+    "OptionB": "弑神枪",
+    "OptionC": "青萍剑",
+    "OptionD": "三宝玉如意",
+    "CorrectOptions": 3,
+    "Explanation": "通天教主除了诛仙四剑外，还有青萍剑作为随身佩剑，是极品先天灵宝。"
+  },
+  {
+    "Text": "属于洪荒人物 老子 的法宝是",
+    "OptionA": "太上扁担",
+    "OptionB": "诛仙四剑",
+    "OptionC": "盘古幡",
+    "OptionD": "三宝玉如意",
+    "CorrectOptions": 1,
+    "Explanation": "老子（太上老君）的法宝之一是太上扁担，此外还有太极图、天地玄黄玲珑宝塔等。"
+  },
+  {
+    "Text": "属于洪荒人物 罗睺 的法宝是",
+    "OptionA": "混沌钟",
+    "OptionB": "弑神枪",
+    "OptionC": "盘古幡",
+    "OptionD": "乾坤鼎",
+    "CorrectOptions": 2,
+    "Explanation": "魔祖罗睺的法宝是弑神枪，是混沌青莲的莲茎所化，杀伐至宝。"
+  },
+  {
+    "Text": "属于洪荒人物 罗睺 的法宝是",
+    "OptionA": "十二品灭世黑莲",
+    "OptionB": "十二品净世白莲",
+    "OptionC": "盘古幡",
+    "OptionD": "乾坤鼎",
+    "CorrectOptions": 1,
+    "Explanation": "罗睺还拥有十二品灭世黑莲，是防御至宝，由混沌青莲的莲子所化。"
+  },
+  {
+    "Text": "属于洪荒人物 罗睺 的法宝是",
+    "OptionA": "混沌钟",
+    "OptionB": "诛仙四剑",
+    "OptionC": "混元剑",
+    "OptionD": "乾坤鼎",
+    "CorrectOptions": 2,
+    "Explanation": "在洪荒流设定中，诛仙四剑最初为罗睺所有，后为鸿钧所得，赐予通天教主。"
+  },
+  {
+    "Text": "属于洪荒人物 帝俊 的法宝是",
+    "OptionA": "玉虚琉璃灯",
+    "OptionB": "十二品灭世黑莲",
+    "OptionC": "盘古幡",
+    "OptionD": "河图洛书",
+    "CorrectOptions": 4,
+    "Explanation": "妖皇帝俊的法宝是河图洛书，是先天灵宝，擅长推演天机，布阵困敌。"
+  },
+  {
+    "Text": "属于洪荒人物 女娲 的法宝是",
+    "OptionA": "玉虚琉璃灯",
+    "OptionB": "随心铁杆兵",
+    "OptionC": "红绣球",
+    "OptionD": "河图洛书",
+    "CorrectOptions": 3,
+    "Explanation": "女娲娘娘的法宝之一是红绣球，是功德圣器，可立天地人三婚，威力巨大。"
+  },
+  {
+    "Text": "属于洪荒人物 女娲 的法宝是",
+    "OptionA": "八景宫灯",
+    "OptionB": "盘古幡",
+    "OptionC": "山河社稷图",
+    "OptionD": "招妖幡",
+    "CorrectOptions": 4,
+    "Explanation": "女娲还拥有招妖幡，可召唤天下妖族，是妖族至宝。"
+  },
+  {
+    "Text": "属于洪荒人物 女娲 的法宝是",
+    "OptionA": "造人鞭",
+    "OptionB": "混沌钟",
+    "OptionC": "河图洛书",
+    "OptionD": "混元剑",
+    "CorrectOptions": 1,
+    "Explanation": "女娲造人时使用的造人鞭，后成为功德圣器，对人族有克制作用。"
+  }
+]
