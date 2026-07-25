@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>游戏工具 · 齐的工具包3</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="./css/qistoolkit3-page.css" />
+    <link rel="stylesheet" href="./css/qistoolkit3-8card.css" />
+    <link rel="stylesheet" href="./css/game-tools.css" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <script src="/js/config.js"></script>
+</head>
+
+<body>
+    <theme-button value="dark" id="btn" size="3"></theme-button>
+
+    <header>
+        <h1>齐的工具包3 <span class="version-badge" id="versionBadge">#</span></h1>
+        <nav>
+            <ul>
+                <li><a href="/index.html">首页</a></li>
+                <li><a href="/about.html">关于我</a></li>
+                <li><a href="/contact.html">联系我</a></li>
+                <li><a href="./index.html">返回专区</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="toolkit-special-page game-tools-main">
+        <h2>
+            <a href="./index.html" style="text-decoration: none;">🎮 游戏工具</a>
+        </h2>
+
+        <!-- ====== 一句话描述 ====== -->
+        <p class="game-tools-description">
+            齐的工具包3 游戏相关工具集中地。
+        </p>
+
+        <!-- ====== 双列大卡片 ====== -->
+        <div class="game-cards-grid">
+
+            <!-- 1. 等价交换（半废弃） -->
+            <a href="./tools/minecraft-project-e.html" class="game-card card-equivalent">
+                <div class="game-card-glow"></div>
+                <div class="game-card-content">
+                    <div class="game-card-top">
+                        <img src="./images/MinecraftProjectE.png" alt="等价交换 Logo" class="game-logo" />
+                        <span class="game-card-status status-deprecated">半废弃</span>
+                    </div>
+                    <div class="game-card-bottom">
+                        <h4>我的世界：等价交换</h4>
+                        <p>快速定价工具</p>
+                        <span class="game-card-arrow">点击进入 ➜</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 2. 问身 问几 问心（重点更新） -->
+            <a href="./survival-challenge-game/index.html" class="game-card card-survival">
+                <div class="game-card-glow"></div>
+                <div class="game-card-content">
+                    <div class="game-card-top">
+                        <span class="game-emoji-icon">🧭</span>
+                        <span class="game-card-status status-active">🔥 重点更新</span>
+                    </div>
+                    <div class="game-card-bottom">
+                        <h4>问身 问己 问心</h4>
+                        <p>生存小游戏</p>
+                        <span class="game-card-arrow">点击进入 ➜</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- ====== 辅助信息 ====== -->
+        <div class="toolkit-legal-bar game-tools-legal">
+            <p>
+                <span style="color: #8bc34a;">💡 点击卡片即可跳转至对应工具</span>
+                <span style="color: #aaa; margin-left: 16px;">📌 「半废弃」工具仍可正常使用，但不再积极维护</span>
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const versionBadge = document.getElementById('versionBadge');
+                if (versionBadge && typeof APP_CONFIG !== 'undefined') {
+                    versionBadge.textContent = APP_CONFIG.version;
+                }
+            });
+        </script>
+    </footer>
+</body>
+
+</html>
