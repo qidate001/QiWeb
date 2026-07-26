@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎴 塔罗21点</title>
+    <!-- 复用塔罗占卜样式 -->
+    <link rel="stylesheet" href="/css/tarot.css" />
+    <!-- 塔罗牌数据 -->
+    <script src="/js/tarot_config.js"></script>
+    <style>
+        /* ---------- 游戏专属样式 ---------- */
+        .game-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .game-title {
+            color: #ffd700;
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.15);
+            margin-bottom: 12px;
+        }
+        .game-title::before { content: '♠ '; opacity: 0.6; }
+        .game-title::after { content: ' ♥'; opacity: 0.6; }
+        .scoreboard {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 60px;
+            padding: 10px 30px;
+            border: 1px solid rgba(255, 215, 0, 0.08);
+            margin-bottom: 20px;
+            color: #b8a0c0;
+            font-size: 1.1rem;
+            flex-wrap: wrap;
+        }
+        .scoreboard .score { display: flex; align-items: center; gap: 12px; }
+        .scoreboard .score .num {
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: #ffd700;
+            min-width: 30px;
+            text-align: center;
+        }
+        .scoreboard .vs { color: #6a5a7a; font-weight: 300; }
+        .scoreboard .round-info { color: #8a7a9a; font-size: 0.9rem; }
+        .table-area {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 32px;
+            padding: 30px 20px 20px;
+            border: 1px solid rgba(255, 215, 0, 0.06);
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+        }
+        .hand-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .hand-area:last-child { margin-bottom: 0; }
+        .hand-label {
+            color: #b8a0c0;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
+        .hand-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            min-height: 180px;
+            padding: 8px;
+        }
+        .hand-cards .card-slot {
+            width: 120px;
+            height: 190px;
+            animation: none;
+            transition: transform 0.3s ease;
+        }
+        .hand-cards .card-slot:hover { transform: translateY(-4px) scale(1.02); }
+        .hand-cards .card-label { display: none; }
+        .hand-cards .card-back img { width: 70%; height: 70%; object-fit: contain; }
+        .hand-cards .card-front img { object-fit: contain; padding: 4px; }
+        .hand-total {
+            font-size: 1.2rem;
+            color: #d8c8e0;
+            margin-top: 6px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        .hand-total .total-num {
+            color: #ffd700;
+            font-weight: 600;
+            font-size: 1.6rem;
+            margin: 0 6px;
+        }
+        .hand-total .bust { color: #ff7a7a; font-weight: 700; margin-left: 8px; }
+        .hand-total .blackjack { color: #69f0ae; font-weight: 700; margin-left: 8px; }
+        .game-message {
+            color: #c8b8d0;
+            font-size: 1.1rem;
+            padding: 12px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            border-left: 4px solid #ffd700;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 700px;
+        }
+        .game-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .game-actions .btn {
+            min-width: 120px;
+            padding: 12px 28px;
+            font-size: 1rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .btn-hit {
+            background: linear-gradient(135deg, #4a7a9c, #2a5a7a);
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(74, 122, 156, 0.3);
+        }
+        .btn-hit:hover:not(:disabled) {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 35px rgba(74, 122, 156, 0.4);
+        }
+        .btn-stand {
+            background: linear-gradient(135deg, #9a6a4a, #7a4a2a);
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(154, 106, 74, 0.3);
+        }
+        .btn-stand:hover:not(:disabled) {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 35px rgba(154, 106, 74, 0.4);
+        }
+        .btn-newgame {
+            background: linear-gradient(135deg, #ffd700, #f0a500);
+            color: #1a0a1e;
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.2);
+        }
+        .btn-newgame:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 12px 45px rgba(255, 215, 0, 0.35); }
+        .game-actions .btn:disabled {
+            opacity: 0.4;
+            transform: none !important;
+            cursor: not-allowed;
+            box-shadow: none !important;
+        }
+        @media (max-width: 768px) {
+            .game-title { font-size: 2rem; letter-spacing: 4px; }
+            .scoreboard { gap: 20px; padding: 8px 20px; font-size: 0.9rem; }
+            .hand-cards .card-slot { width: 90px; height: 145px; }
+            .hand-cards { gap: 8px; min-height: 140px; }
+            .game-actions .btn { min-width: 90px; padding: 10px 18px; font-size: 0.85rem; }
+            .game-message { font-size: 0.95rem; padding: 10px 16px; min-height: 50px; }
+        }
+        @media (max-width: 480px) {
+            .hand-cards .card-slot { width: 70px; height: 115px; }
+            .hand-total { font-size: 1rem; }
+            .hand-total .total-num { font-size: 1.2rem; }
+        }
+        .dealer-hidden .card-slot:first-child .card-inner { transform: rotateY(0deg) !important; }
+        .dealer-hidden .card-slot:first-child .card-front { display: none; }
+        .dealer-reveal .card-slot:first-child .card-inner { transform: rotateY(180deg) !important; }
+        @keyframes bustFlash {
+            0%, 100% { background-color: rgba(255, 50, 50, 0.1); }
+            50% { background-color: rgba(255, 50, 50, 0.4); }
+        }
+        .bust-flash { animation: bustFlash 0.6s ease 3; }
+        @keyframes winGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.1); }
+            50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.4); }
+        }
+        .win-glow { animation: winGlow 1.2s ease infinite; }
+    </style>
+</head>
+
+<body>
+    <div class="app-container" style="max-width:1200px; padding:10px 20px;">
+        <div class="game-container">
+
+            <h1 class="game-title">塔罗21点</h1>
+
+            <div class="scoreboard" id="scoreboard">
+                <div class="score">
+                    <span>👤 玩家</span>
+                    <span class="num" id="playerWins">0</span>
+                </div>
+                <span class="vs">⚔️</span>
+                <div class="score">
+                    <span>🤖 庄家</span>
+                    <span class="num" id="dealerWins">0</span>
+                </div>
+                <span class="round-info" id="roundInfo">第 1 / 3 局</span>
+            </div>
+
+            <div class="table-area">
+
+                <div class="hand-area" id="dealerArea">
+                    <div class="hand-label">🎩 庄家</div>
+                    <div class="hand-cards" id="dealerHand"></div>
+                    <div class="hand-total" id="dealerTotal">点数：<span class="total-num">0</span></div>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid rgba(255,215,0,0.06); margin: 12px 0;" />
+
+                <div class="hand-area" id="playerArea">
+                    <div class="hand-label">🃏 玩家</div>
+                    <div class="hand-cards" id="playerHand"></div>
+                    <div class="hand-total" id="playerTotal">点数：<span class="total-num">0</span></div>
+                </div>
+            </div>
+
+            <div class="game-message" id="gameMessage">点击「新游戏」开始</div>
+
+            <div class="game-actions">
+                <button class="btn btn-hit" id="hitBtn" disabled>要牌</button>
+                <button class="btn btn-stand" id="standBtn" disabled>停牌</button>
+                <button class="btn btn-newgame" id="newGameBtn">🔄 新游戏</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        //  塔罗21点 - 完整游戏逻辑（开局一张牌）
+        // ============================================================
+
+        const DECK = typeof TAROT_DECK !== 'undefined' ? TAROT_DECK : [];
+        const IMG_BASE = typeof CONFIG !== 'undefined' ? CONFIG.IMG_BASE : '/images/tarot_cards/';
+        const BACK_IMG = typeof CONFIG !== 'undefined' ? CONFIG.BACK_IMG : '/images/tarot_cards/_.png';
+
+        // ---------- 牌点映射 ----------
+        function getCardValue(card) {
+            const id = card.id;
+            if (/^[0-9]+$/.test(id)) {
+                const num = parseInt(id);
+                return num; // 0~21
+            }
+            const match = id.match(/^([WCSP])(\d+)$/);
+            if (match) {
+                const num = parseInt(match[2]);
+                if (num >= 2 && num <= 10) return num;
+                if (num === 1) return 11; // Ace 特殊
+            }
+            if (id.includes('侍从')) return 11;
+            if (id.includes('骑士')) return 12;
+            if (id.includes('王后') || id.includes('皇后')) return 13;
+            if (id.includes('国王')) return 14;
+            return 10;
+        }
+
+        function isAce(card) {
+            const id = card.id;
+            return /^[WCSP]1$/.test(id) || id === '1';
+        }
+
+        function calcHandTotal(hand) {
+            let total = 0;
+            let aces = 0;
+            hand.forEach(card => {
+                if (isAce(card)) { aces++; total += 11; }
+                else { total += getCardValue(card); }
+            });
+            while (total > 21 && aces > 0) { total -= 10; aces--; }
+            return total;
+        }
+
+        // ---------- 游戏状态 ----------
+        const game = {
+            deck: [],
+            playerHand: [],
+            dealerHand: [],
+            playerScore: 0,
+            dealerScore: 0,
+            round: 0,
+            maxRounds: 3,
+            phase: 'idle', // idle, playerTurn, dealerTurn, gameOver
+            isGameOver: false,
+        };
+
+        // ---------- DOM 引用 ----------
+        const playerHandEl = document.getElementById('playerHand');
+        const dealerHandEl = document.getElementById('dealerHand');
+        const playerTotalEl = document.getElementById('playerTotal');
+        const dealerTotalEl = document.getElementById('dealerTotal');
+        const playerWinsEl = document.getElementById('playerWins');
+        const dealerWinsEl = document.getElementById('dealerWins');
+        const roundInfoEl = document.getElementById('roundInfo');
+        const gameMessageEl = document.getElementById('gameMessage');
+        const hitBtn = document.getElementById('hitBtn');
+        const standBtn = document.getElementById('standBtn');
+        const newGameBtn = document.getElementById('newGameBtn');
+
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function createDeck() { return DECK.map(c => ({ ...c })); }
+
+        function drawCard() {
+            if (game.deck.length === 0) {
+                game.deck = shuffleArray(createDeck());
+            }
+            return game.deck.pop();
+        }
+
+        function createCardElement(card, isFaceDown = false) {
+            const slot = document.createElement('div');
+            slot.className = 'card-slot';
+            const inner = document.createElement('div');
+            inner.className = 'card-inner';
+
+            const back = document.createElement('div');
+            back.className = 'card-back';
+            const backImg = document.createElement('img');
+            backImg.src = BACK_IMG;
+            backImg.alt = '牌背';
+            backImg.loading = 'lazy';
+            back.appendChild(backImg);
+
+            const front = document.createElement('div');
+            front.className = 'card-front';
+            if (card.isReversed) front.classList.add('reversed');
+            const frontImg = document.createElement('img');
+            frontImg.src = `${IMG_BASE}${card.id}.png`;
+            frontImg.alt = card.name;
+            frontImg.loading = 'lazy';
+            front.appendChild(frontImg);
+            front.dataset.name = card.name;
+
+            inner.appendChild(back);
+            inner.appendChild(front);
+            slot.appendChild(inner);
+
+            if (!isFaceDown) {
+                slot.classList.add('flipped');
+            }
+            slot.dataset.cardId = card.id;
+            return slot;
+        }
+
+        function clearHands() {
+            playerHandEl.innerHTML = '';
+            dealerHandEl.innerHTML = '';
+            updateTotalDisplay();
+        }
+
+        function updateTotalDisplay() {
+            const pTotal = calcHandTotal(game.playerHand);
+            const dTotal = calcHandTotal(game.dealerHand);
+            playerTotalEl.innerHTML =
+                `点数：<span class="total-num">${pTotal}</span>${pTotal > 21 ? ' <span class="bust">💥 爆牌</span>' : ''}${pTotal === 21 && game.playerHand.length === 2 ? ' <span class="blackjack">✨ 黑杰克</span>' : ''}`;
+            if (game.phase === 'dealerTurn' || game.phase === 'gameOver' || game.phase === 'idle') {
+                dealerTotalEl.innerHTML =
+                    `点数：<span class="total-num">${dTotal}</span>${dTotal > 21 ? ' <span class="bust">💥 爆牌</span>' : ''}`;
+            } else {
+                if (game.dealerHand.length > 0) {
+                    const firstVal = getCardValue(game.dealerHand[0]);
+                    dealerTotalEl.innerHTML = `点数：<span class="total-num">${firstVal}</span> + ?`;
+                } else {
+                    dealerTotalEl.innerHTML = `点数：<span class="total-num">0</span>`;
+                }
+            }
+        }
+
+        function updateScoreboard() {
+            playerWinsEl.textContent = game.playerScore;
+            dealerWinsEl.textContent = game.dealerScore;
+            roundInfoEl.textContent = `第 ${game.round} / ${game.maxRounds} 局`;
+        }
+
+        function setMessage(text, type = 'info') {
+            gameMessageEl.textContent = text;
+            gameMessageEl.style.borderLeftColor = type === 'win' ? '#69f0ae' : type === 'lose' ? '#ff7a7a' : '#ffd700';
+        }
+
+        function setButtonsEnabled(hit, stand, newGame = true) {
+            hitBtn.disabled = !hit;
+            standBtn.disabled = !stand;
+            newGameBtn.disabled = !newGame;
+        }
+
+        // ---------- 核心游戏函数 ----------
+
+        // 开局：每人一张牌（玩家明牌，庄家暗牌）
+        function startRound() {
+            if (game.isGameOver) {
+                resetGame();
+                return;
+            }
+            game.playerHand = [];
+            game.dealerHand = [];
+            game.round++;
+            game.phase = 'playerTurn';
+
+            // 发牌：各一张
+            game.playerHand.push(drawCard());
+            game.dealerHand.push(drawCard());
+
+            renderHands();
+
+            // 更新总分显示（只显示玩家总分，庄家隐藏）
+            updateTotalDisplay();
+            updateScoreboard();
+
+            // 检查玩家是否直接21点（一张牌不可能，但保留）
+            const pTotal = calcHandTotal(game.playerHand);
+            if (pTotal === 21) {
+                // 极低概率，但处理：直接进入庄家回合
+                setMessage('🎉 玩家21点！', 'win');
+                game.phase = 'dealerTurn';
+                revealDealerCard();
+                dealerPlay();
+                return;
+            }
+
+            setMessage('你的回合，选择要牌或停牌', 'info');
+            setButtonsEnabled(true, true, false);
+        }
+
+        function renderHands() {
+            // 玩家手牌全部正面
+            playerHandEl.innerHTML = '';
+            game.playerHand.forEach(card => {
+                const el = createCardElement(card, false);
+                playerHandEl.appendChild(el);
+            });
+
+            // 庄家：第一张暗牌（除非游戏已进入庄家回合或结束）
+            dealerHandEl.innerHTML = '';
+            game.dealerHand.forEach((card, index) => {
+                // 第一张始终暗牌，直到翻牌
+                const isFaceDown = (index === 0 && game.phase !== 'dealerTurn' && game.phase !== 'gameOver');
+                const el = createCardElement(card, isFaceDown);
+                if (isFaceDown) {
+                    el.dataset.hidden = 'true';
+                }
+                dealerHandEl.appendChild(el);
+            });
+        }
+
+        function revealDealerCard() {
+            const cards = dealerHandEl.querySelectorAll('.card-slot');
+            if (cards.length >= 1) {
+                const first = cards[0];
+                if (first.dataset.hidden === 'true') {
+                    first.classList.add('flipped');
+                    first.dataset.hidden = 'false';
+                }
+            }
+            updateTotalDisplay();
+        }
+
+        // 玩家要牌
+        function playerHit() {
+            if (game.phase !== 'playerTurn') return;
+            const card = drawCard();
+            game.playerHand.push(card);
+            const el = createCardElement(card, false);
+            playerHandEl.appendChild(el);
+            const total = calcHandTotal(game.playerHand);
+            updateTotalDisplay();
+
+            if (total > 21) {
+                setMessage('💥 爆牌！你输了这一局', 'lose');
+                game.phase = 'dealerTurn';
+                endRound('lose');
+                return;
+            }
+            if (total === 21) {
+                setMessage('🎯 21点！自动停牌', 'win');
+                playerStand();
+                return;
+            }
+            setMessage(`当前点数 ${total}，继续要牌或停牌`, 'info');
+        }
+
+        // 玩家停牌
+        function playerStand() {
+            if (game.phase !== 'playerTurn') return;
+            setMessage('你选择停牌，庄家回合...', 'info');
+            game.phase = 'dealerTurn';
+            revealDealerCard();
+            dealerPlay();
+        }
+
+        // 庄家自动要牌
+        function dealerPlay() {
+            if (game.phase !== 'dealerTurn') return;
+            let total = calcHandTotal(game.dealerHand);
+            if (total < 17) {
+                const card = drawCard();
+                game.dealerHand.push(card);
+                const el = createCardElement(card, false);
+                dealerHandEl.appendChild(el);
+                updateTotalDisplay();
+                if (calcHandTotal(game.dealerHand) > 21) {
+                    setMessage('庄家爆牌！你赢了这一局！', 'win');
+                    endRound('win');
+                    return;
+                }
+                setTimeout(() => dealerPlay(), 500);
+            } else {
+                setMessage('庄家停牌，结算...', 'info');
+                const pTotal = calcHandTotal(game.playerHand);
+                const dTotal = calcHandTotal(game.dealerHand);
+                let result = '';
+                if (dTotal > 21) result = 'win';
+                else if (pTotal > 21) result = 'lose';
+                else if (pTotal > dTotal) result = 'win';
+                else if (pTotal < dTotal) result = 'lose';
+                else result = 'push';
+                endRound(result);
+            }
+        }
+
+        // 结束一局
+        function endRound(result) {
+            game.phase = 'gameOver';
+            if (result === 'win') {
+                game.playerScore++;
+                setMessage('🎉 你赢了这一局！', 'win');
+            } else if (result === 'lose') {
+                game.dealerScore++;
+                setMessage('😞 你输了这一局', 'lose');
+            } else {
+                setMessage('🤝 平局', 'info');
+            }
+            revealDealerCard();
+            updateTotalDisplay();
+            updateScoreboard();
+
+            if (game.playerScore >= 2) {
+                setMessage('🏆 恭喜你赢得整场比赛！', 'win');
+                game.isGameOver = true;
+                setButtonsEnabled(false, false, true);
+                return;
+            } else if (game.dealerScore >= 2) {
+                setMessage('😔 庄家赢得整场比赛', 'lose');
+                game.isGameOver = true;
+                setButtonsEnabled(false, false, true);
+                return;
+            }
+
+            if (game.round >= game.maxRounds) {
+                if (game.playerScore > game.dealerScore) {
+                    setMessage('🏆 最终胜利者：玩家！', 'win');
+                } else if (game.playerScore < game.dealerScore) {
+                    setMessage('😔 最终胜利者：庄家', 'lose');
+                } else {
+                    setMessage('🤝 最终平局', 'info');
+                }
+                game.isGameOver = true;
+                setButtonsEnabled(false, false, true);
+                return;
+            }
+
+            setButtonsEnabled(false, false, true);
+            setTimeout(() => {
+                if (!game.isGameOver) {
+                    startRound();
+                }
+            }, 1500);
+        }
+
+        function resetGame() {
+            game.playerScore = 0;
+            game.dealerScore = 0;
+            game.round = 0;
+            game.isGameOver = false;
+            game.phase = 'idle';
+            game.playerHand = [];
+            game.dealerHand = [];
+            game.deck = shuffleArray(createDeck());
+            clearHands();
+            updateScoreboard();
+            setMessage('新游戏开始！点击「新游戏」发牌', 'info');
+            setButtonsEnabled(false, false, true);
+            setTimeout(() => {
+                if (!game.isGameOver) {
+                    startRound();
+                }
+            }, 400);
+        }
+
+        function initGame() {
+            game.deck = shuffleArray(createDeck());
+            resetGame();
+            hitBtn.addEventListener('click', playerHit);
+            standBtn.addEventListener('click', playerStand);
+            newGameBtn.addEventListener('click', function() {
+                if (game.isGameOver) {
+                    resetGame();
+                } else {
+                    if (confirm('确定要重新开始吗？当前进度将丢失。')) {
+                        resetGame();
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (DECK.length === 0) {
+                alert('塔罗牌数据加载失败，请检查 tarot_config.js 是否存在。');
+                return;
+            }
+            initGame();
+        });
+
+        console.log('🎴 塔罗21点已启动（开局一张牌）');
+    </script>
+</body>
+
+</html>
