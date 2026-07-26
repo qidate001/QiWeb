@@ -66,22 +66,3 @@
 body.dark-theme #page-anchor-menu li a:hover {
     background-color: #3a3a3a;
 }
-
-/* 新增：Tip 提示框样式（独特的注释样式） */
-.tip-box {
-    background: #f0f4f8; /* 亮色模式下使用淡蓝灰色 */
-    border-left: 4px solid #6b8cac;
-    padding: 10px 15px;
-    margin: 12px 0 12px 20px;
-    border-radius: 0 6px 6px 0;
-    font-size: 14px;
-    color: #2c3e50;
-}
-body.dark-theme .tip-box {
-    background: #2a2d35; /* 暗色模式下使用深色底 */
-    border-left: 4px solid #809ab3;
-    color: #dce1e8;
-}
-.tip-box strong {
-    color: var(--accent-red);
-}
