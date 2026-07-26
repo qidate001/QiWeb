@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎴 塔罗21点 · 规则介绍</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <style>
+        /* ===== 全局重置 & 背景 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #0d0610 0%, #1a0a2e 30%, #2d1b3d 60%, #1a0a2e 100%);
+            min-height: 100vh;
+            color: #d8c8e0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        /* 星空背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, #ffd700, transparent),
+                radial-gradient(2px 2px at 40px 70px, #ffd700, transparent),
+                radial-gradient(2px 2px at 50px 160px, #ffd700, transparent),
+                radial-gradient(2px 2px at 90px 40px, #ffd700, transparent),
+                radial-gradient(2px 2px at 130px 80px, #ffd700, transparent),
+                radial-gradient(2px 2px at 160px 30px, #ffd700, transparent);
+            background-size: 200px 200px;
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===== 主容器 ===== */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 40px 45px;
+            border: 1px solid rgba(255, 215, 0, 0.08);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
+            margin: 20px auto;
+        }
+
+        /* ===== 标题 ===== */
+        .page-title {
+            text-align: center;
+            color: #ffd700;
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.15);
+            margin-bottom: 8px;
+        }
+        .page-title::before {
+            content: '♠ ';
+            opacity: 0.5;
+        }
+        .page-title::after {
+            content: ' ♥';
+            opacity: 0.5;
+        }
+
+        .subhead {
+            text-align: center;
+            color: #b8a0c0;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            margin-bottom: 32px;
+        }
+
+        /* ===== 章节 ===== */
+        section {
+            margin-bottom: 28px;
+        }
+        section h2 {
+            color: #ffd700;
+            font-size: 1.6rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+            padding-bottom: 6px;
+            margin-bottom: 16px;
+        }
+        section h3 {
+            color: #d8c8e0;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 16px 0 8px;
+            letter-spacing: 1px;
+        }
+        section p,
+        section li {
+            color: #c8b8d0;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+        section ul,
+        section ol {
+            padding-left: 24px;
+            margin: 8px 0 12px;
+        }
+        section li {
+            margin-bottom: 6px;
+        }
+        .highlight {
+            color: #ffd700;
+            font-weight: 500;
+        }
+        .highlight-green {
+            color: #69f0ae;
+            font-weight: 500;
+        }
+        .highlight-red {
+            color: #ff7a7a;
+            font-weight: 500;
+        }
+
+        .card-example {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.06);
+            border: 1px solid rgba(255, 215, 0, 0.12);
+            border-radius: 8px;
+            padding: 2px 10px;
+            font-size: 0.9rem;
+            color: #ffd700;
+            font-family: 'Consolas', monospace;
+            margin: 0 4px;
+        }
+
+        /* ===== 牌点表格 ===== */
+        .point-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0 16px;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .point-table th,
+        .point-table td {
+            padding: 10px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: left;
+            color: #d8c8e0;
+        }
+        .point-table th {
+            background: rgba(255, 215, 0, 0.08);
+            color: #ffd700;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        .point-table td {
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        /* ===== 操作流程 ===== */
+        .flow-step {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border-left: 3px solid rgba(255, 215, 0, 0.2);
+        }
+        .flow-step .step-num {
+            flex-shrink: 0;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #ffd700;
+            width: 28px;
+            text-align: right;
+        }
+        .flow-step .step-content {
+            flex: 1;
+        }
+
+        /* ===== 按钮 ===== */
+        .cta {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .cta .btn {
+            display: inline-block;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 48px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            background: linear-gradient(135deg, #ffd700, #f0a500);
+            color: #1a0a1e;
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.25);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .cta .btn:hover {
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 12px 45px rgba(255, 215, 0, 0.4);
+        }
+        .cta .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: #b8a0c0;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: none;
+            margin-left: 16px;
+        }
+        .cta .btn-secondary:hover {
+            background: rgba(255, 215, 0, 0.06);
+            color: #fff;
+            border-color: rgba(255, 215, 0, 0.2);
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        @media (max-width: 600px) {
+            .cta .btn {
+                display: block;
+                width: 100%;
+                margin: 8px 0;
+            }
+            .cta .btn-secondary {
+                margin-left: 0;
+            }
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px 20px;
+                border-radius: 28px;
+                margin: 10px;
+            }
+            .page-title {
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+            section h2 {
+                font-size: 1.3rem;
+            }
+            section p,
+            section li {
+                font-size: 0.95rem;
+            }
+            .flow-step {
+                flex-direction: column;
+                gap: 4px;
+                padding: 10px 12px;
+            }
+            .flow-step .step-num {
+                text-align: left;
+                width: auto;
+            }
+            .point-table th,
+            .point-table td {
+                padding: 6px 10px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 16px 14px;
+            }
+            .page-title {
+                font-size: 1.6rem;
+            }
+            .subhead {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1 class="page-title">塔罗21点</h1>
+        <p class="subhead">🎴 用 78 张塔罗牌进行的经典 21 点对决 · 三局两胜</p>
+
+        <!-- ==================== 游戏目标 ==================== -->
+        <section>
+            <h2>🎯 游戏目标</h2>
+            <p>在每局中，你（玩家）与庄家（电脑）各自争取让手牌总点数 <span class="highlight">尽可能接近 21 点</span>，但 <span class="highlight-red">不能超过 21 点</span>。超过即“爆牌”，直接输掉该局。</p>
+            <p>每局独立计算胜负，先赢下 <span class="highlight">2 局</span> 的一方获得整场比赛胜利。</p>
+        </section>
+
+        <!-- ==================== 牌点计算 ==================== -->
+        <section>
+            <h2>🔢 牌点怎么算？</h2>
+            <p>塔罗牌分为 <strong>大阿尔卡纳</strong>（0~21）和 <strong>小阿尔卡纳</strong>（权杖、圣杯、宝剑、星币）。点数规则如下：</p>
+
+            <table class="point-table">
+                <thead>
+                    <tr>
+                        <th>牌类型</th>
+                        <th>举例</th>
+                        <th>点数</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>大阿尔卡纳</td>
+                        <td>愚者(0)、魔术师(1)、世界(21)……</td>
+                        <td><span class="highlight">0 ~ 21</span>（按牌面数字）</td>
+                    </tr>
+                    <tr>
+                        <td>小阿尔卡纳数字牌 2~10</td>
+                        <td>权杖二、圣杯七、宝剑九、星币四</td>
+                        <td><span class="highlight">2 ~ 10</span>（按牌面数字）</td>
+                    </tr>
+                    <tr>
+                        <td>小阿尔卡纳 <strong>Ace</strong>（一）</td>
+                        <td>权杖一、圣杯一、宝剑一、星币一</td>
+                        <td><span class="highlight">1 或 11</span>（以对玩家最有利的方式自动计算）</td>
+                    </tr>
+                    <tr>
+                        <td>宫廷牌</td>
+                        <td>侍从、骑士、王后、国王</td>
+                        <td><span class="highlight">11、12、13、14</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="font-size:0.95rem; color:#8a7a9a;">💡 <strong>示例：</strong> 你手中有 <span class="card-example">世界(21)</span> + <span class="card-example">星币一(Ace)</span>，Ace 会自动按 1 点计算，总点为 22 → 爆牌。若 Ace 按 11 点则总点 32，更加爆，所以系统会选 1 点。</p>
+        </section>
+
+        <!-- ==================== 游戏流程 ==================== -->
+        <section>
+            <h2>🔄 游戏流程</h2>
+
+            <div class="flow-step">
+                <div class="step-num">①</div>
+                <div class="step-content">
+                    <strong>开局</strong>：你（玩家）和庄家各获得 <span class="highlight">1 张牌</span>。你的牌正面朝上，庄家的牌背面朝上（暗牌）。
+                </div>
+            </div>
+
+            <div class="flow-step">
+                <div class="step-num">②</div>
+                <div class="step-content">
+                    <strong>你的回合</strong>：你可以选择：
+                    <ul>
+                        <li><span class="highlight-green">要牌 (Hit)</span> —— 再抽一张牌，点数增加。只要不超过 21 点，可以继续要牌。</li>
+                        <li><span class="highlight">停牌 (Stand)</span> —— 认为点数足够，不再要牌，将回合交给庄家。</li>
+                    </ul>
+                    <p style="font-size:0.95rem; color:#8a7a9a;">💡 <strong>自动停牌</strong>：如果你的点数达到 21 点，系统会自动为你停牌（因为再要必爆）。</p>
+                </div>
+            </div>
+
+            <div class="flow-step">
+                <div class="step-num">③</div>
+                <div class="step-content">
+                    <strong>庄家回合</strong>：庄家翻开暗牌，并按照固定策略行动：
+                    <ul>
+                        <li>如果庄家点数 <span class="highlight-red">≤ 16</span>，必须继续要牌。</li>
+                        <li>如果庄家点数 <span class="highlight">≥ 17</span>，必须停牌。</li>
+                    </ul>
+                    <p style="font-size:0.95rem; color:#8a7a9a;">💡 庄家不会主动冒险，一切按规则自动执行。</p>
+                </div>
+            </div>
+
+            <div class="flow-step">
+                <div class="step-num">④</div>
+                <div class="step-content">
+                    <strong>结算</strong>：比较双方最终点数，判定本局胜负。
+                </div>
+            </div>
+
+            <div class="flow-step">
+                <div class="step-num">⑤</div>
+                <div class="step-content">
+                    <strong>重复</strong>：进入下一局，直到有一方先赢得 <span class="highlight">2 局</span>，整场比赛结束。
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 胜负判定 ==================== -->
+        <section>
+            <h2>⚖️ 胜负判定</h2>
+            <ul>
+                <li><span class="highlight-red">玩家爆牌</span>（点数 > 21）→ 玩家直接输掉本局。</li>
+                <li><span class="highlight-red">庄家爆牌</span>（点数 > 21）→ 玩家直接赢下本局。</li>
+                <li>双方均未爆牌 → 比较点数，<span class="highlight">点数更接近 21 点</span> 的一方获胜。</li>
+                <li>点数相同 → <span class="highlight">平局 (Push)</span>，本局不计胜负，继续下一局。</li>
+            </ul>
+            <p style="font-size:0.95rem; color:#8a7a9a;">💡 <strong>注意</strong>：如果玩家爆牌，庄家无需再行动，玩家立即输。如果庄家爆牌，玩家立即赢。</p>
+        </section>
+
+        <!-- ==================== 三局两胜 ==================== -->
+        <section>
+            <h2>🏆 三局两胜</h2>
+            <p>整场比赛最多进行 <span class="highlight">3 局</span>。先赢下 2 局的一方获得最终胜利。</p>
+            <ul>
+                <li>若玩家 2:0 领先，比赛提前结束，玩家获胜。</li>
+                <li>若庄家 2:0 领先，比赛提前结束，庄家获胜。</li>
+                <li>若前两局各赢一局，则进行第三局决胜局。</li>
+            </ul>
+            <p style="font-size:0.95rem; color:#8a7a9a;">💡 平局不计入胜局，不会影响比赛进程。</p>
+        </section>
+
+        <!-- ==================== 策略小贴士 ==================== -->
+        <section>
+            <h2>🧠 策略小贴士（新手友好）</h2>
+            <ul>
+                <li><strong>点数 ≤ 11</strong>：大胆要牌，几乎不可能爆牌。</li>
+                <li><strong>点数 12~16</strong>：观察庄家明牌。如果庄家明牌为 2~6（较弱），可以停牌赌庄家爆；如果庄家明牌 ≥ 7，建议要牌。</li>
+                <li><strong>点数 ≥ 17</strong>：通常选择停牌，因为再要牌爆牌风险很高。</li>
+                <li><strong>Ace 是宝贝</strong>：手中有 Ace 时，系统会自动为你选择最有利的点数（1 或 11），你可以放心要牌。</li>
+            </ul>
+            <p style="font-size:0.95rem; color:#8a7a9a;">💡 以上是经典 21 点策略，但塔罗牌点数范围更大（0~21），所以风险更高，游戏更具挑战性！</p>
+        </section>
+
+        <!-- ==================== 操作按钮 ==================== -->
+        <div class="cta">
+            <a href="/tarot-blackjack.html" class="btn">🎴 开始游戏</a>
+            <a href="/tarot.html" class="btn btn-secondary">🔮 返回占卜</a>
+        </div>
+
+        <p style="text-align:center; margin-top:20px; color:#4a3a5a; font-size:0.8rem; letter-spacing:0.5px;">
+            ⚠️ 游戏仅供娱乐，所有结果由随机牌决定，不具备科学依据。
+        </p>
+
+    </div>
+
+</body>
+
+</html>
