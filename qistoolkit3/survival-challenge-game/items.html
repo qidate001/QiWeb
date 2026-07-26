@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>道具图鉴 · 《问身 问己 问心》Wiki</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/items.css">
+</head>
+
+<body>
+    <!-- 主题切换按钮 -->
+    <button id="theme-toggle" class="theme-switch">🌓 暗色模式</button>
+
+    <div class="wiki-container">
+        <!-- 侧边导航 -->
+        <nav class="sidebar">
+            <div class="game-title">
+                <h1>问身 问己 问心</h1>
+                <div class="subtitle">WIKI · 生存手册</div>
+            </div>
+
+            <!-- 页面顶部的全局导航 -->
+            <ul class="menu">
+                <li><a href="index.html">📖 游戏总览 / 新手指引</a></li>
+                <li><a href="player-status.html">📊 生存数值</a></li>
+                <li><a href="items.html"
+                        style="background-color: #eae5d2; color: var(--accent-red); font-weight: bold;">🎒 道具图鉴</a></li>
+                <li><a href="#">🌪️ 随机事件</a></li>
+                <li><a href="#">🎯 主界行动</a></li>
+                <li><a href="#">📜 主线流程</a></li>
+                <li><a href="#">🧩 时空碎块</a></li>
+                <li><a href="#">🔮 塔罗牌</a></li>
+                <li><a href="#">🏆 结局</a></li>
+            </ul>
+
+            <!-- 当前页面的内部锚点导航 -->
+            <div style="margin-top: 10px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                <div style="font-weight: bold; margin-bottom: 10px; color: var(--text-sub); font-size: 14px;">📌 当前页索引
+                </div>
+                <ul id="page-anchor-menu">
+                    <li><a href="#functional">🛠️ 功能道具（常驻不消耗）</a></li>
+                    <li><a href="#material">🧪 材料道具（合成/购买材料）</a></li>
+                    <li><a href="#consumable">💊 消耗品道具（使用后消耗）</a></li>
+                    <li><a href="#divine">✨ 神赐道具（信仰）</a></li>
+                </ul>
+            </div>
+
+            <div class="widget-box" style="margin-top: 20px;">
+                <div class="widget-title">气运模拟器</div>
+                <div class="widget-content">
+                    <label>当前气运 (L): <span id="luck-display">0</span></label>
+                    <input type="range" id="luck-slider" min="-100" max="100" value="0">
+                    <div class="prob-results">
+                        <div class="prob-item good">好事件: <span id="p-good">30.0%</span></div>
+                        <div class="prob-item bad">坏事件: <span id="p-bad">20.0%</span></div>
+                        <div class="prob-item neutral">平常事件: <span id="p-neutral">50.0%</span></div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 主体内容区 -->
+        <main class="content">
+            <div class="panel-header" id="top">
+                <h2>道具图鉴</h2>
+                <span class="tag">生存依仗</span>
+            </div>
+            <div class="stat-section" style="border-bottom: none; margin-top: 15px;">
+                <div class="mechanics-box">
+                    <strong>📌 核心理念：</strong>
+                    <p style="margin: 5px 0 0 0;">“道具是你生存的重大依仗，合理的分配使用，同样重要！”</p>
+                </div>
+            </div>
+
+            <!-- 功能道具 -->
+            <div class="stat-section" id="functional">
+                <h3 class="stat-title">【功能道具（常驻不消耗）】</h3>
+
+                <h4>黑暗屏蔽器</h4>
+                <ul class="stat-list">
+                    <li>黑暗屏蔽器是观看主界剧情的关键，若你没拥有黑暗屏蔽器的情况下，黑暗将会干扰你的意识。</li>
+                    <li>黑暗屏蔽器用于屏蔽主线剧情中的黑暗干扰。</li>
+                    <li>可在 神秘商店 花费 100理智 购买。</li>
+                    <div class="tip-box">
+                        <strong>💡 Tip:</strong> 黑暗屏蔽器并非必需品，您完全可以全凭记忆摸黑游玩。
+                    </div>
+                    <li>
+                        <div style="margin-top: 10px; display: flex; gap: 30px; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <div
+                                    style="border: 1px solid var(--border-color); padding: 10px; background: #222; border-radius: 4px; display: inline-block;">
+                                    <img src="./images/DarkBlocker-0.png" alt="没有黑暗屏蔽器"
+                                        style="max-width: 100%; height: auto; display: block; max-height: 150px;">
+                                </div>
+                                <div style="margin-top: 5px; color: var(--text-sub); font-size: 13px;">未拥有黑暗屏蔽器</div>
+                            </div>
+
+                            <div style="text-align: center;">
+                                <div
+                                    style="border: 1px solid var(--border-color); padding: 10px; background: #222; border-radius: 4px; display: inline-block;">
+                                    <img src="./images/DarkBlocker-1.png" alt="拥有黑暗屏蔽器"
+                                        style="max-width: 100%; height: auto; display: block; max-height: 150px;">
+                                </div>
+                                <div style="margin-top: 5px; color: var(--text-sub); font-size: 13px;">拥有黑暗屏蔽器</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 20px 0;">
+
+                <h4>御寒服</h4>
+                <ul class="stat-list">
+                    <li>用于保暖，可以抵抗最高 -10℃ 的低温。</li>
+                    <li>可在 超市 花费 500金钱 购买。</li>
+                    <li>可以使用 太阳水滴 在 工作房室 升级为 太阳·御寒服。</li>
+                    <li>升级消耗：减少 5 点理智、减少 15 点健康、增加 5 点心情、增加 50 点污染，并消耗太阳水滴。</li>
+                </ul>
+
+                <h4>太阳·御寒服</h4>
+                <ul class="stat-list">
+                    <li>是御寒服的升级版，可以抵抗现版本最低的 -50℃ 低温。</li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 20px 0;">
+
+                <h4>御焰服</h4>
+                <ul class="stat-list">
+                    <li>用于保凉，可以抵抗最高 55℃ 的高温。</li>
+                    <li>可在 超市 花费 500金钱 购买。</li>
+                    <li>可以使用 月亮水滴 在 工作房室 升级为 月亮·御焰服。</li>
+                    <li>升级消耗：减少 5 点理智、减少 15 点健康、增加 5 点心情，消耗月亮水滴，并造成 50 点污染。</li>
+                </ul>
+
+                <h4>月亮·御焰服</h4>
+                <ul class="stat-list">
+                    <li>是御焰服的升级版，可以抵抗现版本最高的 100℃ 高温。</li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 20px 0;">
+
+                <h4>污染干扰器</h4>
+                <ul class="stat-list">
+                    <li>对付污染的好方法，推荐尽快做出来。</li>
+                    <li>可在 工作坊室 使用以下材料合成：2000金钱、25理智、25心情、3饥饿值、3口渴值、25健康、2个理智精华。</li>
+                    <li>合成污染干扰器时，会额外造成 30 点污染。</li>
+                    <li>当玩家持有污染干扰器时，每天减少 5 点污染。</li>
+                </ul>
+            </div>
+
+            <!-- 材料道具 -->
+            <div class="stat-section" id="material">
+                <h3 class="stat-title">【材料道具（作为合成/购买材料）】</h3>
+
+                <h4>太阳水滴</h4>
+                <ul class="stat-list">
+                    <li>采集自太阳的神秘材料。</li>
+                    <li>可在 神秘商店 花费 50理智、1000金钱 购买得到。</li>
+                    <li>背包里只能携带一个。</li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 20px 0;">
+
+                <h4>月亮水滴</h4>
+                <ul class="stat-list">
+                    <li>采集自月亮的神秘材料。</li>
+                    <li>可在 神秘商店 花费 50理智、1000金钱 购买得到。</li>
+                    <li>背包里只能携带一个。</li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 20px 0;">
+
+                <h4>理智精华</h4>
+                <ul class="stat-list">
+                    <li>从理智中提取的重要燃料。</li>
+                    <li>神赐道具技能发动的燃料，也是许多道具的合成材料。</li>
+                    <li>可在 神秘商店 的 提纯项目 花费 100理智 购买得到。</li>
+                    <li>可同时在背包里携带多个。</li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 20px 0;">
+
+                <h4>废料</h4>
+                <ul class="stat-list">
+                    <li>从 时空碎块：大陆终焉 中获得的特殊材料。</li>
+                    <li>通过在 时空碎块：大陆终焉 的 外城区 前往 垃圾山 获得。</li>
+                    <li>该材料可在 时空碎块：大陆终焉 的 外城区 前往 垃圾回收站 换成 时空碎块专用金钱。</li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 20px 0;">
+
+                <h4>优质废料</h4>
+                <ul class="stat-list">
+                    <li>从 时空碎块：大陆终焉 中获得的特殊材料。</li>
+                    <li>通过在 时空碎块：大陆终焉 的 外城区 前往 垃圾山 获得。</li>
+                    <li>该材料可在 时空碎块：大陆终焉 的 外城区 前往 垃圾回收站 换成 时空碎块专用金钱。</li>
+                </ul>
+            </div>
+
+            <!-- 消耗品道具 -->
+            <div class="stat-section" id="consumable">
+                <h3 class="stat-title">【消耗品道具（常驻但使用后消耗）】</h3>
+
+                <h4>急救包</h4>
+                <ul class="stat-list">
+                    <li>保命专用道具，中后期必备。</li>
+                    <li>效果：当健康值低于 0 时，消耗急救包将健康值恢复至最大健康值的一半，并抵消一次死亡。</li>
+                    <li>可在 超市 花费 1000金钱 购买，一次最多携带一个。</li>
+                    <li><em>使用提示文字：“你健康值过低，即时使用急救包救了你一命！”</em></li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 20px 0;">
+
+                <h4>解毒剂</h4>
+                <ul class="stat-list">
+                    <li>保命专用道具，中后期必备。</li>
+                    <li>效果：抵消一次误食毒蘑菇事件（27号随机事件），但任然会受到副作用影响：-10理智、-5心情、-3健康。</li>
+                    <li>可在 超市 花费 1000金钱 购买，一次最多携带一个。</li>
+                    <li><em>使用提示文字：“你误食红伞伞白杆杆，幸亏急忙打了一针解毒剂才安然无恙。”</em></li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 20px 0;">
+
+                <h4>幸运符</h4>
+                <ul class="stat-list">
+                    <li>重要道具！提高气运的同时，也是保命专用道具，中后期必备。</li>
+                    <li>被动效果：在物品栏时，提高 5 点气运值。</li>
+                    <li>触发效果：抵消一次被汽车撞到事件（31号随机事件），但任然会受到副作用影响：-1理智、-1心情。</li>
+                    <li>可在 超市 花费 1000金钱 购买，一次最多携带一个。</li>
+                    <li><em>使用提示文字：“你走在路上，差点被一辆疾驰而过的汽车撞到，手中的幸运符化为飞灰。”</em></li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 20px 0;">
+
+                <h4>舒缓药</h4>
+                <ul class="stat-list">
+                    <li>保命专用道具，中后期必备。</li>
+                    <li>触发效果 1：当心情值低于 10 时，消耗舒缓药将心情值恢复至 50。</li>
+                    <li><em>使用提示文字：“由于心情过低，情急之下吃了舒缓药平复了一下情绪。”</em></li>
+                    <li>触发效果 2：当心情值高于 200 时，消耗舒缓药将心情值恢复至 50，并抵消一次死亡。</li>
+                    <li><em>使用提示文字：“你情绪异常，即时使用舒缓药救了你一命！”</em></li>
+                    <li>可在 超市 花费 1000金钱 购买，一次最多携带一个。</li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 20px 0;">
+
+                <h4>矿泉水</h4>
+                <ul class="stat-list">
+                    <li>恢复口渴值的即时道具。</li>
+                    <li>点击道具，消耗一瓶矿泉水：-5饥饿值、+50口渴值、-1理智、+2心情、-1健康。</li>
+                    <li>可在 超市 花费 500金钱 购买。</li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 20px 0;">
+
+                <h4>瓶装饮料</h4>
+                <ul class="stat-list">
+                    <li>恢复心情值的即时道具。</li>
+                    <li>点击道具，消耗一瓶瓶装饮料：+10饥饿值、+35口渴值、-5理智、+40心情、-10健康。</li>
+                    <li>可在 超市 花费 500金钱 购买。</li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 20px 0;">
+
+                <h4>压缩饼干</h4>
+                <ul class="stat-list">
+                    <li>恢复饥饿值的即时道具。</li>
+                    <li>点击道具，消耗一块压缩饼干：+60饥饿值、-10口渴值、-1理智、-5心情、-3健康。</li>
+                    <li>可在 超市 花费 500金钱 购买。</li>
+                </ul>
+            </div>
+
+            <!-- 神赐道具 -->
+            <div class="stat-section" id="divine">
+                <h3 class="stat-title">【神赐道具（信仰）】</h3>
+                <ul class="stat-list">
+                    <li><strong>欺诈之面</strong>（由欺诈赐予的信仰道具，被动：25%概率骗过死亡。主动：带上面具重置自身一切属性，换一个人生活下去。）</li>
+                    <li><strong>命运之骰</strong>（由命运赐予的信仰道具，被动：每五天触发依次命运投掷。主动：向上抛起骰子，篡改命运，使接下来三天的随机事件必定为好的。）</li>
+                    <li><strong>死亡之镰</strong>（主动效果：举起镰刀，让自己处于生死之间，使接下来三天无视死亡。）</li>
+                    <li><strong>秩序之杖</strong>（主动效果：翻开书本，让自己处于规则附身，使接下来三天获得的各项数值翻倍。）</li>
+                    <li><strong>记忆之书</strong>（主动效果：翻开书本，让自己处于绝对理智，使接下来三天理智无限。）</li>
+                    <li style="list-style: none; margin-top: 10px; font-size: 14px; color: var(--text-sub);">
+                        *详细机制与获取方法请参考主文档或后续分支页面。</li>
+                </ul>
+            </div>
+
+        </main>
+    </div>
+    <footer class="wiki-footer">
+        <p>《问身 问己 问心》官方Wiki · 持续更新中</p>
+        <p>&copy; 2025-<span id="year"></span> 齐. 保留所有权利。</p>
+    </footer>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+
+    <!-- 引用主站JS，实现暗色模式共享 -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>
