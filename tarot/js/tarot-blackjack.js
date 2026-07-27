@@ -3,8 +3,8 @@
 // ============================================================
 
 const DECK = typeof TAROT_DECK !== 'undefined' ? TAROT_DECK : [];
-const IMG_BASE = typeof CONFIG !== 'undefined' ? CONFIG.IMG_BASE : '/images/tarot_cards/';
-const BACK_IMG = typeof CONFIG !== 'undefined' ? CONFIG.BACK_IMG : '/images/tarot_cards/_.png';
+const IMG_BASE = typeof CONFIG !== 'undefined' ? CONFIG.IMG_BASE : '/tarot/images/tarot_cards/';
+const BACK_IMG = typeof CONFIG !== 'undefined' ? CONFIG.BACK_IMG : '/tarot/images/tarot_cards/_.png';
 
 // ---------- 牌点映射 ----------
 function getCardValue(card) {

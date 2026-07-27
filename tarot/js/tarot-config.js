@@ -593,8 +593,8 @@ const SPREADS = {
 // 配置
 // ============================================
 const CONFIG = {
-    IMG_BASE: '/images/tarot_cards/',
-    BACK_IMG: '/images/tarot_cards/_.png',
+    IMG_BASE: '/tarot/images/tarot_cards/',
+    BACK_IMG: '/tarot/images/tarot_cards/_.png',
     REVERSED_PROBABILITY: 0.5,
     FLIP_DELAY_BASE: 300,
     FLIP_DELAY_STEP: 200,
