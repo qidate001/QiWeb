@@ -5,8 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🃏 塔罗牌图鉴</title>
-    <link rel="stylesheet" href="../css/tarot.css" />
-    <link rel="stylesheet" href="../css/tarot-gallery.css" />
+    <link rel="stylesheet" href="./css/tarot.css" />
+    <link rel="stylesheet" href="./css/tarot-gallery.css" />
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
 
 <body>
@@ -21,14 +21,14 @@
     <div class="gallery-grid" id="cardGrid"></div>
 
     <!-- 配置数据 -->
-    <script src="../js/tarot_config.js"></script>
+    <script src="./js/tarot-config.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const grid = document.getElementById('cardGrid');
             const deck = TAROT_DECK;
-            const imgBase = CONFIG.IMG_BASE || '/images/tarot_cards/';
-            const backImg = CONFIG.BACK_IMG || '/images/tarot_cards/_.png';
+            const imgBase = CONFIG.IMG_BASE || '/tarot/images/tarot_cards/';
+            const backImg = CONFIG.BACK_IMG || '/tarot/images/tarot_cards/_.png';
 
             // 遍历所有牌进行渲染
             deck.forEach((card) => {

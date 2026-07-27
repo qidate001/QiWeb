@@ -31,7 +31,7 @@ QiWeb 是一个多功能静态站点，聚合了作者个人作品与兴趣项�
 | └ 线上模式 | https://www.qidate001.com/gta/index.html?version=gta5ol |
 | **QisToolkit3 官网** | https://www.qidate001.com/qistoolkit3/ |
 | **塔罗牌占卜** | https://www.qidate001.com/tarot |
-| **塔罗牌图鉴** | https://www.qidate001.com/docs/tarot-gallery |
+| **塔罗牌图鉴** | https://www.qidate001.com/tarot/tarot-gallery |
 
 ---
 
