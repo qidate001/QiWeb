@@ -239,26 +239,8 @@ function renderCard(card, faceUp = true, selected = false) {
 
     // 在图片下方显示牌名
     const nameLabel = document.createElement('div');
+    nameLabel.className = 'card-name-label';
     nameLabel.textContent = card.name;
-    nameLabel.style.cssText = `
-        position: absolute;
-        bottom: 8px;
-        left: 0;
-        right: 0;
-        text-align: center;
-        color: #ffd700;
-        font-size: 0.75rem;
-        background: rgba(0,0,0,0.6);
-        padding: 2px 4px;
-        border-radius: 4px;
-        opacity: 0.9;
-        pointer-events: none;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 90%;
-        margin: 0 auto;
-    `;
     front.appendChild(nameLabel);
 
     inner.appendChild(front);
@@ -594,6 +576,16 @@ resetBtn.addEventListener('click', () => {
     } else {
         setMessage('只有房主可以重新开始', 'info');
     }
+});
+
+// ============================================================
+//  大字模式切换
+// ============================================================
+const largeFontBtn = document.getElementById('largeFontBtn');
+largeFontBtn.addEventListener('click', () => {
+    document.body.classList.toggle('large-mode');
+    const isLarge = document.body.classList.contains('large-mode');
+    largeFontBtn.textContent = isLarge ? '🔍 正常模式' : '🔍 大字模式';
 });
 
 // 初始化

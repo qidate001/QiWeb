@@ -632,3 +632,56 @@ body::before {
         height: 90px;
     }
 }
+
+
+
+
+/* ---------- 牌名标签 ---------- */
+.card-name-label {
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #ffd700;
+    font-size: 0.75rem;          /* 默认字号 */
+    background: rgba(0, 0, 0, 0.6);
+    padding: 2px 4px;
+    border-radius: 4px;
+    opacity: 0.9;
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+/* ---------- 大字模式：只放大牌名 ---------- */
+body.large-mode .card-name-label {
+    font-size: 1.5rem;   /* 可根据喜好调整，例如 1.4rem */
+}
+
+/* ---------- 大字模式按钮 ---------- */
+.btn-large-font {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 999;
+    border: none;
+    border-radius: 40px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: rgba(255, 215, 0, 0.15);
+    backdrop-filter: blur(8px);
+    color: #ffd700;
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+.btn-large-font:hover {
+    background: rgba(255, 215, 0, 0.3);
+    transform: scale(1.05);
+}
