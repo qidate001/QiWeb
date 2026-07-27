@@ -478,7 +478,7 @@ function handleData(data) {
             game.isMyTurn = (game.currentPlayer === 'me');
             renderPlay(data.cards, `对手出了 ${data.cards.length} 张`);
             setMessage('对手出牌，轮到你', 'info', 'play');
-            if (game.oppHand.length === 0) gameOver('opp');
+            // if (game.oppHand.length === 0) gameOver('opp');
             updateUI();
             break;
         }
@@ -494,19 +494,20 @@ function handleData(data) {
         }
         case 'gameover': {
             game.gameOver = true;
-            const winner = data.winner;
-            if ((isHost && winner === 'opp') || (!isHost && winner === 'me')) {
-                oppWins++;
-                setMessage('对手赢了这一局！', 'lose');
-            } else {
+            const winner = data.winner; // 'host' 或 'guest'
+            let iWon = (isHost && winner === 'host') || (!isHost && winner === 'guest');
+            if (iWon) {
                 myWins++;
-                setMessage('你赢了这一局！', 'win');
+                setMessage('🎉 你赢了！', 'win');
+            } else {
+                oppWins++;
+                setMessage('😞 你输了', 'lose');
             }
             updateUI();
             break;
         }
         default: break;
-    }
+    } 
 }
 
 // ============================================================
@@ -582,7 +583,8 @@ function gameOver(winner) {
         oppWins++;
         setMessage('😞 你输了', 'lose');
     }
-    sendData({ type: 'gameover', winner: winner });
+    sendData({ type: 'gameover', winner: isHost ? 'host' : 'guest' });
+    round++;
     updateUI();
     if (isHost) {
         setTimeout(() => {
