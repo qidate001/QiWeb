@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎴 塔罗跑得快 · 规则介绍</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <style>
+        /* ===== 全局重置 & 背景 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #0d0610 0%, #1a0a2e 30%, #2d1b3d 60%, #1a0a2e 100%);
+            min-height: 100vh;
+            color: #d8c8e0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        /* 星空背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, #ffd700, transparent),
+                radial-gradient(2px 2px at 40px 70px, #ffd700, transparent),
+                radial-gradient(2px 2px at 50px 160px, #ffd700, transparent),
+                radial-gradient(2px 2px at 90px 40px, #ffd700, transparent),
+                radial-gradient(2px 2px at 130px 80px, #ffd700, transparent),
+                radial-gradient(2px 2px at 160px 30px, #ffd700, transparent);
+            background-size: 200px 200px;
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===== 主容器 ===== */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 40px 45px;
+            border: 1px solid rgba(255, 215, 0, 0.08);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
+            margin: 20px auto;
+        }
+
+        /* ===== 标题 ===== */
+        .page-title {
+            text-align: center;
+            color: #ffd700;
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.15);
+            margin-bottom: 8px;
+        }
+        .page-title::before {
+            content: '♠ ';
+            opacity: 0.5;
+        }
+        .page-title::after {
+            content: ' ♥';
+            opacity: 0.5;
+        }
+
+        .subhead {
+            text-align: center;
+            color: #b8a0c0;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            margin-bottom: 32px;
+        }
+
+        /* ===== 章节 ===== */
+        section {
+            margin-bottom: 28px;
+        }
+        section h2 {
+            color: #ffd700;
+            font-size: 1.6rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+            padding-bottom: 6px;
+            margin-bottom: 16px;
+        }
+        section h3 {
+            color: #d8c8e0;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 16px 0 8px;
+            letter-spacing: 1px;
+        }
+        section p,
+        section li {
+            color: #c8b8d0;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+        section ul,
+        section ol {
+            padding-left: 24px;
+            margin: 8px 0 12px;
+        }
+        section li {
+            margin-bottom: 6px;
+        }
+        .highlight {
+            color: #ffd700;
+            font-weight: 500;
+        }
+        .highlight-green {
+            color: #69f0ae;
+            font-weight: 500;
+        }
+        .highlight-red {
+            color: #ff7a7a;
+            font-weight: 500;
+        }
+
+        .card-example {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.06);
+            border: 1px solid rgba(255, 215, 0, 0.12);
+            border-radius: 8px;
+            padding: 2px 10px;
+            font-size: 0.9rem;
+            color: #ffd700;
+            font-family: 'Consolas', monospace;
+            margin: 0 4px;
+        }
+
+        /* ===== 牌型表格 ===== */
+        .type-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0 16px;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .type-table th,
+        .type-table td {
+            padding: 10px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: left;
+            color: #d8c8e0;
+        }
+        .type-table th {
+            background: rgba(255, 215, 0, 0.08);
+            color: #ffd700;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        .type-table td {
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        /* ===== 流程步骤 ===== */
+        .flow-step {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border-left: 3px solid rgba(255, 215, 0, 0.2);
+        }
+        .flow-step .step-num {
+            flex-shrink: 0;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #ffd700;
+            width: 28px;
+            text-align: right;
+        }
+        .flow-step .step-content {
+            flex: 1;
+        }
+
+        /* ===== 按钮 ===== */
+        .cta {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .cta .btn {
+            display: inline-block;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 48px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            background: linear-gradient(135deg, #ffd700, #f0a500);
+            color: #1a0a1e;
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.25);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .cta .btn:hover {
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 12px 45px rgba(255, 215, 0, 0.4);
+        }
+        .cta .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: #b8a0c0;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: none;
+            margin-left: 16px;
+        }
+        .cta .btn-secondary:hover {
+            background: rgba(255, 215, 0, 0.06);
+            color: #fff;
+            border-color: rgba(255, 215, 0, 0.2);
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        @media (max-width: 600px) {
+            .cta .btn {
+                display: block;
+                width: 100%;
+                margin: 8px 0;
+            }
+            .cta .btn-secondary {
+                margin-left: 0;
+            }
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px 20px;
+                border-radius: 28px;
+                margin: 10px;
+            }
+            .page-title {
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+            section h2 {
+                font-size: 1.3rem;
+            }
+            section p,
+            section li {
+                font-size: 0.95rem;
+            }
+            .flow-step {
+                flex-direction: column;
+                gap: 4px;
+                padding: 10px 12px;
+            }
+            .flow-step .step-num {
+                text-align: left;
+                width: auto;
+            }
+            .type-table th,
+            .type-table td {
+                padding: 6px 10px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 16px 14px;
+            }
+            .page-title {
+                font-size: 1.6rem;
+            }
+            .subhead {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1 class="page-title">塔罗跑得快</h1>
+        <p class="subhead">🎴 两人对战 · 谁先出完手中的牌谁获胜</p>
+
+        <!-- ==================== 游戏目标 ==================== -->
+        <section>
+            <h2>🎯 游戏目标</h2>
+            <p>你和对手各自持有 <span class="highlight">16 张</span> 塔罗牌（共 58 张牌，剩余 26 张弃置）。游戏轮流进行，每回合你可以选择 <span class="highlight-green">出牌</span> 或 <span class="highlight">过牌</span>。</p>
+            <p><span class="highlight">率先出完所有手牌</span> 的一方赢得该局胜利。多局累积胜场，先赢得指定局数者获得整场比赛胜利。</p>
+        </section>
+
+        <!-- ==================== 牌组构成 ==================== -->
+        <section>
+            <h2>🃏 牌组构成</h2>
+            <p>游戏使用一副 <span class="highlight">58 张</span> 的塔罗扑克牌，由四元素牌（小阿尔卡纳）和两张特殊牌组成：</p>
+            <ul>
+                <li><strong>四元素</strong>：权杖（♣）、圣杯（♥）、宝剑（♠）、星币（♦）</li>
+                <li>每个元素包含 <span class="highlight">14 张</span>：A（一）、2~10、J（骑士）、Q（皇后）、K（国王）</li>
+                <li><strong>特殊牌</strong>：愚者（小丑）和世界（大丑）</li>
+            </ul>
+            <p style="font-size:0.95rem; color:#8a7a9a;">💡 四元素牌的总点数为 14×4 = 56 张，加上 2 张鬼牌，共 58 张。</p>
+        </section>
+
+        <!-- ==================== 牌型与大小 ==================== -->
+        <section>
+            <h2>📊 牌型与大小</h2>
+            <p>跑得快中，牌型必须符合以下规则，且出牌时必须 <span class="highlight-red">大于</span> 上一手出的牌（同类型且张数相同）。</p>
+
+            <table class="type-table">
+                <thead>
+                    <tr>
+                        <th>牌型</th>
+                        <th>说明</th>
+                        <th>举例（塔罗牌名）</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="highlight">单张</span></td>
+                        <td>任意一张牌</td>
+                        <td><span class="card-example">宝剑7</span>、<span class="card-example">圣杯国王</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">对子</span></td>
+                        <td>两张点数相同的牌</td>
+                        <td><span class="card-example">权杖9</span> + <span class="card-example">星币9</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">顺子</span></td>
+                        <td>至少 5 张连续点数的牌（不含 2 和鬼牌）</td>
+                        <td><span class="card-example">3,4,5,6,7</span>（各元素任意）</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">连对</span></td>
+                        <td>至少 3 对连续点数的对子（不含 2 和鬼牌）</td>
+                        <td><span class="card-example">3-3,4-4,5-5</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">三条</span></td>
+                        <td>三张点数相同的牌</td>
+                        <td><span class="card-example">权杖A</span> + <span class="card-example">圣杯A</span> + <span class="card-example">宝剑A</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">三带一</span></td>
+                        <td>三张相同点数 + 一张任意牌</td>
+                        <td><span class="card-example">三条7 + 单张4</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">炸弹</span></td>
+                        <td>四张点数相同的牌（可炸任何非炸弹牌型）</td>
+                        <td><span class="card-example">四张10</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">鬼牌炸弹</span></td>
+                        <td>愚者 + 世界（两张一起出，最大炸弹）</td>
+                        <td><span class="card-example">愚者 + 世界</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📈 牌的大小顺序</h3>
+            <p>点数大小：<span class="highlight">3 &lt; 4 &lt; ... &lt; 10 &lt; J &lt; Q &lt; K &lt; A &lt; 2 &lt; 愚者（小丑）&lt; 世界（大丑）</span></p>
+            <p>其中 <span class="highlight-red">鬼牌炸弹（愚者+世界）</span> 是最大的牌型，任何其他牌型都打不过它。</p>
+            <p style="font-size:0.95rem; color:#8a7a9a;">💡 <strong>注意</strong>：顺子、连对、三带一只能打相同类型且张数相同的牌。炸弹可以炸任何非炸弹牌型，鬼牌炸弹最大。</p>
+        </section>
+
+        <!-- ==================== 特殊牌说明 ==================== -->
+        <section>
+            <h2>🎭 特殊牌：愚者 &amp; 世界</h2>
+            <ul>
+                <li><span class="highlight">愚者</span>（小丑）和 <span class="highlight">世界</span>（大丑）是两张独立的牌，它们不参与顺子、连对等组合。</li>
+                <li>它们可以当作 <span class="highlight-green">单张</span> 出牌，愚者比 2 大，世界比愚者大。</li>
+                <li>如果同时拥有这两张，可以一起出作为 <span class="highlight">鬼牌炸弹</span>，这是游戏中最强的牌型，任何牌都压不住。</li>
+                <li>注意：鬼牌炸弹不是四张相同，它是两张鬼牌组成的特殊炸弹，玩法上等同于“火箭”。</li>
+            </ul>
+        </section>
+
+        <!-- ==================== 游戏流程 ==================== -->
+        <section>
+            <h2>🔄 游戏流程</h2>
+
+            <div class="flow-step">
+                <div class="step-num">①</div>
+                <div class="step-content">
+                    <strong>建立连接</strong>：一位玩家创建房间（房主），另一位输入房间号加入。双方建立 P2P 连接。
+                </div>
+            </div>
+
+            <div class="flow-step">
+                <div class="step-num">②</div>
+                <div class="step-content">
+                    <strong>发牌</strong>：房主自动洗牌并分发每人 <span class="highlight">16 张</span>，剩余牌弃置。房主先出牌。
+                </div>
+            </div>
+
+            <div class="flow-step">
+                <div class="step-num">③</div>
+                <div class="step-content">
+                    <strong>出牌回合</strong>：当前玩家可以：
+                    <ul>
+                        <li><span class="highlight-green">出牌</span> —— 选择符合牌型的牌，点击“出牌”。必须大于上一手牌（若有）。</li>
+                        <li><span class="highlight">过牌</span> —— 如果当前无法或不愿出牌，点击“过牌”，将回合交给对方。</li>
+                    </ul>
+                    <p style="font-size:0.95rem; color:#8a7a9a;">💡 过牌后，上一手牌仍然有效，对方必须出更大的牌才能继续，直到双方都过牌则重新开始（上一手出牌者获得出牌权）。</p>
+                </div>
+            </div>
+
+            <div class="flow-step">
+                <div class="step-num">④</div>
+                <div class="step-content">
+                    <strong>胜负判定</strong>：当某位玩家出完手中所有牌时，该玩家获得本局胜利。然后自动开始下一局（房主重新发牌），直到达到设定的胜局数（默认 3 局 2 胜）结束整场比赛。
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 胜负与计分 ==================== -->
+        <section>
+            <h2>🏆 胜负与计分</h2>
+            <ul>
+                <li>每局胜者得 <span class="highlight">1 分</span>，负者不得分。</li>
+                <li>比赛采用 <span class="highlight">三局两胜</span>，先获得 2 分者赢得整场比赛。</li>
+                <li>如果一局中出现平局（极少发生），则重开该局。</li>
+                <li>游戏过程中，顶部计分板会实时更新双方的胜场数。</li>
+            </ul>
+            <p style="font-size:0.95rem; color:#8a7a9a;">💡 只有房主可以点击“新游戏”重置比赛，重新发牌开始新的一局。</p>
+        </section>
+
+        <!-- ==================== 操作与交互 ==================== -->
+        <section>
+            <h2>🖱️ 操作与交互</h2>
+            <ul>
+                <li><strong>选择牌</strong>：点击手牌可选中/取消选中，被选中的牌会高亮并上浮。</li>
+                <li><strong>出牌</strong>：选中符合牌型的牌后，点击“出牌”按钮。</li>
+                <li><strong>过牌</strong>：若无法出牌或不想出，点击“过牌”按钮（只有上一手牌非自己出时才可过牌）。</li>
+                <li><strong>查看牌名</strong>：每张牌正面下方会显示牌名（如“权杖7”），方便识别。</li>
+                <li><strong>大字模式</strong>：左下角有“大字模式”按钮，点击后牌名文字会放大，便于阅读。</li>
+            </ul>
+        </section>
+
+        <!-- ==================== 策略小贴士 ==================== -->
+        <section>
+            <h2>🧠 策略小贴士</h2>
+            <ul>
+                <li><strong>先出小牌</strong>：尽量先出掉点数小的牌，保留大牌用于压制对手。</li>
+                <li><strong>控制顺子</strong>：拥有长顺时，可以考虑一次性出完，打乱对手节奏。</li>
+                <li><strong>炸弹要慎重</strong>：炸弹是扭转局势的关键，不要轻易浪费，最好在关键时刻使用。</li>
+                <li><strong>注意鬼牌</strong>：愚者和世界是单张中的王牌，如果能组合成鬼牌炸弹，几乎必胜，但也要小心对手也有炸弹。</li>
+                <li><strong>过牌策略</strong>：当你出牌后，如果对手过牌，你获得出牌权，可以重新选择出牌，这是改变节奏的机会。</li>
+            </ul>
+        </section>
+
+        <!-- ==================== 操作按钮 ==================== -->
+        <div class="cta">
+            <a href="../tarot-pao-de-kuai.html" class="btn">🎴 开始游戏</a>
+            <a href="../index.html" class="btn btn-secondary">🔮 返回占卜</a>
+        </div>
+
+        <p style="text-align:center; margin-top:20px; color:#4a3a5a; font-size:0.8rem; letter-spacing:0.5px;">
+            ⚠️ 游戏仅供娱乐，所有牌型均为随机分配，不具备科学依据。
+        </p>
+
+    </div>
+
+</body>
+
+</html>
