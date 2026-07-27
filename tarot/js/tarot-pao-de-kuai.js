@@ -505,6 +505,8 @@ function handleData(data) {
 //  游戏控制
 // ============================================================
 function startGameAsHost() {
+    console.log('startGameAsHost 被调用，isHost=', isHost, 'isConnected=', isConnected);
+    
     if (!isHost) return;
     game.shuffle();
     game.deal();
@@ -586,12 +588,13 @@ function handleGameOver(sender) {
 
 function gameOver() {
     const sender = isHost ? 'host' : 'guest';
-    handleGameOver(sender); // 本地先执行
+    handleGameOver(sender);
     sendData({ type: 'gameover', winner: sender });
     if (isHost) {
+        // 延迟 1.5 秒后重新开始，确保客机收到消息
         setTimeout(() => {
-            if (isConnected) startGameAsHost();
-        }, 2000);
+            startGameAsHost();
+        }, 1500);
     }
 }
 
