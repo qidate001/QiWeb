@@ -686,9 +686,12 @@ body::before {
 
 /* ---------- 大字模式：只放大牌名 ---------- */
 body.large-mode .card-name-label {
-    font-size: 1.5rem;   /* 可根据喜好调整，例如 1.4rem */
+    font-size: 1.5rem;
+    white-space: normal;        /* 允许换行 */
+    line-height: 1.2;
+    padding: 2px 2px;
+    max-width: 95%;
 }
-
 /* ---------- 大字模式按钮 ---------- */
 .btn-large-font {
     position: fixed;
@@ -740,4 +743,16 @@ body.large-mode .card-name-label {
 }
 .play-cards .card-slot {
     animation: card-appear 0.3s ease-out;
+}
+
+
+/* 禁止所有图片拖动和选中（防止点击选牌时误拖） */
+img {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    pointer-events: none; /* 确保点击穿透到父容器，触发选牌事件 */
 }

@@ -99,44 +99,87 @@ class Game {
         const counts = Object.values(rankCount);
         const uniqueRanks = Object.keys(rankCount).map(Number).sort((a, b) => a - b);
 
-        // 单张
+        // --- 单张 ---
         if (n === 1) return { type: 'single', rank: ranks[0], size: 1 };
-        // 对子
+        // --- 对子 ---
         if (n === 2 && counts.length === 1 && counts[0] === 2) return { type: 'pair', rank: ranks[0], size: 2 };
-        // 顺子（5张以上连续）
-        if (n >= 5 && n <= 12 && counts.every(c => c === 1)) {
-            const allValid = ranks.every(r => r >= 3 && r <= 15); 
-            if (allValid && uniqueRanks.length === n && uniqueRanks[n - 1] - uniqueRanks[0] === n - 1)
-                return { type: 'straight', rank: ranks[0], size: n };
-        }
-        // 连对（至少3对）
-        if (n >= 6 && n % 2 === 0 && counts.every(c => c === 2)) {
-            const allValid = ranks.every(r => r >= 3 && r <= 15);
-            if (allValid && uniqueRanks.length === n / 2 && uniqueRanks[uniqueRanks.length - 1] - uniqueRanks[0] === uniqueRanks.length - 1)
-                return { type: 'pair_straight', rank: ranks[0], size: n };
-        }
-        // ★★★ 三张（三条）★★★
-        if (n === 3 && counts.length === 1 && counts[0] === 3) {
-            return { type: 'triple', rank: ranks[0], size: 3 };
-        }
-        // ★★★ 三带一 ★★★
+        // --- 三张 ---
+        if (n === 3 && counts.length === 1 && counts[0] === 3) return { type: 'triple', rank: ranks[0], size: 3 };
+        // --- 三带一 ---
         if (n === 4) {
-            // 查找是否有恰好一个rank出现3次，另一个出现1次
-            const threeRank = Object.keys(rankCount).find(r => rankCount[r] === 3);
-            if (threeRank) {
-                const singleRank = Object.keys(rankCount).find(r => rankCount[r] === 1);
-                if (singleRank) {
-                    return { type: 'triple_one', rank: Number(threeRank), size: 4 };
-                }
-            }
+            const three = Object.keys(rankCount).find(r => rankCount[r] === 3);
+            const one = Object.keys(rankCount).find(r => rankCount[r] === 1);
+            if (three && one) return { type: 'triple_one', rank: Number(three), size: 4 };
         }
-        // 炸弹（四张相同）
+        // --- 三带二 ---
+        if (n === 5) {
+            const three = Object.keys(rankCount).find(r => rankCount[r] === 3);
+            const two = Object.keys(rankCount).find(r => rankCount[r] === 2);
+            if (three && two) return { type: 'triple_two', rank: Number(three), size: 5 };
+        }
+        // --- 四带一 ---
+        if (n === 5) {
+            const four = Object.keys(rankCount).find(r => rankCount[r] === 4);
+            const one = Object.keys(rankCount).find(r => rankCount[r] === 1);
+            if (four && one) return { type: 'four_one', rank: Number(four), size: 5 };
+        }
+        // --- 炸弹 (四张相同) ---
         if (n === 4 && counts.length === 1 && counts[0] === 4) {
             return { type: 'bomb', rank: ranks[0], size: 4 };
         }
-        // 鬼牌炸弹
+        // --- 鬼牌炸弹 ---
         if (n === 2 && cards.every(c => c.isJoker)) {
             return { type: 'joker_bomb', rank: 18, size: 2 };
+        }
+        // --- 姊妹对 (连续对子，至少2对，不含鬼牌) ---
+        if (n >= 4 && n % 2 === 0 && counts.every(c => c === 2)) {
+            const sorted = uniqueRanks;
+            const allValid = sorted.every(r => r >= 3 && r <= 16); // 允许2参与
+            if (allValid && sorted.length >= 2 && sorted[sorted.length-1] - sorted[0] === sorted.length - 1) {
+                return { type: 'pair_straight', rank: sorted[0], size: n };
+            }
+        }
+        // --- 顺子 (至少5张，不包含鬼牌) ---
+        if (n >= 5 && n <= 12 && counts.every(c => c === 1)) {
+            const noJoker = ranks.every(r => r <= 16);
+            if (noJoker) {
+                let sorted = uniqueRanks.slice();
+                let valid = false;
+                let resultRank = null;
+
+                // 情况1：标准顺子 3~15（不含2）
+                const range1 = sorted.every(r => r >= 3 && r <= 15);
+                if (range1 && sorted.length >= 5 && sorted[sorted.length-1] - sorted[0] === sorted.length-1) {
+                    valid = true;
+                    resultRank = sorted[0];
+                }
+
+                // 情况2：特殊顺子，允许 A→1，2→2
+                if (!valid) {
+                    let newRanks = sorted.map(r => {
+                        if (r === 15) return 1;   // A→1
+                        if (r === 16) return 2;   // 2→2
+                        return r;
+                    });
+                    newRanks.sort((a, b) => a - b);
+                    // 检查是否连续
+                    let isConsecutive = true;
+                    for (let i = 1; i < newRanks.length; i++) {
+                        if (newRanks[i] - newRanks[i-1] !== 1) {
+                            isConsecutive = false;
+                            break;
+                        }
+                    }
+                    if (isConsecutive && newRanks.length >= 5 && newRanks[0] >= 1) {
+                        valid = true;
+                        resultRank = newRanks[0]; // 最小牌（可能是1代表A）
+                    }
+                }
+
+                if (valid) {
+                    return { type: 'straight', rank: resultRank, size: n };
+                }
+            }
         }
         return null;
     }
@@ -147,10 +190,8 @@ class Game {
         if (play2.type === 'joker_bomb') return false;
         if (play1.type === 'bomb' && play2.type !== 'bomb') return true;
         if (play2.type === 'bomb' && play1.type !== 'bomb') return false;
-        // 相同类型比较
         if (play1.type !== play2.type) return false;
         if (play1.size !== play2.size) return false;
-        // 对于三带一，只比较三张的rank
         return play1.rank > play2.rank;
     }
     checkPlay(cards, lastPlay, lastPlayer, isMyTurn) {
@@ -292,9 +333,11 @@ function renderPlay(cards, info, playType) {
             single: '单张',
             pair: '对子',
             straight: '顺子',
-            pair_straight: '连对',
+            pair_straight: '姊妹对',
             triple: '三条',
             triple_one: '三带一',
+            triple_two: '三带二',
+            four_one: '四带一',
             bomb: '炸弹',
             joker_bomb: '鬼牌炸弹'
         };
