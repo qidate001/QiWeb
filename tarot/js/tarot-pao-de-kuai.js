@@ -10,19 +10,20 @@ const SUITS = [
 
 // 定义牌面：rank 用于比大小，imgId 用于图片名称
 const RANKS = [
-    { rank: 3, label: '3', imgId: '3' },
-    { rank: 4, label: '4', imgId: '4' },
-    { rank: 5, label: '5', imgId: '5' },
-    { rank: 6, label: '6', imgId: '6' },
-    { rank: 7, label: '7', imgId: '7' },
-    { rank: 8, label: '8', imgId: '8' },
-    { rank: 9, label: '9', imgId: '9' },
-    { rank: 10, label: '10', imgId: '10' },
-    { rank: 11, label: 'J', imgId: '骑士' },
-    { rank: 12, label: 'Q', imgId: '皇后' },
-    { rank: 13, label: 'K', imgId: '国王' },
-    { rank: 14, label: 'A', imgId: '1' },   // Ace 对应图片 W1.png
-    { rank: 15, label: '2', imgId: '2' }
+    { rank: 3,  label: '3',   imgId: '3' },
+    { rank: 4,  label: '4',   imgId: '4' },
+    { rank: 5,  label: '5',   imgId: '5' },
+    { rank: 6,  label: '6',   imgId: '6' },
+    { rank: 7,  label: '7',   imgId: '7' },
+    { rank: 8,  label: '8',   imgId: '8' },
+    { rank: 9,  label: '9',   imgId: '9' },
+    { rank: 10, label: '10',  imgId: '10' },
+    { rank: 11, label: '侍从', imgId: '侍从' },
+    { rank: 12, label: '骑士', imgId: '骑士' },   // 原 J
+    { rank: 13, label: '皇后', imgId: '皇后' },   // 原 Q
+    { rank: 14, label: '国王', imgId: '国王' },   // 原 K
+    { rank: 15, label: 'A',   imgId: '1' },      // Ace
+    { rank: 16, label: '2',   imgId: '2' }
 ];
 
 // 图片路径
@@ -49,8 +50,8 @@ function buildDeck() {
         });
     });
     // 愚者和世界（图片名 0.png 和 21.png）
-    deck.push({ id: '0', suit: null, rank: 16, label: '愚者', name: '愚者', element: '🎭', suitSymbol: '🃏', color: 'black', isJoker: true, jokerType: 'small' });
-    deck.push({ id: '21', suit: null, rank: 17, label: '世界', name: '世界', element: '🌌', suitSymbol: '🃏', color: 'red', isJoker: true, jokerType: 'big' });
+    deck.push({ id: '0', suit: null, rank: 17, label: '愚者', name: '愚者', element: '🎭', suitSymbol: '🃏', color: 'black', isJoker: true, jokerType: 'small' });
+    deck.push({ id: '21', suit: null, rank: 18, label: '世界', name: '世界', element: '🌌', suitSymbol: '🃏', color: 'red', isJoker: true, jokerType: 'big' });
     return deck;
 }
 
@@ -104,13 +105,13 @@ class Game {
         if (n === 2 && counts.length === 1 && counts[0] === 2) return { type: 'pair', rank: ranks[0], size: 2 };
         // 顺子（5张以上连续）
         if (n >= 5 && n <= 12 && counts.every(c => c === 1)) {
-            const allValid = ranks.every(r => r >= 3 && r <= 14);
+            const allValid = ranks.every(r => r >= 3 && r <= 15); 
             if (allValid && uniqueRanks.length === n && uniqueRanks[n - 1] - uniqueRanks[0] === n - 1)
                 return { type: 'straight', rank: ranks[0], size: n };
         }
         // 连对（至少3对）
         if (n >= 6 && n % 2 === 0 && counts.every(c => c === 2)) {
-            const allValid = ranks.every(r => r >= 3 && r <= 14);
+            const allValid = ranks.every(r => r >= 3 && r <= 15);
             if (allValid && uniqueRanks.length === n / 2 && uniqueRanks[uniqueRanks.length - 1] - uniqueRanks[0] === uniqueRanks.length - 1)
                 return { type: 'pair_straight', rank: ranks[0], size: n };
         }
