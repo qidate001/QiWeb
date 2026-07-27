@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎴 塔罗跑得快</title>
+    <link rel="stylesheet" href="./css/tarot-pao-de-kuai.css" />
+    
+    <!-- PeerJS -->
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <style>
+        
+    </style>
+</head>
+
+<body>
+
+    <div class="game-container">
+        <!-- 顶部 -->
+        <div class="game-header">
+            <h1 class="game-title">塔罗跑得快</h1>
+            <div class="connection-panel" id="connectionPanel">
+                <input type="text" id="peerIdInput" placeholder="输入房间号">
+                <button class="btn btn-create" id="createBtn">创建房间</button>
+                <button class="btn" id="joinBtn">加入房间</button>
+                <span class="peer-id-display" id="myPeerIdDisplay" title="点击复制">未连接</span>
+            </div>
+            <div class="scoreboard" id="scoreboard">
+                <div class="score">
+                    <span>👤 我</span>
+                    <span class="num" id="myWins">0</span>
+                </div>
+                <span class="vs">⚔️</span>
+                <div class="score">
+                    <span>👤 对手</span>
+                    <span class="num" id="oppWins">0</span>
+                </div>
+                <span class="round-info" id="roundInfo">第 1 局</span>
+            </div>
+        </div>
+
+        <!-- 牌桌 -->
+        <div class="table-area">
+            <!-- 对手手牌（牌背） -->
+            <div class="hand-area" id="oppArea">
+                <div class="hand-label">🎩 对手（<span id="oppCount">0</span>张）</div>
+                <div class="hand-cards" id="oppHand"></div>
+            </div>
+
+            <!-- 出牌区 -->
+            <div class="play-area" id="playArea">
+                <div class="play-label">⚔️ 当前出牌</div>
+                <div class="play-cards" id="playCards"></div>
+                <div class="hand-total" id="playInfo"></div>
+            </div>
+
+            <!-- 我的手牌 -->
+            <div class="hand-area" id="myArea">
+                <div class="hand-label">🃏 我的手牌（<span id="myCount">0</span>张）</div>
+                <div class="hand-cards" id="myHand"></div>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <div class="game-footer">
+            <div class="game-message" id="gameMessage">等待连接...</div>
+            <div class="game-actions">
+                <button class="btn btn-play" id="playBtn" disabled>出牌</button>
+                <button class="btn btn-pass" id="passBtn" disabled>过牌</button>
+                <button class="btn btn-reset" id="resetBtn">🔄 新游戏</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/tarot-pao-de-kuai.js"></script>
+</body>
+
+</html>

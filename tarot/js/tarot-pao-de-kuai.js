@@ -1,0 +1,601 @@
+// ============================================================
+//  牌组定义
+// ============================================================
+const SUITS = [
+    { id: 'W', name: '权杖', element: '🔥', suit: '♣', color: 'black' },
+    { id: 'C', name: '圣杯', element: '💧', suit: '♥', color: 'red' },
+    { id: 'S', name: '宝剑', element: '💨', suit: '♠', color: 'black' },
+    { id: 'P', name: '星币', element: '🌍', suit: '♦', color: 'red' }
+];
+
+// 定义牌面：rank 用于比大小，imgId 用于图片名称
+const RANKS = [
+    { rank: 3, label: '3', imgId: '3' },
+    { rank: 4, label: '4', imgId: '4' },
+    { rank: 5, label: '5', imgId: '5' },
+    { rank: 6, label: '6', imgId: '6' },
+    { rank: 7, label: '7', imgId: '7' },
+    { rank: 8, label: '8', imgId: '8' },
+    { rank: 9, label: '9', imgId: '9' },
+    { rank: 10, label: '10', imgId: '10' },
+    { rank: 11, label: 'J', imgId: '骑士' },
+    { rank: 12, label: 'Q', imgId: '皇后' },
+    { rank: 13, label: 'K', imgId: '国王' },
+    { rank: 14, label: 'A', imgId: '1' },   // Ace 对应图片 W1.png
+    { rank: 15, label: '2', imgId: '2' }
+];
+
+// 图片路径
+const IMG_BASE = './images/tarot_cards/';
+const BACK_IMG = './images/tarot_cards/_.png';
+
+function buildDeck() {
+    const deck = [];
+    SUITS.forEach(suit => {
+        RANKS.forEach(r => {
+            // 构建 id：花色 + imgId（如 W骑士、C1、S10）
+            const id = suit.id + r.imgId;
+            deck.push({
+                id: id,
+                suit: suit,
+                rank: r.rank,
+                label: r.label,
+                name: suit.name + r.label,
+                element: suit.element,
+                suitSymbol: suit.suit,
+                color: suit.color,
+                isJoker: false
+            });
+        });
+    });
+    // 愚者和世界（图片名 0.png 和 21.png）
+    deck.push({ id: '0', suit: null, rank: 16, label: '愚者', name: '愚者', element: '🎭', suitSymbol: '🃏', color: 'black', isJoker: true, jokerType: 'small' });
+    deck.push({ id: '21', suit: null, rank: 17, label: '世界', name: '世界', element: '🌌', suitSymbol: '🃏', color: 'red', isJoker: true, jokerType: 'big' });
+    return deck;
+}
+
+// ============================================================
+//  游戏逻辑（跑得快）
+// ============================================================
+class Game {
+    constructor() { this.reset(); }
+    reset() {
+        this.deck = [];
+        this.myHand = [];
+        this.oppHand = [];
+        this.currentPlay = null;
+        this.currentPlayer = null; // 'me' 或 'opp'
+        this.lastPlay = null;      // 上一手牌型
+        this.lastPlayer = null;    // 上一手出牌者 'me' 或 'opp'
+        this.gameOver = false;
+        this.isMyTurn = false;
+        this.selectedIndices = [];
+    }
+    shuffle() {
+        const d = buildDeck();
+        for (let i = d.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [d[i], d[j]] = [d[j], d[i]];
+        }
+        this.deck = d;
+    }
+    deal() {
+        this.myHand = [];
+        this.oppHand = [];
+        for (let i = 0; i < 16; i++) {
+            this.myHand.push(this.deck.pop());
+            this.oppHand.push(this.deck.pop());
+        }
+        this.myHand.sort((a, b) => a.rank - b.rank);
+        this.oppHand.sort((a, b) => a.rank - b.rank);
+    }
+    static getPlayType(cards) {
+        if (!cards || cards.length === 0) return null;
+        const n = cards.length;
+        const ranks = cards.map(c => c.rank).sort((a, b) => a - b);
+        const rankCount = {};
+        ranks.forEach(r => rankCount[r] = (rankCount[r] || 0) + 1);
+        const counts = Object.values(rankCount);
+        const uniqueRanks = Object.keys(rankCount).map(Number).sort((a, b) => a - b);
+
+        // 单张
+        if (n === 1) return { type: 'single', rank: ranks[0], size: 1 };
+        // 对子
+        if (n === 2 && counts.length === 1 && counts[0] === 2) return { type: 'pair', rank: ranks[0], size: 2 };
+        // 顺子（5张以上连续）
+        if (n >= 5 && n <= 12 && counts.every(c => c === 1)) {
+            const allValid = ranks.every(r => r >= 3 && r <= 14);
+            if (allValid && uniqueRanks.length === n && uniqueRanks[n - 1] - uniqueRanks[0] === n - 1)
+                return { type: 'straight', rank: ranks[0], size: n };
+        }
+        // 连对（至少3对）
+        if (n >= 6 && n % 2 === 0 && counts.every(c => c === 2)) {
+            const allValid = ranks.every(r => r >= 3 && r <= 14);
+            if (allValid && uniqueRanks.length === n / 2 && uniqueRanks[uniqueRanks.length - 1] - uniqueRanks[0] === uniqueRanks.length - 1)
+                return { type: 'pair_straight', rank: ranks[0], size: n };
+        }
+        // ★★★ 三张（三条）★★★
+        if (n === 3 && counts.length === 1 && counts[0] === 3) {
+            return { type: 'triple', rank: ranks[0], size: 3 };
+        }
+        // ★★★ 三带一 ★★★
+        if (n === 4) {
+            // 查找是否有恰好一个rank出现3次，另一个出现1次
+            const threeRank = Object.keys(rankCount).find(r => rankCount[r] === 3);
+            if (threeRank) {
+                const singleRank = Object.keys(rankCount).find(r => rankCount[r] === 1);
+                if (singleRank) {
+                    return { type: 'triple_one', rank: Number(threeRank), size: 4 };
+                }
+            }
+        }
+        // 炸弹（四张相同）
+        if (n === 4 && counts.length === 1 && counts[0] === 4) {
+            return { type: 'bomb', rank: ranks[0], size: 4 };
+        }
+        // 鬼牌炸弹
+        if (n === 2 && cards.every(c => c.isJoker)) {
+            return { type: 'joker_bomb', rank: 18, size: 2 };
+        }
+        return null;
+    }
+    static canBeat(play1, play2) {
+        if (!play1) return false;
+        if (!play2) return true;
+        if (play1.type === 'joker_bomb') return true;
+        if (play2.type === 'joker_bomb') return false;
+        if (play1.type === 'bomb' && play2.type !== 'bomb') return true;
+        if (play2.type === 'bomb' && play1.type !== 'bomb') return false;
+        // 相同类型比较
+        if (play1.type !== play2.type) return false;
+        if (play1.size !== play2.size) return false;
+        // 对于三带一，只比较三张的rank
+        return play1.rank > play2.rank;
+    }
+    checkPlay(cards, lastPlay, lastPlayer, isMyTurn) {
+        if (!isMyTurn) return { valid: false, reason: '不是你的回合' };
+        if (cards.length === 0) return { valid: false, reason: '请选择至少一张牌' };
+        const type = Game.getPlayType(cards);
+        if (!type) return { valid: false, reason: '无效牌型' };
+        // 如果有上一手牌且不是自己出的，必须打过
+        if (lastPlay && lastPlayer !== null && lastPlayer !== 'me') {
+            if (!Game.canBeat(type, lastPlay)) return { valid: false, reason: '打不过上一手' };
+        }
+        return { valid: true, type: type };
+    }
+    getSelectedCards() {
+        return this.selectedIndices.map(i => this.myHand[i]);
+    }
+}
+
+// ============================================================
+//  UI 控制
+// ============================================================
+const game = new Game();
+let peer = null;
+let conn = null;
+let isHost = false;
+let myPeerId = '';
+let isConnected = false;
+let round = 1;
+let myWins = 0,
+    oppWins = 0;
+
+// DOM 引用
+const myHandEl = document.getElementById('myHand');
+const oppHandEl = document.getElementById('oppHand');
+const playCardsEl = document.getElementById('playCards');
+const playInfoEl = document.getElementById('playInfo');
+const myCountEl = document.getElementById('myCount');
+const oppCountEl = document.getElementById('oppCount');
+const messageEl = document.getElementById('gameMessage');
+const myWinsEl = document.getElementById('myWins');
+const oppWinsEl = document.getElementById('oppWins');
+const roundInfoEl = document.getElementById('roundInfo');
+const playBtn = document.getElementById('playBtn');
+const passBtn = document.getElementById('passBtn');
+const resetBtn = document.getElementById('resetBtn');
+const createBtn = document.getElementById('createBtn');
+const joinBtn = document.getElementById('joinBtn');
+const peerIdInput = document.getElementById('peerIdInput');
+const myPeerIdDisplay = document.getElementById('myPeerIdDisplay');
+
+// 渲染卡牌
+function renderCard(card, faceUp = true, selected = false) {
+    const slot = document.createElement('div');
+    slot.className = 'card-slot' + (faceUp ? ' flipped' : '') + (selected ? ' selected' : '');
+    const inner = document.createElement('div');
+    inner.className = 'card-inner';
+
+    // 背面
+    const back = document.createElement('div');
+    back.className = 'card-back';
+    const backImg = document.createElement('img');
+    backImg.src = BACK_IMG;
+    backImg.alt = '牌背';
+    backImg.loading = 'lazy';
+    back.appendChild(backImg);
+    inner.appendChild(back);
+
+    // 正面
+    const front = document.createElement('div');
+    front.className = 'card-front';
+    const img = document.createElement('img');
+    img.src = `${IMG_BASE}${card.id}.png`;
+    img.alt = card.name;
+    img.loading = 'lazy';
+    img.style.width = '100%';
+    img.style.height = '100%';
+    img.style.objectFit = 'contain';
+    img.onerror = function () {
+        this.style.display = 'none';
+        const span = document.createElement('span');
+        span.textContent = card.name;
+        span.style.color = '#ffd700';
+        span.style.fontSize = '1.2rem';
+        front.appendChild(span);
+    };
+    front.appendChild(img);
+
+    // 在图片下方显示牌名
+    const nameLabel = document.createElement('div');
+    nameLabel.textContent = card.name;
+    nameLabel.style.cssText = `
+        position: absolute;
+        bottom: 8px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #ffd700;
+        font-size: 0.75rem;
+        background: rgba(0,0,0,0.6);
+        padding: 2px 4px;
+        border-radius: 4px;
+        opacity: 0.9;
+        pointer-events: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 90%;
+        margin: 0 auto;
+    `;
+    front.appendChild(nameLabel);
+
+    inner.appendChild(front);
+    slot.appendChild(inner);
+    return slot;
+}
+
+function renderMyHand() {
+    myHandEl.innerHTML = '';
+    game.myHand.forEach((card, idx) => {
+        const el = renderCard(card, true, game.selectedIndices.includes(idx));
+        el.addEventListener('click', () => {
+            if (!game.isMyTurn || game.gameOver || !isConnected) return;
+            const idx2 = game.selectedIndices.indexOf(idx);
+            if (idx2 > -1) {
+                game.selectedIndices.splice(idx2, 1);
+            } else {
+                game.selectedIndices.push(idx);
+            }
+            renderMyHand();
+        });
+        myHandEl.appendChild(el);
+    });
+    myCountEl.textContent = game.myHand.length;
+}
+
+function renderOppHand() {
+    oppHandEl.innerHTML = '';
+    game.oppHand.forEach((card) => {
+        const el = renderCard(card, false); // 背面
+        oppHandEl.appendChild(el);
+    });
+    oppCountEl.textContent = game.oppHand.length;
+}
+
+function renderPlay(cards, info, playType) {
+    playCardsEl.innerHTML = '';
+    if (cards && cards.length > 0) {
+        cards.forEach(c => {
+            const el = renderCard(c, true, false);
+            el.style.cursor = 'default';
+            playCardsEl.appendChild(el);
+        });
+    }
+    let typeName = '';
+    if (playType) {
+        const typeMap = {
+            single: '单张',
+            pair: '对子',
+            straight: '顺子',
+            pair_straight: '连对',
+            triple: '三条',
+            triple_one: '三带一',
+            bomb: '炸弹',
+            joker_bomb: '鬼牌炸弹'
+        };
+        typeName = typeMap[playType.type] || '';
+    }
+    playInfoEl.textContent = (info || '') + (typeName ? ' (' + typeName + ')' : '');
+}
+
+function updateUI() {
+    renderMyHand();
+    renderOppHand();
+    myWinsEl.textContent = myWins;
+    oppWinsEl.textContent = oppWins;
+    roundInfoEl.textContent = `第 ${round} 局`;
+    playBtn.disabled = !game.isMyTurn || game.gameOver || !isConnected;
+    // 过牌按钮：只有轮到自己的回合、游戏未结束、上一手牌存在且不是自己出的才能过牌
+    const canPass = game.isMyTurn && !game.gameOver && isConnected && game.lastPlay && game.lastPlayer !== 'me';
+    passBtn.disabled = !canPass;
+}
+
+function setMessage(msg, type = 'info') {
+    messageEl.textContent = msg;
+    messageEl.style.borderLeftColor = type === 'win' ? '#69f0ae' : type === 'lose' ? '#ff7a7a' : '#ffd700';
+}
+
+// ============================================================
+//  网络通信（核心修复）
+// ============================================================
+function initPeer() {
+    peer = new Peer(undefined, { debug: 0 });
+    peer.on('open', (id) => {
+        myPeerId = id;
+        myPeerIdDisplay.textContent = id;
+        myPeerIdDisplay.title = '点击复制';
+        myPeerIdDisplay.onclick = () => {
+            navigator.clipboard.writeText(id).then(() => setMessage('房间号已复制！', 'info'));
+        };
+        setMessage('PeerJS 已就绪，创建或加入房间', 'info');
+    });
+    peer.on('connection', (c) => {
+        if (conn) { c.close(); return; }
+        conn = c;
+        setupConnection();
+        // ★★★ 关键修复：绝对不能修改 isHost！房主身份在 createBtn 中已设定 ★★★
+        // isHost = false;   ← 这行必须删除！
+        setMessage('对手已连接！开始游戏...', 'info');
+    });
+    peer.on('error', (err) => {
+        console.error(err);
+        setMessage('连接错误: ' + err.message, 'lose');
+    });
+}
+
+function setupConnection() {
+    const onOpen = () => {
+        isConnected = true;
+        setMessage('连接已建立！', 'info');
+        if (isHost) {
+            startGameAsHost();
+        }
+    };
+    conn.on('open', onOpen);
+    if (conn.open) {
+        onOpen();
+    }
+    conn.on('data', (data) => handleData(data));
+    conn.on('close', () => {
+        isConnected = false;
+        setMessage('连接已断开', 'lose');
+        conn = null;
+        game.gameOver = true;
+        updateUI();
+    });
+}
+
+function sendData(data) {
+    if (conn && conn.open) {
+        conn.send(data);
+    } else {
+        console.warn('连接未打开，数据未发送');
+    }
+}
+
+function handleData(data) {
+    const type = data.type;
+    switch (type) {
+        case 'init': {
+            if (!isHost) {
+                // 客机：交换手牌，并反转 currentPlayer
+                const tmp = game.myHand;
+                game.myHand = data.oppHand;
+                game.oppHand = data.myHand;
+                // 房主发的 currentPlayer 是 'me' 表示房主先出，客机应该把自己视为 'opp'
+                game.currentPlayer = data.currentPlayer === 'me' ? 'opp' : 'me';
+            } else {
+                game.myHand = data.myHand;
+                game.oppHand = data.oppHand;
+                game.currentPlayer = data.currentPlayer;
+            }
+            // ★★★ 关键修复：统一用 game.currentPlayer === 'me' 判断是否自己的回合 ★★★
+            game.isMyTurn = (game.currentPlayer === 'me');
+            game.lastPlay = null;
+            game.lastPlayer = null;
+            game.passCount = 0;
+            game.gameOver = false;
+            game.selectedIndices = [];
+            setMessage('游戏开始！' + (game.isMyTurn ? '你先出牌' : '等待对手出牌'), 'info');
+            updateUI();
+            renderPlay(null, '');
+            break;
+        }
+        case 'play': {
+            // 对手出牌，移除对手手牌
+            const oppIds = data.cardIds;
+            if (isHost) {
+                oppIds.forEach(id => {
+                    const idx = game.oppHand.findIndex(c => c.id === id);
+                    if (idx > -1) game.oppHand.splice(idx, 1);
+                });
+            } else {
+                oppIds.forEach(id => {
+                    const idx = game.oppHand.findIndex(c => c.id === id);
+                    if (idx > -1) game.oppHand.splice(idx, 1);
+                });
+            }
+            game.lastPlay = data.playType;
+            game.lastPlayer = game.currentPlayer; // 对手出的
+            game.currentPlayer = (game.currentPlayer === 'me' ? 'opp' : 'me');
+            game.isMyTurn = (game.currentPlayer === 'me');
+            renderPlay(data.cards, `对手出了 ${data.cards.length} 张`);
+            setMessage('对手出牌，轮到你', 'info');
+            if (game.oppHand.length === 0) gameOver('opp');
+            updateUI();
+            break;
+        }
+        case 'pass': {
+            // ★★★ 过牌后清空上一手牌，切换回合 ★★★
+            game.lastPlay = null;
+            game.lastPlayer = null;
+            game.currentPlayer = (game.currentPlayer === 'me' ? 'opp' : 'me');
+            game.isMyTurn = (game.currentPlayer === 'me');
+            setMessage('对手过牌，轮到你', 'info');
+            updateUI();
+            break;
+        }
+        case 'gameover': {
+            game.gameOver = true;
+            const winner = data.winner;
+            if ((isHost && winner === 'opp') || (!isHost && winner === 'me')) {
+                oppWins++;
+                setMessage('对手赢了这一局！', 'lose');
+            } else {
+                myWins++;
+                setMessage('你赢了这一局！', 'win');
+            }
+            updateUI();
+            break;
+        }
+        default: break;
+    }
+}
+
+// ============================================================
+//  游戏控制
+// ============================================================
+function startGameAsHost() {
+    if (!isHost) return;
+    game.shuffle();
+    game.deal();
+    game.currentPlayer = 'me';
+    game.isMyTurn = true;
+    game.lastPlay = null;
+    game.lastPlayer = null;
+    game.passCount = 0;
+    game.gameOver = false;
+    game.selectedIndices = [];
+    // 发送初始化数据给客机
+    sendData({
+        type: 'init',
+        myHand: game.myHand,   // 房主自己的牌
+        oppHand: game.oppHand, // 客机的牌
+        currentPlayer: 'me'
+    });
+    setMessage('游戏开始！你先出牌', 'info');
+    updateUI();
+    renderPlay(null, '');
+}
+
+function playerPlay() {
+    if (!game.isMyTurn || game.gameOver || !isConnected) return;
+    const selected = game.getSelectedCards();
+    if (selected.length === 0) { setMessage('请选择要出的牌', 'info'); return; }
+    const result = game.checkPlay(selected, game.lastPlay, game.lastPlayer, true);
+    if (!result.valid) { setMessage('出牌无效: ' + result.reason, 'lose'); return; }
+    const playType = result.type;
+    const cardIds = selected.map(c => c.id);
+    const indices = game.selectedIndices.slice().sort((a, b) => b - a);
+    indices.forEach(idx => game.myHand.splice(idx, 1));
+    game.selectedIndices = [];
+    game.lastPlay = playType;
+    game.lastPlayer = 'me';
+    game.currentPlayer = 'opp';
+    game.isMyTurn = false;
+    game.passCount = 0;
+    renderPlay(selected, `你出了 ${selected.length} 张`);
+    setMessage('你出了牌，等待对手', 'info');
+    sendData({ type: 'play', cards: selected, playType: playType, cardIds: cardIds });
+    if (game.myHand.length === 0) {
+        gameOver('me');
+        return;
+    }
+    updateUI();
+}
+
+function playerPass() {
+    if (!game.isMyTurn || game.gameOver || !isConnected) return;
+    // 清空上一手牌（表示放弃）
+    game.lastPlay = null;
+    game.lastPlayer = null;
+    game.currentPlayer = 'opp';
+    game.isMyTurn = false;
+    setMessage('你过牌，等待对手', 'info');
+    sendData({ type: 'pass' });
+    updateUI();
+}
+
+function gameOver(winner) {
+    game.gameOver = true;
+    if ((isHost && winner === 'me') || (!isHost && winner === 'opp')) {
+        myWins++;
+        setMessage('🎉 你赢了！', 'win');
+    } else {
+        oppWins++;
+        setMessage('😞 你输了', 'lose');
+    }
+    sendData({ type: 'gameover', winner: winner });
+    updateUI();
+    if (isHost) {
+        setTimeout(() => {
+            if (isConnected) startGameAsHost();
+        }, 2000);
+    }
+}
+
+// ============================================================
+//  事件绑定
+// ============================================================
+createBtn.addEventListener('click', () => {
+    if (peer) {
+        if (conn) { conn.close(); conn = null; }
+        isHost = true;
+        setMessage('等待对手加入...', 'info');
+        if (peer.destroyed) initPeer();
+    } else {
+        initPeer();
+        setTimeout(() => createBtn.click(), 500);
+    }
+});
+
+joinBtn.addEventListener('click', () => {
+    const id = peerIdInput.value.trim();
+    if (!id) { setMessage('请输入房间号', 'lose'); return; }
+    if (!peer) {
+        initPeer();
+        setTimeout(() => joinBtn.click(), 500);
+        return;
+    }
+    if (conn) { conn.close(); conn = null; }
+    conn = peer.connect(id, { reliable: true });
+    isHost = false;
+    setupConnection();
+    setMessage('正在连接...', 'info');
+});
+
+playBtn.addEventListener('click', playerPlay);
+passBtn.addEventListener('click', playerPass);
+resetBtn.addEventListener('click', () => {
+    if (isHost && isConnected) {
+        startGameAsHost();
+    } else {
+        setMessage('只有房主可以重新开始', 'info');
+    }
+});
+
+// 初始化
+initPeer();
+console.log('🎴 塔罗跑得快已启动');
