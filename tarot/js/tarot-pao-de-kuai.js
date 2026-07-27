@@ -219,6 +219,7 @@ let conn = null;
 let isHost = false;
 let myPeerId = '';
 let isConnected = false;
+let nextFirstPlayer = ''; // 'me' 或 'opp'，用于下一局先手
 let round = 1;
 let myWins = 0,
     oppWins = 0;
@@ -493,17 +494,7 @@ function handleData(data) {
             break;
         }
         case 'gameover': {
-            game.gameOver = true;
-            const winner = data.winner; // 'host' 或 'guest'
-            let iWon = (isHost && winner === 'host') || (!isHost && winner === 'guest');
-            if (iWon) {
-                myWins++;
-                setMessage('🎉 你赢了！', 'win');
-            } else {
-                oppWins++;
-                setMessage('😞 你输了', 'lose');
-            }
-            updateUI();
+            handleGameOver(data.winner);
             break;
         }
         default: break;
@@ -517,8 +508,10 @@ function startGameAsHost() {
     if (!isHost) return;
     game.shuffle();
     game.deal();
-    game.currentPlayer = 'me';
-    game.isMyTurn = true;
+    // 使用 nextFirstPlayer 作为先手（若未初始化则默认房主）
+    const first = nextFirstPlayer || 'me';
+    game.currentPlayer = first;
+    game.isMyTurn = (first === 'me');
     game.lastPlay = null;
     game.lastPlayer = null;
     game.passCount = 0;
@@ -527,11 +520,11 @@ function startGameAsHost() {
     // 发送初始化数据给客机
     sendData({
         type: 'init',
-        myHand: game.myHand,   // 房主自己的牌
-        oppHand: game.oppHand, // 客机的牌
-        currentPlayer: 'me'
+        myHand: game.myHand,
+        oppHand: game.oppHand,
+        currentPlayer: first
     });
-    setMessage('游戏开始！你先出牌', 'info');
+    setMessage('游戏开始！' + (game.isMyTurn ? '你先出牌' : '等待对手出牌'), 'info');
     updateUI();
     renderPlay(null, '');
 }
@@ -556,7 +549,7 @@ function playerPlay() {
     setMessage('你出了牌，等待对手', 'info');
     sendData({ type: 'play', cards: selected, playType: playType, cardIds: cardIds });
     if (game.myHand.length === 0) {
-        gameOver('me');
+        gameOver();
         return;
     }
     updateUI();
@@ -574,18 +567,27 @@ function playerPass() {
     updateUI();
 }
 
-function gameOver(winner) {
+function handleGameOver(sender) {
+    // sender: 'host' 或 'guest'
     game.gameOver = true;
-    if ((isHost && winner === 'me') || (!isHost && winner === 'opp')) {
+    let iWon = (isHost && sender === 'host') || (!isHost && sender === 'guest');
+    if (iWon) {
         myWins++;
         setMessage('🎉 你赢了！', 'win');
     } else {
         oppWins++;
         setMessage('😞 你输了', 'lose');
     }
-    sendData({ type: 'gameover', winner: isHost ? 'host' : 'guest' });
     round++;
+    // 设置下一局先手：输方先出
+    nextFirstPlayer = (sender === 'host') ? 'opp' : 'me';
     updateUI();
+}
+
+function gameOver() {
+    const sender = isHost ? 'host' : 'guest';
+    handleGameOver(sender); // 本地先执行
+    sendData({ type: 'gameover', winner: sender });
     if (isHost) {
         setTimeout(() => {
             if (isConnected) startGameAsHost();
@@ -600,6 +602,8 @@ createBtn.addEventListener('click', () => {
     if (peer) {
         if (conn) { conn.close(); conn = null; }
         isHost = true;
+        // 随机先手
+        nextFirstPlayer = Math.random() < 0.5 ? 'me' : 'opp';
         setMessage('等待对手加入...', 'info');
         if (peer.destroyed) initPeer();
     } else {
