@@ -712,3 +712,32 @@ body.large-mode .card-name-label {
     background: rgba(255, 215, 0, 0.3);
     transform: scale(1.05);
 }
+
+
+
+/* ---------- 消息栏闪烁提示 ---------- */
+@keyframes flash-play {
+    0% { background-color: rgba(74, 122, 156, 0.2); border-left-color: #4a7a9c; }
+    50% { background-color: rgba(74, 122, 156, 0.5); border-left-color: #69f0ae; }
+    100% { background-color: rgba(0, 0, 0, 0.5); border-left-color: #ffd700; }
+}
+@keyframes flash-pass {
+    0% { background-color: rgba(106, 90, 122, 0.2); border-left-color: #6a5a7a; }
+    50% { background-color: rgba(106, 90, 122, 0.5); border-left-color: #b8a0c0; }
+    100% { background-color: rgba(0, 0, 0, 0.5); border-left-color: #ffd700; }
+}
+.game-message.flash-play {
+    animation: flash-play 0.8s ease 2;
+}
+.game-message.flash-pass {
+    animation: flash-pass 0.8s ease 2;
+}
+
+/* ---------- 出牌区淡入动画 ---------- */
+@keyframes card-appear {
+    0% { transform: scale(0.8) translateY(-20px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.play-cards .card-slot {
+    animation: card-appear 0.3s ease-out;
+}

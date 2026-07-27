@@ -314,9 +314,18 @@ function updateUI() {
     passBtn.disabled = !canPass;
 }
 
-function setMessage(msg, type = 'info') {
+function setMessage(msg, type = 'info', flashType = null) {
     messageEl.textContent = msg;
     messageEl.style.borderLeftColor = type === 'win' ? '#69f0ae' : type === 'lose' ? '#ff7a7a' : '#ffd700';
+    // 移除之前的闪动类
+    messageEl.classList.remove('flash-play', 'flash-pass');
+    if (flashType) {
+        messageEl.classList.add('flash-' + flashType);
+        // 动画结束后自动移除类（防止累积）
+        setTimeout(() => {
+            messageEl.classList.remove('flash-' + flashType);
+        }, 1600);
+    }
 }
 
 // ============================================================
@@ -424,7 +433,7 @@ function handleData(data) {
             game.currentPlayer = (game.currentPlayer === 'me' ? 'opp' : 'me');
             game.isMyTurn = (game.currentPlayer === 'me');
             renderPlay(data.cards, `对手出了 ${data.cards.length} 张`);
-            setMessage('对手出牌，轮到你', 'info');
+            setMessage('对手出牌，轮到你', 'info', 'play');
             if (game.oppHand.length === 0) gameOver('opp');
             updateUI();
             break;
@@ -435,7 +444,7 @@ function handleData(data) {
             game.lastPlayer = null;
             game.currentPlayer = (game.currentPlayer === 'me' ? 'opp' : 'me');
             game.isMyTurn = (game.currentPlayer === 'me');
-            setMessage('对手过牌，轮到你', 'info');
+            setMessage('对手过牌，轮到你', 'info', 'pass');
             updateUI();
             break;
         }
