@@ -495,6 +495,11 @@ function handleData(data) {
         }
         case 'gameover': {
             handleGameOver(data.winner);
+            if (isHost) {
+                setTimeout(() => {
+                    if (isConnected) startGameAsHost();
+                }, 1500);
+            }
             break;
         }
         default: break;
