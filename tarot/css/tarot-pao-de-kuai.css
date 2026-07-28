@@ -692,6 +692,46 @@ body.large-mode .card-name-label {
     padding: 2px 2px;
     max-width: 95%;
 }
+
+/* 大字模式：塔罗牌文字放大 */
+body.large-mode .tarot-position {
+    font-size: 1.6rem;
+}
+body.large-mode .tarot-reverse-indicator,
+body.large-mode .tarot-upright-indicator {
+    font-size: 1rem;
+}
+/* 标签也放大 */
+body.large-mode .tarot-column-label {
+    font-size: 1.5rem;
+}
+
+/* 移动端大字适配 */
+@media (max-width: 768px) {
+    body.large-mode .tarot-position {
+        font-size: 1.5rem;
+    }
+    body.large-mode .tarot-reverse-indicator,
+    body.large-mode .tarot-upright-indicator {
+        font-size: 1.5rem;
+    }
+    body.large-mode .tarot-column-label {
+        font-size: 1.5rem;
+    }
+}
+@media (max-width: 480px) {
+    body.large-mode .tarot-position {
+        font-size: 0.55rem;
+    }
+    body.large-mode .tarot-reverse-indicator,
+    body.large-mode .tarot-upright-indicator {
+        font-size: 0.55rem;
+    }
+    body.large-mode .tarot-column-label {
+        font-size: 0.9rem;
+    }
+}
+
 /* ---------- 大字模式按钮 ---------- */
 .btn-large-font {
     position: fixed;
@@ -755,4 +795,205 @@ img {
     -webkit-user-drag: none;
     -webkit-touch-callout: none;
     pointer-events: none; /* 确保点击穿透到父容器，触发选牌事件 */
+}
+
+
+
+
+/* ---------- 塔罗牌侧栏 ---------- */
+.hand-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.hand-cards {
+    flex: 0 1 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 20px;
+    min-height: 180px;
+    padding: 6px 90px; /* 左右留出塔罗列空间 */
+    max-width: 100%;
+}
+
+/* ---------- 塔罗牌固定列 ---------- */
+#oppTarot,
+#myTarot {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    pointer-events: none;
+}
+#oppTarot { left: 12px; }
+#myTarot { right: 12px; }
+
+/* ---------- 塔罗小卡（尺寸与游戏卡牌同步） ---------- */
+.tarot-card-mini {
+    width: 120px;   /* 与 .card-slot 一致 */
+    height: 180px;
+    border-radius: 12px;
+    background: #1a0a2e;
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s;
+    overflow: hidden;
+    pointer-events: auto;
+}
+.tarot-card-mini:hover {
+    transform: scale(1.05);
+}
+.tarot-card-mini img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;  /* 完整显示牌面，不裁剪 */
+    display: block;
+}
+.tarot-card-mini .tarot-position {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    font-size: 0.6rem;
+    color: #ffd700;
+    background: rgba(0,0,0,0.6);
+    padding: 1px 8px;
+    border-radius: 12px;
+    z-index: 2;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+.tarot-card-mini .tarot-reverse-indicator,
+.tarot-card-mini .tarot-upright-indicator {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    font-size: 0.65rem;
+    background: rgba(0,0,0,0.7);
+    padding: 2px 10px;
+    border-radius: 12px;
+    z-index: 2;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+}
+.tarot-reverse-indicator {
+    color: #ff7a7a;
+    border: 1px solid rgba(255, 100, 100, 0.4);
+}
+.tarot-upright-indicator {
+    color: #69f0ae;
+    border: 1px solid rgba(100, 255, 100, 0.4);
+}
+.tarot-card-mini.face-down img {
+    filter: brightness(0.6);
+}
+
+/* ---------- 手牌区域留出空间 ---------- */
+.hand-cards {
+    padding: 6px 100px;  /* 左右留出塔罗列空间，与卡片宽度匹配 */
+}
+
+/* ---------- 响应式（与 .card-slot 同步） ---------- */
+@media (max-width: 1024px) {
+    .tarot-card-mini {
+        width: 100px;
+        height: 150px;
+    }
+    .hand-cards {
+        padding: 6px 80px;
+    }
+    #oppTarot { left: 8px; }
+    #myTarot { right: 8px; }
+}
+@media (max-width: 768px) {
+    .tarot-card-mini {
+        width: 80px;
+        height: 120px;
+    }
+    .hand-cards {
+        padding: 6px 60px;
+    }
+    #oppTarot { left: 6px; }
+    #myTarot { right: 6px; }
+    .tarot-card-mini .tarot-position {
+        font-size: 0.5rem;
+        padding: 1px 6px;
+    }
+    .tarot-card-mini .tarot-reverse-indicator,
+    .tarot-card-mini .tarot-upright-indicator {
+        font-size: 0.5rem;
+        padding: 1px 6px;
+        bottom: 4px;
+        right: 4px;
+    }
+}
+@media (max-width: 480px) {
+    .tarot-card-mini {
+        width: 60px;
+        height: 90px;
+    }
+    .hand-cards {
+        padding: 6px 45px;
+    }
+    #oppTarot { left: 4px; }
+    #myTarot { right: 4px; }
+    .tarot-card-mini .tarot-position {
+        font-size: 0.4rem;
+        padding: 1px 4px;
+        top: 2px;
+        left: 2px;
+    }
+    .tarot-card-mini .tarot-reverse-indicator,
+    .tarot-card-mini .tarot-upright-indicator {
+        font-size: 0.4rem;
+        padding: 1px 4px;
+        bottom: 2px;
+        right: 2px;
+    }
+}
+
+
+/* 塔罗列标签 */
+.tarot-column-label {
+    color: #ffd700;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 2px;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
+    margin-bottom: 8px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 4px 0;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 215, 0, 0.08);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .tarot-column-label {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+        padding: 2px 0;
+    }
+}
+@media (max-width: 480px) {
+    .tarot-column-label {
+        font-size: 0.7rem;
+        margin-bottom: 4px;
+        padding: 2px 0;
+    }
 }

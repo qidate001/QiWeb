@@ -26,6 +26,30 @@ const RANKS = [
     { rank: 16, label: '2',   imgId: '2' }
 ];
 
+// 大阿卡纳（排除愚者 0 和世界 21）
+const MAJOR_ARCANA = [
+    { id: '1', name: '魔术师' },
+    { id: '2', name: '女祭司' },
+    { id: '3', name: '皇后' },
+    { id: '4', name: '皇帝' },
+    { id: '5', name: '教皇' },
+    { id: '6', name: '恋人' },
+    { id: '7', name: '战车' },
+    { id: '8', name: '力量' },
+    { id: '9', name: '隐者' },
+    { id: '10', name: '命运之轮' },
+    { id: '11', name: '正义' },
+    { id: '12', name: '倒吊人' },
+    { id: '13', name: '死神' },
+    { id: '14', name: '节制' },
+    { id: '15', name: '恶魔' },
+    { id: '16', name: '高塔' },
+    { id: '17', name: '星星' },
+    { id: '18', name: '月亮' },
+    { id: '19', name: '太阳' },
+    { id: '20', name: '审判' }
+];
+
 // 图片路径
 const IMG_BASE = './images/tarot_cards/';
 const BACK_IMG = './images/tarot_cards/_.png';
@@ -53,6 +77,20 @@ function buildDeck() {
     deck.push({ id: '0', suit: null, rank: 17, label: '愚者', name: '愚者', element: '🎭', suitSymbol: '🃏', color: 'black', isJoker: true, jokerType: 'small' });
     deck.push({ id: '21', suit: null, rank: 18, label: '世界', name: '世界', element: '🌌', suitSymbol: '🃏', color: 'red', isJoker: true, jokerType: 'big' });
     return deck;
+}
+
+// 从大阿卡纳中抽三张不重复的牌，随机正逆位
+function drawTarotCards() {
+    const shuffled = [...MAJOR_ARCANA];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    const selected = shuffled.slice(0, 3);
+    return selected.map(card => ({
+        ...card,
+        reversed: Math.random() < 0.5
+    }));
 }
 
 // ============================================================
@@ -320,14 +358,24 @@ function renderOppHand() {
 }
 
 function renderPlay(cards, info, playType) {
-    playCardsEl.innerHTML = '';
+    // 重新获取元素，确保不为 null
+    const playCardsContainer = document.getElementById('playCards');
+    const playInfoContainer = document.getElementById('playInfo');
+    
+    if (!playCardsContainer) {
+        console.error('playCards element not found');
+        return;
+    }
+    
+    playCardsContainer.innerHTML = '';
     if (cards && cards.length > 0) {
         cards.forEach(c => {
             const el = renderCard(c, true, false);
             el.style.cursor = 'default';
-            playCardsEl.appendChild(el);
+            playCardsContainer.appendChild(el);
         });
     }
+    
     let typeName = '';
     if (playType) {
         const typeMap = {
@@ -344,7 +392,10 @@ function renderPlay(cards, info, playType) {
         };
         typeName = typeMap[playType.type] || '';
     }
-    playInfoEl.textContent = (info || '') + (typeName ? ' (' + typeName + ')' : '');
+    
+    if (playInfoContainer) {
+        playInfoContainer.textContent = (info || '') + (typeName ? ' (' + typeName + ')' : '');
+    }
 }
 
 function updateUI() {
@@ -373,8 +424,107 @@ function setMessage(msg, type = 'info', flashType = null) {
     }
 }
 
+function renderTarot() {
+    const oppContainer = document.getElementById('oppTarot');
+    const myContainer = document.getElementById('myTarot');
+    if (!oppContainer || !myContainer) {
+        console.warn('Tarot containers not found');
+        return;
+    }
+    oppContainer.innerHTML = '';
+    myContainer.innerHTML = '';
+
+    // --- 添加标签 ---
+    const oppLabel = document.createElement('div');
+    oppLabel.className = 'tarot-column-label';
+    oppLabel.textContent = '🎩 对手';
+    oppContainer.appendChild(oppLabel);
+
+    const myLabel = document.createElement('div');
+    myLabel.className = 'tarot-column-label';
+    myLabel.textContent = '🃏 我';
+    myContainer.appendChild(myLabel);
+
+    // 对手的塔罗牌
+    if (window._oppTarot && window._oppTarot.length === 3) {
+        const positions = ['过去', '现在', '未来'];
+        window._oppTarot.forEach((card, idx) => {
+            const div = document.createElement('div');
+            div.className = 'tarot-card-mini';
+            
+            // 位置标签
+            const pos = document.createElement('div');
+            pos.className = 'tarot-position';
+            pos.textContent = positions[idx];
+            div.appendChild(pos);
+
+            // 图片
+            const img = document.createElement('img');
+            if (idx === 0) {
+                // 过去：完全正面
+                img.src = `${IMG_BASE}${card.id}.png`;
+                img.alt = card.name;
+                if (card.reversed) {
+                    img.style.transform = 'rotate(180deg)';
+                }
+                // 正逆位指示
+                const indicator = document.createElement('div');
+                indicator.className = card.reversed ? 'tarot-reverse-indicator' : 'tarot-upright-indicator';
+                indicator.textContent = card.reversed ? '逆位' : '正位';
+                div.appendChild(indicator);
+            } else if (idx === 1) {
+                // 现在：完全背面
+                div.classList.add('face-down');
+                img.src = BACK_IMG;
+                img.alt = '牌背';
+            } else {
+                // 未来：背面 + 正逆位指示
+                div.classList.add('face-down');
+                img.src = BACK_IMG;
+                img.alt = '牌背';
+                // 显示正逆位标签在背面
+                const indicator = document.createElement('div');
+                indicator.className = card.reversed ? 'tarot-reverse-indicator' : 'tarot-upright-indicator';
+                indicator.textContent = card.reversed ? '逆位' : '正位';
+                div.appendChild(indicator);
+            }
+            div.appendChild(img);
+            oppContainer.appendChild(div);
+        });
+    }
+
+    // 自己的塔罗牌（全部正面）
+    if (window._myTarot && window._myTarot.length === 3) {
+        const positions = ['过去', '现在', '未来'];
+        window._myTarot.forEach((card, idx) => {
+            const div = document.createElement('div');
+            div.className = 'tarot-card-mini';
+            
+            const pos = document.createElement('div');
+            pos.className = 'tarot-position';
+            pos.textContent = positions[idx];
+            div.appendChild(pos);
+
+            const img = document.createElement('img');
+            img.src = `${IMG_BASE}${card.id}.png`;
+            img.alt = card.name;
+            if (card.reversed) {
+                img.style.transform = 'rotate(180deg)';
+            }
+            div.appendChild(img);
+
+            const indicator = document.createElement('div');
+            indicator.className = card.reversed ? 'tarot-reverse-indicator' : 'tarot-upright-indicator';
+            indicator.textContent = card.reversed ? '逆位' : '正位';
+            div.appendChild(indicator);
+
+            myContainer.appendChild(div);
+        });
+    }
+}
+
 // ============================================================
-//  网络通信（核心修复）
+//  网络通信
 // ============================================================
 function initPeer() {
     peer = new Peer(undefined, { debug: 0 });
@@ -391,8 +541,6 @@ function initPeer() {
         if (conn) { c.close(); return; }
         conn = c;
         setupConnection();
-        // ★★★ 关键修复：绝对不能修改 isHost！房主身份在 createBtn 中已设定 ★★★
-        // isHost = false;   ← 这行必须删除！
         setMessage('对手已连接！开始游戏...', 'info');
     });
     peer.on('error', (err) => {
@@ -436,18 +584,24 @@ function handleData(data) {
     switch (type) {
         case 'init': {
             if (!isHost) {
-                // 客机：交换手牌，并反转 currentPlayer
-                const tmp = game.myHand;
+                // 客机：交换手牌和塔罗牌
+                const tmpHand = game.myHand;
                 game.myHand = data.oppHand;
                 game.oppHand = data.myHand;
-                // 房主发的 currentPlayer 是 'me' 表示房主先出，客机应该把自己视为 'opp'
+
+                // 交换塔罗牌
+                window._myTarot = data.oppTarot;   // 客机自己的
+                window._oppTarot = data.myTarot;   // 对手的
                 game.currentPlayer = data.currentPlayer === 'me' ? 'opp' : 'me';
             } else {
                 game.myHand = data.myHand;
                 game.oppHand = data.oppHand;
+                window._myTarot = data.myTarot;
+                window._oppTarot = data.oppTarot;
                 game.currentPlayer = data.currentPlayer;
             }
-            // ★★★ 关键修复：统一用 game.currentPlayer === 'me' 判断是否自己的回合 ★★★
+
+            // 统一用 game.currentPlayer === 'me' 判断是否自己的回合
             game.isMyTurn = (game.currentPlayer === 'me');
             game.lastPlay = null;
             game.lastPlayer = null;
@@ -457,6 +611,7 @@ function handleData(data) {
             setMessage('游戏开始！' + (game.isMyTurn ? '你先出牌' : '等待对手出牌'), 'info');
             updateUI();
             renderPlay(null, '');
+            renderTarot();
             break;
         }
         case 'play': {
@@ -515,6 +670,13 @@ function startGameAsHost() {
     if (!isHost) return;
     game.shuffle();
     game.deal();
+
+    // 生成塔罗牌
+    const myTarot = drawTarotCards();
+    const oppTarot = drawTarotCards();
+    window._myTarot = myTarot;
+    window._oppTarot = oppTarot;
+
     // 使用 nextFirstPlayer 作为先手（若未初始化则默认房主）
     const first = nextFirstPlayer || 'me';
     game.currentPlayer = first;
@@ -524,16 +686,21 @@ function startGameAsHost() {
     game.passCount = 0;
     game.gameOver = false;
     game.selectedIndices = [];
+
     // 发送初始化数据给客机
     sendData({
         type: 'init',
         myHand: game.myHand,
         oppHand: game.oppHand,
-        currentPlayer: first
+        currentPlayer: first,
+        myTarot: myTarot,     // 房主自己的塔罗牌
+        oppTarot: oppTarot    // 客机的塔罗牌
     });
+    
     setMessage('游戏开始！' + (game.isMyTurn ? '你先出牌' : '等待对手出牌'), 'info');
     updateUI();
     renderPlay(null, '');
+    renderTarot();
 }
 
 function playerPlay() {

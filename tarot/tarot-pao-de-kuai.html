@@ -46,9 +46,12 @@
             <!-- 对手手牌（牌背） -->
             <div class="hand-area" id="oppArea">
                 <div class="hand-label">🎩 对手（<span id="oppCount">0</span>张）</div>
-                <div class="hand-cards" id="oppHand"></div>
+                <div class="hand-row">
+                    <div class="tarot-column" id="oppTarot"></div>
+                    <div class="hand-cards" id="oppHand"></div>
+                </div>
             </div>
-
+            
             <!-- 出牌区 -->
             <div class="play-area" id="playArea">
                 <div class="play-label">⚔️ 当前出牌</div>
@@ -59,7 +62,10 @@
             <!-- 我的手牌 -->
             <div class="hand-area" id="myArea">
                 <div class="hand-label">🃏 我的手牌（<span id="myCount">0</span>张）</div>
-                <div class="hand-cards" id="myHand"></div>
+                <div class="hand-row">
+                    <div class="hand-cards" id="myHand"></div>
+                    <div class="tarot-column" id="myTarot"></div>
+                </div>
             </div>
         </div>
 
