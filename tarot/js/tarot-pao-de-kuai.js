@@ -50,6 +50,13 @@ const MAJOR_ARCANA = [
     { id: '20', name: '审判' }
 ];
 
+const CARD_EFFECTS = {
+    '10': {  // 命运之轮
+        past: { positive: 'reshuffle', negative: 'force_3' },
+        future: { positive: 'high_weights', negative: 'gamble' }
+    }
+};
+
 // 图片路径
 const IMG_BASE = './images/tarot_cards/';
 const BACK_IMG = './images/tarot_cards/_.png';
@@ -246,6 +253,55 @@ class Game {
     getSelectedCards() {
         return this.selectedIndices.map(i => this.myHand[i]);
     }
+    dealWithWeight(myWeight, oppWeight) {
+        // myWeight: 玩家的权重乘数（1.0 为正常）
+        // oppWeight: 对手的权重乘数
+        this.myHand = [];
+        this.oppHand = [];
+
+        // 构建完整牌组
+        let deck = buildDeck();
+        for (let i = deck.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [deck[i], deck[j]] = [deck[j], deck[i]];
+        }
+
+        // 根据权重分配牌：权重越高，越可能拿到好牌
+        // 策略：先发基础牌，再用权重微调
+        // 为了简化，我们用权重影响抽牌时的"价值倾向"
+        // 对于每张牌，给一个"价值分"，权重高的玩家更容易拿到高分牌
+        
+        // 定义牌的价值分（rank越高分越高，但鬼牌特殊）
+        const getCardValue = (card) => {
+            if (card.isJoker) return card.rank; // 17,18
+            return card.rank; // 3~16
+        };
+
+        // 抽牌函数（带权重）
+        const drawWeighted = (weight) => {
+            if (deck.length === 0) return null;
+            // 权重影响：抽取前 weight 倍的概率偏向高分牌
+            // 实现：按权重对牌排序，然后随机抽取前 N 张中的一张
+            const sorted = [...deck].sort((a, b) => (getCardValue(b) - getCardValue(a)) * weight);
+            const poolSize = Math.max(1, Math.floor(deck.length * Math.min(1, weight / 2)));
+            const idx = Math.floor(Math.random() * Math.min(poolSize, sorted.length));
+            const card = sorted[idx];
+            const deckIdx = deck.indexOf(card);
+            if (deckIdx > -1) deck.splice(deckIdx, 1);
+            return card;
+        };
+
+        // 发牌：每人16张
+        for (let i = 0; i < 16; i++) {
+            const myCard = drawWeighted(myWeight || 1.0);
+            const oppCard = drawWeighted(oppWeight || 1.0);
+            if (myCard) this.myHand.push(myCard);
+            if (oppCard) this.oppHand.push(oppCard);
+        }
+
+        this.myHand.sort((a, b) => a.rank - b.rank);
+        this.oppHand.sort((a, b) => a.rank - b.rank);
+    }
 }
 
 // ============================================================
@@ -258,6 +314,7 @@ let isHost = false;
 let myPeerId = '';
 let isConnected = false;
 let nextFirstPlayer = ''; // 'me' 或 'opp'，用于下一局先手
+let nextRoundTarotEffect = null; // 存储未来塔罗牌效果，格式：{ cardId, reversed, player: 'me'|'opp' }
 let round = 1;
 let myWins = 0,
     oppWins = 0;
@@ -665,11 +722,56 @@ function handleData(data) {
 //  游戏控制
 // ============================================================
 function startGameAsHost() {
-    console.log('startGameAsHost 被调用，isHost=', isHost, 'isConnected=', isConnected);
-    
+    console.log('startGameAsHost 被调用');
     if (!isHost) return;
-    game.shuffle();
-    game.deal();
+
+    // ===== 🧪 测试模式：强制产生效果 =====
+    // 取消注释下面任意一行，强制触发对应效果
+
+    // 测试1：强制自己的过去抽到“命运之轮正位”（重新洗牌）
+    // window._FORCE_MY_PAST = { cardId: '10', reversed: false };
+
+    // 测试2：强制自己的过去抽到“命运之轮逆位”（必定有3）
+    // window._FORCE_MY_PAST = { cardId: '10', reversed: true };
+
+    // 测试3：强制自己的未来抽到“命运之轮正位”（高牌权重 1.3）
+    // window._FORCE_MY_FUTURE = { cardId: '10', reversed: false };
+
+    // 测试4：强制自己的未来抽到“命运之轮逆位”（50%好/烂）
+    // window._FORCE_MY_FUTURE = { cardId: '10', reversed: true };
+    // ==========================================
+
+    // ★ 检查是否有上一局的未来效果 ★
+    let myWeight = 1.0;
+    let oppWeight = 1.0;
+
+    if (nextRoundTarotEffect) {
+        const effect = nextRoundTarotEffect;
+        if (effect.player === 'me') {
+            if (effect.effect.type === 'high_weights') {
+                myWeight = 1.3; // 高牌权重增加
+            } else if (effect.effect.type === 'gamble') {
+                // 50%概率好牌，50%烂牌
+                if (Math.random() < 0.5) {
+                    myWeight = 1.3;
+                } else {
+                    myWeight = 0.7;
+                }
+            }
+        } else if (effect.player === 'opp') {
+            if (effect.effect.type === 'high_weights') {
+                oppWeight = 1.3;
+            } else if (effect.effect.type === 'gamble') {
+                if (Math.random() < 0.5) {
+                    oppWeight = 1.3;
+                } else {
+                    oppWeight = 0.7;
+                }
+            }
+        }
+        // 清空，避免重复使用
+        nextRoundTarotEffect = null;
+    }
 
     // 生成塔罗牌
     const myTarot = drawTarotCards();
@@ -677,7 +779,109 @@ function startGameAsHost() {
     window._myTarot = myTarot;
     window._oppTarot = oppTarot;
 
-    // 使用 nextFirstPlayer 作为先手（若未初始化则默认房主）
+    // ★ 解析塔罗牌效果，计算发牌权重 ★
+    let myPastEffect = null;
+    let oppPastEffect = null;
+    let myFutureEffect = null;
+    let oppFutureEffect = null;
+
+    // 解析我的塔罗牌
+    myTarot.forEach((card, idx) => {
+        const position = ['past', 'present', 'future'][idx];
+        if (position === 'past') {
+            myPastEffect = { cardId: card.id, reversed: card.reversed };
+            // 命运之轮 过去效果
+            if (card.id === '10') {
+                if (!card.reversed) {
+                    // 正：随机重新洗牌（即再次打乱，但牌不变）
+                    // 这里我们用特殊标记，在发牌后执行
+                    myPastEffect.type = 'reshuffle';
+                } else {
+                    // 逆：必定有一张3
+                    myPastEffect.type = 'force_3';
+                }
+            }
+        } else if (position === 'future') {
+            myFutureEffect = { cardId: card.id, reversed: card.reversed };
+            if (card.id === '10') {
+                if (!card.reversed) {
+                    // 正：高牌权重
+                    myFutureEffect.type = 'high_weights';
+                } else {
+                    // 逆：50%好牌 50%烂牌
+                    myFutureEffect.type = 'gamble';
+                }
+            }
+        }
+    });
+
+    // 同样解析对手的塔罗牌
+    oppTarot.forEach((card, idx) => {
+        const position = ['past', 'present', 'future'][idx];
+        if (position === 'past') {
+            oppPastEffect = { cardId: card.id, reversed: card.reversed };
+            if (card.id === '10') {
+                if (!card.reversed) {
+                    oppPastEffect.type = 'reshuffle';
+                } else {
+                    oppPastEffect.type = 'force_3';
+                }
+            }
+        } else if (position === 'future') {
+            oppFutureEffect = { cardId: card.id, reversed: card.reversed };
+            if (card.id === '10') {
+                if (!card.reversed) {
+                    oppFutureEffect.type = 'high_weights';
+                } else {
+                    oppFutureEffect.type = 'gamble';
+                }
+            }
+        }
+    });
+
+    // ★ 应用过去效果（当前局） ★
+    // 存储效果供发牌使用
+    const pastEffects = {
+        my: myPastEffect,
+        opp: oppPastEffect
+    };
+
+    // 执行发牌（带权重）
+    // 默认权重1.0
+    let myWeightFinal = 1.0;
+    let oppWeightFinal = 1.0;
+
+    // 如果过去效果是 force_3，需要在发牌后注入3
+    // 如果过去效果是 reshuffle，发牌后再洗牌（发牌正常，然后重新排序）
+
+    // ★ 先正常发牌（权重默认1.0，后续再调整） ★
+    game.shuffle(); // 洗牌准备
+    // 生成牌组并分配（由于 dealWithWeight 需要 deck，我们直接用 game.deal() 后再处理）
+    // 但为了支持权重，我们直接调用 dealWithWeight
+    // 如果未来有效果，会影响下一局，暂时忽略
+
+    // 检查是否有未来效果需要传递到下一局
+    if (myFutureEffect) {
+        nextRoundTarotEffect = { player: 'me', effect: myFutureEffect };
+    } else if (oppFutureEffect) {
+        nextRoundTarotEffect = { player: 'opp', effect: oppFutureEffect };
+    }
+
+    // 应用权重：如果有未来效果且是 high_weights，当前局不受影响，下一局生效
+    // 所以当前局权重为1.0
+    // 但如果未来效果是 gamble，当前局也不受影响
+
+    // 但过去效果会影响当前局
+    // force_3: 发牌后注入一张3
+    // reshuffle: 发牌后重新洗牌（但牌不变）
+
+    // 执行发牌
+    game.dealWithWeight(myWeightFinal, oppWeightFinal);
+
+    // ★ 应用过去效果到已发的手牌 ★
+    applyPastEffect(pastEffects);
+
+    // 使用 nextFirstPlayer 作为先手
     const first = nextFirstPlayer || 'me';
     game.currentPlayer = first;
     game.isMyTurn = (first === 'me');
@@ -687,20 +891,114 @@ function startGameAsHost() {
     game.gameOver = false;
     game.selectedIndices = [];
 
-    // 发送初始化数据给客机
     sendData({
         type: 'init',
         myHand: game.myHand,
         oppHand: game.oppHand,
         currentPlayer: first,
-        myTarot: myTarot,     // 房主自己的塔罗牌
-        oppTarot: oppTarot    // 客机的塔罗牌
+        myTarot: myTarot,
+        oppTarot: oppTarot
     });
-    
+
     setMessage('游戏开始！' + (game.isMyTurn ? '你先出牌' : '等待对手出牌'), 'info');
     updateUI();
     renderPlay(null, '');
     renderTarot();
+}
+
+function applyPastEffect(effects) {
+    // effects: { my: { type, cardId, reversed }, opp: { ... } }
+
+    // 处理玩家的过去效果
+    if (effects.my) {
+        const e = effects.my;
+        if (e.type === 'force_3') {
+            // 注入一张3：从对手或弃牌堆换一张3到玩家手牌
+            // 简单实现：从牌组中找一张3，如果牌组没有则从对手手牌交换
+            // 由于牌组已为空（发牌后剩余26张），我们直接交换
+            // 更简单：从对手手牌中拿一张3，换一张玩家手中的牌
+            // 但我们不能直接操作对手牌，所以从已发牌中寻找
+            // 策略：从玩家手牌中移除一张最小牌，从对手手牌中拿一张3
+            // 但为了公平，我们直接“创造”一张3，用一张2替换
+            // 极端情况：玩家已经有3，则什么都不做
+            const has3 = game.myHand.some(c => c.rank === 3);
+            if (!has3) {
+                // 找一张最小的牌替换为3
+                const minCard = game.myHand.reduce((a, b) => a.rank < b.rank ? a : b);
+                const minIdx = game.myHand.indexOf(minCard);
+                // 从牌组中找一张3（如果牌组还有）
+                const threeCard = game.deck.find(c => c.rank === 3);
+                if (threeCard) {
+                    game.myHand[minIdx] = threeCard;
+                    // 从牌组移除
+                    const deckIdx = game.deck.indexOf(threeCard);
+                    if (deckIdx > -1) game.deck.splice(deckIdx, 1);
+                } else {
+                    // 牌组没有3，从对手手牌中交换
+                    const oppThree = game.oppHand.find(c => c.rank === 3);
+                    if (oppThree) {
+                        const oppIdx = game.oppHand.indexOf(oppThree);
+                        game.oppHand[oppIdx] = minCard;
+                        game.myHand[minIdx] = oppThree;
+                    }
+                }
+                // 重新排序
+                game.myHand.sort((a, b) => a.rank - b.rank);
+                game.oppHand.sort((a, b) => a.rank - b.rank);
+            }
+        } else if (e.type === 'reshuffle') {
+            // 重新洗牌：合并两人手牌，重新分配（保持每人16张）
+            // 但为了公平，只洗自己的牌
+            // 更复杂：重新打乱所有手牌并重新分配
+            // 简单：交换玩家和对手手牌？不，随机重洗
+            const allCards = [...game.myHand, ...game.oppHand];
+            for (let i = allCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [allCards[i], allCards[j]] = [allCards[j], allCards[i]];
+            }
+            game.myHand = allCards.slice(0, 16);
+            game.oppHand = allCards.slice(16);
+            game.myHand.sort((a, b) => a.rank - b.rank);
+            game.oppHand.sort((a, b) => a.rank - b.rank);
+        }
+    }
+
+    // 同样处理对手的过去效果
+    if (effects.opp) {
+        const e = effects.opp;
+        if (e.type === 'force_3') {
+            const has3 = game.oppHand.some(c => c.rank === 3);
+            if (!has3) {
+                const minCard = game.oppHand.reduce((a, b) => a.rank < b.rank ? a : b);
+                const minIdx = game.oppHand.indexOf(minCard);
+                const threeCard = game.deck.find(c => c.rank === 3);
+                if (threeCard) {
+                    game.oppHand[minIdx] = threeCard;
+                    const deckIdx = game.deck.indexOf(threeCard);
+                    if (deckIdx > -1) game.deck.splice(deckIdx, 1);
+                } else {
+                    const myThree = game.myHand.find(c => c.rank === 3);
+                    if (myThree) {
+                        const myIdx = game.myHand.indexOf(myThree);
+                        game.myHand[myIdx] = minCard;
+                        game.oppHand[minIdx] = myThree;
+                    }
+                }
+                game.myHand.sort((a, b) => a.rank - b.rank);
+                game.oppHand.sort((a, b) => a.rank - b.rank);
+            }
+        } else if (e.type === 'reshuffle') {
+            const allCards = [...game.myHand, ...game.oppHand];
+            for (let i = allCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [allCards[i], allCards[j]] = [allCards[j], allCards[i]];
+            }
+            game.myHand = allCards.slice(0, 16);
+            game.oppHand = allCards.slice(16);
+            game.myHand.sort((a, b) => a.rank - b.rank);
+            game.oppHand.sort((a, b) => a.rank - b.rank);
+        }
+    }
 }
 
 function playerPlay() {
