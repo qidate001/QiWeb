@@ -296,6 +296,7 @@ class Game {
 
         this.myHand.sort((a, b) => a.rank - b.rank);
         this.oppHand.sort((a, b) => a.rank - b.rank);
+        this.deck = deck;  // 保存剩余未发的牌
     }
 }
 
@@ -791,11 +792,9 @@ function startGameAsHost() {
             // 命运之轮
             if (card.id === '10') {
                 if (!card.reversed) {
-                    myFutureEffect.type = 'high_weights';
-                    myFutureWeightMod = 1.3;   // ← 补上
+                    myPastEffect.type = 'reshuffle';
                 } else {
-                    myFutureEffect.type = 'gamble';
-                    myFutureWeightMod = 1.0;   // ← gamble 本身是随机的，weightMod 会在应用时被覆盖
+                    myPastEffect.type = 'force_3';
                 }
             }
             // 太阳
@@ -826,10 +825,9 @@ function startGameAsHost() {
             if (card.id === '10') {
                 if (!card.reversed) {
                     myFutureEffect.type = 'high_weights';
-                    myFutureWeightMod = 1.3;   // ← 补上
+                    myFutureWeightMod = 1.3;
                 } else {
                     myFutureEffect.type = 'gamble';
-                    myFutureWeightMod = 1.0;   // ← gamble 本身是随机的，weightMod 会在应用时被覆盖
                 }
             }
             if (card.id === '19') {
@@ -869,11 +867,9 @@ function startGameAsHost() {
             // 命运之轮
             if (card.id === '10') {
                 if (!card.reversed) {
-                    oppFutureEffect.type = 'high_weights';
-                    oppFutureWeightMod = 1.3;   // ← 补上
+                    oppPastEffect.type = 'reshuffle';
                 } else {
-                    oppFutureEffect.type = 'gamble';
-                    oppFutureWeightMod = 1.0;   // ← gamble 本身是随机的，weightMod 会在应用时被覆盖
+                    oppPastEffect.type = 'force_3';
                 }
             }
             // 太阳
@@ -904,10 +900,9 @@ function startGameAsHost() {
             if (card.id === '10') {
                 if (!card.reversed) {
                     oppFutureEffect.type = 'high_weights';
-                    oppFutureWeightMod = 1.3;   // ← 补上
+                    oppFutureWeightMod = 1.3;
                 } else {
                     oppFutureEffect.type = 'gamble';
-                    oppFutureWeightMod = 1.0;   // ← gamble 本身是随机的，weightMod 会在应用时被覆盖
                 }
             }
             if (card.id === '19') {
