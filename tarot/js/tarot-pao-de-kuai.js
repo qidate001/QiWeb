@@ -253,48 +253,43 @@ class Game {
     getSelectedCards() {
         return this.selectedIndices.map(i => this.myHand[i]);
     }
-    dealWithWeight(myWeight, oppWeight) {
-        // myWeight: 玩家的权重乘数（1.0 为正常）
-        // oppWeight: 对手的权重乘数
+    dealWithWeight(myWeight, oppWeight, myRandomness = 1.0, oppRandomness = 1.0) {
         this.myHand = [];
         this.oppHand = [];
 
-        // 构建完整牌组
         let deck = buildDeck();
         for (let i = deck.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [deck[i], deck[j]] = [deck[j], deck[i]];
         }
 
-        // 根据权重分配牌：权重越高，越可能拿到好牌
-        // 策略：先发基础牌，再用权重微调
-        // 为了简化，我们用权重影响抽牌时的"价值倾向"
-        // 对于每张牌，给一个"价值分"，权重高的玩家更容易拿到高分牌
-        
-        // 定义牌的价值分（rank越高分越高，但鬼牌特殊）
         const getCardValue = (card) => {
             if (card.isJoker) return card.rank; // 17,18
-            return card.rank; // 3~16
+            return card.rank;
         };
 
-        // 抽牌函数（带权重）
-        const drawWeighted = (weight) => {
+        const drawWeighted = (weight, randomness) => {
             if (deck.length === 0) return null;
-            // 权重影响：抽取前 weight 倍的概率偏向高分牌
-            // 实现：按权重对牌排序，然后随机抽取前 N 张中的一张
-            const sorted = [...deck].sort((a, b) => (getCardValue(b) - getCardValue(a)) * weight);
-            const poolSize = Math.max(1, Math.floor(deck.length * Math.min(1, weight / 2)));
-            const idx = Math.floor(Math.random() * Math.min(poolSize, sorted.length));
-            const card = sorted[idx];
-            const deckIdx = deck.indexOf(card);
+            // 对每张牌的价值加入随机扰动
+            const scored = deck.map(card => {
+                const base = getCardValue(card);
+                // 扰动范围：1 ± (randomness - 1) * 0.5
+                const factor = 1 + (Math.random() - 0.5) * (randomness - 0.8) * 2;
+                const adjusted = base * factor * weight;
+                return { card, score: adjusted };
+            });
+            scored.sort((a, b) => b.score - a.score);
+            const poolSize = Math.max(1, Math.floor(scored.length * Math.min(1, 1.0 / (weight * 0.8 + 0.2))));
+            const idx = Math.floor(Math.random() * Math.min(poolSize, scored.length));
+            const chosen = scored[idx].card;
+            const deckIdx = deck.indexOf(chosen);
             if (deckIdx > -1) deck.splice(deckIdx, 1);
-            return card;
+            return chosen;
         };
 
-        // 发牌：每人16张
         for (let i = 0; i < 16; i++) {
-            const myCard = drawWeighted(myWeight || 1.0);
-            const oppCard = drawWeighted(oppWeight || 1.0);
+            const myCard = drawWeighted(myWeight || 1.0, myRandomness || 1.0);
+            const oppCard = drawWeighted(oppWeight || 1.0, oppRandomness || 1.0);
             if (myCard) this.myHand.push(myCard);
             if (oppCard) this.oppHand.push(oppCard);
         }
@@ -315,6 +310,8 @@ let myPeerId = '';
 let isConnected = false;
 let nextFirstPlayer = ''; // 'me' 或 'opp'，用于下一局先手
 let nextRoundTarotEffect = null; // 存储未来塔罗牌效果，格式：{ cardId, reversed, player: 'me'|'opp' }
+let nextRoundRandomness = 1.0; // 默认 1.0（正常）
+let currentRandomness = 1.0;   // 当前局用
 let round = 1;
 let myWins = 0,
     oppWins = 0;
@@ -725,7 +722,7 @@ function startGameAsHost() {
     console.log('startGameAsHost 被调用');
     if (!isHost) return;
 
-    // ===== 🧪 测试模式：强制产生效果 =====
+    // ===== 🧪 调试模式：强制产生效果 =====
     // 取消注释下面任意一行，强制触发对应效果
 
     // 测试1：强制自己的过去抽到“命运之轮正位”（重新洗牌）
@@ -744,31 +741,31 @@ function startGameAsHost() {
     // ★ 检查是否有上一局的未来效果 ★
     let myWeight = 1.0;
     let oppWeight = 1.0;
+    let myRandomness = 1.0;
+    let oppRandomness = 1.0;
 
     if (nextRoundTarotEffect) {
         const effect = nextRoundTarotEffect;
         if (effect.player === 'me') {
-            if (effect.effect.type === 'high_weights') {
-                myWeight = 1.3; // 高牌权重增加
-            } else if (effect.effect.type === 'gamble') {
-                // 50%概率好牌，50%烂牌
-                if (Math.random() < 0.5) {
-                    myWeight = 1.3;
-                } else {
-                    myWeight = 0.7;
-                }
+            if (effect.effect.type === 'future_weight' || effect.effect.type === 'high_weights') {
+                myWeight = effect.weightMod;
+            } else if (effect.effect.type === 'future_weight_bad') {
+                myWeight = effect.weightMod;
+                myRandomness = effect.randomnessMod;
+            } else if (effect.effect.type === 'future_randomness') {
+                myRandomness = effect.randomnessMod;
             }
         } else if (effect.player === 'opp') {
-            if (effect.effect.type === 'high_weights') {
-                oppWeight = 1.3;
-            } else if (effect.effect.type === 'gamble') {
-                if (Math.random() < 0.5) {
-                    oppWeight = 1.3;
-                } else {
-                    oppWeight = 0.7;
-                }
+            if (effect.effect.type === 'future_weight' || effect.effect.type === 'high_weights') {
+                oppWeight = effect.weightMod;
+            } else if (effect.effect.type === 'future_weight_bad') {
+                oppWeight = effect.weightMod;
+                oppRandomness = effect.randomnessMod;
+            } else if (effect.effect.type === 'future_randomness') {
+                oppRandomness = effect.randomnessMod;
             }
         }
+
         // 清空，避免重复使用
         nextRoundTarotEffect = null;
     }
@@ -779,65 +776,206 @@ function startGameAsHost() {
     window._myTarot = myTarot;
     window._oppTarot = oppTarot;
 
-    // ★ 解析塔罗牌效果，计算发牌权重 ★
-    let myPastEffect = null;
-    let oppPastEffect = null;
-    let myFutureEffect = null;
-    let oppFutureEffect = null;
-
     // 解析我的塔罗牌
+    let myPastEffect = null;
+    let myFutureEffect = null;
+    let myWeightMod = 1.0;      // 过去权重调整
+    let myRandomnessMod = 1.0;  // 过去随机性调整
+    let myFutureWeightMod = 1.0;
+    let myFutureRandomnessMod = 1.0;
+
     myTarot.forEach((card, idx) => {
         const position = ['past', 'present', 'future'][idx];
         if (position === 'past') {
             myPastEffect = { cardId: card.id, reversed: card.reversed };
-            // 命运之轮 过去效果
+            // 命运之轮
             if (card.id === '10') {
                 if (!card.reversed) {
-                    // 正：随机重新洗牌（即再次打乱，但牌不变）
-                    // 这里我们用特殊标记，在发牌后执行
-                    myPastEffect.type = 'reshuffle';
+                    myFutureEffect.type = 'high_weights';
+                    myFutureWeightMod = 1.3;   // ← 补上
                 } else {
-                    // 逆：必定有一张3
-                    myPastEffect.type = 'force_3';
+                    myFutureEffect.type = 'gamble';
+                    myFutureWeightMod = 1.0;   // ← gamble 本身是随机的，weightMod 会在应用时被覆盖
                 }
+            }
+            // 太阳
+            if (card.id === '19') {
+                if (!card.reversed) {
+                    myWeightMod *= 1.25;
+                    // 对子概率下降（用随机性模拟，降低牌值集中度）
+                    myRandomnessMod *= 0.85;
+                } else {
+                    myWeightMod *= 0.70;
+                    myRandomnessMod *= 1.25;
+                }
+                myPastEffect.type = 'weight_random';
+            }
+            // 月亮
+            if (card.id === '18') {
+                if (!card.reversed) {
+                    myRandomnessMod *= 1.2;
+                } else {
+                    myRandomnessMod *= 0.8;
+                    // 烂牌概率提升（权重降低）
+                    myWeightMod *= 0.8;
+                }
+                myPastEffect.type = 'weight_random';
             }
         } else if (position === 'future') {
             myFutureEffect = { cardId: card.id, reversed: card.reversed };
             if (card.id === '10') {
                 if (!card.reversed) {
-                    // 正：高牌权重
                     myFutureEffect.type = 'high_weights';
+                    myFutureWeightMod = 1.3;   // ← 补上
                 } else {
-                    // 逆：50%好牌 50%烂牌
                     myFutureEffect.type = 'gamble';
+                    myFutureWeightMod = 1.0;   // ← gamble 本身是随机的，weightMod 会在应用时被覆盖
+                }
+            }
+            if (card.id === '19') {
+                if (!card.reversed) {
+                    myFutureEffect.type = 'future_weight';
+                    myFutureWeightMod = 1.25;
+                } else {
+                    myFutureEffect.type = 'future_weight_bad';
+                    myFutureWeightMod = 1.10;
+                    myFutureRandomnessMod = 0.8;
+                }
+            }
+            if (card.id === '18') {
+                if (!card.reversed) {
+                    myFutureEffect.type = 'future_randomness';
+                    myFutureRandomnessMod = 1.2;
+                } else {
+                    myFutureEffect.type = 'future_randomness';
+                    myFutureRandomnessMod = 0.8;
                 }
             }
         }
     });
 
-    // 同样解析对手的塔罗牌
+    // 解析对手的塔罗牌
+    let oppPastEffect = null;
+    let oppFutureEffect = null;
+    let oppWeightMod = 1.0;      // 过去权重调整
+    let oppRandomnessMod = 1.0;  // 过去随机性调整
+    let oppFutureWeightMod = 1.0;
+    let oppFutureRandomnessMod = 1.0;
+
     oppTarot.forEach((card, idx) => {
         const position = ['past', 'present', 'future'][idx];
         if (position === 'past') {
             oppPastEffect = { cardId: card.id, reversed: card.reversed };
+            // 命运之轮
             if (card.id === '10') {
                 if (!card.reversed) {
-                    oppPastEffect.type = 'reshuffle';
+                    oppFutureEffect.type = 'high_weights';
+                    oppFutureWeightMod = 1.3;   // ← 补上
                 } else {
-                    oppPastEffect.type = 'force_3';
+                    oppFutureEffect.type = 'gamble';
+                    oppFutureWeightMod = 1.0;   // ← gamble 本身是随机的，weightMod 会在应用时被覆盖
                 }
+            }
+            // 太阳
+            if (card.id === '19') {
+                if (!card.reversed) {
+                    oppWeightMod *= 1.25;
+                    // 对子概率下降（用随机性模拟，降低牌值集中度）
+                    oppRandomnessMod *= 0.85;
+                } else {
+                    oppWeightMod *= 0.70;
+                    oppRandomnessMod *= 1.25;
+                }
+                oppPastEffect.type = 'weight_random';
+            }
+            // 月亮
+            if (card.id === '18') {
+                if (!card.reversed) {
+                    oppRandomnessMod *= 1.2;
+                } else {
+                    oppRandomnessMod *= 0.8;
+                    // 烂牌概率提升（权重降低）
+                    oppWeightMod *= 0.8;
+                }
+                oppPastEffect.type = 'weight_random';
             }
         } else if (position === 'future') {
             oppFutureEffect = { cardId: card.id, reversed: card.reversed };
             if (card.id === '10') {
                 if (!card.reversed) {
                     oppFutureEffect.type = 'high_weights';
+                    oppFutureWeightMod = 1.3;   // ← 补上
                 } else {
                     oppFutureEffect.type = 'gamble';
+                    oppFutureWeightMod = 1.0;   // ← gamble 本身是随机的，weightMod 会在应用时被覆盖
+                }
+            }
+            if (card.id === '19') {
+                if (!card.reversed) {
+                    oppFutureEffect.type = 'future_weight';
+                    oppFutureWeightMod = 1.25;
+                } else {
+                    oppFutureEffect.type = 'future_weight_bad';
+                    oppFutureWeightMod = 1.10;
+                    oppFutureRandomnessMod = 0.8;
+                }
+            }
+            if (card.id === '18') {
+                if (!card.reversed) {
+                    oppFutureEffect.type = 'future_randomness';
+                    oppFutureRandomnessMod = 1.2;
+                } else {
+                    oppFutureEffect.type = 'future_randomness';
+                    oppFutureRandomnessMod = 0.8;
                 }
             }
         }
     });
+
+
+    // 检查我方的过去组合
+    const mySunPast = myTarot.some(c => c.id === '19' && myTarot.indexOf(c) === 0);
+    const myMoonPast = myTarot.some(c => c.id === '18' && myTarot.indexOf(c) === 0);
+    if (mySunPast && myMoonPast) {
+        const sunRev = myTarot.find(c => c.id === '19').reversed;
+        const moonRev = myTarot.find(c => c.id === '18').reversed;
+        if (!sunRev && !moonRev) {
+            // 正正：高价值牌 ×1.30
+            myWeightMod = 1.30;
+            myRandomnessMod = 1.0; // 重置其他随机性调整
+        } else if (sunRev && moonRev) {
+            // 逆逆：随机性 +30%
+            myRandomnessMod = 1.3;
+            myWeightMod = 1.0;
+        } else {
+            // 一正一逆：无效化所有过去效果
+            myWeightMod = 1.0;
+            myRandomnessMod = 1.0;
+            myPastEffect = null; // 清除过去效果
+        }
+    }
+
+    // 处理对手的组合
+    const oppSunPast = oppTarot.some(c => c.id === '19' && oppTarot.indexOf(c) === 0);
+    const oppMoonPast = oppTarot.some(c => c.id === '18' && oppTarot.indexOf(c) === 0);
+    if (oppSunPast && oppMoonPast) {
+        const sunRev = oppTarot.find(c => c.id === '19').reversed;
+        const moonRev = oppTarot.find(c => c.id === '18').reversed;
+        if (!sunRev && !moonRev) {
+            // 正正：高价值牌 ×1.30
+            oppWeightMod = 1.30;
+            oppRandomnessMod = 1.0; // 重置其他随机性调整
+        } else if (sunRev && moonRev) {
+            // 逆逆：随机性 +30%
+            oppRandomnessMod = 1.3;
+            oppWeightMod = 1.0;
+        } else {
+            // 一正一逆：无效化所有过去效果
+            oppWeightMod = 1.0;
+            oppRandomnessMod = 1.0;
+            oppPastEffect = null; // 清除过去效果
+        }
+    }
 
     // ★ 应用过去效果（当前局） ★
     // 存储效果供发牌使用
@@ -862,23 +1000,31 @@ function startGameAsHost() {
 
     // 检查是否有未来效果需要传递到下一局
     if (myFutureEffect) {
-        nextRoundTarotEffect = { player: 'me', effect: myFutureEffect };
+        nextRoundTarotEffect = {
+            player: 'me',
+            effect: myFutureEffect,
+            weightMod: myFutureWeightMod || 1.0,
+            randomnessMod: myFutureRandomnessMod || 1.0
+        };
     } else if (oppFutureEffect) {
-        nextRoundTarotEffect = { player: 'opp', effect: oppFutureEffect };
+        nextRoundTarotEffect = {
+            player: 'opp',
+            effect: oppFutureEffect,
+            weightMod: oppFutureWeightMod || 1.0,
+            randomnessMod: oppFutureRandomnessMod || 1.0
+        };
     }
 
-    // 应用权重：如果有未来效果且是 high_weights，当前局不受影响，下一局生效
-    // 所以当前局权重为1.0
-    // 但如果未来效果是 gamble，当前局也不受影响
-
-    // 但过去效果会影响当前局
-    // force_3: 发牌后注入一张3
-    // reshuffle: 发牌后重新洗牌（但牌不变）
+    // 最终权重和随机性
+    let myFinalWeight = myWeightMod;
+    let oppFinalWeight = oppWeightMod;
+    let myFinalRandomness = myRandomnessMod;
+    let oppFinalRandomness = oppRandomnessMod;
 
     // 执行发牌
-    game.dealWithWeight(myWeightFinal, oppWeightFinal);
+    game.dealWithWeight(myFinalWeight, oppFinalWeight, myFinalRandomness, oppFinalRandomness);
 
-    // ★ 应用过去效果到已发的手牌 ★
+    // 应用过去效果到已发的手牌
     applyPastEffect(pastEffects);
 
     // 使用 nextFirstPlayer 作为先手
