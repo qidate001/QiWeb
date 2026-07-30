@@ -10,20 +10,20 @@ const SUITS = [
 
 // 定义牌面：rank 用于比大小，imgId 用于图片名称
 const RANKS = [
-    { rank: 3,  label: '3',   imgId: '3' },
-    { rank: 4,  label: '4',   imgId: '4' },
-    { rank: 5,  label: '5',   imgId: '5' },
-    { rank: 6,  label: '6',   imgId: '6' },
-    { rank: 7,  label: '7',   imgId: '7' },
-    { rank: 8,  label: '8',   imgId: '8' },
-    { rank: 9,  label: '9',   imgId: '9' },
-    { rank: 10, label: '10',  imgId: '10' },
+    { rank: 3, label: '3', imgId: '3' },
+    { rank: 4, label: '4', imgId: '4' },
+    { rank: 5, label: '5', imgId: '5' },
+    { rank: 6, label: '6', imgId: '6' },
+    { rank: 7, label: '7', imgId: '7' },
+    { rank: 8, label: '8', imgId: '8' },
+    { rank: 9, label: '9', imgId: '9' },
+    { rank: 10, label: '10', imgId: '10' },
     { rank: 11, label: '侍从', imgId: '侍从' },
     { rank: 12, label: '骑士', imgId: '骑士' },   // 原 J
     { rank: 13, label: '皇后', imgId: '皇后' },   // 原 Q
     { rank: 14, label: '国王', imgId: '国王' },   // 原 K
-    { rank: 15, label: 'A',   imgId: '1' },      // Ace
-    { rank: 16, label: '2',   imgId: '2' }
+    { rank: 15, label: 'A', imgId: '1' },      // Ace
+    { rank: 16, label: '2', imgId: '2' }
 ];
 
 // 大阿卡纳（排除愚者 0 和世界 21）
@@ -180,7 +180,7 @@ class Game {
         if (n >= 4 && n % 2 === 0 && counts.every(c => c === 2)) {
             const sorted = uniqueRanks;
             const allValid = sorted.every(r => r >= 3 && r <= 16); // 允许2参与
-            if (allValid && sorted.length >= 2 && sorted[sorted.length-1] - sorted[0] === sorted.length - 1) {
+            if (allValid && sorted.length >= 2 && sorted[sorted.length - 1] - sorted[0] === sorted.length - 1) {
                 return { type: 'pair_straight', rank: sorted[0], size: n };
             }
         }
@@ -194,7 +194,7 @@ class Game {
 
                 // 情况1：标准顺子 3~15（不含2）
                 const range1 = sorted.every(r => r >= 3 && r <= 15);
-                if (range1 && sorted.length >= 5 && sorted[sorted.length-1] - sorted[0] === sorted.length-1) {
+                if (range1 && sorted.length >= 5 && sorted[sorted.length - 1] - sorted[0] === sorted.length - 1) {
                     valid = true;
                     resultRank = sorted[0];
                 }
@@ -210,7 +210,7 @@ class Game {
                     // 检查是否连续
                     let isConsecutive = true;
                     for (let i = 1; i < newRanks.length; i++) {
-                        if (newRanks[i] - newRanks[i-1] !== 1) {
+                        if (newRanks[i] - newRanks[i - 1] !== 1) {
                             isConsecutive = false;
                             break;
                         }
@@ -416,12 +416,12 @@ function renderPlay(cards, info, playType) {
     // 重新获取元素，确保不为 null
     const playCardsContainer = document.getElementById('playCards');
     const playInfoContainer = document.getElementById('playInfo');
-    
+
     if (!playCardsContainer) {
         console.error('playCards element not found');
         return;
     }
-    
+
     playCardsContainer.innerHTML = '';
     if (cards && cards.length > 0) {
         cards.forEach(c => {
@@ -430,7 +430,7 @@ function renderPlay(cards, info, playType) {
             playCardsContainer.appendChild(el);
         });
     }
-    
+
     let typeName = '';
     if (playType) {
         const typeMap = {
@@ -447,7 +447,7 @@ function renderPlay(cards, info, playType) {
         };
         typeName = typeMap[playType.type] || '';
     }
-    
+
     if (playInfoContainer) {
         playInfoContainer.textContent = (info || '') + (typeName ? ' (' + typeName + ')' : '');
     }
@@ -500,13 +500,20 @@ function renderTarot() {
     myLabel.textContent = '🃏 我';
     myContainer.appendChild(myLabel);
 
-    // 对手的塔罗牌
+    // ========== 对手的塔罗牌 ==========
     if (window._oppTarot && window._oppTarot.length === 3) {
         const positions = ['过去', '现在', '未来'];
         window._oppTarot.forEach((card, idx) => {
             const div = document.createElement('div');
             div.className = 'tarot-card-mini';
-            
+
+            // ★★★ 组合特效：检查对手的过去/未来是否激活 ★★★
+            if (window._tarotCombos && window._tarotCombos.opp &&
+                window._tarotCombos.opp.activeCards &&
+                window._tarotCombos.opp.activeCards.includes(card.id)) {
+                div.classList.add('tarot-combo-active');
+            }
+
             // 位置标签
             const pos = document.createElement('div');
             pos.className = 'tarot-position';
@@ -522,7 +529,6 @@ function renderTarot() {
                 if (card.reversed) {
                     img.style.transform = 'rotate(180deg)';
                 }
-                // 正逆位指示
                 const indicator = document.createElement('div');
                 indicator.className = card.reversed ? 'tarot-reverse-indicator' : 'tarot-upright-indicator';
                 indicator.textContent = card.reversed ? '逆位' : '正位';
@@ -537,7 +543,6 @@ function renderTarot() {
                 div.classList.add('face-down');
                 img.src = BACK_IMG;
                 img.alt = '牌背';
-                // 显示正逆位标签在背面
                 const indicator = document.createElement('div');
                 indicator.className = card.reversed ? 'tarot-reverse-indicator' : 'tarot-upright-indicator';
                 indicator.textContent = card.reversed ? '逆位' : '正位';
@@ -548,13 +553,20 @@ function renderTarot() {
         });
     }
 
-    // 自己的塔罗牌（全部正面）
+    // ========== 自己的塔罗牌 ==========
     if (window._myTarot && window._myTarot.length === 3) {
         const positions = ['过去', '现在', '未来'];
         window._myTarot.forEach((card, idx) => {
             const div = document.createElement('div');
             div.className = 'tarot-card-mini';
-            
+
+            // ★★★ 组合特效：检查自己的过去/未来是否激活 ★★★
+            if (window._tarotCombos && window._tarotCombos.my &&
+                window._tarotCombos.my.activeCards &&
+                window._tarotCombos.my.activeCards.includes(card.id)) {
+                div.classList.add('tarot-combo-active');
+            }
+
             const pos = document.createElement('div');
             pos.className = 'tarot-position';
             pos.textContent = positions[idx];
@@ -648,6 +660,18 @@ function handleData(data) {
                 window._myTarot = data.oppTarot;   // 客机自己的
                 window._oppTarot = data.myTarot;   // 对手的
                 game.currentPlayer = data.currentPlayer === 'me' ? 'opp' : 'me';
+
+                // 接收组合状态
+                window._tarotCombos = data.tarotCombos || { my: { past: false, future: false, activeCards: [] }, opp: { past: false, future: false, activeCards: [] } };
+                // 交换 my/opp
+                const tmpMy = window._tarotCombos.my;
+                const tmpOpp = window._tarotCombos.opp;
+                window._tarotCombos.my = { ...tmpOpp };
+                window._tarotCombos.opp = { ...tmpMy };
+                // 交换 activeCards
+                const tmpCards = window._tarotCombos.my.activeCards;
+                window._tarotCombos.my.activeCards = window._tarotCombos.opp.activeCards;
+                window._tarotCombos.opp.activeCards = tmpCards;
             } else {
                 game.myHand = data.myHand;
                 game.oppHand = data.oppHand;
@@ -713,7 +737,7 @@ function handleData(data) {
             break;
         }
         default: break;
-    } 
+    }
 }
 
 // ============================================================
@@ -851,7 +875,7 @@ function startGameAsHost() {
             }
         } else if (position === 'future') {
             myFutureEffect = { cardId: card.id, reversed: card.reversed };
-            
+
             // 命运之轮
             if (card.id === '10') {
                 if (!card.reversed) {
@@ -1068,11 +1092,11 @@ function startGameAsHost() {
 
 
     // 检查我方的过去组合
-    const myDevilPast = myTarot.some(c => c.id === '15' && myTarot.indexOf(c) === 0);
-    const myStarPast = myTarot.some(c => c.id === '17' && myTarot.indexOf(c) === 0);
-    const myMoonPast = myTarot.some(c => c.id === '18' && myTarot.indexOf(c) === 0);
-    const mySunPast = myTarot.some(c => c.id === '19' && myTarot.indexOf(c) === 0);
-    if (mySunPast && myMoonPast) {
+    const myHasDevil = myTarot.some(c => c.id === '15');
+    const myHasStar = myTarot.some(c => c.id === '17');
+    const myHasMoon = myTarot.some(c => c.id === '18');
+    const myHasSun = myTarot.some(c => c.id === '19');
+    if (myHasSun && myHasMoon) {
         const sunRev = myTarot.find(c => c.id === '19').reversed;
         const moonRev = myTarot.find(c => c.id === '18').reversed;
         if (!sunRev && !moonRev) {
@@ -1092,7 +1116,7 @@ function startGameAsHost() {
     }
 
     // 检查我方的过去组合：星星 + 月亮
-    if (myStarPast && myMoonPast) {
+    if (myHasStar && myHasMoon) {
         // 随机性+50%，高价值牌×1.25
         myRandomnessMod = 1.5;
         myWeightMod = 1.25;
@@ -1101,7 +1125,7 @@ function startGameAsHost() {
     }
 
     // 检查我方的过去组合：恶魔 + 太阳
-    if (myDevilPast && mySunPast) {
+    if (myHasDevil && myHasSun) {
         const devilRev = myTarot.find(c => c.id === '15').reversed;
         const sunRev = myTarot.find(c => c.id === '19').reversed;
         if (!devilRev && !sunRev) {
@@ -1123,9 +1147,7 @@ function startGameAsHost() {
     }
 
     // 检查我方的未来组合：恶魔 + 太阳
-    const myDevilFuture = myTarot.some(c => c.id === '15' && myTarot.indexOf(c) === 2);
-    const mySunFuture = myTarot.some(c => c.id === '19' && myTarot.indexOf(c) === 2);
-    if (myDevilFuture && mySunFuture) {
+    if (myHasDevil && myHasSun) {
         const devilRev = myTarot.find(c => c.id === '15').reversed;
         const sunRev = myTarot.find(c => c.id === '19').reversed;
         if (!devilRev && !sunRev) {
@@ -1153,11 +1175,11 @@ function startGameAsHost() {
     }
 
     // 处理对手的组合
-    const oppDevilPast = oppTarot.some(c => c.id === '15' && oppTarot.indexOf(c) === 0);
-    const oppStarPast = oppTarot.some(c => c.id === '17' && oppTarot.indexOf(c) === 0);
-    const oppMoonPast = oppTarot.some(c => c.id === '18' && oppTarot.indexOf(c) === 0);
-    const oppSunPast = oppTarot.some(c => c.id === '19' && oppTarot.indexOf(c) === 0);
-    if (oppSunPast && oppMoonPast) {
+    const oppHasDevil = oppTarot.some(c => c.id === '15');
+    const oppHasStar = oppTarot.some(c => c.id === '17');
+    const oppHasMoon = oppTarot.some(c => c.id === '18');
+    const oppHasSun = oppTarot.some(c => c.id === '19');
+    if (oppHasSun && oppHasMoon) {
         const sunRev = oppTarot.find(c => c.id === '19').reversed;
         const moonRev = oppTarot.find(c => c.id === '18').reversed;
         if (!sunRev && !moonRev) {
@@ -1177,14 +1199,14 @@ function startGameAsHost() {
     }
 
     // 检查对方的过去组合：星星 + 月亮
-    if (oppStarPast && oppMoonPast) {
+    if (oppHasStar && oppHasMoon) {
         oppRandomnessMod = 1.5;
         oppWeightMod = 1.25;
         oppPastEffect = null;
     }
 
     // 检查对方的未来组合：恶魔 + 太阳
-    if (oppDevilPast && oppSunPast) {
+    if (oppHasDevil && oppHasSun) {
         const devilRev = oppTarot.find(c => c.id === '15').reversed;
         const sunRev = oppTarot.find(c => c.id === '19').reversed;
         if (!devilRev && !sunRev) {
@@ -1206,9 +1228,7 @@ function startGameAsHost() {
     }
 
     // 检查对方的未来组合：恶魔 + 太阳
-    const oppDevilFuture = oppTarot.some(c => c.id === '15' && oppTarot.indexOf(c) === 2);
-    const oppSunFuture = oppTarot.some(c => c.id === '19' && oppTarot.indexOf(c) === 2);
-    if (oppDevilFuture && oppSunFuture) {
+    if (oppHasDevil && oppHasSun) {
         const devilRev = oppTarot.find(c => c.id === '15').reversed;
         const sunRev = oppTarot.find(c => c.id === '19').reversed;
         if (!devilRev && !sunRev) {
@@ -1234,6 +1254,60 @@ function startGameAsHost() {
             oppFutureEffect = null;
         }
     }
+
+    
+
+    // ===== 记录组合激活状态（用于特效） =====
+    window._tarotCombos = {
+        my: { past: false, future: false },
+        opp: { past: false, future: false }
+    };
+
+    // 检查我方的过去组合
+    if ((myHasDevil && myHasSun) || (myHasStar && myHasMoon) || (myHasSun && myHasMoon)) {
+        window._tarotCombos.my.past = true;
+    }
+    // 检查我方的未来组合
+    if (myHasDevil && myHasSun) {
+        window._tarotCombos.my.future = true;
+    }
+
+    // 检查对手的过去组合
+    if ((oppHasDevil && oppHasSun) || (oppHasStar && oppHasMoon) || (oppHasSun && oppHasMoon)) {
+        window._tarotCombos.opp.past = true;
+    }
+    // 检查对手的未来组合
+    if (oppHasDevil && oppHasSun) {
+        window._tarotCombos.opp.future = true;
+    }
+
+    // ===== 收集激活的牌ID（用于特效） =====
+    const myActiveCards = [];
+    if (myHasDevil && myHasSun) {
+        myActiveCards.push('15', '19');
+    }
+    if (myHasStar && myHasMoon) {
+        myActiveCards.push('17', '18');
+    }
+    if (myHasSun && myHasMoon) {
+        myActiveCards.push('19', '18');
+    }
+    window._tarotCombos.my.activeCards = [...new Set(myActiveCards)]; // 去重
+
+    // 对手
+    const oppActiveCards = [];
+    if (oppHasDevil && oppHasSun) {
+        oppActiveCards.push('15', '19');
+    }
+    if (oppHasStar && oppHasMoon) {
+        oppActiveCards.push('17', '18');
+    }
+    if (oppHasSun && oppHasMoon) {
+        oppActiveCards.push('19', '18');
+    }
+    window._tarotCombos.opp.activeCards = [...new Set(oppActiveCards)];
+
+
 
     // ★ 应用过去效果（当前局） ★
     // 存储效果供发牌使用
@@ -1316,7 +1390,8 @@ function startGameAsHost() {
         oppHand: game.oppHand,
         currentPlayer: first,
         myTarot: myTarot,
-        oppTarot: oppTarot
+        oppTarot: oppTarot,
+        tarotCombos: window._tarotCombos
     });
 
     setMessage('游戏开始！' + (game.isMyTurn ? '你先出牌' : '等待对手出牌'), 'info');

@@ -997,3 +997,60 @@ img {
         padding: 2px 0;
     }
 }
+
+
+
+/* ---------- 塔罗组合特效 ---------- */
+.tarot-card-mini.tarot-combo-active {
+    animation: comboPulse 1.8s ease-in-out infinite;
+    border-color: #ffd700 !important;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3), inset 0 0 30px rgba(255, 215, 0, 0.1);
+    z-index: 5;
+    position: relative;
+}
+
+/* 外发光旋转光环（伪元素） */
+.tarot-card-mini.tarot-combo-active::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 14px;
+    background: conic-gradient(from 0deg, #ffd700, #ff8c00, #ffd700, #ff8c00, #ffd700);
+    background-size: 200% 200%;
+    animation: borderRotate 3s linear infinite;
+    z-index: -1;
+    opacity: 0.8;
+    padding: 3px;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* 脉冲动画 */
+@keyframes comboPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+}
+
+/* 边框旋转 */
+@keyframes borderRotate {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .tarot-card-mini.tarot-combo-active::before {
+        inset: -4px;
+        border-radius: 10px;
+    }
+}
+@media (max-width: 480px) {
+    .tarot-card-mini.tarot-combo-active::before {
+        inset: -3px;
+        border-radius: 8px;
+    }
+}
