@@ -4,8 +4,8 @@
   "category": "零散系列",
   "difficulty": "★★★☆☆",
   "description": "沙滩急救车特殊款式",
-  "routeImage": "",
   "bilibiliVideo": "https://www.bilibili.com/video/BV1Ji42197Li",
+  "routeImage": "",
   "update_date": "2025-12-21",
   "variants": [
     {
@@ -14,15 +14,23 @@
       "specs": [
         {
           "label": "主色调",
-          "value": "未知"
+          "value": "冰雪白（不可见）",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "冰雪白（不可见）",
+          "isRare": false
         },
         {
           "label": "轮胎色",
-          "value": "无"
+          "value": "冰雪白（不可见）",
+          "isRare": false
         },
         {
           "label": "珠光",
-          "value": "无"
+          "value": "露珠黄",
+          "isRare": false
         }
       ],
       "properties": {
@@ -38,31 +46,43 @@
       "specs": [
         {
           "label": "主色调",
-          "value": "未知"
+          "value": "冰雪白（不可见）",
+          "isRare": false
         },
         {
           "label": "轮胎色",
-          "value": "无"
+          "value": "冰雪白（不可见）",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "冰雪白（不可见）",
+          "isRare": false
         },
         {
           "label": "珠光",
-          "value": "无"
+          "value": "露珠黄",
+          "isRare": false
         }
       ],
-      "accessory": "有前保险杠",
       "properties": {
         "入库情况": "直接入库",
         "获取难度": "★★★☆☆",
-        "收藏价值": "★☆☆☆☆",
+        "收藏价值": "★★☆☆☆",
         "车友会": "会掉配件"
-      }
+      },
+      "accessory": "有前保险杠"
     }
   ],
   "methods": [
     {
       "title": "暂无获取方法",
       "number": 0,
-      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+      "details": {},
+      "intro": "",
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦",
+      "noteLink": "",
+      "noteText": ""
     }
   ]
 }

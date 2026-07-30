@@ -5,6 +5,7 @@
   "difficulty": "★★☆☆☆",
   "description": "两款沙丘魔宝，其中铁皮款无特殊之处",
   "bilibiliVideo": "https://www.bilibili.com/video/BV123ADeEEAF",
+  "routeImage": "",
   "update_date": "2025-12-21",
   "variants": [
     {
@@ -13,24 +14,27 @@
       "specs": [
         {
           "label": "主色调",
-          "value": "无"
+          "value": "无",
+          "isRare": false
         },
         {
           "label": "轮胎色",
-          "value": "无"
+          "value": "Default Alloy",
+          "isRare": false
         },
         {
           "label": "珠光",
-          "value": "无"
+          "value": "无",
+          "isRare": false
         }
       ],
-      "accessory": "无前挡版",
       "properties": {
         "入库情况": "直接入库",
         "获取难度": "★☆☆☆☆",
         "收藏价值": "★★☆☆☆",
         "车友会": "完全继承"
-      }
+      },
+      "accessory": "无前挡版"
     },
     {
       "name": "铁皮款",
@@ -38,15 +42,18 @@
       "specs": [
         {
           "label": "主色调",
-          "value": "无"
+          "value": "无",
+          "isRare": false
         },
         {
           "label": "轮胎色",
-          "value": "无"
+          "value": "Default Alloy",
+          "isRare": false
         },
         {
           "label": "珠光",
-          "value": "无"
+          "value": "无",
+          "isRare": false
         }
       ],
       "properties": {
@@ -61,7 +68,11 @@
     {
       "title": "暂无获取方法",
       "number": 0,
-      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+      "details": {},
+      "intro": "",
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦",
+      "noteLink": "",
+      "noteText": ""
     }
   ]
 }

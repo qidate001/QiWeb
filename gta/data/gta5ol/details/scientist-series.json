@@ -4,8 +4,8 @@
   "category": "零散系列",
   "difficulty": "★☆☆☆☆",
   "description": "值得注意！屌客 科学家版是黑名单载具，绝对无法入库。",
-  "routeImage": "科学家系列_获取路线.png",
   "bilibiliVideo": "https://www.bilibili.com/video/BV1qB4y1B79j",
+  "routeImage": "科学家系列_获取路线.png",
   "update_date": "2025-11-24",
   "variants": [
     {
@@ -19,7 +19,8 @@
         },
         {
           "label": "轮胎色",
-          "value": "未知"
+          "value": "Default Alloy",
+          "isRare": false
         },
         {
           "label": "珠光",
@@ -45,7 +46,8 @@
         },
         {
           "label": "轮胎色",
-          "value": "未知"
+          "value": "Default Alloy",
+          "isRare": false
         },
         {
           "label": "珠光",
@@ -69,9 +71,10 @@
         "时间限制": "10:00 - 11:00",
         "天气限制": "大晴天"
       },
+      "intro": "时间限制",
       "description": "开着自己的载具来到起点。开往刷新点，行驶途中全程俯视或看向后方（卡视角，别看着刷新点就行）。刷新点可能会刷：2辆屌客 科学家版、2辆华盛顿 科学家版、1辆屌客 科学家版、1辆华盛顿 科学家版。",
-      "noteLink": "#",
-      "noteText": "相关注意事项请见：《卡视野》"
+      "noteLink": "10:00 - 11:00",
+      "noteText": "天气限制"
     }
   ]
 }
