@@ -229,5 +229,16 @@
     "bilibiliVideo": "",
     "coverImage": "军刀涡轮_1.png",
     "variantsCount": 2
+  },
+  {
+    "id": "改车王-守护星",
+    "name": "守护星",
+    "category": "改车王系列",
+    "difficulty": "★★☆☆☆",
+    "description": "特点出乎意料的守护星",
+    "update_date": "2026-07-30",
+    "bilibiliVideo": "",
+    "coverImage": "改车王守护星.png",
+    "variantsCount": 1
   }
 ]

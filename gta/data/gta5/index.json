@@ -207,5 +207,38 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1w6421V7pu",
     "coverImage": "sp-亚班尼-骑兵.png",
     "variantsCount": 1
+  },
+  {
+    "id": "ec2-red-卡林-入侵者",
+    "name": "EC2 Red 卡林 入侵者",
+    "category": "主线：珠宝店劫案",
+    "difficulty": "★★☆☆☆",
+    "description": "珠光随机但无稀有",
+    "update_date": "2026-07-30",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1Q1Nde7E84",
+    "coverImage": "ec2-red-卡林-入侵者.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec2-grey-lustered-亚班尼-华盛顿",
+    "name": "EC2 Grey/Lustered 亚班尼 华盛顿",
+    "category": "主线：珠宝店劫案",
+    "difficulty": "★★☆☆☆",
+    "description": "请填写描述",
+    "update_date": "2026-07-30",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1Q1Nde7E84",
+    "coverImage": "ec2-grey-lustered-亚班尼-华盛顿_1.png",
+    "variantsCount": 3
+  },
+  {
+    "id": "ec-dark-green-lustered-pp-ee-威皮-班森",
+    "name": "EC Dark Green/Lustered/PP/EE 威皮 班森",
+    "category": "主线：珠宝店劫案",
+    "difficulty": "★★★★★",
+    "description": "超稀有的高价值稀有载具！",
+    "update_date": "2026-07-30",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV18H4y1h7m8",
+    "coverImage": "ec-dark-green-lustered-pp-ee-威皮-班森.png",
+    "variantsCount": 1
   }
 ]

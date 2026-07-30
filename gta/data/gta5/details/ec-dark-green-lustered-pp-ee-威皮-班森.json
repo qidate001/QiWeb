@@ -1,0 +1,80 @@
+{
+  "id": "ec-dark-green-lustered-pp-ee-威皮-班森",
+  "name": "EC Dark Green/Lustered/PP/EE 威皮 班森",
+  "category": "主线：珠宝店劫案",
+  "difficulty": "★★★★★",
+  "description": "超稀有的高价值稀有载具！",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV18H4y1h7m8",
+  "routeImage": "",
+  "update_date": "2026-07-30",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec-dark-green-lustered-pp-ee-威皮-班森.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "哑光绿",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "金属暗银色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "磨损棕",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★★★"
+      },
+      "accessory": "特殊涂装：POP'S PILLS",
+      "explosion_data": [
+        2053223216,
+        "班森 (EC Dark Green/Lustered/PP/EE)",
+        {
+          "priColor": 128,
+          "secColor": 3,
+          "pearlColor": 114,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 3,
+          "plate": "88UXE247",
+          "mods": {},
+          "extras": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 0,
+            "7": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
