@@ -115,6 +115,7 @@ class Game {
         this.lastPlayer = null;    // 上一手出牌者 'me' 或 'opp'
         this.gameOver = false;
         this.isMyTurn = false;
+        this.isDealing = false;
         this.selectedIndices = [];
     }
     shuffle() {
@@ -384,32 +385,144 @@ function renderCard(card, faceUp = true, selected = false) {
     return slot;
 }
 
-function renderMyHand() {
+function renderMyHand(animate = false) {
+
     myHandEl.innerHTML = '';
+    const fragments = [];
+
+    
+    
+
     game.myHand.forEach((card, idx) => {
         const el = renderCard(card, true, game.selectedIndices.includes(idx));
+
         el.addEventListener('click', () => {
-            if (!game.isMyTurn || game.gameOver || !isConnected) return;
+            if (game.isDealing || !game.isMyTurn || game.gameOver || !isConnected) return;
             const idx2 = game.selectedIndices.indexOf(idx);
             if (idx2 > -1) {
                 game.selectedIndices.splice(idx2, 1);
             } else {
                 game.selectedIndices.push(idx);
             }
-            renderMyHand();
+            renderMyHand(); // 重新渲染
+            console.log('选中索引:', game.selectedIndices);
         });
+        // 先隐藏
+        el.style.opacity = '0';
+        el.style.transition = 'none';
         myHandEl.appendChild(el);
+        fragments.push({ el, idx, card });
     });
+
     myCountEl.textContent = game.myHand.length;
+
+    if (!animate) {
+        // 直接显示
+        fragments.forEach(({ el }) => { el.style.opacity = '1'; });
+        return;
+    }
+
+    // 获取牌桌中心（也可以指定位置）
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    // 等待布局稳定后获取每张牌的最终位置
+    requestAnimationFrame(() => {
+        const rects = fragments.map(({ el }) => el.getBoundingClientRect());
+
+        fragments.forEach(({ el, idx }, i) => {
+            const finalRect = rects[i];
+            const startX = centerX - finalRect.width / 2;
+            const startY = centerY - finalRect.height / 2;
+
+            // 设置起始位置（相对于最终位置偏移）
+            const dx = startX - finalRect.left;
+            const dy = startY - finalRect.top;
+            const rotation = (Math.random() - 0.5) * 60;
+            const scale = 0.3 + Math.random() * 0.3;
+
+            // 设置起始 transform
+            el.style.transform = `translate(${dx}px, ${dy}px) scale(${scale}) rotate(${rotation}deg)`;
+            el.style.opacity = '0';
+            // 强制回流
+            void el.offsetHeight;
+
+            // 开始过渡到最终位置
+            el.style.transition = `transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease`;
+            el.style.transitionDelay = `${i * 0.08}s`;
+            el.style.transform = 'translate(0, 0) scale(1) rotate(0deg)';
+            el.style.opacity = '1';
+        });
+
+        // 动画结束后清理过渡（避免影响后续交互）
+        const totalDelay = fragments.length * 0.08 + 0.8;
+        setTimeout(() => {
+            fragments.forEach(({ el }) => {
+                el.style.transition = '';
+                el.style.transitionDelay = '';
+                el.style.transform = '';
+                // 确保可见
+                el.style.opacity = '1';
+            });
+        }, totalDelay * 1000);
+    });
 }
 
-function renderOppHand() {
+function renderOppHand(animate = false) {
     oppHandEl.innerHTML = '';
-    game.oppHand.forEach((card) => {
+    const fragments = [];
+
+    game.oppHand.forEach((card, idx) => {
         const el = renderCard(card, false); // 背面
+        el.style.opacity = '0';
+        el.style.transition = 'none';
         oppHandEl.appendChild(el);
+        fragments.push({ el, idx });
     });
+
     oppCountEl.textContent = game.oppHand.length;
+
+    if (!animate) {
+        fragments.forEach(({ el }) => { el.style.opacity = '1'; });
+        return;
+    }
+
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    requestAnimationFrame(() => {
+        const rects = fragments.map(({ el }) => el.getBoundingClientRect());
+
+        fragments.forEach(({ el, idx }, i) => {
+            const finalRect = rects[i];
+            const startX = centerX - finalRect.width / 2;
+            const startY = centerY - finalRect.height / 2;
+
+            const dx = startX - finalRect.left;
+            const dy = startY - finalRect.top;
+            const rotation = (Math.random() - 0.5) * 60;
+            const scale = 0.3 + Math.random() * 0.3;
+
+            el.style.transform = `translate(${dx}px, ${dy}px) scale(${scale}) rotate(${rotation}deg)`;
+            el.style.opacity = '0';
+            void el.offsetHeight;
+
+            el.style.transition = `transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease`;
+            el.style.transitionDelay = `${i * 0.08}s`;
+            el.style.transform = 'translate(0, 0) scale(1) rotate(0deg)';
+            el.style.opacity = '1';
+        });
+
+        const totalDelay = fragments.length * 0.08 + 0.8;
+        setTimeout(() => {
+            fragments.forEach(({ el }) => {
+                el.style.transition = '';
+                el.style.transitionDelay = '';
+                el.style.transform = '';
+                el.style.opacity = '1';
+            });
+        }, totalDelay * 1000);
+    });
 }
 
 function renderPlay(cards, info, playType) {
@@ -453,16 +566,15 @@ function renderPlay(cards, info, playType) {
     }
 }
 
-function updateUI() {
-    renderMyHand();
-    renderOppHand();
+function updateUI(animate = false) {
+    renderMyHand(animate);
+    renderOppHand(animate);
     myWinsEl.textContent = myWins;
     oppWinsEl.textContent = oppWins;
     roundInfoEl.textContent = `第 ${round} 局`;
-    playBtn.disabled = !game.isMyTurn || game.gameOver || !isConnected;
-    // 过牌按钮：只有轮到自己的回合、游戏未结束、上一手牌存在且不是自己出的才能过牌
+    playBtn.disabled = !game.isMyTurn || game.gameOver || !isConnected || game.isDealing;
     const canPass = game.isMyTurn && !game.gameOver && isConnected && game.lastPlay && game.lastPlayer !== 'me';
-    passBtn.disabled = !canPass;
+    passBtn.disabled = !canPass || game.isDealing;
 }
 
 function setMessage(msg, type = 'info', flashType = null) {
@@ -686,7 +798,15 @@ function handleData(data) {
             game.gameOver = false;
             game.selectedIndices = [];
             setMessage('游戏开始！' + (game.isMyTurn ? '你先出牌' : '等待对手出牌'), 'info');
-            updateUI();
+            
+            game.isDealing = true;
+            updateUI(true);
+            const dealDuration = 16 * 0.08 + 0.8;
+            setTimeout(() => {
+                game.isDealing = false;
+                updateUI();
+            }, dealDuration * 1000);
+
             renderPlay(null, '');
             renderTarot();
             break;
@@ -1369,7 +1489,19 @@ function startGameAsHost() {
     });
 
     setMessage('游戏开始！' + (game.isMyTurn ? '你先出牌' : '等待对手出牌'), 'info');
-    updateUI();
+
+    // ---- 发牌动画 ----
+    game.isDealing = true;
+    updateUI(true); 
+    
+    // 触发动画
+    // 16张牌 * 0.08s + 0.8s = 2.08s
+    const dealDuration = 16 * 0.08 + 0.8;
+    setTimeout(() => {
+        game.isDealing = false;
+        updateUI(); // 刷新按钮状态
+    }, dealDuration * 1000);
+
     renderPlay(null, '');
     renderTarot();
 }
@@ -1596,6 +1728,10 @@ function drawTarotCardsForBoth() {
 
 function playerPass() {
     if (!game.isMyTurn || game.gameOver || !isConnected) return;
+    
+    // ★ 清空所有选中的牌
+    game.selectedIndices = [];
+    
     // 清空上一手牌（表示放弃）
     game.lastPlay = null;
     game.lastPlayer = null;

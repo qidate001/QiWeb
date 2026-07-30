@@ -1054,3 +1054,11 @@ img {
         border-radius: 8px;
     }
 }
+
+
+
+/* ---------- 发牌动画：牌从中央飞出 ---------- */
+.card-slot.dealing {
+    will-change: transform, opacity;
+    /* 初始状态由 JS 动态设置，transition 由 JS 触发 */
+}
