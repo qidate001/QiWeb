@@ -657,26 +657,24 @@ function handleData(data) {
                 game.oppHand = data.myHand;
 
                 // 交换塔罗牌
-                window._myTarot = data.oppTarot;   // 客机自己的
-                window._oppTarot = data.myTarot;   // 对手的
-                game.currentPlayer = data.currentPlayer === 'me' ? 'opp' : 'me';
-
-                // 接收组合状态
+                window._myTarot = data.oppTarot;
+                window._oppTarot = data.myTarot;
+                
+                // ★ 接收组合状态并交换 my/opp
                 window._tarotCombos = data.tarotCombos || { my: { past: false, future: false, activeCards: [] }, opp: { past: false, future: false, activeCards: [] } };
-                // 交换 my/opp
-                const tmpMy = window._tarotCombos.my;
-                const tmpOpp = window._tarotCombos.opp;
-                window._tarotCombos.my = { ...tmpOpp };
-                window._tarotCombos.opp = { ...tmpMy };
-                // 交换 activeCards
-                const tmpCards = window._tarotCombos.my.activeCards;
-                window._tarotCombos.my.activeCards = window._tarotCombos.opp.activeCards;
-                window._tarotCombos.opp.activeCards = tmpCards;
+                // 交换 my 和 opp
+                const tmpCombo = window._tarotCombos.my;
+                window._tarotCombos.my = window._tarotCombos.opp;
+                window._tarotCombos.opp = tmpCombo;
+
+                game.currentPlayer = data.currentPlayer === 'me' ? 'opp' : 'me';
             } else {
+                // 房主直接使用
                 game.myHand = data.myHand;
                 game.oppHand = data.oppHand;
                 window._myTarot = data.myTarot;
                 window._oppTarot = data.oppTarot;
+                window._tarotCombos = data.tarotCombos || { my: { past: false, future: false, activeCards: [] }, opp: { past: false, future: false, activeCards: [] } };
                 game.currentPlayer = data.currentPlayer;
             }
 
@@ -796,8 +794,7 @@ function startGameAsHost() {
     }
 
     // 生成塔罗牌
-    const myTarot = drawTarotCards();
-    const oppTarot = drawTarotCards();
+    const { myCards: myTarot, oppCards: oppTarot } = drawTarotCardsForBoth();
     window._myTarot = myTarot;
     window._oppTarot = oppTarot;
 
@@ -1258,53 +1255,46 @@ function startGameAsHost() {
     
 
     // ===== 记录组合激活状态（用于特效） =====
+    // window._tarotCombos = {
+    //     my: { activeCards: [] },
+    //     opp: { activeCards: [] }
+    // };
+
+    // // 检查我方的过去组合
+    // if ((myHasDevil && myHasSun) || (myHasStar && myHasMoon) || (myHasSun && myHasMoon)) {
+    //     window._tarotCombos.my.past = true;
+    // }
+    // // 检查我方的未来组合
+    // if (myHasDevil && myHasSun) {
+    //     window._tarotCombos.my.future = true;
+    // }
+
+    // // 检查对手的过去组合
+    // if ((oppHasDevil && oppHasSun) || (oppHasStar && oppHasMoon) || (oppHasSun && oppHasMoon)) {
+    //     window._tarotCombos.opp.past = true;
+    // }
+    // // 检查对手的未来组合
+    // if (oppHasDevil && oppHasSun) {
+    //     window._tarotCombos.opp.future = true;
+    // }
+
+    // ===== 记录组合激活状态（用于特效） =====
     window._tarotCombos = {
-        my: { past: false, future: false },
-        opp: { past: false, future: false }
+        my: { activeCards: [] },
+        opp: { activeCards: [] }
     };
 
-    // 检查我方的过去组合
-    if ((myHasDevil && myHasSun) || (myHasStar && myHasMoon) || (myHasSun && myHasMoon)) {
-        window._tarotCombos.my.past = true;
-    }
-    // 检查我方的未来组合
-    if (myHasDevil && myHasSun) {
-        window._tarotCombos.my.future = true;
-    }
-
-    // 检查对手的过去组合
-    if ((oppHasDevil && oppHasSun) || (oppHasStar && oppHasMoon) || (oppHasSun && oppHasMoon)) {
-        window._tarotCombos.opp.past = true;
-    }
-    // 检查对手的未来组合
-    if (oppHasDevil && oppHasSun) {
-        window._tarotCombos.opp.future = true;
-    }
-
-    // ===== 收集激活的牌ID（用于特效） =====
+    // 收集激活的牌ID
     const myActiveCards = [];
-    if (myHasDevil && myHasSun) {
-        myActiveCards.push('15', '19');
-    }
-    if (myHasStar && myHasMoon) {
-        myActiveCards.push('17', '18');
-    }
-    if (myHasSun && myHasMoon) {
-        myActiveCards.push('19', '18');
-    }
-    window._tarotCombos.my.activeCards = [...new Set(myActiveCards)]; // 去重
+    if (myHasDevil && myHasSun) { myActiveCards.push('15', '19'); }
+    if (myHasStar && myHasMoon) { myActiveCards.push('17', '18'); }
+    if (myHasSun && myHasMoon) { myActiveCards.push('19', '18'); }
+    window._tarotCombos.my.activeCards = [...new Set(myActiveCards)];
 
-    // 对手
     const oppActiveCards = [];
-    if (oppHasDevil && oppHasSun) {
-        oppActiveCards.push('15', '19');
-    }
-    if (oppHasStar && oppHasMoon) {
-        oppActiveCards.push('17', '18');
-    }
-    if (oppHasSun && oppHasMoon) {
-        oppActiveCards.push('19', '18');
-    }
+    if (oppHasDevil && oppHasSun) { oppActiveCards.push('15', '19'); }
+    if (oppHasStar && oppHasMoon) { oppActiveCards.push('17', '18'); }
+    if (oppHasSun && oppHasMoon) { oppActiveCards.push('19', '18'); }
     window._tarotCombos.opp.activeCards = [...new Set(oppActiveCards)];
 
 
@@ -1600,6 +1590,24 @@ function playerPlay() {
         return;
     }
     updateUI();
+}
+
+function drawTarotCardsForBoth() {
+    const shuffled = [...MAJOR_ARCANA];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    const selected = shuffled.slice(0, 6);
+    const myCards = selected.slice(0, 3).map(card => ({
+        ...card,
+        reversed: Math.random() < 0.5
+    }));
+    const oppCards = selected.slice(3, 6).map(card => ({
+        ...card,
+        reversed: Math.random() < 0.5
+    }));
+    return { myCards, oppCards };
 }
 
 function playerPass() {
