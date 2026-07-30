@@ -810,17 +810,6 @@ function startGameAsHost() {
                 }
                 myPastEffect.type = 'weight_random';
             }
-            // 月亮
-            if (card.id === '18') {
-                if (!card.reversed) {
-                    myRandomnessMod *= 1.2;
-                } else {
-                    myRandomnessMod *= 0.8;
-                    // 烂牌概率提升（权重降低）
-                    myWeightMod *= 0.8;
-                }
-                myPastEffect.type = 'weight_random';
-            }
             // 太阳
             if (card.id === '19') {
                 if (!card.reversed) {
@@ -832,6 +821,33 @@ function startGameAsHost() {
                     myRandomnessMod *= 1.25;
                 }
                 myPastEffect.type = 'weight_random';
+            }
+            // 月亮
+            if (card.id === '18') {
+                if (!card.reversed) {
+                    myRandomnessMod *= 1.2;
+                } else {
+                    myRandomnessMod *= 0.8;
+                    // 烂牌概率提升（权重降低）
+                    myWeightMod *= 0.8;
+                }
+                myPastEffect.type = 'weight_random';
+            }
+            // 恶魔
+            if (card.id === '15') {
+                if (!card.reversed) {
+                    // 正：高价值×1.25，单牌×1.25（高随机性）
+                    myWeightMod *= 1.25;
+                    myRandomnessMod *= 1.25;
+                } else {
+                    // 逆：低价值×0.85，组合×1.2（低随机性）
+                    myWeightMod *= 0.85;
+                    myRandomnessMod *= 0.80;
+                    // 炸弹概率×0.01，标记 noBomb
+                    if (!myPastEffect) myPastEffect = { type: 'weight_random' };
+                    myPastEffect.noBomb = true;
+                }
+                if (!myPastEffect) myPastEffect = { type: 'weight_random' };
             }
         } else if (position === 'future') {
             myFutureEffect = { cardId: card.id, reversed: card.reversed };
@@ -859,6 +875,17 @@ function startGameAsHost() {
                     myFutureRandomnessMod = 1.20;
                 }
             }
+            // 太阳
+            if (card.id === '19') {
+                if (!card.reversed) {
+                    myFutureEffect.type = 'future_weight';
+                    myFutureWeightMod = 1.25;
+                } else {
+                    myFutureEffect.type = 'future_weight_bad';
+                    myFutureWeightMod = 1.10;
+                    myFutureRandomnessMod = 0.8;
+                }
+            }
             // 月亮
             if (card.id === '18') {
                 if (!card.reversed) {
@@ -869,15 +896,27 @@ function startGameAsHost() {
                     myFutureRandomnessMod = 0.8;
                 }
             }
-            // 太阳
-            if (card.id === '19') {
+            // 恶魔
+            if (card.id === '15') {
                 if (!card.reversed) {
-                    myFutureEffect.type = 'future_weight';
-                    myFutureWeightMod = 1.25;
+                    // 正：下一局炸弹概率×1.5，若无炸弹则烂牌重发
+                    myFutureEffect = {
+                        type: 'future_bomb_boost',
+                        bombBoost: 1.5,
+                        reshuffleIfNoBomb: true,
+                        reshuffleParams: { weight: 0.7, randomness: 1.5 }
+                    };
+                    myFutureWeightMod = 1.5;
+                    myFutureRandomnessMod = 1.0;
                 } else {
-                    myFutureEffect.type = 'future_weight_bad';
-                    myFutureWeightMod = 1.10;
-                    myFutureRandomnessMod = 0.8;
+                    // 逆：低价值×1.15，高价值×1.15（权重1.15，极端）
+                    myFutureEffect = {
+                        type: 'future_weight',
+                        weightMod: 1.15,
+                        randomnessMod: 1.3
+                    };
+                    myFutureWeightMod = 1.15;
+                    myFutureRandomnessMod = 1.3;
                 }
             }
         }
@@ -915,17 +954,6 @@ function startGameAsHost() {
                 }
                 oppPastEffect.type = 'weight_random';
             }
-            // 月亮
-            if (card.id === '18') {
-                if (!card.reversed) {
-                    oppRandomnessMod *= 1.2;
-                } else {
-                    oppRandomnessMod *= 0.8;
-                    // 烂牌概率提升（权重降低）
-                    oppWeightMod *= 0.8;
-                }
-                oppPastEffect.type = 'weight_random';
-            }
             // 太阳
             if (card.id === '19') {
                 if (!card.reversed) {
@@ -937,6 +965,33 @@ function startGameAsHost() {
                     oppRandomnessMod *= 1.25;
                 }
                 oppPastEffect.type = 'weight_random';
+            }
+            // 月亮
+            if (card.id === '18') {
+                if (!card.reversed) {
+                    oppRandomnessMod *= 1.2;
+                } else {
+                    oppRandomnessMod *= 0.8;
+                    // 烂牌概率提升（权重降低）
+                    oppWeightMod *= 0.8;
+                }
+                oppPastEffect.type = 'weight_random';
+            }
+            // 恶魔
+            if (card.id === '15') {
+                if (!card.reversed) {
+                    // 正：高价值×1.25，单牌×1.25（高随机性）
+                    oppWeightMod *= 1.25;
+                    oppRandomnessMod *= 1.25;
+                } else {
+                    // 逆：低价值×0.85，组合×1.2（低随机性）
+                    oppWeightMod *= 0.85;
+                    oppRandomnessMod *= 0.80;
+                    // 炸弹概率×0.01，标记 noBomb
+                    if (!oppPastEffect) oppPastEffect = { type: 'weight_random' };
+                    oppPastEffect.noBomb = true;
+                }
+                if (!oppPastEffect) oppPastEffect = { type: 'weight_random' };
             }
         } else if (position === 'future') {
             oppFutureEffect = { cardId: card.id, reversed: card.reversed };
@@ -964,16 +1019,6 @@ function startGameAsHost() {
                     oppFutureRandomnessMod = 1.20;
                 }
             }
-            // 月亮
-            if (card.id === '18') {
-                if (!card.reversed) {
-                    oppFutureEffect.type = 'future_randomness';
-                    oppFutureRandomnessMod = 1.2;
-                } else {
-                    oppFutureEffect.type = 'future_randomness';
-                    oppFutureRandomnessMod = 0.8;
-                }
-            }
             // 太阳
             if (card.id === '19') {
                 if (!card.reversed) {
@@ -985,11 +1030,45 @@ function startGameAsHost() {
                     oppFutureRandomnessMod = 0.8;
                 }
             }
+            // 月亮
+            if (card.id === '18') {
+                if (!card.reversed) {
+                    oppFutureEffect.type = 'future_randomness';
+                    oppFutureRandomnessMod = 1.2;
+                } else {
+                    oppFutureEffect.type = 'future_randomness';
+                    oppFutureRandomnessMod = 0.8;
+                }
+            }
+            // 恶魔
+            if (card.id === '15') {
+                if (!card.reversed) {
+                    // 正：下一局炸弹概率×1.5，若无炸弹则烂牌重发
+                    oppFutureEffect = {
+                        type: 'future_bomb_boost',
+                        bombBoost: 1.5,
+                        reshuffleIfNoBomb: true,
+                        reshuffleParams: { weight: 0.7, randomness: 1.5 }
+                    };
+                    oppFutureWeightMod = 1.5;
+                    oppFutureRandomnessMod = 1.0;
+                } else {
+                    // 逆：低价值×1.15，高价值×1.15（权重1.15，极端）
+                    oppFutureEffect = {
+                        type: 'future_weight',
+                        weightMod: 1.15,
+                        randomnessMod: 1.3
+                    };
+                    oppFutureWeightMod = 1.15;
+                    oppFutureRandomnessMod = 1.3;
+                }
+            }
         }
     });
 
 
     // 检查我方的过去组合
+    const myDevilPast = myTarot.some(c => c.id === '15' && myTarot.indexOf(c) === 0);
     const myStarPast = myTarot.some(c => c.id === '17' && myTarot.indexOf(c) === 0);
     const myMoonPast = myTarot.some(c => c.id === '18' && myTarot.indexOf(c) === 0);
     const mySunPast = myTarot.some(c => c.id === '19' && myTarot.indexOf(c) === 0);
@@ -1021,7 +1100,60 @@ function startGameAsHost() {
         myPastEffect = null; // 因为组合效果已经覆盖了星星和月亮的单独效果
     }
 
+    // 检查我方的过去组合：恶魔 + 太阳
+    if (myDevilPast && mySunPast) {
+        const devilRev = myTarot.find(c => c.id === '15').reversed;
+        const sunRev = myTarot.find(c => c.id === '19').reversed;
+        if (!devilRev && !sunRev) {
+            // 正正：高价值×1.5，单牌×1.5，组合×0.425
+            myWeightMod = 1.5;
+            myRandomnessMod = 1.5;
+            myPastEffect = null; // 清除特殊效果
+        } else if (devilRev && sunRev) {
+            // 逆逆：低价值×0.425，组合×1.4，炸弹概率×0
+            myWeightMod = 0.425;
+            myRandomnessMod = 0.7;
+            myPastEffect = { type: 'weight_random', noBomb: true };
+        } else {
+            // 一正一逆：恢复默认
+            myWeightMod = 1.0;
+            myRandomnessMod = 1.0;
+            myPastEffect = null;
+        }
+    }
+
+    // 检查我方的未来组合：恶魔 + 太阳
+    const myDevilFuture = myTarot.some(c => c.id === '15' && myTarot.indexOf(c) === 2);
+    const mySunFuture = myTarot.some(c => c.id === '19' && myTarot.indexOf(c) === 2);
+    if (myDevilFuture && mySunFuture) {
+        const devilRev = myTarot.find(c => c.id === '15').reversed;
+        const sunRev = myTarot.find(c => c.id === '19').reversed;
+        if (!devilRev && !sunRev) {
+            // 正正：炸弹概率×0.85，若无炸弹则超级烂牌
+            myFutureEffect = {
+                type: 'future_bomb_boost',
+                bombBoost: 0.85,
+                reshuffleIfNoBomb: true,
+                reshuffleParams: { weight: 0.4, randomness: 1.8 }
+            };
+            myFutureWeightMod = 0.85;
+            myFutureRandomnessMod = 1.8;
+        } else if (devilRev && sunRev) {
+            // 逆逆：低价值×1.3，高价值×1.3
+            myFutureEffect = {
+                type: 'future_weight',
+                weightMod: 1.3,
+                randomnessMod: 1.5
+            };
+            myFutureWeightMod = 1.3;
+            myFutureRandomnessMod = 1.5;
+        } else {
+            myFutureEffect = null;
+        }
+    }
+
     // 处理对手的组合
+    const oppDevilPast = oppTarot.some(c => c.id === '15' && oppTarot.indexOf(c) === 0);
     const oppStarPast = oppTarot.some(c => c.id === '17' && oppTarot.indexOf(c) === 0);
     const oppMoonPast = oppTarot.some(c => c.id === '18' && oppTarot.indexOf(c) === 0);
     const oppSunPast = oppTarot.some(c => c.id === '19' && oppTarot.indexOf(c) === 0);
@@ -1044,11 +1176,63 @@ function startGameAsHost() {
         }
     }
 
-    // 星星 + 月亮
+    // 检查对方的过去组合：星星 + 月亮
     if (oppStarPast && oppMoonPast) {
         oppRandomnessMod = 1.5;
         oppWeightMod = 1.25;
         oppPastEffect = null;
+    }
+
+    // 检查对方的未来组合：恶魔 + 太阳
+    if (oppDevilPast && oppSunPast) {
+        const devilRev = oppTarot.find(c => c.id === '15').reversed;
+        const sunRev = oppTarot.find(c => c.id === '19').reversed;
+        if (!devilRev && !sunRev) {
+            // 正正：高价值×1.5，单牌×1.5，组合×0.425
+            oppWeightMod = 1.5;
+            oppRandomnessMod = 1.5;
+            oppPastEffect = null; // 清除特殊效果
+        } else if (devilRev && sunRev) {
+            // 逆逆：低价值×0.425，组合×1.4，炸弹概率×0
+            oppWeightMod = 0.425;
+            oppRandomnessMod = 0.7;
+            oppPastEffect = { type: 'weight_random', noBomb: true };
+        } else {
+            // 一正一逆：恢复默认
+            oppWeightMod = 1.0;
+            oppRandomnessMod = 1.0;
+            oppPastEffect = null;
+        }
+    }
+
+    // 检查对方的未来组合：恶魔 + 太阳
+    const oppDevilFuture = oppTarot.some(c => c.id === '15' && oppTarot.indexOf(c) === 2);
+    const oppSunFuture = oppTarot.some(c => c.id === '19' && oppTarot.indexOf(c) === 2);
+    if (oppDevilFuture && oppSunFuture) {
+        const devilRev = oppTarot.find(c => c.id === '15').reversed;
+        const sunRev = oppTarot.find(c => c.id === '19').reversed;
+        if (!devilRev && !sunRev) {
+            // 正正：炸弹概率×0.85，若无炸弹则超级烂牌
+            oppFutureEffect = {
+                type: 'future_bomb_boost',
+                bombBoost: 0.85,
+                reshuffleIfNoBomb: true,
+                reshuffleParams: { weight: 0.4, randomness: 1.8 }
+            };
+            oppFutureWeightMod = 0.85;
+            oppFutureRandomnessMod = 1.8;
+        } else if (devilRev && sunRev) {
+            // 逆逆：低价值×1.3，高价值×1.3
+            oppFutureEffect = {
+                type: 'future_weight',
+                weightMod: 1.3,
+                randomnessMod: 1.5
+            };
+            oppFutureWeightMod = 1.3;
+            oppFutureRandomnessMod = 1.5;
+        } else {
+            oppFutureEffect = null;
+        }
     }
 
     // ★ 应用过去效果（当前局） ★
@@ -1068,9 +1252,6 @@ function startGameAsHost() {
 
     // ★ 先正常发牌（权重默认1.0，后续再调整） ★
     game.shuffle(); // 洗牌准备
-    // 生成牌组并分配（由于 dealWithWeight 需要 deck，我们直接用 game.deal() 后再处理）
-    // 但为了支持权重，我们直接调用 dealWithWeight
-    // 如果未来有效果，会影响下一局，暂时忽略
 
     // 检查是否有未来效果需要传递到下一局
     if (myFutureEffect) {
@@ -1100,6 +1281,24 @@ function startGameAsHost() {
 
     // 应用过去效果到已发的手牌
     applyPastEffect(pastEffects);
+
+    // ★ 未来效果：炸弹检查与重发 ★
+    if (nextRoundTarotEffect && nextRoundTarotEffect.reshuffleIfNoBomb) {
+        const hasBomb = (hand) => {
+            const counts = {};
+            hand.forEach(c => counts[c.rank] = (counts[c.rank] || 0) + 1);
+            return Object.values(counts).some(v => v >= 4);
+        };
+        // 检查双方是否有炸弹
+        if (!hasBomb(game.myHand) && !hasBomb(game.oppHand)) {
+            const w = nextRoundTarotEffect.reshuffleParams?.weight || 0.4;
+            const r = nextRoundTarotEffect.reshuffleParams?.randomness || 1.8;
+            game.dealWithWeight(w, w, r, r);
+            // 注意：重发后，之前可能已应用的过去效果（如 force_3）会丢失，但 force_3 是在发牌后通过 applyPastEffect 处理的，所以我们需要重新应用？
+            // 但我们还没有调用 applyPastEffect，所以重发后再调用 applyPastEffect 即可。
+            // 所以把这段代码放在 applyPastEffect 之前，这样重发后还会执行 applyPastEffect。
+        }
+    }
 
     // 使用 nextFirstPlayer 作为先手
     const first = nextFirstPlayer || 'me';
@@ -1181,6 +1380,46 @@ function applyPastEffect(effects) {
             game.myHand.sort((a, b) => a.rank - b.rank);
             game.oppHand.sort((a, b) => a.rank - b.rank);
         }
+
+        if (e.noBomb) {
+            // 检查手牌是否有炸弹（四张相同）
+            const checkAndRemoveBomb = (hand) => {
+                const rankCount = {};
+                hand.forEach(c => rankCount[c.rank] = (rankCount[c.rank] || 0) + 1);
+                const bombRank = Object.keys(rankCount).find(r => rankCount[r] >= 4);
+                if (bombRank) {
+                    // 找到所有该 rank 的牌
+                    const indices = [];
+                    hand.forEach((c, i) => {
+                        if (c.rank === Number(bombRank)) indices.push(i);
+                    });
+                    // 取最后一张
+                    const idx = indices.pop();
+                    const bombCard = hand[idx];
+                    // 从牌组找一张不同 rank 的牌替换
+                    let replacement = game.deck.find(c => c.rank !== bombCard.rank);
+                    if (replacement) {
+                        hand[idx] = replacement;
+                        const deckIdx = game.deck.indexOf(replacement);
+                        if (deckIdx > -1) game.deck.splice(deckIdx, 1);
+                        // 将炸弹牌放回牌组
+                        game.deck.push(bombCard);
+                    } else {
+                        // 牌组没有不同 rank，从对方手牌交换
+                        const otherHand = (hand === game.myHand) ? game.oppHand : game.myHand;
+                        const otherIdx = otherHand.findIndex(c => c.rank !== bombCard.rank);
+                        if (otherIdx > -1) {
+                            const otherCard = otherHand[otherIdx];
+                            hand[idx] = otherCard;
+                            otherHand[otherIdx] = bombCard;
+                        }
+                    }
+                    // 重新排序
+                    hand.sort((a, b) => a.rank - b.rank);
+                }
+            };
+            checkAndRemoveBomb(game.myHand);
+        }
     }
 
     // 同样处理对手的过去效果
@@ -1217,6 +1456,47 @@ function applyPastEffect(effects) {
             game.oppHand = allCards.slice(16);
             game.myHand.sort((a, b) => a.rank - b.rank);
             game.oppHand.sort((a, b) => a.rank - b.rank);
+        }
+
+        // 在 applyPastEffect 中，处理完 force_3 和 reshuffle 之后，添加：
+        if (e.noBomb) {
+            // 检查手牌是否有炸弹（四张相同）
+            const checkAndRemoveBomb = (hand) => {
+                const rankCount = {};
+                hand.forEach(c => rankCount[c.rank] = (rankCount[c.rank] || 0) + 1);
+                const bombRank = Object.keys(rankCount).find(r => rankCount[r] >= 4);
+                if (bombRank) {
+                    // 找到所有该 rank 的牌
+                    const indices = [];
+                    hand.forEach((c, i) => {
+                        if (c.rank === Number(bombRank)) indices.push(i);
+                    });
+                    // 取最后一张
+                    const idx = indices.pop();
+                    const bombCard = hand[idx];
+                    // 从牌组找一张不同 rank 的牌替换
+                    let replacement = game.deck.find(c => c.rank !== bombCard.rank);
+                    if (replacement) {
+                        hand[idx] = replacement;
+                        const deckIdx = game.deck.indexOf(replacement);
+                        if (deckIdx > -1) game.deck.splice(deckIdx, 1);
+                        // 将炸弹牌放回牌组
+                        game.deck.push(bombCard);
+                    } else {
+                        // 牌组没有不同 rank，从对方手牌交换
+                        const otherHand = (hand === game.myHand) ? game.oppHand : game.myHand;
+                        const otherIdx = otherHand.findIndex(c => c.rank !== bombCard.rank);
+                        if (otherIdx > -1) {
+                            const otherCard = otherHand[otherIdx];
+                            hand[idx] = otherCard;
+                            otherHand[otherIdx] = bombCard;
+                        }
+                    }
+                    // 重新排序
+                    hand.sort((a, b) => a.rank - b.rank);
+                }
+            };
+            checkAndRemoveBomb(game.oppHand);
         }
     }
 }
