@@ -30,79 +30,11 @@ QiWeb 是一个多功能静态站点，聚合了作者个人作品与兴趣项�
 | └ 线下模式 | https://www.qidate001.com/gta/index.html?version=gta5 |
 | └ 线上模式 | https://www.qidate001.com/gta/index.html?version=gta5ol |
 | **QisToolkit3 官网** | https://www.qidate001.com/qistoolkit3/ |
+| └ 问身 问己 问心 | https://www.qidate001.com/qistoolkit3/survival-challenge-game/ |
 | **塔罗牌占卜** | https://www.qidate001.com/tarot |
 | **塔罗牌图鉴** | https://www.qidate001.com/tarot/tarot-gallery |
-
----
-
-<!-- ## 📁 项目结构
-
-```
-qiweb/
-├── .github/workflows/          # GitHub Actions 自动部署
-│   └── deploy.yml
-├── css/                        # 全局样式
-│   ├── index_style.css         # 首页样式
-│   ├── tarot.css               # 塔罗占卜样式
-│   ├── tarot-gallery.css       # 塔罗图鉴样式
-│   ├── docs-tarot.css          # 塔罗文档样式
-│   ├── contact.css             # 联系页样式
-│   ├── 404.css                 # 404 页面样式
-│   ├── style.css               # 基础通用样式
-│   └── gta5lo.css              # GTA 图鉴样式（兼容旧版）
-├── js/                         # 全局 JavaScript
-│   ├── tarot.js                # 塔罗占卜逻辑
-│   ├── tarot_config.js         # 塔罗牌配置数据
-│   └── config.js               # 站点通用配置
-├── images/                     # 站点公共图片资源
-│   ├── favicon.ico
-│   ├── tarot_cards/            # 塔罗牌全套 78 张牌面图片
-│   ├── QQ_*.png                # 联系 QQ 二维码
-│   └── QisToolkit3_GitHub_Issues.png
-├── docs/                       # 文档目录
-│   ├── tarot.html              # 塔罗牌免责声明
-│   ├── tarot-gallery.html      # 塔罗牌图鉴
-│   └── QisToolkit3_EULA.html   # 最终用户许可协议
-├── gta/                        # GTA5 稀有载具图鉴模块
-│   ├── index.html              # 图鉴首页（通过 ?version= 参数切换模式）
-│   ├── vehicles.html           # 车辆列表页
-│   ├── vehicle-detail.html     # 车辆详情页
-│   ├── admin.html              # 管理后台（本地使用）
-│   ├── admin-server.js         # 本地管理服务（Node.js）
-│   ├── 服务启动.bat            # 一键启动脚本
-│   ├── css/                    # 模块样式
-│   ├── js/                     # 模块脚本
-│   └── data/
-│       ├── config.json         # 数据源配置（gta5 / gta5ol）
-│       ├── gta5/               # 线下模式数据
-│       │   ├── vehicles.json   # 车辆索引
-│       │   ├── index.json      # 首页展示配置
-│       │   ├── images/         # 车辆截图
-│       │   └── details/        # 各车辆详情 JSON
-│       └── gta5ol/             # 线上模式数据（结构同 gta5/）
-├── qistoolkit3/                # QisToolkit3 官网
-│   ├── index.html              # 官网首页
-│   ├── home.html               # 项目主页
-│   ├── changelog.html          # 更新日志
-│   ├── files-operation.html    # 文件操作工具页
-│   ├── text-generate.html      # 文本生成工具页
-│   ├── text-generate-plus.html # 文本生成增强版
-│   ├── cleaning-up-trash.html  # 系统清理工具页
-│   ├── tools/                  # 工具集子页面
-│   ├── css/                    # 各页面样式
-│   ├── js/                     # 各页面脚本
-│   └── images/                 # 截图素材
-├── index.html                  # 网站首页
-├── about.html                  # 关于页面
-├── contact.html                # 联系方式
-├── tarot.html                  # 塔罗牌占卜页
-├── 404.html                    # 自定义 404 页面
-├── CNAME                       # 自定义域名 (www.qidate001.com)
-├── LICENSE                     # Apache 2.0 许可证
-└── .gitignore
-``` -->
-
-> ⚠️ `qistoolkit3/` 下的 `game-tools.html`、`options.html`、`strange-question-and-answer.html` 为规划中但尚未完成的模块，当前为占位文件。
+| **塔罗21点** | https://www.qidate001.com/tarot/tarot-blackjack |
+| **塔罗跑得快** | https://www.qidate001.com/tarot/tarot-pao-de-kuai |
 
 ---
 
@@ -123,11 +55,11 @@ qiweb/
 
 ### 线下模式 (`?version=gta5`)
 收录 GTA5 故事模式中可获取的稀有改装车辆，每辆车包含：
-- 车辆名称、品牌
-- 外观配色方案
-- 详细获取方式说明
-- 多角度实机截图
-- 改装部件数据
+- 车辆名称
+- 外观配色配件
+- 实机截图
+- 详细获取方式说明（大多给一个获取攻略视频）
+- 瞬间爆炸载具JSON
 
 ### 线上模式 (`?version=gta5ol`)
 收录 GTA5 线上模式中的稀有载具，包括：
@@ -159,10 +91,10 @@ QisToolkit3 是一款开源工具套件，官网位于 `/qistoolkit3/`，提供�
 | 页面 | 路径 | 功能 |
 |------|------|------|
 | 占卜页 | `/tarot` | 在线塔罗牌占卜体验，可抽取牌阵并查看释义 |
-| 图鉴页 | `/docs/tarot-gallery` | 完整 78 张塔罗牌面展示（含大阿尔卡纳 + 四组小阿尔卡纳） |
-| 免责声明 | `/docs/tarot` | 占卜服务声明与须知 |
+| 图鉴页 | `/tarot/docs/tarot-gallery` | 完整 78 张塔罗牌面展示（含大阿尔卡纳 + 四组小阿尔卡纳） |
+| 免责声明 | `/tarot/docs/tarot` | 占卜服务声明与须知 |
 
-塔罗牌图片资源位于 `/images/tarot_cards/`，共 78 张高清牌面。
+塔罗牌图片资源位于 `/tarot/images/tarot_cards/`，共 78 张高清牌面。
 
 ---
 
@@ -182,7 +114,7 @@ cd gta
 node admin-server.js
 ```
 
-启动后访问 `http://localhost:3000/admin.html` 即可进入管理后台，进行车辆数据的增删改查操作。
+启动后访问 `http://localhost:4867` 即可进入管理后台，进行车辆数据的增删改查操作。
 
 > ⚠️ 管理后台仅供管理员在本地使用，云端部署时仅暴露静态页面。数据修改需在本地完成后再提交部署。
 
@@ -232,4 +164,4 @@ npx serve .
 
 ---
 
-*最后更新：2026年7月*
+*最后更新：2026年7月30日*

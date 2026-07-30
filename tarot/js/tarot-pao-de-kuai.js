@@ -745,22 +745,6 @@ function startGameAsHost() {
     console.log('startGameAsHost 被调用');
     if (!isHost) return;
 
-    // ===== 🧪 调试模式：强制产生效果 =====
-    // 取消注释下面任意一行，强制触发对应效果
-
-    // 测试1：强制自己的过去抽到“命运之轮正位”（重新洗牌）
-    // window._FORCE_MY_PAST = { cardId: '10', reversed: false };
-
-    // 测试2：强制自己的过去抽到“命运之轮逆位”（必定有3）
-    // window._FORCE_MY_PAST = { cardId: '10', reversed: true };
-
-    // 测试3：强制自己的未来抽到“命运之轮正位”（高牌权重 1.3）
-    // window._FORCE_MY_FUTURE = { cardId: '10', reversed: false };
-
-    // 测试4：强制自己的未来抽到“命运之轮逆位”（50%好/烂）
-    // window._FORCE_MY_FUTURE = { cardId: '10', reversed: true };
-    // ==========================================
-
     // ★ 检查是否有上一局的未来效果 ★
     let myWeight = 1.0;
     let oppWeight = 1.0;
