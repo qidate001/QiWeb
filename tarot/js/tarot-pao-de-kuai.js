@@ -789,6 +789,7 @@ function startGameAsHost() {
         const position = ['past', 'present', 'future'][idx];
         if (position === 'past') {
             myPastEffect = { cardId: card.id, reversed: card.reversed };
+
             // 命运之轮
             if (card.id === '10') {
                 if (!card.reversed) {
@@ -797,15 +798,15 @@ function startGameAsHost() {
                     myPastEffect.type = 'force_3';
                 }
             }
-            // 太阳
-            if (card.id === '19') {
+            // 星星
+            if (card.id === '17') {
                 if (!card.reversed) {
-                    myWeightMod *= 1.25;
-                    // 对子概率下降（用随机性模拟，降低牌值集中度）
-                    myRandomnessMod *= 0.85;
+                    // 正：低价值牌转换概率×1.25，对子概率×1.10
+                    myWeightMod *= 1.10;
+                    myRandomnessMod *= 0.90;
                 } else {
-                    myWeightMod *= 0.70;
-                    myRandomnessMod *= 1.25;
+                    // 逆：随机性+35%
+                    myRandomnessMod *= 1.35;
                 }
                 myPastEffect.type = 'weight_random';
             }
@@ -820,8 +821,22 @@ function startGameAsHost() {
                 }
                 myPastEffect.type = 'weight_random';
             }
+            // 太阳
+            if (card.id === '19') {
+                if (!card.reversed) {
+                    myWeightMod *= 1.25;
+                    // 对子概率下降（用随机性模拟，降低牌值集中度）
+                    myRandomnessMod *= 0.85;
+                } else {
+                    myWeightMod *= 0.70;
+                    myRandomnessMod *= 1.25;
+                }
+                myPastEffect.type = 'weight_random';
+            }
         } else if (position === 'future') {
             myFutureEffect = { cardId: card.id, reversed: card.reversed };
+            
+            // 命运之轮
             if (card.id === '10') {
                 if (!card.reversed) {
                     myFutureEffect.type = 'high_weights';
@@ -830,6 +845,31 @@ function startGameAsHost() {
                     myFutureEffect.type = 'gamble';
                 }
             }
+            // 星星
+            if (card.id === '17') {
+                if (!card.reversed) {
+                    // 正：特殊组合概率×1.2
+                    myFutureEffect.type = 'future_weight';
+                    myFutureWeightMod = 1.10;
+                    myFutureRandomnessMod = 0.90;
+                } else {
+                    // 逆：烂牌概率×0.8，高价值牌×1.2
+                    myFutureEffect.type = 'future_weight_bad';
+                    myFutureWeightMod = 1.20;
+                    myFutureRandomnessMod = 1.20;
+                }
+            }
+            // 月亮
+            if (card.id === '18') {
+                if (!card.reversed) {
+                    myFutureEffect.type = 'future_randomness';
+                    myFutureRandomnessMod = 1.2;
+                } else {
+                    myFutureEffect.type = 'future_randomness';
+                    myFutureRandomnessMod = 0.8;
+                }
+            }
+            // 太阳
             if (card.id === '19') {
                 if (!card.reversed) {
                     myFutureEffect.type = 'future_weight';
@@ -837,15 +877,6 @@ function startGameAsHost() {
                 } else {
                     myFutureEffect.type = 'future_weight_bad';
                     myFutureWeightMod = 1.10;
-                    myFutureRandomnessMod = 0.8;
-                }
-            }
-            if (card.id === '18') {
-                if (!card.reversed) {
-                    myFutureEffect.type = 'future_randomness';
-                    myFutureRandomnessMod = 1.2;
-                } else {
-                    myFutureEffect.type = 'future_randomness';
                     myFutureRandomnessMod = 0.8;
                 }
             }
@@ -872,15 +903,15 @@ function startGameAsHost() {
                     oppPastEffect.type = 'force_3';
                 }
             }
-            // 太阳
-            if (card.id === '19') {
+            // 星星
+            if (card.id === '17') {
                 if (!card.reversed) {
-                    oppWeightMod *= 1.25;
-                    // 对子概率下降（用随机性模拟，降低牌值集中度）
-                    oppRandomnessMod *= 0.85;
+                    // 正：低价值牌转换概率×1.25，对子概率×1.10
+                    oppWeightMod *= 1.10;
+                    oppRandomnessMod *= 0.90;
                 } else {
-                    oppWeightMod *= 0.70;
-                    oppRandomnessMod *= 1.25;
+                    // 逆：随机性+35%
+                    oppRandomnessMod *= 1.35;
                 }
                 oppPastEffect.type = 'weight_random';
             }
@@ -895,8 +926,22 @@ function startGameAsHost() {
                 }
                 oppPastEffect.type = 'weight_random';
             }
+            // 太阳
+            if (card.id === '19') {
+                if (!card.reversed) {
+                    oppWeightMod *= 1.25;
+                    // 对子概率下降（用随机性模拟，降低牌值集中度）
+                    oppRandomnessMod *= 0.85;
+                } else {
+                    oppWeightMod *= 0.70;
+                    oppRandomnessMod *= 1.25;
+                }
+                oppPastEffect.type = 'weight_random';
+            }
         } else if (position === 'future') {
             oppFutureEffect = { cardId: card.id, reversed: card.reversed };
+
+            // 命运之轮
             if (card.id === '10') {
                 if (!card.reversed) {
                     oppFutureEffect.type = 'high_weights';
@@ -905,6 +950,31 @@ function startGameAsHost() {
                     oppFutureEffect.type = 'gamble';
                 }
             }
+            // 星星
+            if (card.id === '17') {
+                if (!card.reversed) {
+                    // 正：特殊组合概率×1.2
+                    oppFutureEffect.type = 'future_weight';
+                    oppFutureWeightMod = 1.10;
+                    oppFutureRandomnessMod = 0.90;
+                } else {
+                    // 逆：烂牌概率×0.8，高价值牌×1.2
+                    oppFutureEffect.type = 'future_weight_bad';
+                    oppFutureWeightMod = 1.20;
+                    oppFutureRandomnessMod = 1.20;
+                }
+            }
+            // 月亮
+            if (card.id === '18') {
+                if (!card.reversed) {
+                    oppFutureEffect.type = 'future_randomness';
+                    oppFutureRandomnessMod = 1.2;
+                } else {
+                    oppFutureEffect.type = 'future_randomness';
+                    oppFutureRandomnessMod = 0.8;
+                }
+            }
+            // 太阳
             if (card.id === '19') {
                 if (!card.reversed) {
                     oppFutureEffect.type = 'future_weight';
@@ -915,22 +985,14 @@ function startGameAsHost() {
                     oppFutureRandomnessMod = 0.8;
                 }
             }
-            if (card.id === '18') {
-                if (!card.reversed) {
-                    oppFutureEffect.type = 'future_randomness';
-                    oppFutureRandomnessMod = 1.2;
-                } else {
-                    oppFutureEffect.type = 'future_randomness';
-                    oppFutureRandomnessMod = 0.8;
-                }
-            }
         }
     });
 
 
     // 检查我方的过去组合
-    const mySunPast = myTarot.some(c => c.id === '19' && myTarot.indexOf(c) === 0);
+    const myStarPast = myTarot.some(c => c.id === '17' && myTarot.indexOf(c) === 0);
     const myMoonPast = myTarot.some(c => c.id === '18' && myTarot.indexOf(c) === 0);
+    const mySunPast = myTarot.some(c => c.id === '19' && myTarot.indexOf(c) === 0);
     if (mySunPast && myMoonPast) {
         const sunRev = myTarot.find(c => c.id === '19').reversed;
         const moonRev = myTarot.find(c => c.id === '18').reversed;
@@ -950,9 +1012,19 @@ function startGameAsHost() {
         }
     }
 
+    // 检查我方的过去组合：星星 + 月亮
+    if (myStarPast && myMoonPast) {
+        // 随机性+50%，高价值牌×1.25
+        myRandomnessMod = 1.5;
+        myWeightMod = 1.25;
+        // 清除单独效果（避免叠加）
+        myPastEffect = null; // 因为组合效果已经覆盖了星星和月亮的单独效果
+    }
+
     // 处理对手的组合
-    const oppSunPast = oppTarot.some(c => c.id === '19' && oppTarot.indexOf(c) === 0);
+    const oppStarPast = oppTarot.some(c => c.id === '17' && oppTarot.indexOf(c) === 0);
     const oppMoonPast = oppTarot.some(c => c.id === '18' && oppTarot.indexOf(c) === 0);
+    const oppSunPast = oppTarot.some(c => c.id === '19' && oppTarot.indexOf(c) === 0);
     if (oppSunPast && oppMoonPast) {
         const sunRev = oppTarot.find(c => c.id === '19').reversed;
         const moonRev = oppTarot.find(c => c.id === '18').reversed;
@@ -970,6 +1042,13 @@ function startGameAsHost() {
             oppRandomnessMod = 1.0;
             oppPastEffect = null; // 清除过去效果
         }
+    }
+
+    // 星星 + 月亮
+    if (oppStarPast && oppMoonPast) {
+        oppRandomnessMod = 1.5;
+        oppWeightMod = 1.25;
+        oppPastEffect = null;
     }
 
     // ★ 应用过去效果（当前局） ★
