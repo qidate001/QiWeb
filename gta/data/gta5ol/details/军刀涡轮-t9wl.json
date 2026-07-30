@@ -1,0 +1,148 @@
+{
+  "id": "军刀涡轮-t9wl",
+  "name": "军刀涡轮",
+  "category": "改车王系列",
+  "difficulty": "★★☆☆☆",
+  "description": "非常有特点的军刀涡轮",
+  "bilibiliVideo": "",
+  "routeImage": "",
+  "update_date": "2026-07-30",
+  "variants": [
+    {
+      "name": "绿色款",
+      "image": "军刀涡轮_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损海蚀绿",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "深蓝色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "无",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        2609945748,
+        "军刀涡轮 绿色",
+        {
+          "priColor": 60,
+          "secColor": 82,
+          "pearlColor": 0,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": 0,
+          "wheelType": 1,
+          "lowGripTyres": 0,
+          "plateIndex": 3,
+          "plate": "23VOB909",
+          "mods": {
+            "7": 3,
+            "15": 2,
+            "20": 0,
+            "22": 0,
+            "23": 16
+          },
+          "extras": {
+            "10": 1,
+            "11": 1
+          }
+        }
+      ]
+    },
+    {
+      "name": "红色款",
+      "image": "军刀涡轮_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "糖果红",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "帆船紫",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "都灵红",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "accessory": "氧气罐",
+      "explosion_data": [
+        2609945748,
+        "军刀涡轮 红色",
+        {
+          "priColor": 35,
+          "secColor": 72,
+          "pearlColor": 28,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": 0,
+          "wheelType": 1,
+          "lowGripTyres": 0,
+          "plateIndex": 3,
+          "plate": "43DTR488",
+          "mods": {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "4": 2,
+            "5": 0,
+            "6": 1,
+            "7": 4,
+            "15": 0,
+            "20": 0,
+            "22": 0,
+            "23": 6
+          },
+          "extras": {
+            "10": 1,
+            "11": 0
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

@@ -1,14 +1,14 @@
 [
   {
-    "id": "ec-orange-lustered-冒险家-野牛",
-    "name": "EC Orange/Lustered 冒险家 野牛",
+    "id": "ec-sliver-lustered-悠游-行者",
+    "name": "EC Sliver/Lustered 悠游 行者",
     "category": "主线：有借有还",
-    "difficulty": "★★★★☆",
-    "description": "有借有还任务可获取的稀有配色载具",
+    "difficulty": "★★☆☆☆",
+    "description": "开局西米恩车店可获取的稀有配色载具",
     "update_date": "2026-07-07",
-    "bilibiliVideo": "https://www.bilibili.com/video/BV1qT4y1b7SS",
-    "coverImage": "ec-orange-lustered-冒险家-野牛.png",
-    "variantsCount": 1
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1iQ4y1c78G",
+    "coverImage": "ec-sliver-lustered-悠游-行者_1.png",
+    "variantsCount": 2
   },
   {
     "id": "ec2-bright-red-lustered-贝飞特-施瓦泽",
@@ -22,15 +22,15 @@
     "variantsCount": 2
   },
   {
-    "id": "ec-sliver-lustered-悠游-行者",
-    "name": "EC Sliver/Lustered 悠游 行者",
+    "id": "ec-orange-lustered-冒险家-野牛",
+    "name": "EC Orange/Lustered 冒险家 野牛",
     "category": "主线：有借有还",
-    "difficulty": "★★☆☆☆",
-    "description": "开局西米恩车店可获取的稀有配色载具",
+    "difficulty": "★★★★☆",
+    "description": "有借有还任务可获取的稀有配色载具",
     "update_date": "2026-07-07",
-    "bilibiliVideo": "https://www.bilibili.com/video/BV1iQ4y1c78G",
-    "coverImage": "ec-sliver-lustered-悠游-行者_1.png",
-    "variantsCount": 2
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1qT4y1b7SS",
+    "coverImage": "ec-orange-lustered-冒险家-野牛.png",
+    "variantsCount": 1
   },
   {
     "id": "ec-green-lustered-冒险家-野牛",
@@ -151,6 +151,17 @@
     "update_date": "2026-07-20",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1yT4y147uT",
     "coverImage": "ec-white-and-blue-ec2-black-rims-赛柯尼-安旅者.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-white-ec2-black-rims-pp-ee-冒险家-野牛",
+    "name": "EC White/EC2 Black Rims/PP/EE 冒险家 野牛",
+    "category": "主线：婚姻咨询",
+    "difficulty": "★★★☆☆",
+    "description": "任务之前停在院子里面那辆缺失PP和EL属性，价值较低。",
+    "update_date": "2026-07-30",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1vK411h7no",
+    "coverImage": "ec-white-ec2-black-rims-pp-ee-冒险家-野牛.png",
     "variantsCount": 1
   },
   {

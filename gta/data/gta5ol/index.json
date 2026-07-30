@@ -207,5 +207,27 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1nd4beGEDc",
     "coverImage": "屌王_工业黑_1.png",
     "variantsCount": 2
+  },
+  {
+    "id": "街车系列-绝品卫士-i143",
+    "name": "街车系列 绝品卫士",
+    "category": "街车系列",
+    "difficulty": "★☆☆☆☆",
+    "description": "大街上经常能看见的",
+    "update_date": "2026-07-30",
+    "bilibiliVideo": "",
+    "coverImage": "街车_绝品卫士_白红.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "军刀涡轮-t9wl",
+    "name": "军刀涡轮",
+    "category": "改车王系列",
+    "difficulty": "★★☆☆☆",
+    "description": "非常有特点的军刀涡轮",
+    "update_date": "2026-07-30",
+    "bilibiliVideo": "",
+    "coverImage": "军刀涡轮_1.png",
+    "variantsCount": 2
   }
 ]
