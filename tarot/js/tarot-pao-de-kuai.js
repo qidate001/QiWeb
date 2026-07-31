@@ -600,115 +600,64 @@ function renderCard(card, faceUp = true, selected = false) {
     return slot;
 }
 
-function renderMyHand(animate = false) {
+/**
+ * 渲染指定玩家的手牌
+ * @param {string} playerId - 'me' 或 'opp'
+ * @param {boolean} animate - 是否播放动画
+ */
+function renderHand(playerId, animate = false) {
+    const player = game.players[playerId];
+    const container = document.getElementById(playerId === 'me' ? 'myHand' : 'oppHand');
+    const countEl = document.getElementById(playerId === 'me' ? 'myCount' : 'oppCount');
+    const isFaceUp = (playerId === 'me'); // 自己的牌正面，对手背面
 
-    myHandEl.innerHTML = '';
+    container.innerHTML = '';
     const fragments = [];
 
-    
-    
+    player.hand.forEach((card, idx) => {
+        // 只有自己的牌才能被选中
+        const selected = (playerId === 'me' && game.selectedIndices.includes(idx));
+        const el = renderCard(card, isFaceUp, selected);
 
-    game.players.me.hand.forEach((card, idx) => {
-        const el = renderCard(card, true, game.selectedIndices.includes(idx));
-
-        el.addEventListener('click', () => {
-            if (game.isDealing || !game.isMyTurn || game.gameOver || !isConnected) return;
-            const idx2 = game.selectedIndices.indexOf(idx);
-            if (idx2 > -1) {
-                game.selectedIndices.splice(idx2, 1);
-            } else {
-                game.selectedIndices.push(idx);
-            }
-            renderMyHand(); // 重新渲染
-            // console.log('选中索引:', game.selectedIndices);
-        });
-        // 先隐藏
-        el.style.opacity = '0';
-        el.style.transition = 'none';
-        myHandEl.appendChild(el);
-        fragments.push({ el, idx, card });
-    });
-
-    myCountEl.textContent = game.players.me.hand.length;
-
-    if (!animate) {
-        // 直接显示
-        fragments.forEach(({ el }) => { el.style.opacity = '1'; });
-        return;
-    }
-
-    // 获取牌桌中心（也可以指定位置）
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-
-    // 等待布局稳定后获取每张牌的最终位置
-    requestAnimationFrame(() => {
-        const rects = fragments.map(({ el }) => el.getBoundingClientRect());
-
-        fragments.forEach(({ el, idx }, i) => {
-            const finalRect = rects[i];
-            const startX = centerX - finalRect.width / 2;
-            const startY = centerY - finalRect.height / 2;
-
-            // 设置起始位置（相对于最终位置偏移）
-            const dx = startX - finalRect.left;
-            const dy = startY - finalRect.top;
-            const rotation = (Math.random() - 0.5) * 60;
-            const scale = 0.3 + Math.random() * 0.3;
-
-            // 设置起始 transform
-            el.style.transform = `translate(${dx}px, ${dy}px) scale(${scale}) rotate(${rotation}deg)`;
-            el.style.opacity = '0';
-            // 强制回流
-            void el.offsetHeight;
-
-            // 开始过渡到最终位置
-            el.style.transition = `transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease`;
-            el.style.transitionDelay = `${i * 0.08}s`;
-            el.style.transform = 'translate(0, 0) scale(1) rotate(0deg)';
-            el.style.opacity = '1';
-        });
-
-        // 动画结束后清理过渡（避免影响后续交互）
-        const totalDelay = fragments.length * 0.08 + 0.8;
-        setTimeout(() => {
-            fragments.forEach(({ el }) => {
-                el.style.transition = '';
-                el.style.transitionDelay = '';
-                el.style.transform = '';
-                // 确保可见
-                el.style.opacity = '1';
+        // 点击事件：只有自己的牌可以点击选择
+        if (playerId === 'me') {
+            el.addEventListener('click', () => {
+                if (game.isDealing || !game.isMyTurn || game.gameOver || !isConnected) return;
+                const idx2 = game.selectedIndices.indexOf(idx);
+                if (idx2 > -1) {
+                    game.selectedIndices.splice(idx2, 1);
+                } else {
+                    game.selectedIndices.push(idx);
+                }
+                // 重新渲染自己的手牌（不需要动画）
+                renderHand('me', false);
             });
-        }, totalDelay * 1000);
-    });
-}
+        }
 
-function renderOppHand(animate = false) {
-    oppHandEl.innerHTML = '';
-    const fragments = [];
-
-    game.players.opp.hand.forEach((card, idx) => {
-        const el = renderCard(card, false); // 背面
+        // 先隐藏，用于动画
         el.style.opacity = '0';
         el.style.transition = 'none';
-        oppHandEl.appendChild(el);
+        container.appendChild(el);
         fragments.push({ el, idx });
     });
 
-    oppCountEl.textContent = game.players.opp.hand.length;
+    // 更新计数
+    countEl.textContent = player.hand.length;
 
+    // 如果不需要动画，直接显示
     if (!animate) {
         fragments.forEach(({ el }) => { el.style.opacity = '1'; });
         return;
     }
 
+    // ---- 动画逻辑（从原 renderMyHand 复制，适配 container） ----
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
 
     requestAnimationFrame(() => {
         const rects = fragments.map(({ el }) => el.getBoundingClientRect());
 
-        fragments.forEach(({ el, idx }, i) => {
+        fragments.forEach(({ el }, i) => {
             const finalRect = rects[i];
             const startX = centerX - finalRect.width / 2;
             const startY = centerY - finalRect.height / 2;
@@ -782,8 +731,8 @@ function renderPlay(cards, info, playType) {
 }
 
 function updateUI(animate = false) {
-    renderMyHand(animate);
-    renderOppHand(animate);
+    renderHand('me', animate);
+    renderHand('opp', animate);
     myWinsEl.textContent = myWins;
     oppWinsEl.textContent = oppWins;
     roundInfoEl.textContent = `第 ${round} 局`;
