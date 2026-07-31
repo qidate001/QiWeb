@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🎴 塔罗跑得快 · 规则介绍</title>
+    <title>🎴 塔罗跑得快 · 规则大全</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
     <style>
         /* ===== 全局重置 & 背景 ===== */
@@ -47,11 +47,10 @@
             z-index: 0;
         }
 
-        /* ===== 主容器 ===== */
         .container {
             position: relative;
             z-index: 1;
-            max-width: 900px;
+            max-width: 1100px;
             width: 100%;
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(12px);
@@ -63,7 +62,6 @@
             margin: 20px auto;
         }
 
-        /* ===== 标题 ===== */
         .page-title {
             text-align: center;
             color: #ffd700;
@@ -91,7 +89,6 @@
             margin-bottom: 32px;
         }
 
-        /* ===== 章节 ===== */
         section {
             margin-bottom: 28px;
         }
@@ -110,6 +107,12 @@
             font-weight: 500;
             margin: 16px 0 8px;
             letter-spacing: 1px;
+        }
+        section h4 {
+            color: #b8a0c0;
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin: 12px 0 4px;
         }
         section p,
         section li {
@@ -151,56 +154,52 @@
             margin: 0 4px;
         }
 
-        /* ===== 牌型表格 ===== */
-        .type-table {
+        /* 牌效表格 */
+        .effect-table {
             width: 100%;
             border-collapse: collapse;
             margin: 12px 0 16px;
             background: rgba(0, 0, 0, 0.25);
             border-radius: 12px;
             overflow: hidden;
+            font-size: 0.95rem;
         }
-        .type-table th,
-        .type-table td {
-            padding: 10px 16px;
+        .effect-table th,
+        .effect-table td {
+            padding: 10px 14px;
             border: 1px solid rgba(255, 255, 255, 0.06);
             text-align: left;
+            vertical-align: top;
             color: #d8c8e0;
         }
-        .type-table th {
+        .effect-table th {
             background: rgba(255, 215, 0, 0.08);
             color: #ffd700;
             font-weight: 500;
             letter-spacing: 1px;
         }
-        .type-table td {
+        .effect-table td {
             background: rgba(0, 0, 0, 0.15);
         }
-
-        /* ===== 流程步骤 ===== */
-        .flow-step {
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-            margin-bottom: 12px;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 12px 16px;
-            border-radius: 12px;
-            border-left: 3px solid rgba(255, 215, 0, 0.2);
-        }
-        .flow-step .step-num {
-            flex-shrink: 0;
-            font-weight: 700;
-            font-size: 1.2rem;
+        .effect-table .card-name {
             color: #ffd700;
-            width: 28px;
-            text-align: right;
+            font-weight: 600;
         }
-        .flow-step .step-content {
-            flex: 1;
+        .effect-table .rev {
+            color: #ff7a7a;
+        }
+        .effect-table .upr {
+            color: #69f0ae;
         }
 
-        /* ===== 按钮 ===== */
+        .combo-box {
+            background: rgba(255, 215, 0, 0.04);
+            border-left: 3px solid #ffd700;
+            padding: 12px 18px;
+            margin: 8px 0 16px;
+            border-radius: 8px;
+        }
+
         .cta {
             text-align: center;
             margin-top: 30px;
@@ -250,7 +249,7 @@
             }
         }
 
-        /* ===== 响应式 ===== */
+        /* 响应式 */
         @media (max-width: 768px) {
             .container {
                 padding: 24px 20px;
@@ -268,17 +267,8 @@
             section li {
                 font-size: 0.95rem;
             }
-            .flow-step {
-                flex-direction: column;
-                gap: 4px;
-                padding: 10px 12px;
-            }
-            .flow-step .step-num {
-                text-align: left;
-                width: auto;
-            }
-            .type-table th,
-            .type-table td {
+            .effect-table th,
+            .effect-table td {
                 padding: 6px 10px;
                 font-size: 0.85rem;
             }
@@ -300,190 +290,362 @@
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <h1 class="page-title">塔罗跑得快</h1>
-        <p class="subhead">🎴 两人对战 · 谁先出完手中的牌谁获胜</p>
+    <h1 class="page-title">塔罗跑得快</h1>
+    <p class="subhead">🎴 塔罗牌与跑得快的完美融合 · 每局三张塔罗牌改变战局</p>
 
-        <!-- ==================== 游戏目标 ==================== -->
-        <section>
-            <h2>🎯 游戏目标</h2>
-            <p>你和对手各自持有 <span class="highlight">16 张</span> 塔罗牌（共 58 张牌，剩余 26 张弃置）。游戏轮流进行，每回合你可以选择 <span class="highlight-green">出牌</span> 或 <span class="highlight">过牌</span>。</p>
-            <p><span class="highlight">率先出完所有手牌</span> 的一方赢得该局胜利。多局累积胜场，先赢得指定局数者获得整场比赛胜利。</p>
-        </section>
+    <!-- ==================== 1. 游戏基础 ==================== -->
+    <section>
+        <h2>📖 游戏基础</h2>
+        <p><span class="highlight">塔罗跑得快</span> 是传统跑得快（争上游）与塔罗占卜元素的结合。游戏使用 <span class="highlight">58 张</span> 塔罗扑克牌（四元素各14张 + 愚者 + 世界），二人对战，先出完手牌者获胜。</p>
+        <p>每局开始前，双方各自从 <span class="highlight">20 张大阿卡纳</span>（1~20，不含愚者和世界）中抽取三张牌，分别代表 <span class="highlight">过去</span>、<span class="highlight">现在</span>、<span class="highlight">未来</span>。这些塔罗牌会触发各种特效，影响发牌、手牌乃至整局走向。</p>
+        <ul>
+            <li><strong>过去</strong>：效果 <span class="highlight">立即生效</span>，影响当前局的发牌或手牌。</li>
+            <li><strong>现在</strong>：暂未实装，留作未来扩展。</li>
+            <li><strong>未来</strong>：效果 <span class="highlight">下一局生效</span>，影响下一局的发牌权重或先手权。</li>
+        </ul>
+        <p>每张塔罗牌都有 <span class="upr">正位</span> 和 <span class="rev">逆位</span> 两种状态，效果完全不同。同场对局中，双方塔罗牌独立抽取，互不影响。</p>
+    </section>
 
-        <!-- ==================== 牌组构成 ==================== -->
-        <section>
-            <h2>🃏 牌组构成</h2>
-            <p>游戏使用一副 <span class="highlight">58 张</span> 的塔罗扑克牌，由四元素牌（小阿尔卡纳）和两张特殊牌组成：</p>
+    <!-- ==================== 2. 跑得快规则 ==================== -->
+    <section>
+        <h2>🃏 跑得快规则</h2>
+        <p>牌型与普通跑得快基本一致，大小顺序：<span class="highlight">3 &lt; 4 &lt; … &lt; 10 &lt; 侍从(P) &lt; 骑士(J) &lt; 皇后(Q) &lt; 国王(K) &lt; A &lt; 2 &lt; 愚者(小丑) &lt; 世界(大丑)</span></p>
+        <ul>
+            <li><strong>牌型</strong>：单张、对子、三张、顺子（≥5张，含A和2）、姊妹对（连续对子≥2对）、三带一、三带二、四带一、炸弹（四张相同）、鬼牌炸弹（愚者+世界）</li>
+            <li><strong>特殊</strong>：顺子中 A 可作为 1 使用，因此 <span class="highlight">A 2 3 4 5</span> 为合法顺子。</li>
+            <li><strong>胜负</strong>：先出完手牌者胜。每局胜者积1分，先获得2分者赢得整场比赛（三局两胜）。</li>
+        </ul>
+    </section>
+
+    <!-- ==================== 3. 塔罗牌效果总览 ==================== -->
+    <section>
+        <h2>🌟 塔罗牌效果大全</h2>
+        <p>以下列出所有 <span class="highlight">20 张大阿卡纳</span> 的过去、未来效果（正/逆位）。<br>
+        标记说明：<span class="upr">正位</span> 为绿色，<span class="rev">逆位</span> 为红色。效果数值为乘数，例如 “×1.3” 表示权重提升 30%。</p>
+
+        <!-- 1. 魔术师 -->
+        <h3>1. 魔术师 <span style="color:#ffd700;">✨</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">顺子概率 ×1.3</td><td class="rev">特殊组合 ×1.2，顺子 ×0.7</td></tr>
+            <tr><td>未来</td><td class="upr">补全顺子（若你有4张连续牌，从对方手牌借一张补齐）</td><td class="rev">高价值牌 ×1.3，烂牌</td></tr>
+        </table>
+
+        <!-- 2. 女祭司 -->
+        <h3>2. 女祭司 <span style="color:#b8a0c0;">🌙</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">随机性 −30%</td><td class="rev">随机性 +30%</td></tr>
+            <tr><td>未来</td><td class="upr">下一局随机性 −30%</td><td class="rev">下一局随机性 +30%</td></tr>
+        </table>
+
+        <!-- 3. 皇后 -->
+        <h3>3. 皇后 <span style="color:#ff69b4;">👑</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">同花色概率 ×2</td><td class="rev">特殊组合 ×0.75</td></tr>
+            <tr><td>未来</td><td class="upr">额外抽一张牌替换自己最小的牌</td><td class="rev">对子 ×0.7，顺子 ×1.3</td></tr>
+        </table>
+
+        <!-- 4. 皇帝 -->
+        <h3>4. 皇帝 <span style="color:#ffa500;">🏛️</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">对子 ×1.3，顺子 ×1.2</td><td class="rev">高价值 ×1.2，组合 ×0.8</td></tr>
+            <tr><td>未来</td><td class="upr">下一局随机性 −20%</td><td class="rev">本局每张高价值牌（≥10）使下一局随机性 +10%（最多 +60%）</td></tr>
+        </table>
+
+        <!-- 5. 教皇 -->
+        <h3>5. 教皇 <span style="color:#90ee90;">⛪</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">顺子 ×1.3，随机性 +30%</td><td class="rev">组合 ×1.3，随机性 −20%</td></tr>
+            <tr><td>未来</td><td class="upr">下一局好牌</td><td class="rev">下一局 50% 好牌，50% 烂牌</td></tr>
+        </table>
+
+        <!-- 6. 恋人 -->
+        <h3>6. 恋人 <span style="color:#ff6b81;">💕</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">同花 ×1.3，顺子 ×1.2，对子 ×1.15</td><td class="rev">顺子 ×0.7，特殊组合 ×1.3</td></tr>
+            <tr><td>未来</td><td class="upr">下一局顺子 ×1.3，特殊组合 ×0.7</td><td class="rev">下一局顺子 ×0.7，特殊组合 ×1.3</td></tr>
+        </table>
+
+        <!-- 7. 战车 -->
+        <h3>7. 战车 <span style="color:#87ceeb;">⚔️</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">高价值 ×1.2，若对方先手有 30% 概率抢夺先手</td><td class="rev">高价值 ×1.3，顺子 ×0.6</td></tr>
+            <tr><td>未来</td><td class="upr">下一局 50% 概率抢夺先手</td><td class="rev">若本局胜利，下一局随机性 +50%；若失败，下一局随机性 −50%</td></tr>
+        </table>
+
+        <!-- 8. 力量 -->
+        <h3>8. 力量 <span style="color:#ff6348;">🦁</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">低价值牌概率 ×0.7（即高价值提升）</td><td class="rev">高价值牌 ×1.2</td></tr>
+            <tr><td>未来</td><td class="upr">下一局好牌</td><td class="rev">下一局对方先手</td></tr>
+        </table>
+
+        <!-- 9. 隐者 -->
+        <h3>9. 隐者 <span style="color:#b0c4de;">🕯️</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">组合 ×1.3，顺子 ×0.7</td><td class="rev">组合 ×0.7，三条 ×1.3</td></tr>
+            <tr><td>未来</td><td class="upr">80% 好牌，20% 超级烂牌</td><td class="rev">80% 烂牌，20% 超级好牌</td></tr>
+        </table>
+
+        <!-- 10. 命运之轮 -->
+        <h3>10. 命运之轮 <span style="color:#ffd700;">🎡</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">重新洗牌（重新分配双方手牌）</td><td class="rev">必定获得一张 3</td></tr>
+            <tr><td>未来</td><td class="upr">下一局高牌权重 ×1.3</td><td class="rev">下一局 50% 好牌，50% 烂牌</td></tr>
+        </table>
+
+        <!-- 11. 正义 -->
+        <h3>11. 正义 <span style="color:#c0c0c0;">⚖️</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">若己方领先（分差 d），组合概率 × min(d×0.1+1, 2)；落后则 × (1 − min(d×0.1, 0.9))</td><td class="rev">若己方落后则同上增益，领先则减益（反向）</td></tr>
+            <tr><td>未来</td><td class="upr">下一局同上（基于当前分数差）</td><td class="rev">下一局同上（反向）</td></tr>
+        </table>
+
+        <!-- 12. 倒吊人 -->
+        <h3>12. 倒吊人 <span style="color:#9370db;">🙃</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">将自己最低价值牌与牌池中更高牌互换</td><td class="rev">强制让先手，且好牌</td></tr>
+            <tr><td>未来</td><td class="upr">下一局强制先手，随机性 +30%</td><td class="rev">下一局强制让先手，随机性 −30%</td></tr>
+        </table>
+
+        <!-- 13. 死神 -->
+        <h3>13. 死神 <span style="color:#ff0000;">💀</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">将自己的最低价值牌与对方随机一张牌互换</td><td class="rev">将自己的最高价值牌与对方随机一张牌互换</td></tr>
+            <tr><td>未来</td><td class="upr">下一局随机性 +30%</td><td class="rev">下一局延续本局过去效果</td></tr>
+        </table>
+
+        <!-- 14. 节制 -->
+        <h3>14. 节制 <span style="color:#add8e6;">🌊</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">顺子 ×1.3，对子 ×1.3，炸弹 ×0.5，三条 ×0.7</td><td class="rev">炸弹 ×1.3，三条 ×1.3，随机性 +88%</td></tr>
+            <tr><td>未来</td><td class="upr">低价值 ×0.7，高价值 ×1.3</td><td class="rev">下一局随机性 +128%</td></tr>
+        </table>
+
+        <!-- 15. 恶魔 -->
+        <h3>15. 恶魔 <span style="color:#8b0000;">👿</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">高价值 ×1.25，单牌 ×1.25</td><td class="rev">低价值 ×0.85，组合 ×1.2，炸弹概率 ×0.01</td></tr>
+            <tr><td>未来</td><td class="upr">炸弹概率 ×1.5，若无炸弹则烂牌重发</td><td class="rev">低价值 ×1.15，高价值 ×1.15</td></tr>
+        </table>
+
+        <!-- 16. 高塔 -->
+        <h3>16. 高塔 <span style="color:#ff4500;">🏰</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">随机性 +100%，高价值 ×1.3</td><td class="rev">随机性 +100%，对子 ×1.2，姊妹对 ×1.2</td></tr>
+            <tr><td>未来</td><td class="upr">下一局随机性 +100%，高价值 ×1.3</td><td class="rev">下一局随机性 +100%，低价值 ×1.3</td></tr>
+        </table>
+
+        <!-- 17. 星星 -->
+        <h3>17. 星星 <span style="color:#ffd700;">⭐</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">低价值牌转换概率 ×1.25，对子 ×1.10</td><td class="rev">随机性 +35%</td></tr>
+            <tr><td>未来</td><td class="upr">特殊组合 ×1.2</td><td class="rev">烂牌 ×0.8，高价值 ×1.2</td></tr>
+        </table>
+
+        <!-- 18. 月亮 -->
+        <h3>18. 月亮 <span style="color:#c0c0c0;">🌙</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">随机性 +20%</td><td class="rev">随机性 −20%，烂牌提升 ×0.8</td></tr>
+            <tr><td>未来</td><td class="upr">下一局随机性 +20%</td><td class="rev">下一局随机性 −20%</td></tr>
+        </table>
+
+        <!-- 19. 太阳 -->
+        <h3>19. 太阳 <span style="color:#ffd700;">☀️</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">高价值 ×1.25，对子 ×0.85</td><td class="rev">高价值 ×0.70，对子 ×1.25</td></tr>
+            <tr><td>未来</td><td class="upr">高价值 ×1.25</td><td class="rev">高价值 ×1.10，烂牌 ×0.8</td></tr>
+        </table>
+
+        <!-- 20. 审判 -->
+        <h3>20. 审判 <span style="color:#daa520;">📯</span></h3>
+        <table class="effect-table">
+            <tr><th>位置</th><th>正位</th><th>逆位</th></tr>
+            <tr><td>过去</td><td class="upr">将自己一张散牌与对方高价值牌互换</td><td class="rev">将自己高价值牌与对方一张散牌互换</td></tr>
+            <tr><td>未来</td><td class="upr">若对方有愚者/世界而自己没有，则用自己最大牌换对方愚者/世界</td><td class="rev">若自己有愚者/世界而对方没有，则用自己的愚者/世界换对方最大牌</td></tr>
+        </table>
+    </section>
+
+    <!-- ==================== 4. 组合效果 ==================== -->
+    <section>
+        <h2>🔮 组合效果（多张塔罗牌同时出现）</h2>
+        <p>当某些塔罗牌在同一方同时出现时，会触发更强大的组合效果，覆盖单牌效果。</p>
+
+        <div class="combo-box">
+            <h4>📌 太阳 + 月亮（过去）</h4>
             <ul>
-                <li><strong>四元素</strong>：权杖（♣）、圣杯（♥）、宝剑（♠）、星币（♦）</li>
-                <li>每个元素包含 <span class="highlight">14 张</span>：A（一）、2~10、P（侍从）、J（骑士）、Q（皇后）、K（国王）</li>
-                <li><strong>特殊牌</strong>：愚者（小丑）和世界（大丑）</li>
+                <li><span class="upr">正正</span>：高价值牌 ×1.30</li>
+                <li><span class="rev">逆逆</span>：随机性 +30%</li>
+                <li><span class="highlight">一正一逆</span>：无效化所有过去效果</li>
             </ul>
-            <p style="font-size:0.95rem; color:#8a7a9a;">💡 四元素牌的总点数为 14×4 = 56 张，加上 2 张鬼牌，共 58 张。</p>
-        </section>
-
-        <!-- ==================== 牌型与大小 ==================== -->
-        <section>
-            <h2>📊 牌型与大小</h2>
-            <p>跑得快中，牌型必须符合以下规则，且出牌时必须 <span class="highlight-red">大于</span> 上一手出的牌（同类型且张数相同）。</p>
-
-            <table class="type-table">
-                <thead>
-                    <tr>
-                        <th>牌型</th>
-                        <th>说明</th>
-                        <th>举例（塔罗牌名）</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><span class="highlight">单张</span></td>
-                        <td>任意一张牌</td>
-                        <td><span class="card-example">宝剑7</span>、<span class="card-example">圣杯国王</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="highlight">对子</span></td>
-                        <td>两张点数相同的牌</td>
-                        <td><span class="card-example">权杖9</span> + <span class="card-example">星币9</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="highlight">顺子</span></td>
-                        <td>至少 5 张连续点数的牌（不含 2 和鬼牌）</td>
-                        <td><span class="card-example">3,4,5,6,7</span>（各元素任意）</td>
-                    </tr>
-                    <tr>
-                        <td><span class="highlight">连对</span></td>
-                        <td>至少 3 对连续点数的对子（不含 2 和鬼牌）</td>
-                        <td><span class="card-example">3-3,4-4,5-5</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="highlight">三条</span></td>
-                        <td>三张点数相同的牌</td>
-                        <td><span class="card-example">权杖A</span> + <span class="card-example">圣杯A</span> + <span class="card-example">宝剑A</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="highlight">三带一</span></td>
-                        <td>三张相同点数 + 一张任意牌</td>
-                        <td><span class="card-example">三条7 + 单张4</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="highlight">炸弹</span></td>
-                        <td>四张点数相同的牌（可炸任何非炸弹牌型）</td>
-                        <td><span class="card-example">四张10</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="highlight">鬼牌炸弹</span></td>
-                        <td>愚者 + 世界（两张一起出，最大炸弹）</td>
-                        <td><span class="card-example">愚者 + 世界</span></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>📈 牌的大小顺序</h3>
-            <p>点数大小：<span class="highlight">3 &lt; 4 &lt; ... &lt; 10 &lt; J &lt; Q &lt; K &lt; A &lt; 2 &lt; 愚者（小丑）&lt; 世界（大丑）</span></p>
-            <p>其中 <span class="highlight-red">鬼牌炸弹（愚者+世界）</span> 是最大的牌型，任何其他牌型都打不过它。</p>
-            <p style="font-size:0.95rem; color:#8a7a9a;">💡 <strong>注意</strong>：顺子、连对、三带一只能打相同类型且张数相同的牌。炸弹可以炸任何非炸弹牌型，鬼牌炸弹最大。</p>
-        </section>
-
-        <!-- ==================== 特殊牌说明 ==================== -->
-        <section>
-            <h2>🎭 特殊牌：愚者 &amp; 世界</h2>
-            <ul>
-                <li><span class="highlight">愚者</span>（小丑）和 <span class="highlight">世界</span>（大丑）是两张独立的牌，它们不参与顺子、连对等组合。</li>
-                <li>它们可以当作 <span class="highlight-green">单张</span> 出牌，愚者比 2 大，世界比愚者大。</li>
-                <li>如果同时拥有这两张，可以一起出作为 <span class="highlight">鬼牌炸弹</span>，这是游戏中最强的牌型，任何牌都压不住。</li>
-                <li>注意：鬼牌炸弹不是四张相同，它是两张鬼牌组成的特殊炸弹，玩法上等同于“火箭”。</li>
-            </ul>
-        </section>
-
-        <!-- ==================== 游戏流程 ==================== -->
-        <section>
-            <h2>🔄 游戏流程</h2>
-
-            <div class="flow-step">
-                <div class="step-num">①</div>
-                <div class="step-content">
-                    <strong>建立连接</strong>：一位玩家创建房间（房主），另一位输入房间号加入。双方建立 P2P 连接。
-                </div>
-            </div>
-
-            <div class="flow-step">
-                <div class="step-num">②</div>
-                <div class="step-content">
-                    <strong>发牌</strong>：房主自动洗牌并分发每人 <span class="highlight">16 张</span>，剩余牌弃置。房主先出牌。
-                </div>
-            </div>
-
-            <div class="flow-step">
-                <div class="step-num">③</div>
-                <div class="step-content">
-                    <strong>出牌回合</strong>：当前玩家可以：
-                    <ul>
-                        <li><span class="highlight-green">出牌</span> —— 选择符合牌型的牌，点击“出牌”。必须大于上一手牌（若有）。</li>
-                        <li><span class="highlight">过牌</span> —— 如果当前无法或不愿出牌，点击“过牌”，将回合交给对方。</li>
-                    </ul>
-                    <p style="font-size:0.95rem; color:#8a7a9a;">💡 过牌后，上一手牌仍然有效，对方必须出更大的牌才能继续，直到双方都过牌则重新开始（上一手出牌者获得出牌权）。</p>
-                </div>
-            </div>
-
-            <div class="flow-step">
-                <div class="step-num">④</div>
-                <div class="step-content">
-                    <strong>胜负判定</strong>：当某位玩家出完手中所有牌时，该玩家获得本局胜利。然后自动开始下一局（房主重新发牌），直到达到设定的胜局数（默认 3 局 2 胜）结束整场比赛。
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== 胜负与计分 ==================== -->
-        <section>
-            <h2>🏆 胜负与计分</h2>
-            <ul>
-                <li>每局胜者得 <span class="highlight">1 分</span>，负者不得分。</li>
-                <li>比赛采用 <span class="highlight">三局两胜</span>，先获得 2 分者赢得整场比赛。</li>
-                <li>如果一局中出现平局（极少发生），则重开该局。</li>
-                <li>游戏过程中，顶部计分板会实时更新双方的胜场数。</li>
-            </ul>
-            <p style="font-size:0.95rem; color:#8a7a9a;">💡 只有房主可以点击“新游戏”重置比赛，重新发牌开始新的一局。</p>
-        </section>
-
-        <!-- ==================== 操作与交互 ==================== -->
-        <section>
-            <h2>🖱️ 操作与交互</h2>
-            <ul>
-                <li><strong>选择牌</strong>：点击手牌可选中/取消选中，被选中的牌会高亮并上浮。</li>
-                <li><strong>出牌</strong>：选中符合牌型的牌后，点击“出牌”按钮。</li>
-                <li><strong>过牌</strong>：若无法出牌或不想出，点击“过牌”按钮（只有上一手牌非自己出时才可过牌）。</li>
-                <li><strong>查看牌名</strong>：每张牌正面下方会显示牌名（如“权杖7”），方便识别。</li>
-                <li><strong>大字模式</strong>：左下角有“大字模式”按钮，点击后牌名文字会放大，便于阅读。</li>
-            </ul>
-        </section>
-
-        <!-- ==================== 策略小贴士 ==================== -->
-        <section>
-            <h2>🧠 策略小贴士</h2>
-            <ul>
-                <li><strong>先出小牌</strong>：尽量先出掉点数小的牌，保留大牌用于压制对手。</li>
-                <li><strong>控制顺子</strong>：拥有长顺时，可以考虑一次性出完，打乱对手节奏。</li>
-                <li><strong>炸弹要慎重</strong>：炸弹是扭转局势的关键，不要轻易浪费，最好在关键时刻使用。</li>
-                <li><strong>注意鬼牌</strong>：愚者和世界是单张中的王牌，如果能组合成鬼牌炸弹，几乎必胜，但也要小心对手也有炸弹。</li>
-                <li><strong>过牌策略</strong>：当你出牌后，如果对手过牌，你获得出牌权，可以重新选择出牌，这是改变节奏的机会。</li>
-            </ul>
-        </section>
-
-        <!-- ==================== 操作按钮 ==================== -->
-        <div class="cta">
-            <a href="../tarot-pao-de-kuai.html" class="btn">🎴 开始游戏</a>
-            <a href="../index.html" class="btn btn-secondary">🔮 返回占卜</a>
         </div>
 
-        <p style="text-align:center; margin-top:20px; color:#4a3a5a; font-size:0.8rem; letter-spacing:0.5px;">
-            ⚠️ 游戏仅供娱乐，所有牌型均为随机分配，不具备科学依据。
-        </p>
+        <div class="combo-box">
+            <h4>📌 星星 + 月亮（过去）</h4>
+            <ul>
+                <li>随机性 +50%，高价值牌 ×1.25</li>
+            </ul>
+        </div>
 
+        <div class="combo-box">
+            <h4>📌 恶魔 + 太阳（过去）</h4>
+            <ul>
+                <li><span class="upr">正正</span>：高价值 ×1.5，单牌 ×1.5，组合 ×0.425</li>
+                <li><span class="rev">逆逆</span>：低价值 ×0.425，组合 ×1.4，炸弹概率 ×0</li>
+                <li><span class="highlight">一正一逆</span>：恢复默认</li>
+            </ul>
+        </div>
+
+        <div class="combo-box">
+            <h4>📌 恶魔 + 太阳（未来）</h4>
+            <ul>
+                <li><span class="upr">正正</span>：炸弹概率 ×0.85，若无炸弹则超级烂牌重发</li>
+                <li><span class="rev">逆逆</span>：低价值 ×1.3，高价值 ×1.3</li>
+                <li><span class="highlight">一正一逆</span>：无特别效果，恢复默认</li>
+            </ul>
+        </div>
+
+        <div class="combo-box">
+            <h4>📌 皇帝 + 女皇（过去）</h4>
+            <ul>
+                <li>顺子概率 ×1.2，同花色概率 ×2</li>
+            </ul>
+        </div>
+
+        <div class="combo-box">
+            <h4>📌 魔术师 + 女祭司（过去）</h4>
+            <ul>
+                <li>若对方单独拥有愚者，则你获得世界（替换最小牌）</li>
+                <li>若对方单独拥有世界，则你获得愚者（替换最小牌）</li>
+                <li>若对方同时拥有愚者和世界，则你获得一张2（替换最小牌，若已有4张2则无效）</li>
+            </ul>
+        </div>
+
+        <div class="combo-box">
+            <h4>📌 隐者 + 女祭司（未来）</h4>
+            <ul>
+                <li><span class="upr">正正</span>：50% 好牌，50% 超级烂牌</li>
+                <li><span class="rev">逆逆</span>：50% 烂牌，50% 超级好牌</li>
+                <li><span class="highlight">一正一逆</span>：50% 烂牌，50% 好牌</li>
+            </ul>
+        </div>
+
+        <div class="combo-box">
+            <h4>📌 倒吊人 + 恶魔（未来）</h4>
+            <ul>
+                <li><span class="upr">正正</span>：炸弹概率 ×1.5，若无炸弹则好牌重发</li>
+                <li><span class="rev">逆逆</span>：低价值 ×1.2，高价值 ×1.2</li>
+                <li><span class="highlight">一正一逆</span>：炸弹概率 ×1.3</li>
+            </ul>
+        </div>
+
+        <div class="combo-box">
+            <h4>📌 倒吊人 + 死神（过去）</h4>
+            <ul>
+                <li>随机将三张非愚者/世界牌，更换为三条（优先从牌池换，不够从对手换）</li>
+            </ul>
+        </div>
+
+        <div class="combo-box">
+            <h4>📌 恋人 + 恶魔（过去）</h4>
+            <ul>
+                <li>互换双方的高价值牌（各取最大牌交换）</li>
+            </ul>
+        </div>
+
+        <div class="combo-box">
+            <h4>📌 恋人 + 魔术师（过去）</h4>
+            <ul>
+                <li>用双方的散牌为对方补成对子（若有相同rank的散牌，各取一张交换）</li>
+            </ul>
+        </div>
+
+        <div class="combo-box">
+            <h4>📌 战车 + 力量（过去）</h4>
+            <ul>
+                <li>低价值牌概率 ×0.7，高价值牌概率 ×1.3，若对方先手则有50%概率抢为先手</li>
+            </ul>
+        </div>
+
+        <div class="combo-box">
+            <h4>📌 皇帝 + 教皇（未来）</h4>
+            <ul>
+                <li>下一局 80% 概率超级好牌，20% 概率超级烂牌</li>
+            </ul>
+        </div>
+
+        <div class="combo-box">
+            <h4>📌 节制 + 恶魔（未来）</h4>
+            <ul>
+                <li>下一局炸弹概率 ×1.4</li>
+            </ul>
+        </div>
+
+        <div class="combo-box">
+            <h4>📌 太阳 + 月亮 + 星星（过去）</h4>
+            <ul>
+                <li>高价值牌 ×1.3，低价值牌 ×1.3，顺子 ×1.3，对子 ×1.3，随机性 −20%</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ==================== 5. 术语解释 ==================== -->
+    <section>
+        <h2>📚 术语解释</h2>
+        <ul>
+            <li><strong>权重</strong>：影响发牌时抽到高价值牌的概率，数值越大越容易拿到大牌。</li>
+            <li><strong>随机性</strong>：牌堆的离散程度。随机性越高，牌的质量波动越大（要么极好，要么极烂）。</li>
+            <li><strong>好牌</strong>：一般指权重提升且随机性降低，手牌质量整体较高。</li>
+            <li><strong>烂牌</strong>：权重降低或随机性极高，手牌整体较差。</li>
+            <li><strong>超级好牌/超级烂牌</strong>：极端情况，几乎全是高价值或低价值牌。</li>
+            <li><strong>特殊组合</strong>：顺子、姊妹对、三条、三带、炸弹等非单张/对子牌型。</li>
+            <li><strong>高价值牌</strong>：通常指 rank ≥ 10 的牌（10、侍从、骑士、皇后、国王、A、2）。</li>
+            <li><strong>低价值牌</strong>：rank 3~9。</li>
+        </ul>
+    </section>
+
+    <!-- ==================== 6. 策略提示 ==================== -->
+    <section>
+        <h2>🧠 策略小提示</h2>
+        <ul>
+            <li>留意对方的塔罗牌效果，尤其是死神、审判等会交换手牌的牌，提前规划手牌价值。</li>
+            <li>组合效果通常强于单牌，若同时抽到多张相关牌，可以设计战术。</li>
+            <li>未来效果可以延迟生效，善用“好牌”或“先手”布局下一局。</li>
+            <li>正义的效果取决于比分差，比分胶着时效果微弱，比分悬殊时效果显著。</li>
+        </ul>
+    </section>
+
+    <!-- ==================== 导航按钮 ==================== -->
+    <div class="cta">
+        <a href="../tarot-pao-de-kuai.html" class="btn">🎴 开始游戏</a>
+        <a href="../index.html" class="btn btn-secondary">🔮 返回占卜</a>
     </div>
 
-</body>
+    <p style="text-align:center; margin-top:20px; color:#4a3a5a; font-size:0.8rem; letter-spacing:0.5px;">
+        ⚠️ 游戏仅供娱乐，所有塔罗牌效果为随机触发，不具备科学依据。
+    </p>
 
+</div>
+
+</body>
 </html>
