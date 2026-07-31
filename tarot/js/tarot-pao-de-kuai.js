@@ -893,6 +893,31 @@ function startGameAsHost() {
             }
         }
 
+        if (effect.effect.type === 'future_weight_gamble') {
+            // 根据权重决定是好牌还是烂牌
+            const goodChance = effect.weightMod; // 0.8 或 0.2 或 0.5
+            if (Math.random() < goodChance) {
+                // 好牌
+                if (effect.player === 'me') {
+                    myWeight = 1.3;
+                    myRandomness = 0.8;
+                } else {
+                    oppWeight = 1.3;
+                    oppRandomness = 0.8;
+                }
+            } else {
+                // 烂牌（超级烂或普通烂）
+                const badRandomness = effect.randomnessMod || 0.7;
+                if (effect.player === 'me') {
+                    myWeight = 0.7;
+                    myRandomness = badRandomness;
+                } else {
+                    oppWeight = 0.7;
+                    oppRandomness = badRandomness;
+                }
+            }
+        }
+
         // 清空，避免重复使用
         nextRoundTarotEffect = null;
     }
@@ -935,6 +960,7 @@ function startGameAsHost() {
                     myPastEffect.type = 'force_3';
                 }
             }
+
             // 星星
             if (card.id === '17') {
                 if (!card.reversed) {
@@ -947,6 +973,7 @@ function startGameAsHost() {
                 }
                 myPastEffect.type = 'weight_random';
             }
+
             // 太阳
             if (card.id === '19') {
                 if (!card.reversed) {
@@ -959,6 +986,7 @@ function startGameAsHost() {
                 }
                 myPastEffect.type = 'weight_random';
             }
+
             // 月亮
             if (card.id === '18') {
                 if (!card.reversed) {
@@ -970,6 +998,7 @@ function startGameAsHost() {
                 }
                 myPastEffect.type = 'weight_random';
             }
+
             // 恶魔
             if (card.id === '15') {
                 if (!card.reversed) {
@@ -986,6 +1015,7 @@ function startGameAsHost() {
                 }
                 if (!myPastEffect) myPastEffect = { type: 'weight_random' };
             }
+
             // 死神 (id: 13)
             if (card.id === '13') {
                 myPastEffect = {
@@ -1018,6 +1048,43 @@ function startGameAsHost() {
                 }
                 myPastEffect = { type: 'weight_random' };
             }
+
+            // 魔术师 (id: 1)
+            if (card.id === '1') {
+                if (!card.reversed) {
+                    // 正：顺子概率×1.3
+                    myWeightMod *= 1.1;
+                    myRandomnessMod *= 0.85; // 近似顺子提升
+                } else {
+                    // 逆：特殊组合×1.2，顺子×0.7
+                    myWeightMod *= 1.1;
+                    myRandomnessMod *= 0.85; // 组合提升
+                    // 顺子下降通过后续组合覆盖
+                }
+                myPastEffect = { type: 'weight_random' };
+            }
+
+            // 女祭司 (id: 2)
+            if (card.id === '2') {
+                if (!card.reversed) {
+                    myRandomnessMod *= 0.7; // 随机性-30%
+                } else {
+                    myRandomnessMod *= 1.3; // 随机性+30%
+                }
+                myPastEffect = { type: 'weight_random' };
+            }
+
+            // 隐者 (id: 9)
+            if (card.id === '9') {
+                if (!card.reversed) {
+                    myWeightMod *= 1.05;
+                    myRandomnessMod *= 0.8; // 组合概率×1.3，顺子×0.7
+                } else {
+                    myWeightMod *= 1.1;
+                    myRandomnessMod *= 0.85; // 组合×0.7，三条×1.3
+                }
+                myPastEffect = { type: 'weight_random' };
+            }
         } else if (position === 'future') {
             myFutureEffect = { cardId: card.id, reversed: card.reversed };
 
@@ -1030,6 +1097,7 @@ function startGameAsHost() {
                     myFutureEffect.type = 'gamble';
                 }
             }
+
             // 星星
             if (card.id === '17') {
                 if (!card.reversed) {
@@ -1044,6 +1112,7 @@ function startGameAsHost() {
                     myFutureRandomnessMod = 1.20;
                 }
             }
+
             // 太阳
             if (card.id === '19') {
                 if (!card.reversed) {
@@ -1055,6 +1124,7 @@ function startGameAsHost() {
                     myFutureRandomnessMod = 0.8;
                 }
             }
+
             // 月亮
             if (card.id === '18') {
                 if (!card.reversed) {
@@ -1088,6 +1158,7 @@ function startGameAsHost() {
                     myFutureRandomnessMod = 1.3;
                 }
             }
+
             // 死神未来
             if (card.id === '13') {
                 if (!card.reversed) {
@@ -1131,6 +1202,45 @@ function startGameAsHost() {
                     myFutureRandomnessMod = 0.7; // 近似
                 }
             }
+
+            // 魔术师未来
+            if (card.id === '1') {
+                if (!card.reversed) {
+                    // 正：补全顺子
+                    myFutureEffect = { type: 'fill_straight' };
+                } else {
+                    // 逆：高价值×1.3，烂牌
+                    myFutureEffect = { type: 'future_weight_bad' };
+                    myFutureWeightMod = 1.3;
+                    myFutureRandomnessMod = 0.7;
+                }
+            }
+
+            // 女祭司未来
+            if (card.id === '2') {
+                if (!card.reversed) {
+                    myFutureEffect = { type: 'future_randomness' };
+                    myFutureRandomnessMod = 0.7;
+                } else {
+                    myFutureEffect = { type: 'future_randomness' };
+                    myFutureRandomnessMod = 1.3;
+                }
+            }
+
+            // 隐者未来
+            if (card.id === '9') {
+                if (!card.reversed) {
+                    // 正：80%好牌，20%超级烂牌
+                    myFutureEffect = { type: 'future_weight_gamble' };
+                    myFutureWeightMod = 0.8; // 好牌权重
+                    myFutureRandomnessMod = 0.8; // 超级烂牌参数
+                } else {
+                    // 逆：80%烂牌，20%超级好牌
+                    myFutureEffect = { type: 'future_weight_gamble' };
+                    myFutureWeightMod = 0.2; // 好牌权重
+                    myFutureRandomnessMod = 0.7; // 烂牌参数
+                }
+            }
         }
     });
 
@@ -1146,6 +1256,7 @@ function startGameAsHost() {
         const position = ['past', 'present', 'future'][idx];
         if (position === 'past') {
             oppPastEffect = { cardId: card.id, reversed: card.reversed };
+
             // 命运之轮
             if (card.id === '10') {
                 if (!card.reversed) {
@@ -1154,6 +1265,7 @@ function startGameAsHost() {
                     oppPastEffect.type = 'force_3';
                 }
             }
+
             // 星星
             if (card.id === '17') {
                 if (!card.reversed) {
@@ -1166,6 +1278,7 @@ function startGameAsHost() {
                 }
                 oppPastEffect.type = 'weight_random';
             }
+
             // 太阳
             if (card.id === '19') {
                 if (!card.reversed) {
@@ -1178,6 +1291,7 @@ function startGameAsHost() {
                 }
                 oppPastEffect.type = 'weight_random';
             }
+
             // 月亮
             if (card.id === '18') {
                 if (!card.reversed) {
@@ -1189,6 +1303,7 @@ function startGameAsHost() {
                 }
                 oppPastEffect.type = 'weight_random';
             }
+
             // 恶魔
             if (card.id === '15') {
                 if (!card.reversed) {
@@ -1205,6 +1320,7 @@ function startGameAsHost() {
                 }
                 if (!oppPastEffect) oppPastEffect = { type: 'weight_random' };
             }
+
             // 死神 (id: 13)
             if (card.id === '13') {
                 oppPastEffect = {
@@ -1237,6 +1353,43 @@ function startGameAsHost() {
                 }
                 oppPastEffect = { type: 'weight_random' };
             }
+
+            // 魔术师 (id: 1)
+            if (card.id === '1') {
+                if (!card.reversed) {
+                    // 正：顺子概率×1.3
+                    oppWeightMod *= 1.1;
+                    oppRandomnessMod *= 0.85; // 近似顺子提升
+                } else {
+                    // 逆：特殊组合×1.2，顺子×0.7
+                    oppWeightMod *= 1.1;
+                    oppRandomnessMod *= 0.85; // 组合提升
+                    // 顺子下降通过后续组合覆盖
+                }
+                oppPastEffect = { type: 'weight_random' };
+            }
+
+            // 女祭司 (id: 2)
+            if (card.id === '2') {
+                if (!card.reversed) {
+                    oppRandomnessMod *= 0.7; // 随机性-30%
+                } else {
+                    oppRandomnessMod *= 1.3; // 随机性+30%
+                }
+                oppPastEffect = { type: 'weight_random' };
+            }
+
+            // 隐者 (id: 9)
+            if (card.id === '9') {
+                if (!card.reversed) {
+                    oppWeightMod *= 1.05;
+                    oppRandomnessMod *= 0.8; // 组合概率×1.3，顺子×0.7
+                } else {
+                    oppWeightMod *= 1.1;
+                    oppRandomnessMod *= 0.85; // 组合×0.7，三条×1.3
+                }
+                oppPastEffect = { type: 'weight_random' };
+            }
         } else if (position === 'future') {
             oppFutureEffect = { cardId: card.id, reversed: card.reversed };
 
@@ -1249,6 +1402,7 @@ function startGameAsHost() {
                     oppFutureEffect.type = 'gamble';
                 }
             }
+
             // 星星
             if (card.id === '17') {
                 if (!card.reversed) {
@@ -1263,6 +1417,7 @@ function startGameAsHost() {
                     oppFutureRandomnessMod = 1.20;
                 }
             }
+
             // 太阳
             if (card.id === '19') {
                 if (!card.reversed) {
@@ -1274,6 +1429,7 @@ function startGameAsHost() {
                     oppFutureRandomnessMod = 0.8;
                 }
             }
+
             // 月亮
             if (card.id === '18') {
                 if (!card.reversed) {
@@ -1284,6 +1440,7 @@ function startGameAsHost() {
                     oppFutureRandomnessMod = 0.8;
                 }
             }
+
             // 恶魔
             if (card.id === '15') {
                 if (!card.reversed) {
@@ -1307,6 +1464,7 @@ function startGameAsHost() {
                     oppFutureRandomnessMod = 1.3;
                 }
             }
+
             // 死神未来
             if (card.id === '13') {
                 if (!card.reversed) {
@@ -1350,13 +1508,55 @@ function startGameAsHost() {
                     oppFutureRandomnessMod = 0.7; // 近似
                 }
             }
+
+            // 魔术师未来
+            if (card.id === '1') {
+                if (!card.reversed) {
+                    // 正：补全顺子
+                    oppFutureEffect = { type: 'fill_straight' };
+                } else {
+                    // 逆：高价值×1.3，烂牌
+                    oppFutureEffect = { type: 'future_weight_bad' };
+                    oppFutureWeightMod = 1.3;
+                    oppFutureRandomnessMod = 0.7;
+                }
+            }
+
+            // 女祭司未来
+            if (card.id === '2') {
+                if (!card.reversed) {
+                    oppFutureEffect = { type: 'future_randomness' };
+                    oppFutureRandomnessMod = 0.7;
+                } else {
+                    oppFutureEffect = { type: 'future_randomness' };
+                    oppFutureRandomnessMod = 1.3;
+                }
+            }
+
+            // 隐者未来
+            if (card.id === '9') {
+                if (!card.reversed) {
+                    // 正：80%好牌，20%超级烂牌
+                    oppFutureEffect = { type: 'future_weight_gamble' };
+                    oppFutureWeightMod = 0.8; // 好牌权重
+                    oppFutureRandomnessMod = 0.8; // 超级烂牌参数
+                } else {
+                    // 逆：80%烂牌，20%超级好牌
+                    oppFutureEffect = { type: 'future_weight_gamble' };
+                    oppFutureWeightMod = 0.2; // 好牌权重
+                    oppFutureRandomnessMod = 0.7; // 烂牌参数
+                }
+            }
         }
     });
 
 
     // 检查我方的过去组合
+    const myHasMagician = myTarot.some(c => c.id === '1');
+    const myHasPriestess = myTarot.some(c => c.id === '2');
     const myHasEmpress = myTarot.some(c => c.id === '3');
     const myHasEmperor = myTarot.some(c => c.id === '4');
+    const myHasHermit = myTarot.some(c => c.id === '9');
     const myHasDevil = myTarot.some(c => c.id === '15');
     const myHasStar = myTarot.some(c => c.id === '17');
     const myHasMoon = myTarot.some(c => c.id === '18');
@@ -1439,7 +1639,7 @@ function startGameAsHost() {
         }
     }
 
-    // 检查我方的未来组合：皇帝 + 女皇
+    // 检查我方的过去组合：皇帝 + 女皇
     if (myHasEmperor && myHasEmpress) {
         // 顺子概率×1.2，同花色概率×2
         myWeightMod = 1.1;
@@ -1447,9 +1647,49 @@ function startGameAsHost() {
         myPastEffect = null; // 清除单独效果（权重随机已处理）
     }
 
+    // 检查我方的过去组合：魔术师 + 女祭司
+    if (myHasMagician && myHasPriestess) {
+        // 清除单独效果
+        myPastEffect = null;
+        myWeightMod = 1.0;
+        myRandomnessMod = 1.0;
+        // 标记为组合效果，在发牌后处理
+        myPastEffect = { type: 'magician_priestess_combo' };
+    }
+
+    // 检查我方的未来组合：隐者 + 女祭司
+    if (myHasHermit && myHasPriestess) {
+        const hermitRev = myTarot.find(c => c.id === '9').reversed;
+        const priestessRev = myTarot.find(c => c.id === '2').reversed;
+        if (!hermitRev && !priestessRev) {
+            // 正正：50%好牌，50%超级烂牌
+            myFutureEffect = { type: 'future_weight_gamble' };
+            myFutureWeightMod = 0.5;
+            myFutureRandomnessMod = 0.5;
+        } else if (hermitRev && priestessRev) {
+            // 逆逆：50%烂牌，50%超级好牌
+            myFutureEffect = { type: 'future_weight_gamble' };
+            myFutureWeightMod = 0.5;
+            myFutureRandomnessMod = 1.0;
+        } else {
+            // 一正一逆：50%烂牌，50%好牌
+            myFutureEffect = { type: 'future_weight_gamble' };
+            myFutureWeightMod = 0.5;
+            myFutureRandomnessMod = 0.8;
+        }
+    }
+
+
+
+
+
+
     // 处理对手的组合
+    const oppHasMagician = oppTarot.some(c => c.id === '1');
+    const oppHasPriestess = oppTarot.some(c => c.id === '2');
     const oppHasEmpress = oppTarot.some(c => c.id === '3');
     const oppHasEmperor = oppTarot.some(c => c.id === '4');
+    const oppHasHermit = oppTarot.some(c => c.id === '9');
     const oppHasDevil = oppTarot.some(c => c.id === '15');
     const oppHasStar = oppTarot.some(c => c.id === '17');
     const oppHasMoon = oppTarot.some(c => c.id === '18');
@@ -1530,11 +1770,41 @@ function startGameAsHost() {
         }
     }
 
-    // 检查对方的未来组合：皇帝 + 女皇
+    // 检查对方的过去组合：皇帝 + 女皇
     if (oppHasEmperor && oppHasEmpress) {
         oppWeightMod = 1.1;
         oppRandomnessMod = 0.85;
         oppPastEffect = null;
+    }
+
+    // 检查对方的过去组合：魔术师 + 女祭司
+    if (oppHasMagician && oppHasPriestess) {
+        oppPastEffect = null;
+        oppWeightMod = 1.0;
+        oppRandomnessMod = 1.0;
+        oppPastEffect = { type: 'magician_priestess_combo' };
+    }
+
+    // 检查对方的未来组合：隐者 + 女祭司
+    if (oppHasHermit && oppHasPriestess) {
+        const hermitRev = oppTarot.find(c => c.id === '9').reversed;
+        const priestessRev = oppTarot.find(c => c.id === '2').reversed;
+        if (!hermitRev && !priestessRev) {
+            // 正正：50%好牌，50%超级烂牌
+            oppFutureEffect = { type: 'future_weight_gamble' };
+            oppFutureWeightMod = 0.5;
+            oppFutureRandomnessMod = 0.5;
+        } else if (hermitRev && priestessRev) {
+            // 逆逆：50%烂牌，50%超级好牌
+            oppFutureEffect = { type: 'future_weight_gamble' };
+            oppFutureWeightMod = 0.5;
+            oppFutureRandomnessMod = 1.0;
+        } else {
+            // 一正一逆：50%烂牌，50%好牌
+            oppFutureEffect = { type: 'future_weight_gamble' };
+            oppFutureWeightMod = 0.5;
+            oppFutureRandomnessMod = 0.8;
+        }
     }
 
 
@@ -1550,17 +1820,21 @@ function startGameAsHost() {
 
     // 收集激活的牌ID
     const myActiveCards = [];
+    if (myHasMagician && myHasPriestess) { myActiveCards.push('1', '2'); }
+    if (myHasEmperor && myHasEmpress) { myActiveCards.push('3', '4'); }
+    if (myHasHermit && myHasPriestess) { myActiveCards.push('9', '2'); }
     if (myHasDevil && myHasSun) { myActiveCards.push('15', '19'); }
     if (myHasStar && myHasMoon) { myActiveCards.push('17', '18'); }
     if (myHasSun && myHasMoon) { myActiveCards.push('19', '18'); }
-    if (myHasEmperor && myHasEmpress) { myActiveCards.push('3', '4'); }
     window._tarotCombos.my.activeCards = [...new Set(myActiveCards)];
 
     const oppActiveCards = [];
+    if (oppHasMagician && oppHasPriestess) { oppActiveCards.push('1', '2'); }
+    if (oppHasEmperor && oppHasEmpress) { oppActiveCards.push('3', '4'); }
+    if (oppHasHermit && oppHasPriestess) { oppActiveCards.push('9', '2'); }
     if (oppHasDevil && oppHasSun) { oppActiveCards.push('15', '19'); }
     if (oppHasStar && oppHasMoon) { oppActiveCards.push('17', '18'); }
     if (oppHasSun && oppHasMoon) { oppActiveCards.push('19', '18'); }
-    if (oppHasEmperor && oppHasEmpress) { oppActiveCards.push('3', '4'); }
     window._tarotCombos.opp.activeCards = [...new Set(oppActiveCards)];
 
 
@@ -1709,6 +1983,103 @@ function startGameAsHost() {
         }
     }
 
+    // 处理魔术师未来正：补全顺子
+    if (myFutureEffect && myFutureEffect.type === 'fill_straight') {
+        const myHand = game.myHand;
+        const oppHand = game.oppHand;
+        
+        // 获取所有非鬼牌的rank（排除愚者0和世界21）
+        const myRanks = myHand.filter(c => c.id !== '0' && c.id !== '21').map(c => c.rank).sort((a, b) => a - b);
+        const oppRanks = oppHand.filter(c => c.id !== '0' && c.id !== '21').map(c => c.rank).sort((a, b) => a - b);
+        
+        // 检查是否有4个连续的牌（不包含2和鬼牌，rank 3-15）
+        let found = false;
+        for (let i = 0; i <= myRanks.length - 4 && !found; i++) {
+            const window = myRanks.slice(i, i + 4);
+            // 检查是否连续
+            let isConsecutive = true;
+            for (let j = 1; j < window.length; j++) {
+                if (window[j] - window[j-1] !== 1) { isConsecutive = false; break; }
+            }
+            if (isConsecutive) {
+                const startRank = window[0];
+                const endRank = window[window.length - 1];
+                // 检查能否形成5张顺子（即缺少一张牌）
+                const missingRank = startRank - 1 >= 3 ? startRank - 1 : endRank + 1;
+                // 检查该牌是否在对方手牌中
+                if (oppRanks.includes(missingRank)) {
+                    // 从对方手牌中取这张牌
+                    const oppIdx = oppHand.findIndex(c => c.rank === missingRank && c.id !== '0' && c.id !== '21');
+                    if (oppIdx > -1) {
+                        const targetCard = oppHand[oppIdx];
+                        // 找自己最大的非鬼牌
+                        let maxIdx = 0;
+                        let maxRank = -Infinity;
+                        myHand.forEach((c, i) => {
+                            if (c.id !== '0' && c.id !== '21' && c.rank > maxRank) {
+                                maxRank = c.rank;
+                                maxIdx = i;
+                            }
+                        });
+                        const myOldCard = myHand[maxIdx];
+                        // 交换
+                        myHand[maxIdx] = targetCard;
+                        oppHand[oppIdx] = myOldCard;
+                        // 重新排序
+                        myHand.sort((a, b) => a.rank - b.rank);
+                        oppHand.sort((a, b) => a.rank - b.rank);
+                        found = true;
+                    }
+                }
+            }
+        }
+    }
+    // 对手同理
+    if (oppFutureEffect && oppFutureEffect.type === 'fill_straight') {
+        const myHand = game.myHand;
+        const oppHand = game.oppHand;
+        
+        const myRanks = myHand.filter(c => c.id !== '0' && c.id !== '21').map(c => c.rank).sort((a, b) => a - b);
+        const oppRanks = oppHand.filter(c => c.id !== '0' && c.id !== '21').map(c => c.rank).sort((a, b) => a - b);
+        
+        let found = false;
+        for (let i = 0; i <= oppRanks.length - 4 && !found; i++) {
+            const window = oppRanks.slice(i, i + 4);
+            let isConsecutive = true;
+            for (let j = 1; j < window.length; j++) {
+                if (window[j] - window[j-1] !== 1) { isConsecutive = false; break; }
+            }
+            if (isConsecutive) {
+                const startRank = window[0];
+                const endRank = window[window.length - 1];
+                const missingRank = startRank - 1 >= 3 ? startRank - 1 : endRank + 1;
+                if (myRanks.includes(missingRank)) {
+                    // 从自己（我方）手牌中取这张牌
+                    const myIdx = myHand.findIndex(c => c.rank === missingRank && c.id !== '0' && c.id !== '21');
+                    if (myIdx > -1) {
+                        const targetCard = myHand[myIdx];
+                        // 找对手（对方）最大的非鬼牌
+                        let maxIdx = 0;
+                        let maxRank = -Infinity;
+                        oppHand.forEach((c, i) => {
+                            if (c.id !== '0' && c.id !== '21' && c.rank > maxRank) {
+                                maxRank = c.rank;
+                                maxIdx = i;
+                            }
+                        });
+                        const oppOldCard = oppHand[maxIdx];
+                        // 交换
+                        oppHand[maxIdx] = targetCard;
+                        myHand[myIdx] = oppOldCard;
+                        oppHand.sort((a, b) => a.rank - b.rank);
+                        myHand.sort((a, b) => a.rank - b.rank);
+                        found = true;
+                    }
+                }
+            }
+        }
+    }
+
     // 使用 nextFirstPlayer 作为先手
     const first = nextFirstPlayer || 'me';
     game.currentPlayer = first;
@@ -1828,6 +2199,46 @@ function applyPastEffect(effects) {
             // 重新排序（保持顺序）
             myHand.sort((a, b) => a.rank - b.rank);
             oppHand.sort((a, b) => a.rank - b.rank);
+        } else if (e.type === 'magician_priestess_combo') {
+            const myHand = game.myHand;
+            const oppHand = game.oppHand;
+            
+            // 检查对方是否有愚者（id: '0'）和世界（id: '21'）
+            const oppHasFool = oppHand.some(c => c.id === '0');
+            const oppHasWorld = oppHand.some(c => c.id === '21');
+            
+            let targetCard = null;
+            if (oppHasFool && oppHasWorld) {
+                // 对方同时拥有愚者和世界 → 获得一张2
+                targetCard = game.deck.find(c => c.rank === 16); // 找一张2
+            } else if (oppHasFool) {
+                // 对方只有愚者 → 获得世界
+                targetCard = game.deck.find(c => c.id === '21');
+            } else if (oppHasWorld) {
+                // 对方只有世界 → 获得愚者
+                targetCard = game.deck.find(c => c.id === '0');
+            }
+            
+            if (targetCard) {
+                // 替换自己最小的牌
+                let minIdx = 0;
+                let minRank = Infinity;
+                myHand.forEach((c, i) => {
+                    if (c.rank < minRank && c.id !== '0' && c.id !== '21') { // 不替换愚者和世界
+                        minRank = c.rank;
+                        minIdx = i;
+                    }
+                });
+                const oldCard = myHand[minIdx];
+                myHand[minIdx] = targetCard;
+                // 将旧牌放回牌组
+                game.deck.push(oldCard);
+                // 从牌组移除目标牌
+                const deckIdx = game.deck.indexOf(targetCard);
+                if (deckIdx > -1) game.deck.splice(deckIdx, 1);
+                // 重新排序
+                myHand.sort((a, b) => a.rank - b.rank);
+            }
         }
 
         if (e.noBomb) {
