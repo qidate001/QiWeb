@@ -870,6 +870,8 @@ function startGameAsHost() {
     let oppWeight = 1.0;
     let myRandomness = 1.0;
     let oppRandomness = 1.0;
+    let myPastEffect = null;
+    let oppPastEffect = null;
 
     if (nextRoundTarotEffect) {
         const effect = nextRoundTarotEffect;
@@ -957,18 +959,36 @@ function startGameAsHost() {
             nextRoundTarotEffect = null;
         }
 
+        if (effect.effect.type === 'future_chariot_positive') {
+            if (Math.random() < effect.effect.stealFirstChance) {
+                // 抢夺先手
+                nextFirstPlayer = (effect.player === 'me') ? 'me' : 'opp';
+            }
+            // 清空效果
+            nextRoundTarotEffect = null;
+        }
+
         // 清空，避免重复使用
         nextRoundTarotEffect = null;
     }
 
-    // 在 startGameAsHost 开头，处理未来效果时添加
+    if (myPastEffect && myPastEffect.stealFirstChance) {
+        const currentFirst = nextFirstPlayer || 'me';
+        if (currentFirst === 'opp' && Math.random() < myPastEffect.stealFirstChance) {
+            nextFirstPlayer = 'me';
+        }
+    }
+    if (oppPastEffect && oppPastEffect.stealFirstChance) {
+        const currentFirst = nextFirstPlayer || 'me';
+        if (currentFirst === 'me' && Math.random() < oppPastEffect.stealFirstChance) {
+            nextFirstPlayer = 'opp';
+        }
+    }
+
     if (nextRoundTarotEffect && nextRoundTarotEffect.effect.type === 'inherit_past') {
         const inherited = nextRoundTarotEffect.effect.pastEffect;
-        // 直接应用该效果到当前局
-        // 注意：此时牌还未发，所以我们需要在发牌后应用
-        // 所以我们将这个效果保存起来，在发牌后应用
-        // 简单做法：将 inherited 存入一个临时变量，在发牌后调用 applyPastEffect
         window._inheritedPastEffect = inherited;
+
         // 清空 nextRoundTarotEffect，避免重复
         nextRoundTarotEffect = null;
     }
@@ -979,8 +999,8 @@ function startGameAsHost() {
     window._oppTarot = oppTarot;
 
     // 解析我的塔罗牌
-    let myPastEffect = null;
-    let myFutureEffect = null;
+    // let myPastEffect = null;
+    // let myFutureEffect = null;
     let myWeightMod = 1.0;      // 过去权重调整
     let myRandomnessMod = 1.0;  // 过去随机性调整
     let myFutureWeightMod = 1.0;
@@ -1174,6 +1194,49 @@ function startGameAsHost() {
                         swapType: 'high_to_scattered'
                     };
                 }
+            }
+
+            // 恋人 (id: 6)
+            if (card.id === '6') {
+                if (!card.reversed) {
+                    // 正：同花×1.3，顺子×1.2，对子×1.15
+                    myWeightMod *= 1.15;
+                    myRandomnessMod *= 0.85;
+                } else {
+                    // 逆：顺子×0.7，特殊组合×1.3
+                    myWeightMod *= 1.1;
+                    myRandomnessMod *= 0.8;
+                }
+                myPastEffect = { type: 'weight_random' };
+            }
+
+            // 战车 (id: 7)
+            if (card.id === '7') {
+                if (!card.reversed) {
+                    // 正：高价值×1.2，若对方先手，30%改为我方先手
+                    myWeightMod *= 1.2;
+                    myPastEffect = {
+                        type: 'chariot_past_positive',
+                        stealFirstChance: 0.3
+                    };
+                } else {
+                    // 逆：高价值×1.3，顺子×0.6
+                    myWeightMod *= 1.3;
+                    myRandomnessMod *= 0.85;
+                    myPastEffect = { type: 'weight_random' };
+                }
+            }
+
+            // 力量 (id: 8)
+            if (card.id === '8') {
+                if (!card.reversed) {
+                    // 正：低价值×0.7 → 高价值提升
+                    myWeightMod *= 1.3;
+                } else {
+                    // 逆：高价值×1.2
+                    myWeightMod *= 1.2;
+                }
+                myPastEffect = { type: 'weight_random' };
             }
 
         } else if (position === 'future') {
@@ -1385,12 +1448,53 @@ function startGameAsHost() {
                     };
                 }
             }
+
+            // 恋人未来
+            if (card.id === '6') {
+                if (!card.reversed) {
+                    myFutureEffect = { type: 'future_weight' };
+                    myFutureWeightMod = 1.1;
+                    myFutureRandomnessMod = 0.8;
+                } else {
+                    myFutureEffect = { type: 'future_weight' };
+                    myFutureWeightMod = 0.9;
+                    myFutureRandomnessMod = 0.7;
+                }
+            }
+
+            // 战车未来
+            if (card.id === '7') {
+                if (!card.reversed) {
+                    myFutureEffect = {
+                        type: 'future_chariot_positive',
+                        stealFirstChance: 0.5
+                    };
+                } else {
+                    // myFutureEffect = {
+                    //     type: 'future_chariot_negative'
+                    // };
+                    window._pendingChariotNegative = 'me';
+                }
+            }
+
+            // 力量未来
+            if (card.id === '8') {
+                if (!card.reversed) {
+                    // 好牌
+                    myFutureEffect = { type: 'future_weight_gamble' };
+                    myFutureWeightMod = 0.8;
+                    myFutureRandomnessMod = 0.8;
+                } else {
+                    // 对方先手
+                    myFutureEffect = { type: 'future_forced_give_first' };
+                }
+            }
         }
     });
 
     // 解析对手的塔罗牌
-    let oppPastEffect = null;
-    let oppFutureEffect = null;
+    // let oppPastEffect = null;
+    // let oppFutureEffect = null;
     let oppWeightMod = 1.0;      // 过去权重调整
     let oppRandomnessMod = 1.0;  // 过去随机性调整
     let oppFutureWeightMod = 1.0;
@@ -1584,6 +1688,49 @@ function startGameAsHost() {
                         swapType: 'high_to_scattered'
                     };
                 }
+            }
+
+            // 恋人 (id: 6)
+            if (card.id === '6') {
+                if (!card.reversed) {
+                    // 正：同花×1.3，顺子×1.2，对子×1.15
+                    oppWeightMod *= 1.15;
+                    oppRandomnessMod *= 0.85;
+                } else {
+                    // 逆：顺子×0.7，特殊组合×1.3
+                    oppWeightMod *= 1.1;
+                    oppRandomnessMod *= 0.8;
+                }
+                oppPastEffect = { type: 'weight_random' };
+            }
+
+            // 战车 (id: 7)
+            if (card.id === '7') {
+                if (!card.reversed) {
+                    // 正：高价值×1.2，若对方先手，30%改为我方先手
+                    oppWeightMod *= 1.2;
+                    oppPastEffect = {
+                        type: 'chariot_past_positive',
+                        stealFirstChance: 0.3
+                    };
+                } else {
+                    // 逆：高价值×1.3，顺子×0.6
+                    oppWeightMod *= 1.3;
+                    oppRandomnessMod *= 0.85;
+                    oppPastEffect = { type: 'weight_random' };
+                }
+            }
+
+            // 力量 (id: 8)
+            if (card.id === '8') {
+                if (!card.reversed) {
+                    // 正：低价值×0.7 → 高价值提升
+                    oppWeightMod *= 1.3;
+                } else {
+                    // 逆：高价值×1.2
+                    oppWeightMod *= 1.2;
+                }
+                oppPastEffect = { type: 'weight_random' };
             }
         } else if (position === 'future') {
             oppFutureEffect = { cardId: card.id, reversed: card.reversed };
@@ -1795,6 +1942,47 @@ function startGameAsHost() {
                     };
                 }
             }
+
+            // 恋人未来
+            if (card.id === '6') {
+                if (!card.reversed) {
+                    oppFutureEffect = { type: 'future_weight' };
+                    oppFutureWeightMod = 1.1;
+                    oppFutureRandomnessMod = 0.8;
+                } else {
+                    oppFutureEffect = { type: 'future_weight' };
+                    oppFutureWeightMod = 0.9;
+                    oppFutureRandomnessMod = 0.7;
+                }
+            }
+
+            // 战车未来
+            if (card.id === '7') {
+                if (!card.reversed) {
+                    oppFutureEffect = {
+                        type: 'future_chariot_positive',
+                        stealFirstChance: 0.5
+                    };
+                } else {
+                    // oppFutureEffect = {
+                    //     type: 'future_chariot_negative'
+                    // };
+                    window._pendingChariotNegative = 'opp';
+                }
+            }
+
+            // 力量未来
+            if (card.id === '8') {
+                if (!card.reversed) {
+                    // 好牌
+                    oppFutureEffect = { type: 'future_weight_gamble' };
+                    oppFutureWeightMod = 0.8;
+                    oppFutureRandomnessMod = 0.8;
+                } else {
+                    // 对方先手
+                    oppFutureEffect = { type: 'future_forced_give_first' };
+                }
+            }
         }
     });
 
@@ -1804,6 +1992,9 @@ function startGameAsHost() {
     const myHasPriestess = myTarot.some(c => c.id === '2');
     const myHasEmpress = myTarot.some(c => c.id === '3');
     const myHasEmperor = myTarot.some(c => c.id === '4');
+    const myHasLovers = myTarot.some(c => c.id === '6');
+    const myHasChariot = myTarot.some(c => c.id === '7');
+    const myHasStrength = myTarot.some(c => c.id === '8');
     const myHasHermit = myTarot.some(c => c.id === '9');
     const myHasHangedMan = myTarot.some(c => c.id === '12');
     const myHasDeath = myTarot.some(c => c.id === '13');
@@ -1975,6 +2166,28 @@ function startGameAsHost() {
         myRandomnessMod = 1.0;
     }
 
+    // 检查我方的过去组合：恋人 + 恶魔
+    if (myHasLovers && myHasDevil) {
+        myPastEffect = { type: 'lovers_devil_combo' };
+        myWeightMod = 1.0;
+        myRandomnessMod = 1.0;
+    }
+    // 检查我方的过去组合：恋人 + 魔术师
+    if (myHasLovers && myHasMagician) {
+        myPastEffect = { type: 'lovers_magician_combo' };
+        myWeightMod = 1.0;
+        myRandomnessMod = 1.0;
+    }
+    // 检查我方的过去组合：战车 + 力量
+    if (myHasChariot && myHasStrength) {
+        myWeightMod = 1.3;
+        myRandomnessMod = 0.7;
+        myPastEffect = {
+            type: 'chariot_strength_combo',
+            stealFirstChance: 0.5
+        };
+    }
+
 
 
 
@@ -1985,6 +2198,9 @@ function startGameAsHost() {
     const oppHasPriestess = oppTarot.some(c => c.id === '2');
     const oppHasEmpress = oppTarot.some(c => c.id === '3');
     const oppHasEmperor = oppTarot.some(c => c.id === '4');
+    const oppHasLovers = oppTarot.some(c => c.id === '6');
+    const oppHasChariot = oppTarot.some(c => c.id === '7');
+    const oppHasStrength = oppTarot.some(c => c.id === '8');
     const oppHasHermit = oppTarot.some(c => c.id === '9');
     const oppHasHangedMan = oppTarot.some(c => c.id === '12');
     const oppHasDeath = oppTarot.some(c => c.id === '13');
@@ -2151,6 +2367,28 @@ function startGameAsHost() {
         oppRandomnessMod = 1.0;
     }
 
+    // 检查对方的过去组合：恋人 + 恶魔
+    if (oppHasLovers && oppHasDevil) {
+        oppPastEffect = { type: 'lovers_devil_combo' };
+        oppWeightMod = 1.0;
+        oppRandomnessMod = 1.0;
+    }
+    // 检查对方的过去组合：恋人 + 魔术师
+    if (oppHasLovers && oppHasMagician) {
+        oppPastEffect = { type: 'lovers_magician_combo' };
+        oppWeightMod = 1.0;
+        oppRandomnessMod = 1.0;
+    }
+    // 检查对方的过去组合：战车 + 力量
+    if (oppHasChariot && oppHasStrength) {
+        oppWeightMod = 1.3;
+        oppRandomnessMod = 0.7;
+        oppPastEffect = {
+            type: 'chariot_strength_combo',
+            stealFirstChance: 0.5
+        };
+    }
+
 
 
 
@@ -2166,6 +2404,9 @@ function startGameAsHost() {
     const myActiveCards = [];
     if (myHasMagician && myHasPriestess) { myActiveCards.push('1', '2'); }
     if (myHasEmperor && myHasEmpress) { myActiveCards.push('3', '4'); }
+    if (myHasLovers && myHasDevil) { myActiveCards.push('6', '15'); }
+    if (myHasLovers && myHasMagician) { myActiveCards.push('6', '1'); }
+    if (myHasChariot && myHasStrength) { myActiveCards.push('7', '8'); }
     if (myHasHermit && myHasPriestess) { myActiveCards.push('9', '2'); }
     if (myHasHangedMan && myHasDevil) { myActiveCards.push('12', '15'); }
     if (myHasHangedMan && myHasDeath) { myActiveCards.push('12', '13'); }
@@ -2177,6 +2418,9 @@ function startGameAsHost() {
     const oppActiveCards = [];
     if (oppHasMagician && oppHasPriestess) { oppActiveCards.push('1', '2'); }
     if (oppHasEmperor && oppHasEmpress) { oppActiveCards.push('3', '4'); }
+    if (oppHasLovers && oppHasDevil) { oppActiveCards.push('6', '15'); }
+    if (oppHasLovers && oppHasMagician) { oppActiveCards.push('6', '1'); }
+    if (oppHasChariot && oppHasStrength) { oppActiveCards.push('7', '8'); }
     if (oppHasHermit && oppHasPriestess) { oppActiveCards.push('9', '2'); }
     if (oppHasHangedMan  && oppHasDevil) { oppActiveCards.push('12', '15'); }
     if (oppHasHangedMan  && oppHasDeath) { oppActiveCards.push('12', '13'); }
@@ -2777,6 +3021,56 @@ function applyPastEffect(effects) {
                 }
                 // 如果还是失败，就什么都不做
             }
+        } else if (e.type === 'lovers_devil_combo') {
+            const myHand = game.myHand;
+            const oppHand = game.oppHand;
+            if (myHand.length === 0 || oppHand.length === 0) return;
+            // 自己最大牌
+            let myMaxIdx = 0, myMaxRank = -Infinity;
+            myHand.forEach((c, i) => {
+                if (c.rank > myMaxRank) { myMaxRank = c.rank; myMaxIdx = i; }
+            });
+            const myMaxCard = myHand[myMaxIdx];
+            // 对方最大牌
+            let oppMaxIdx = 0, oppMaxRank = -Infinity;
+            oppHand.forEach((c, i) => {
+                if (c.rank > oppMaxRank) { oppMaxRank = c.rank; oppMaxIdx = i; }
+            });
+            const oppMaxCard = oppHand[oppMaxIdx];
+            // 交换
+            myHand[myMaxIdx] = oppMaxCard;
+            oppHand[oppMaxIdx] = myMaxCard;
+            myHand.sort((a, b) => a.rank - b.rank);
+            oppHand.sort((a, b) => a.rank - b.rank);
+        } else if (e.type === 'lovers_magician_combo') {
+            const myHand = game.myHand;
+            const oppHand = game.oppHand;
+            // 统计双方 rank 计数
+            const myCount = {};
+            myHand.forEach(c => myCount[c.rank] = (myCount[c.rank] || 0) + 1);
+            const oppCount = {};
+            oppHand.forEach(c => oppCount[c.rank] = (oppCount[c.rank] || 0) + 1);
+            // 找自己的散牌（计数为1，且非鬼牌）
+            const mySingles = myHand.filter(c => myCount[c.rank] === 1 && c.id !== '0' && c.id !== '21');
+            const oppSingles = oppHand.filter(c => oppCount[c.rank] === 1 && c.id !== '0' && c.id !== '21');
+            // 尝试配对：找到一个双方都有的散牌 rank
+            const myRanks = mySingles.map(c => c.rank);
+            const oppRanks = oppSingles.map(c => c.rank);
+            for (let r of myRanks) {
+                if (oppRanks.includes(r)) {
+                    const myIdx = myHand.findIndex(c => c.rank === r && c.id !== '0' && c.id !== '21');
+                    const oppIdx = oppHand.findIndex(c => c.rank === r && c.id !== '0' && c.id !== '21');
+                    if (myIdx > -1 && oppIdx > -1) {
+                        // 交换两张牌（双方各自得到一对）
+                        const temp = myHand[myIdx];
+                        myHand[myIdx] = oppHand[oppIdx];
+                        oppHand[oppIdx] = temp;
+                        break;
+                    }
+                }
+            }
+            myHand.sort((a, b) => a.rank - b.rank);
+            oppHand.sort((a, b) => a.rank - b.rank);
         }
 
         if (e.noBomb) {
@@ -2854,34 +3148,220 @@ function applyPastEffect(effects) {
             game.oppHand = allCards.slice(16);
             game.myHand.sort((a, b) => a.rank - b.rank);
             game.oppHand.sort((a, b) => a.rank - b.rank);
+        } else if (e.type === 'swap_card') {
+            const direction = e.direction;
+            const myHand = game.myHand;
+            const oppHand = game.oppHand;
+            if (myHand.length === 0 || oppHand.length === 0) return;
+            let oppTargetIdx;
+            if (direction === 'lowest') {
+                let minRank = Infinity;
+                oppHand.forEach((c, i) => {
+                    if (c.rank < minRank) { minRank = c.rank; oppTargetIdx = i; }
+                });
+            } else {
+                let maxRank = -Infinity;
+                oppHand.forEach((c, i) => {
+                    if (c.rank > maxRank) { maxRank = c.rank; oppTargetIdx = i; }
+                });
+            }
+            const oppTargetCard = oppHand[oppTargetIdx];
+            const myRandomIdx = Math.floor(Math.random() * myHand.length);
+            const myRandomCard = myHand[myRandomIdx];
+            oppHand[oppTargetIdx] = myRandomCard;
+            myHand[myRandomIdx] = oppTargetCard;
+            myHand.sort((a, b) => a.rank - b.rank);
+            oppHand.sort((a, b) => a.rank - b.rank);
+        } else if (e.type === 'magician_priestess_combo') {
+            const myHand = game.myHand;
+            const oppHand = game.oppHand;
+            const myHasFool = myHand.some(c => c.id === '0');
+            const myHasWorld = myHand.some(c => c.id === '21');
+            let targetCard = null;
+            if (myHasFool && myHasWorld) {
+                targetCard = game.deck.find(c => c.rank === 16);
+            } else if (myHasFool) {
+                targetCard = game.deck.find(c => c.id === '21');
+            } else if (myHasWorld) {
+                targetCard = game.deck.find(c => c.id === '0');
+            }
+            if (targetCard) {
+                let minIdx = 0;
+                let minRank = Infinity;
+                oppHand.forEach((c, i) => {
+                    if (c.rank < minRank && c.id !== '0' && c.id !== '21') {
+                        minRank = c.rank;
+                        minIdx = i;
+                    }
+                });
+                const oldCard = oppHand[minIdx];
+                oppHand[minIdx] = targetCard;
+                game.deck.push(oldCard);
+                const deckIdx = game.deck.indexOf(targetCard);
+                if (deckIdx > -1) game.deck.splice(deckIdx, 1);
+                oppHand.sort((a, b) => a.rank - b.rank);
+            }
+        } else if (e.type === 'hanged_man_past_positive') {
+            const oppHand = game.oppHand;
+            const deck = game.deck;
+            if (oppHand.length === 0) return;
+            let minIdx = 0;
+            let minRank = Infinity;
+            oppHand.forEach((c, i) => {
+                if (c.rank < minRank) { minRank = c.rank; minIdx = i; }
+            });
+            const oppMinCard = oppHand[minIdx];
+            const higherCards = deck.filter(c => c.rank > oppMinCard.rank);
+            if (higherCards.length > 0) {
+                const randomHigh = higherCards[Math.floor(Math.random() * higherCards.length)];
+                const deckIdx = deck.indexOf(randomHigh);
+                if (deckIdx > -1) {
+                    oppHand[minIdx] = randomHigh;
+                    deck[deckIdx] = oppMinCard;
+                    oppHand.sort((a, b) => a.rank - b.rank);
+                }
+            }
+        } else if (e.type === 'judgment_past_positive') {
+            const myHand = game.myHand;
+            const oppHand = game.oppHand;
+            if (myHand.length === 0 || oppHand.length === 0) return;
+            let oppMinIdx = 0, minRank = Infinity;
+            oppHand.forEach((c, i) => {
+                if (c.rank < minRank) { minRank = c.rank; oppMinIdx = i; }
+            });
+            const oppMinCard = oppHand[oppMinIdx];
+            let myMaxIdx = 0, maxRank = -Infinity;
+            myHand.forEach((c, i) => {
+                if (c.rank > maxRank) { maxRank = c.rank; myMaxIdx = i; }
+            });
+            const myMaxCard = myHand[myMaxIdx];
+            oppHand[oppMinIdx] = myMaxCard;
+            myHand[myMaxIdx] = oppMinCard;
+            myHand.sort((a, b) => a.rank - b.rank);
+            oppHand.sort((a, b) => a.rank - b.rank);
+        } else if (e.type === 'judgment_past_negative') {
+            const myHand = game.myHand;
+            const oppHand = game.oppHand;
+            if (myHand.length === 0 || oppHand.length === 0) return;
+            let oppMaxIdx = 0, maxRank = -Infinity;
+            oppHand.forEach((c, i) => {
+                if (c.rank > maxRank) { maxRank = c.rank; oppMaxIdx = i; }
+            });
+            const oppMaxCard = oppHand[oppMaxIdx];
+            let myMinIdx = 0, minRank = Infinity;
+            myHand.forEach((c, i) => {
+                if (c.rank < minRank) { minRank = c.rank; myMinIdx = i; }
+            });
+            const myMinCard = myHand[myMinIdx];
+            oppHand[oppMaxIdx] = myMinCard;
+            myHand[myMinIdx] = oppMaxCard;
+            myHand.sort((a, b) => a.rank - b.rank);
+            oppHand.sort((a, b) => a.rank - b.rank);
+        } else if (e.type === 'hanged_man_death_combo') {
+            const oppHand = game.oppHand;
+            const deck = game.deck;
+            const nonJokerCards = oppHand.filter(c => c.id !== '0' && c.id !== '21');
+            if (nonJokerCards.length < 3) return;
+            const shuffled = nonJokerCards.sort(() => Math.random() - 0.5);
+            const selected = shuffled.slice(0, 3);
+            const targetRank = selected[Math.floor(Math.random() * selected.length)].rank;
+            const cardsOfRank = deck.filter(c => c.rank === targetRank && c.id !== '0' && c.id !== '21');
+            if (cardsOfRank.length >= 3) {
+                for (let i = 0; i < 3; i++) {
+                    const idx = oppHand.indexOf(selected[i]);
+                    if (idx > -1) {
+                        const newCard = cardsOfRank.pop();
+                        const deckIdx = deck.indexOf(newCard);
+                        if (deckIdx > -1) {
+                            oppHand[idx] = newCard;
+                            deck[deckIdx] = selected[i];
+                        }
+                    }
+                }
+                oppHand.sort((a, b) => a.rank - b.rank);
+            } else {
+                const myHand = game.myHand;
+                const myCardsOfRank = myHand.filter(c => c.rank === targetRank && c.id !== '0' && c.id !== '21');
+                if (myCardsOfRank.length >= 3) {
+                    for (let i = 0; i < 3; i++) {
+                        const idx = oppHand.indexOf(selected[i]);
+                        if (idx > -1) {
+                            const newCard = myCardsOfRank.pop();
+                            const myIdx = myHand.indexOf(newCard);
+                            if (myIdx > -1) {
+                                oppHand[idx] = newCard;
+                                myHand[myIdx] = selected[i];
+                            }
+                        }
+                    }
+                    oppHand.sort((a, b) => a.rank - b.rank);
+                    myHand.sort((a, b) => a.rank - b.rank);
+                }
+            }
+        } else if (e.type === 'lovers_devil_combo') {
+            const myHand = game.myHand;
+            const oppHand = game.oppHand;
+            if (myHand.length === 0 || oppHand.length === 0) return;
+            let myMaxIdx = 0, myMaxRank = -Infinity;
+            myHand.forEach((c, i) => {
+                if (c.rank > myMaxRank) { myMaxRank = c.rank; myMaxIdx = i; }
+            });
+            const myMaxCard = myHand[myMaxIdx];
+            let oppMaxIdx = 0, oppMaxRank = -Infinity;
+            oppHand.forEach((c, i) => {
+                if (c.rank > oppMaxRank) { oppMaxRank = c.rank; oppMaxIdx = i; }
+            });
+            const oppMaxCard = oppHand[oppMaxIdx];
+            myHand[myMaxIdx] = oppMaxCard;
+            oppHand[oppMaxIdx] = myMaxCard;
+            myHand.sort((a, b) => a.rank - b.rank);
+            oppHand.sort((a, b) => a.rank - b.rank);
+        } else if (e.type === 'lovers_magician_combo') {
+            const myHand = game.myHand;
+            const oppHand = game.oppHand;
+            const myCount = {};
+            myHand.forEach(c => myCount[c.rank] = (myCount[c.rank] || 0) + 1);
+            const oppCount = {};
+            oppHand.forEach(c => oppCount[c.rank] = (oppCount[c.rank] || 0) + 1);
+            const mySingles = myHand.filter(c => myCount[c.rank] === 1 && c.id !== '0' && c.id !== '21');
+            const oppSingles = oppHand.filter(c => oppCount[c.rank] === 1 && c.id !== '0' && c.id !== '21');
+            const myRanks = mySingles.map(c => c.rank);
+            const oppRanks = oppSingles.map(c => c.rank);
+            for (let r of myRanks) {
+                if (oppRanks.includes(r)) {
+                    const myIdx = myHand.findIndex(c => c.rank === r && c.id !== '0' && c.id !== '21');
+                    const oppIdx = oppHand.findIndex(c => c.rank === r && c.id !== '0' && c.id !== '21');
+                    if (myIdx > -1 && oppIdx > -1) {
+                        const temp = myHand[myIdx];
+                        myHand[myIdx] = oppHand[oppIdx];
+                        oppHand[oppIdx] = temp;
+                        break;
+                    }
+                }
+            }
+            myHand.sort((a, b) => a.rank - b.rank);
+            oppHand.sort((a, b) => a.rank - b.rank);
         }
 
-        // 在 applyPastEffect 中，处理完 force_3 和 reshuffle 之后，添加：
         if (e.noBomb) {
-            // 检查手牌是否有炸弹（四张相同）
             const checkAndRemoveBomb = (hand) => {
                 const rankCount = {};
                 hand.forEach(c => rankCount[c.rank] = (rankCount[c.rank] || 0) + 1);
                 const bombRank = Object.keys(rankCount).find(r => rankCount[r] >= 4);
                 if (bombRank) {
-                    // 找到所有该 rank 的牌
                     const indices = [];
                     hand.forEach((c, i) => {
                         if (c.rank === Number(bombRank)) indices.push(i);
                     });
-                    // 取最后一张
                     const idx = indices.pop();
                     const bombCard = hand[idx];
-                    // 从牌组找一张不同 rank 的牌替换
                     let replacement = game.deck.find(c => c.rank !== bombCard.rank);
                     if (replacement) {
                         hand[idx] = replacement;
                         const deckIdx = game.deck.indexOf(replacement);
                         if (deckIdx > -1) game.deck.splice(deckIdx, 1);
-                        // 将炸弹牌放回牌组
                         game.deck.push(bombCard);
                     } else {
-                        // 牌组没有不同 rank，从对方手牌交换
                         const otherHand = (hand === game.myHand) ? game.oppHand : game.myHand;
                         const otherIdx = otherHand.findIndex(c => c.rank !== bombCard.rank);
                         if (otherIdx > -1) {
@@ -2890,7 +3370,6 @@ function applyPastEffect(effects) {
                             otherHand[otherIdx] = bombCard;
                         }
                     }
-                    // 重新排序
                     hand.sort((a, b) => a.rank - b.rank);
                 }
             };
@@ -2973,6 +3452,29 @@ function handleGameOver(sender) {
     round++;
     // 设置下一局先手：输方先出
     nextFirstPlayer = (sender === 'host') ? 'opp' : 'me';
+
+    // 处理战车未来逆：根据胜负调整下一局随机性
+    if (window._pendingChariotNegative) {
+        const player = window._pendingChariotNegative;
+        const isMe = (player === 'me');
+        const resultRandomness = iWon ? 1.5 : 0.5; // 胜利+50%，失败-50%
+        // 存储到 nextRoundTarotEffect
+        if (isMe) {
+            nextRoundTarotEffect = {
+                player: 'me',
+                effect: { type: 'future_randomness' },
+                randomnessMod: resultRandomness
+            };
+        } else {
+            nextRoundTarotEffect = {
+                player: 'opp',
+                effect: { type: 'future_randomness' },
+                randomnessMod: resultRandomness
+            };
+        }
+        window._pendingChariotNegative = null;
+    }
+
     updateUI();
 }
 
