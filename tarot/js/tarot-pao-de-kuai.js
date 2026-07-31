@@ -968,6 +968,17 @@ function startGameAsHost() {
             nextRoundTarotEffect = null;
         }
 
+        if (effect.effect.type === 'future_justice') {
+            if (effect.player === 'me') {
+                myWeight = effect.weightMod;
+                myRandomness = effect.randomnessMod;
+            } else {
+                oppWeight = effect.weightMod;
+                oppRandomness = effect.randomnessMod;
+            }
+            nextRoundTarotEffect = null;
+        }
+
         // 清空，避免重复使用
         nextRoundTarotEffect = null;
     }
@@ -1239,6 +1250,63 @@ function startGameAsHost() {
                 myPastEffect = { type: 'weight_random' };
             }
 
+            // 教皇 (id: 5)
+            if (card.id === '5') {
+                if (!card.reversed) {
+                    // 正：顺子×1.3，随机+30%
+                    myWeightMod *= 1.1;      // 近似顺子提升
+                    myRandomnessMod *= 1.3;  // 随机+30%
+                } else {
+                    // 逆：组合×1.3，随机-20%
+                    myWeightMod *= 1.15;
+                    myRandomnessMod *= 0.8;  // 随机-20%
+                }
+                myPastEffect = { type: 'weight_random' };
+            }
+
+            // 正义 (id: 11)
+            if (card.id === '11') {
+                const diff = Math.abs(myWins - oppWins);
+                let comboMultiplier = 0;
+                if (!card.reversed) {
+                    // 正：领先时增加，落后时减少
+                    if (myWins > oppWins) {
+                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
+                    } else if (myWins < oppWins) {
+                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
+                    } else {
+                        comboMultiplier = 1;
+                    }
+                } else {
+                    // 逆：落后时增加，领先时减少
+                    if (myWins < oppWins) {
+                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
+                    } else if (myWins > oppWins) {
+                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
+                    } else {
+                        comboMultiplier = 1;
+                    }
+                }
+                // 组合概率调整（通过权重和随机性的组合近似）
+                myWeightMod *= (0.9 + comboMultiplier * 0.1);
+                myRandomnessMod *= (1.1 - comboMultiplier * 0.1);
+                myPastEffect = { type: 'weight_random' };
+            }
+
+            // 节制 (id: 14)
+            if (card.id === '14') {
+                if (!card.reversed) {
+                    // 正：顺子×1.3，对子×1.3，炸弹×0.5，三条×0.7
+                    myWeightMod *= 1.2;
+                    myRandomnessMod *= 0.8;
+                } else {
+                    // 逆：炸弹×1.3，三条×1.3，随机+88%
+                    myWeightMod *= 1.2;
+                    myRandomnessMod *= 1.88;
+                }
+                myPastEffect = { type: 'weight_random' };
+            }
+
         } else if (position === 'future') {
             myFutureEffect = { cardId: card.id, reversed: card.reversed };
 
@@ -1489,6 +1557,66 @@ function startGameAsHost() {
                     myFutureEffect = { type: 'future_forced_give_first' };
                 }
             }
+
+            // 教皇未来
+            if (card.id === '5') {
+                if (!card.reversed) {
+                    // 正：好牌
+                    myFutureEffect = { type: 'future_weight_gamble' };
+                    myFutureWeightMod = 0.8;
+                    myFutureRandomnessMod = 0.8;
+                } else {
+                    // 逆：50%好牌，50%烂牌
+                    myFutureEffect = { type: 'future_weight_gamble' };
+                    myFutureWeightMod = 0.5;
+                    myFutureRandomnessMod = 0.7;
+                }
+            }
+
+            // 正义未来
+            if (card.id === '11') {
+                const diff = Math.abs(myWins - oppWins);
+                let comboMultiplier = 0;
+                if (!card.reversed) {
+                    if (myWins > oppWins) {
+                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
+                    } else if (myWins < oppWins) {
+                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
+                    } else {
+                        comboMultiplier = 1;
+                    }
+                } else {
+                    if (myWins < oppWins) {
+                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
+                    } else if (myWins > oppWins) {
+                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
+                    } else {
+                        comboMultiplier = 1;
+                    }
+                }
+                // 存储到未来效果
+                myFutureEffect = {
+                    type: 'future_justice',
+                    comboMultiplier: comboMultiplier,
+                    randomnessMod: (1.1 - comboMultiplier * 0.1)
+                };
+                myFutureWeightMod = (0.9 + comboMultiplier * 0.1);
+                myFutureRandomnessMod = (1.1 - comboMultiplier * 0.1);
+            }
+
+            // 节制未来
+            if (card.id === '14') {
+                if (!card.reversed) {
+                    // 正：低价值×0.7，高价值×1.3
+                    myFutureEffect = { type: 'future_weight' };
+                    myFutureWeightMod = 1.3;
+                    myFutureRandomnessMod = 0.7;
+                } else {
+                    // 逆：随机+128%
+                    myFutureEffect = { type: 'future_randomness' };
+                    myFutureRandomnessMod = 2.28;
+                }
+            }
         }
     });
 
@@ -1729,6 +1857,63 @@ function startGameAsHost() {
                 } else {
                     // 逆：高价值×1.2
                     oppWeightMod *= 1.2;
+                }
+                oppPastEffect = { type: 'weight_random' };
+            }
+
+            // 教皇 (id: 5)
+            if (card.id === '5') {
+                if (!card.reversed) {
+                    // 正：顺子×1.3，随机+30%
+                    oppWeightMod *= 1.1;      // 近似顺子提升
+                    oppRandomnessMod *= 1.3;  // 随机+30%
+                } else {
+                    // 逆：组合×1.3，随机-20%
+                    oppWeightMod *= 1.15;
+                    oppRandomnessMod *= 0.8;  // 随机-20%
+                }
+                oppPastEffect = { type: 'weight_random' };
+            }
+
+            // 正义 (id: 11)
+            if (card.id === '11') {
+                const diff = Math.abs(oppWins - myWins);
+                let comboMultiplier = 0;
+                if (!card.reversed) {
+                    // 正：领先时增加，落后时减少
+                    if (oppWins > myWins) {
+                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
+                    } else if (oppWins < myWins) {
+                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
+                    } else {
+                        comboMultiplier = 1;
+                    }
+                } else {
+                    // 逆：落后时增加，领先时减少
+                    if (oppWins < myWins) {
+                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
+                    } else if (oppWins > myWins) {
+                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
+                    } else {
+                        comboMultiplier = 1;
+                    }
+                }
+                // 组合概率调整（通过权重和随机性的组合近似）
+                oppWeightMod *= (0.9 + comboMultiplier * 0.1);
+                oppRandomnessMod *= (1.1 - comboMultiplier * 0.1);
+                oppPastEffect = { type: 'weight_random' };
+            }
+
+            // 节制 (id: 14)
+            if (card.id === '14') {
+                if (!card.reversed) {
+                    // 正：顺子×1.3，对子×1.3，炸弹×0.5，三条×0.7
+                    oppWeightMod *= 1.2;
+                    oppRandomnessMod *= 0.8;
+                } else {
+                    // 逆：炸弹×1.3，三条×1.3，随机+88%
+                    oppWeightMod *= 1.2;
+                    oppRandomnessMod *= 1.88;
                 }
                 oppPastEffect = { type: 'weight_random' };
             }
@@ -1983,6 +2168,66 @@ function startGameAsHost() {
                     oppFutureEffect = { type: 'future_forced_give_first' };
                 }
             }
+
+            // 教皇未来
+            if (card.id === '5') {
+                if (!card.reversed) {
+                    // 正：好牌
+                    oppFutureEffect = { type: 'future_weight_gamble' };
+                    oppFutureWeightMod = 0.8;
+                    oppFutureRandomnessMod = 0.8;
+                } else {
+                    // 逆：50%好牌，50%烂牌
+                    oppFutureEffect = { type: 'future_weight_gamble' };
+                    oppFutureWeightMod = 0.5;
+                    oppFutureRandomnessMod = 0.7;
+                }
+            }
+
+            // 正义未来
+            if (card.id === '11') {
+                const diff = Math.abs(oppWins - myWins);
+                let comboMultiplier = 0;
+                if (!card.reversed) {
+                    if (oppWins > myWins) {
+                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
+                    } else if (oppWins < myWins) {
+                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
+                    } else {
+                        comboMultiplier = 1;
+                    }
+                } else {
+                    if (oppWins < myWins) {
+                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
+                    } else if (oppWins > myWins) {
+                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
+                    } else {
+                        comboMultiplier = 1;
+                    }
+                }
+                // 存储到未来效果
+                oppFutureEffect = {
+                    type: 'future_justice',
+                    comboMultiplier: comboMultiplier,
+                    randomnessMod: (1.1 - comboMultiplier * 0.1)
+                };
+                oppFutureWeightMod = (0.9 + comboMultiplier * 0.1);
+                oppFutureRandomnessMod = (1.1 - comboMultiplier * 0.1);
+            }
+
+            // 节制未来
+            if (card.id === '14') {
+                if (!card.reversed) {
+                    // 正：低价值×0.7，高价值×1.3
+                    oppFutureEffect = { type: 'future_weight' };
+                    oppFutureWeightMod = 1.3;
+                    oppFutureRandomnessMod = 0.7;
+                } else {
+                    // 逆：随机+128%
+                    oppFutureEffect = { type: 'future_randomness' };
+                    oppFutureRandomnessMod = 2.28;
+                }
+            }
         }
     });
 
@@ -1992,12 +2237,15 @@ function startGameAsHost() {
     const myHasPriestess = myTarot.some(c => c.id === '2');
     const myHasEmpress = myTarot.some(c => c.id === '3');
     const myHasEmperor = myTarot.some(c => c.id === '4');
+    const myHasPope = myTarot.some(c => c.id === '5');
     const myHasLovers = myTarot.some(c => c.id === '6');
     const myHasChariot = myTarot.some(c => c.id === '7');
     const myHasStrength = myTarot.some(c => c.id === '8');
     const myHasHermit = myTarot.some(c => c.id === '9');
+    const myHasJustice = myTarot.some(c => c.id === '11');
     const myHasHangedMan = myTarot.some(c => c.id === '12');
     const myHasDeath = myTarot.some(c => c.id === '13');
+    const myHasTemperance = myTarot.some(c => c.id === '14');
     const myHasDevil = myTarot.some(c => c.id === '15');
     const myHasStar = myTarot.some(c => c.id === '17');
     const myHasMoon = myTarot.some(c => c.id === '18');
@@ -2172,12 +2420,14 @@ function startGameAsHost() {
         myWeightMod = 1.0;
         myRandomnessMod = 1.0;
     }
+
     // 检查我方的过去组合：恋人 + 魔术师
     if (myHasLovers && myHasMagician) {
         myPastEffect = { type: 'lovers_magician_combo' };
         myWeightMod = 1.0;
         myRandomnessMod = 1.0;
     }
+
     // 检查我方的过去组合：战车 + 力量
     if (myHasChariot && myHasStrength) {
         myWeightMod = 1.3;
@@ -2186,6 +2436,36 @@ function startGameAsHost() {
             type: 'chariot_strength_combo',
             stealFirstChance: 0.5
         };
+    }
+
+    // 检查我方的未来组合：皇帝 + 教皇
+    if (myHasEmperor && myHasPope) {
+        myFutureEffect = {
+            type: 'future_weight_gamble',
+            weightMod: 0.8,
+            randomnessMod: 0.3  // 超级好牌
+        };
+        myFutureWeightMod = 0.8;
+        myFutureRandomnessMod = 0.3;
+    }
+
+    // 检查我方的未来组合：节制 + 恶魔
+    if (myHasTemperance && myHasDevil) {
+        myFutureEffect = {
+            type: 'future_bomb_boost',
+            bombBoost: 1.4,
+            reshuffleIfNoBomb: false
+        };
+        myFutureWeightMod = 1.4;
+        myFutureRandomnessMod = 1.0;
+    }
+
+    // 检查我方的过去组合：太阳 + 月亮 + 星星
+    if (myHasSun && myHasMoon && myHasStar) {
+        // 高价值×1.3，低价值×1.3，顺子×1.3，对子×1.3，随机-20%
+        myWeightMod = 1.3;
+        myRandomnessMod = 0.8;
+        myPastEffect = null;  // 清除单独效果
     }
 
 
@@ -2198,12 +2478,15 @@ function startGameAsHost() {
     const oppHasPriestess = oppTarot.some(c => c.id === '2');
     const oppHasEmpress = oppTarot.some(c => c.id === '3');
     const oppHasEmperor = oppTarot.some(c => c.id === '4');
+    const oppHasPope = oppTarot.some(c => c.id === '5');
     const oppHasLovers = oppTarot.some(c => c.id === '6');
     const oppHasChariot = oppTarot.some(c => c.id === '7');
     const oppHasStrength = oppTarot.some(c => c.id === '8');
     const oppHasHermit = oppTarot.some(c => c.id === '9');
+    const oppHasJustice = oppTarot.some(c => c.id === '11');
     const oppHasHangedMan = oppTarot.some(c => c.id === '12');
     const oppHasDeath = oppTarot.some(c => c.id === '13');
+    const oppHasTemperance = oppTarot.some(c => c.id === '14');
     const oppHasDevil = oppTarot.some(c => c.id === '15');
     const oppHasStar = oppTarot.some(c => c.id === '17');
     const oppHasMoon = oppTarot.some(c => c.id === '18');
@@ -2373,12 +2656,14 @@ function startGameAsHost() {
         oppWeightMod = 1.0;
         oppRandomnessMod = 1.0;
     }
+
     // 检查对方的过去组合：恋人 + 魔术师
     if (oppHasLovers && oppHasMagician) {
         oppPastEffect = { type: 'lovers_magician_combo' };
         oppWeightMod = 1.0;
         oppRandomnessMod = 1.0;
     }
+
     // 检查对方的过去组合：战车 + 力量
     if (oppHasChariot && oppHasStrength) {
         oppWeightMod = 1.3;
@@ -2387,6 +2672,36 @@ function startGameAsHost() {
             type: 'chariot_strength_combo',
             stealFirstChance: 0.5
         };
+    }
+
+    // 检查对方的未来组合：皇帝 + 教皇
+    if (oppHasEmperor && oppHasPope) {
+        oppFutureEffect = {
+            type: 'future_weight_gamble',
+            weightMod: 0.8,
+            randomnessMod: 0.3  // 超级好牌
+        };
+        oppFutureWeightMod = 0.8;
+        oppFutureRandomnessMod = 0.3;
+    }
+
+    // 检查对方的未来组合：节制 + 恶魔
+    if (oppHasTemperance && oppHasDevil) {
+        oppFutureEffect = {
+            type: 'future_bomb_boost',
+            bombBoost: 1.4,
+            reshuffleIfNoBomb: false
+        };
+        oppFutureWeightMod = 1.4;
+        oppFutureRandomnessMod = 1.0;
+    }
+
+    // 检查对方的过去组合：太阳 + 月亮 + 星星
+    if (oppHasSun && oppHasMoon && oppHasStar) {
+        // 高价值×1.3，低价值×1.3，顺子×1.3，对子×1.3，随机-20%
+        oppWeightMod = 1.3;
+        oppRandomnessMod = 0.8;
+        oppPastEffect = null;  // 清除单独效果
     }
 
 
@@ -2404,18 +2719,22 @@ function startGameAsHost() {
     const myActiveCards = [];
     if (myHasMagician && myHasPriestess) { myActiveCards.push('1', '2'); }
     if (myHasEmperor && myHasEmpress) { myActiveCards.push('3', '4'); }
+    if (myHasEmperor && myHasPope) { myActiveCards.push('4', '5'); }
     if (myHasLovers && myHasDevil) { myActiveCards.push('6', '15'); }
     if (myHasLovers && myHasMagician) { myActiveCards.push('6', '1'); }
     if (myHasChariot && myHasStrength) { myActiveCards.push('7', '8'); }
     if (myHasHermit && myHasPriestess) { myActiveCards.push('9', '2'); }
     if (myHasHangedMan && myHasDevil) { myActiveCards.push('12', '15'); }
     if (myHasHangedMan && myHasDeath) { myActiveCards.push('12', '13'); }
+    if (myHasTemperance && myHasDevil) { myActiveCards.push('14', '15'); }
     if (myHasDevil && myHasSun) { myActiveCards.push('15', '19'); }
     if (myHasStar && myHasMoon) { myActiveCards.push('17', '18'); }
     if (myHasSun && myHasMoon) { myActiveCards.push('19', '18'); }
+    if (myHasSun && myHasMoon && myHasStar) { myActiveCards.push('19', '18', '17'); }
     window._tarotCombos.my.activeCards = [...new Set(myActiveCards)];
 
     const oppActiveCards = [];
+    if (oppHasEmperor && oppHasPope) { oppActiveCards.push('4', '5'); }
     if (oppHasMagician && oppHasPriestess) { oppActiveCards.push('1', '2'); }
     if (oppHasEmperor && oppHasEmpress) { oppActiveCards.push('3', '4'); }
     if (oppHasLovers && oppHasDevil) { oppActiveCards.push('6', '15'); }
@@ -2424,9 +2743,11 @@ function startGameAsHost() {
     if (oppHasHermit && oppHasPriestess) { oppActiveCards.push('9', '2'); }
     if (oppHasHangedMan  && oppHasDevil) { oppActiveCards.push('12', '15'); }
     if (oppHasHangedMan  && oppHasDeath) { oppActiveCards.push('12', '13'); }
+    if (oppHasTemperance && oppHasDevil) { oppActiveCards.push('14', '15'); }
     if (oppHasDevil && oppHasSun) { oppActiveCards.push('15', '19'); }
     if (oppHasStar && oppHasMoon) { oppActiveCards.push('17', '18'); }
     if (oppHasSun && oppHasMoon) { oppActiveCards.push('19', '18'); }
+    if (oppHasSun && oppHasMoon && oppHasStar) { oppActiveCards.push('19', '18', '17'); }
     window._tarotCombos.opp.activeCards = [...new Set(oppActiveCards)];
 
 
