@@ -926,14 +926,15 @@ function handleData(data) {
     const type = data.type;
     switch (type) {
         case 'init': {
+            // 客机需要交换 players 数据（因为房主把自己当 me）
             if (!isHost) {
-                // 客机：房主发来的 players.me 是房主的牌，对应我们的 opp；players.opp 对应我们的 me
+                // 交换 players
                 const tempMe = data.players.opp;
                 const tempOpp = data.players.me;
                 game.players.me = tempMe;
                 game.players.opp = tempOpp;
 
-                // 塔罗牌也需要交换
+                // 交换塔罗牌
                 window._myTarot = data.oppTarot;
                 window._oppTarot = data.myTarot;
 
@@ -942,6 +943,8 @@ function handleData(data) {
                 data.tarotCombos.opp = data.tarotCombos.my;
                 data.tarotCombos.my = tmpCombo;
                 window._tarotCombos = data.tarotCombos;
+
+                // 交换 currentPlayer
                 game.currentPlayer = data.currentPlayer === 'me' ? 'opp' : 'me';
             } else {
                 // 房主直接使用
@@ -952,7 +955,7 @@ function handleData(data) {
                 game.currentPlayer = data.currentPlayer;
             }
 
-            // 统一用 game.currentPlayer === 'me' 判断是否自己的回合
+            // ---- 以下是通用初始化逻辑（无论房主还是客机都执行） ----
             game.isMyTurn = (game.currentPlayer === 'me');
             game.lastPlay = null;
             game.lastPlayer = null;
@@ -974,31 +977,22 @@ function handleData(data) {
             break;
         }
         case 'play': {
-            // 对手出牌，移除对手手牌
             const oppIds = data.cardIds;
-            if (isHost) {
-                oppIds.forEach(id => {
-                    const idx = game.players.opp.hand.findIndex(c => c.id === id);
-                    if (idx > -1) game.players.opp.hand.splice(idx, 1);
-                });
-            } else {
-                oppIds.forEach(id => {
-                    const idx = game.players.opp.hand.findIndex(c => c.id === id);
-                    if (idx > -1) game.players.opp.hand.splice(idx, 1);
-                });
-            }
+            oppIds.forEach(id => {
+                const idx = game.players.opp.hand.findIndex(c => c.id === id);
+                if (idx > -1) game.players.opp.hand.splice(idx, 1);
+            });
             game.lastPlay = data.playType;
-            game.lastPlayer = game.currentPlayer; // 对手出的
+            game.lastPlayer = game.currentPlayer;
             game.currentPlayer = (game.currentPlayer === 'me' ? 'opp' : 'me');
             game.isMyTurn = (game.currentPlayer === 'me');
             renderPlay(data.cards, `对手出了 ${data.cards.length} 张`);
             setMessage('对手出牌，轮到你', 'info', 'play');
-            // if (game.players.opp.hand.length === 0) gameOver('opp');
             updateUI();
             break;
         }
         case 'pass': {
-            // ★★★ 过牌后清空上一手牌，切换回合 ★★★
+            // 过牌后清空上一手牌，切换回合
             game.lastPlay = null;
             game.lastPlayer = null;
             game.currentPlayer = (game.currentPlayer === 'me' ? 'opp' : 'me');
