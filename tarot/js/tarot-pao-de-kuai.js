@@ -405,7 +405,7 @@ function renderMyHand(animate = false) {
                 game.selectedIndices.push(idx);
             }
             renderMyHand(); // 重新渲染
-            console.log('选中索引:', game.selectedIndices);
+            // console.log('选中索引:', game.selectedIndices);
         });
         // 先隐藏
         el.style.opacity = '0';
@@ -897,6 +897,18 @@ function startGameAsHost() {
         nextRoundTarotEffect = null;
     }
 
+    // 在 startGameAsHost 开头，处理未来效果时添加
+    if (nextRoundTarotEffect && nextRoundTarotEffect.effect.type === 'inherit_past') {
+        const inherited = nextRoundTarotEffect.effect.pastEffect;
+        // 直接应用该效果到当前局
+        // 注意：此时牌还未发，所以我们需要在发牌后应用
+        // 所以我们将这个效果保存起来，在发牌后应用
+        // 简单做法：将 inherited 存入一个临时变量，在发牌后调用 applyPastEffect
+        window._inheritedPastEffect = inherited;
+        // 清空 nextRoundTarotEffect，避免重复
+        nextRoundTarotEffect = null;
+    }
+
     // 生成塔罗牌
     const { myCards: myTarot, oppCards: oppTarot } = drawTarotCardsForBoth();
     window._myTarot = myTarot;
@@ -974,6 +986,38 @@ function startGameAsHost() {
                 }
                 if (!myPastEffect) myPastEffect = { type: 'weight_random' };
             }
+            // 死神 (id: 13)
+            if (card.id === '13') {
+                myPastEffect = {
+                    cardId: card.id,
+                    reversed: card.reversed,
+                    type: 'swap_card',
+                    direction: card.reversed ? 'highest' : 'lowest'
+                };
+            }
+
+            // 皇帝 (id: 4)
+            if (card.id === '4') {
+                if (!card.reversed) {
+                    myWeightMod *= 1.1;
+                    myRandomnessMod *= 0.9; // 对子/顺子概率提升
+                } else {
+                    myWeightMod *= 1.2;
+                    myRandomnessMod *= 0.8; // 高价值提升，组合降低
+                }
+                myPastEffect = { type: 'weight_random' };
+            }
+
+            // 女皇 (id: 3)
+            if (card.id === '3') {
+                if (!card.reversed) {
+                    myWeightMod *= 1.1;
+                    myRandomnessMod *= 0.9; // 同花色概率提升（近似）
+                } else {
+                    myRandomnessMod *= 0.75; // 特殊组合概率降低
+                }
+                myPastEffect = { type: 'weight_random' };
+            }
         } else if (position === 'future') {
             myFutureEffect = { cardId: card.id, reversed: card.reversed };
 
@@ -1042,6 +1086,49 @@ function startGameAsHost() {
                     };
                     myFutureWeightMod = 1.15;
                     myFutureRandomnessMod = 1.3;
+                }
+            }
+            // 死神未来
+            if (card.id === '13') {
+                if (!card.reversed) {
+                    // 正：随机性+30%
+                    myFutureEffect = { type: 'future_randomness' };
+                    myFutureRandomnessMod = 1.3;
+                } else {
+                    // 逆：延续本局过去效果
+                    myFutureEffect = {
+                        type: 'inherit_past',
+                        pastEffect: myPastEffect // 注意：myPastEffect 可能在后面被修改，最好复制一份
+                    };
+                    // 这里不设置 weightMod/randomnessMod，因为继承的是过去效果
+                }
+            }
+
+            // 皇帝未来
+            if (card.id === '4') {
+                if (!card.reversed) {
+                    // 正：随机性-20%
+                    myFutureEffect = { type: 'future_randomness' };
+                    myFutureRandomnessMod = 0.8;
+                } else {
+                    // 逆：根据本局高价值牌数量增加随机性
+                    myFutureEffect = {
+                        type: 'future_randomness_based_on_high_cards',
+                    };
+                    // 不在这里设置具体数值，在发牌后计算
+                }
+            }
+
+            // 女皇未来
+            if (card.id === '3') {
+                if (!card.reversed) {
+                    // 正：额外抽牌替换最小牌
+                    myFutureEffect = { type: 'extra_draw_replace' };
+                } else {
+                    // 逆：对子概率×0.7，顺子概率×1.3
+                    myFutureEffect = { type: 'future_weight' };
+                    myFutureWeightMod = 1.0;
+                    myFutureRandomnessMod = 0.7; // 近似
                 }
             }
         }
@@ -1118,6 +1205,38 @@ function startGameAsHost() {
                 }
                 if (!oppPastEffect) oppPastEffect = { type: 'weight_random' };
             }
+            // 死神 (id: 13)
+            if (card.id === '13') {
+                oppPastEffect = {
+                    cardId: card.id,
+                    reversed: card.reversed,
+                    type: 'swap_card',
+                    direction: card.reversed ? 'highest' : 'lowest'
+                };
+            }
+
+            // 皇帝 (id: 4)
+            if (card.id === '4') {
+                if (!card.reversed) {
+                    oppWeightMod *= 1.1;
+                    oppRandomnessMod *= 0.9; // 对子/顺子概率提升
+                } else {
+                    oppWeightMod *= 1.2;
+                    oppRandomnessMod *= 0.8; // 高价值提升，组合降低
+                }
+                oppPastEffect = { type: 'weight_random' };
+            }
+
+            // 女皇 (id: 3)
+            if (card.id === '3') {
+                if (!card.reversed) {
+                    oppWeightMod *= 1.1;
+                    oppRandomnessMod *= 0.9; // 同花色概率提升（近似）
+                } else {
+                    oppRandomnessMod *= 0.75; // 特殊组合概率降低
+                }
+                oppPastEffect = { type: 'weight_random' };
+            }
         } else if (position === 'future') {
             oppFutureEffect = { cardId: card.id, reversed: card.reversed };
 
@@ -1188,11 +1307,56 @@ function startGameAsHost() {
                     oppFutureRandomnessMod = 1.3;
                 }
             }
+            // 死神未来
+            if (card.id === '13') {
+                if (!card.reversed) {
+                    // 正：随机性+30%
+                    oppFutureEffect = { type: 'future_randomness' };
+                    oppFutureRandomnessMod = 1.3;
+                } else {
+                    // 逆：延续本局过去效果
+                    oppFutureEffect = {
+                        type: 'inherit_past',
+                        pastEffect: oppPastEffect // 注意：oppPastEffect 可能在后面被修改，最好复制一份
+                    };
+                    // 这里不设置 weightMod/randomnessMod，因为继承的是过去效果
+                }
+            }
+
+            // 皇帝未来
+            if (card.id === '4') {
+                if (!card.reversed) {
+                    // 正：随机性-20%
+                    oppFutureEffect = { type: 'future_randomness' };
+                    oppFutureRandomnessMod = 0.8;
+                } else {
+                    // 逆：根据本局高价值牌数量增加随机性
+                    oppFutureEffect = {
+                        type: 'future_randomness_based_on_high_cards',
+                    };
+                    // 不在这里设置具体数值，在发牌后计算
+                }
+            }
+
+            // 女皇未来
+            if (card.id === '3') {
+                if (!card.reversed) {
+                    // 正：额外抽牌替换最小牌
+                    oppFutureEffect = { type: 'extra_draw_replace' };
+                } else {
+                    // 逆：对子概率×0.7，顺子概率×1.3
+                    oppFutureEffect = { type: 'future_weight' };
+                    oppFutureWeightMod = 1.0;
+                    oppFutureRandomnessMod = 0.7; // 近似
+                }
+            }
         }
     });
 
 
     // 检查我方的过去组合
+    const myHasEmpress = myTarot.some(c => c.id === '3');
+    const myHasEmperor = myTarot.some(c => c.id === '4');
     const myHasDevil = myTarot.some(c => c.id === '15');
     const myHasStar = myTarot.some(c => c.id === '17');
     const myHasMoon = myTarot.some(c => c.id === '18');
@@ -1275,7 +1439,17 @@ function startGameAsHost() {
         }
     }
 
+    // 检查我方的未来组合：皇帝 + 女皇
+    if (myHasEmperor && myHasEmpress) {
+        // 顺子概率×1.2，同花色概率×2
+        myWeightMod = 1.1;
+        myRandomnessMod = 0.85;
+        myPastEffect = null; // 清除单独效果（权重随机已处理）
+    }
+
     // 处理对手的组合
+    const oppHasEmpress = oppTarot.some(c => c.id === '3');
+    const oppHasEmperor = oppTarot.some(c => c.id === '4');
     const oppHasDevil = oppTarot.some(c => c.id === '15');
     const oppHasStar = oppTarot.some(c => c.id === '17');
     const oppHasMoon = oppTarot.some(c => c.id === '18');
@@ -1356,31 +1530,17 @@ function startGameAsHost() {
         }
     }
 
-    
+    // 检查对方的未来组合：皇帝 + 女皇
+    if (oppHasEmperor && oppHasEmpress) {
+        oppWeightMod = 1.1;
+        oppRandomnessMod = 0.85;
+        oppPastEffect = null;
+    }
 
-    // ===== 记录组合激活状态（用于特效） =====
-    // window._tarotCombos = {
-    //     my: { activeCards: [] },
-    //     opp: { activeCards: [] }
-    // };
 
-    // // 检查我方的过去组合
-    // if ((myHasDevil && myHasSun) || (myHasStar && myHasMoon) || (myHasSun && myHasMoon)) {
-    //     window._tarotCombos.my.past = true;
-    // }
-    // // 检查我方的未来组合
-    // if (myHasDevil && myHasSun) {
-    //     window._tarotCombos.my.future = true;
-    // }
 
-    // // 检查对手的过去组合
-    // if ((oppHasDevil && oppHasSun) || (oppHasStar && oppHasMoon) || (oppHasSun && oppHasMoon)) {
-    //     window._tarotCombos.opp.past = true;
-    // }
-    // // 检查对手的未来组合
-    // if (oppHasDevil && oppHasSun) {
-    //     window._tarotCombos.opp.future = true;
-    // }
+
+
 
     // ===== 记录组合激活状态（用于特效） =====
     window._tarotCombos = {
@@ -1393,12 +1553,14 @@ function startGameAsHost() {
     if (myHasDevil && myHasSun) { myActiveCards.push('15', '19'); }
     if (myHasStar && myHasMoon) { myActiveCards.push('17', '18'); }
     if (myHasSun && myHasMoon) { myActiveCards.push('19', '18'); }
+    if (myHasEmperor && myHasEmpress) { myActiveCards.push('3', '4'); }
     window._tarotCombos.my.activeCards = [...new Set(myActiveCards)];
 
     const oppActiveCards = [];
     if (oppHasDevil && oppHasSun) { oppActiveCards.push('15', '19'); }
     if (oppHasStar && oppHasMoon) { oppActiveCards.push('17', '18'); }
     if (oppHasSun && oppHasMoon) { oppActiveCards.push('19', '18'); }
+    if (oppHasEmperor && oppHasEmpress) { oppActiveCards.push('3', '4'); }
     window._tarotCombos.opp.activeCards = [...new Set(oppActiveCards)];
 
 
@@ -1410,15 +1572,13 @@ function startGameAsHost() {
         opp: oppPastEffect
     };
 
+    
     // 执行发牌（带权重）
     // 默认权重1.0
     let myWeightFinal = 1.0;
     let oppWeightFinal = 1.0;
+    
 
-    // 如果过去效果是 force_3，需要在发牌后注入3
-    // 如果过去效果是 reshuffle，发牌后再洗牌（发牌正常，然后重新排序）
-
-    // ★ 先正常发牌（权重默认1.0，后续再调整） ★
     game.shuffle(); // 洗牌准备
 
     // 检查是否有未来效果需要传递到下一局
@@ -1450,7 +1610,88 @@ function startGameAsHost() {
     // 应用过去效果到已发的手牌
     applyPastEffect(pastEffects);
 
-    // ★ 未来效果：炸弹检查与重发 ★
+    // 检查 window._inheritedPastEffect 并应用
+    if (window._inheritedPastEffect) {
+        applyPastEffect({ my: window._inheritedPastEffect, opp: null });
+        window._inheritedPastEffect = null;
+    }
+
+    
+
+    
+    // 处理皇帝未来逆：计算本局高价值牌数量（rank >= 10）
+    if (myFutureEffect && myFutureEffect.type === 'future_randomness_based_on_high_cards') {
+        const highCards = game.myHand.filter(c => c.rank >= 10).length;
+        const boost = Math.min(highCards * 0.1, 0.6); // 每张+10%，最多60%
+        const randomnessMod = 1 + boost;
+        // 存储到 nextRoundTarotEffect（将在下一局应用）
+        nextRoundTarotEffect = {
+            player: 'me',
+            effect: { type: 'future_randomness' },
+            randomnessMod: randomnessMod
+        };
+    }
+    // 对手同理
+    if (oppFutureEffect && oppFutureEffect.type === 'future_randomness_based_on_high_cards') {
+        const highCards = game.oppHand.filter(c => c.rank >= 10).length;
+        const boost = Math.min(highCards * 0.1, 0.6);
+        const randomnessMod = 1 + boost;
+        nextRoundTarotEffect = {
+            player: 'opp',
+            effect: { type: 'future_randomness' },
+            randomnessMod: randomnessMod
+        };
+    }
+    
+    // 处理女皇未来正：额外抽牌替换最小牌
+    if (myFutureEffect && myFutureEffect.type === 'extra_draw_replace') {
+        // 从牌组抽一张牌
+        if (game.deck.length > 0) {
+            const newCard = game.deck.pop();
+            // 找到自己手牌中 rank 最小的牌
+            let minIdx = 0;
+            let minRank = Infinity;
+            game.myHand.forEach((c, i) => {
+                if (c.rank < minRank) { minRank = c.rank; minIdx = i; }
+            });
+            // 替换
+            game.myHand[minIdx] = newCard;
+            game.myHand.sort((a, b) => a.rank - b.rank);
+        }
+    }
+    // 对手同理
+    if (oppFutureEffect && oppFutureEffect.type === 'extra_draw_replace') {
+        if (game.deck.length > 0) {
+            const newCard = game.deck.pop();
+            let minIdx = 0;
+            let minRank = Infinity;
+            game.oppHand.forEach((c, i) => {
+                if (c.rank < minRank) { minRank = c.rank; minIdx = i; }
+            });
+            game.oppHand[minIdx] = newCard;
+            game.oppHand.sort((a, b) => a.rank - b.rank);
+        }
+    }
+
+    // 处理死神未来逆：延续本局过去效果
+    if (myFutureEffect && myFutureEffect.type === 'inherit_past' && myPastEffect) {
+        // 复制一份过去效果（避免引用）
+        const inherited = { ...myPastEffect };
+        nextRoundTarotEffect = {
+            player: 'me',
+            effect: { type: 'inherit_past', pastEffect: inherited }
+        };
+    }
+    // 对手同理
+    if (oppFutureEffect && oppFutureEffect.type === 'inherit_past' && oppPastEffect) {
+        const inherited = { ...oppPastEffect };
+        nextRoundTarotEffect = {
+            player: 'opp',
+            effect: { type: 'inherit_past', pastEffect: inherited }
+        };
+    }
+
+    // 未来效果：炸弹检查与重发
     if (nextRoundTarotEffect && nextRoundTarotEffect.reshuffleIfNoBomb) {
         const hasBomb = (hand) => {
             const counts = {};
@@ -1513,14 +1754,7 @@ function applyPastEffect(effects) {
     if (effects.my) {
         const e = effects.my;
         if (e.type === 'force_3') {
-            // 注入一张3：从对手或弃牌堆换一张3到玩家手牌
-            // 简单实现：从牌组中找一张3，如果牌组没有则从对手手牌交换
-            // 由于牌组已为空（发牌后剩余26张），我们直接交换
-            // 更简单：从对手手牌中拿一张3，换一张玩家手中的牌
-            // 但我们不能直接操作对手牌，所以从已发牌中寻找
-            // 策略：从玩家手牌中移除一张最小牌，从对手手牌中拿一张3
-            // 但为了公平，我们直接“创造”一张3，用一张2替换
-            // 极端情况：玩家已经有3，则什么都不做
+            // 注入一张3，从对手或弃牌堆换一张3到玩家手牌
             const has3 = game.myHand.some(c => c.rank === 3);
             if (!has3) {
                 // 找一张最小的牌替换为3
@@ -1560,6 +1794,40 @@ function applyPastEffect(effects) {
             game.oppHand = allCards.slice(16);
             game.myHand.sort((a, b) => a.rank - b.rank);
             game.oppHand.sort((a, b) => a.rank - b.rank);
+        } else if (e.type === 'swap_card') {
+            const direction = e.direction; // 'lowest' 或 'highest'
+            const myHand = game.myHand;
+            const oppHand = game.oppHand;
+            if (myHand.length === 0 || oppHand.length === 0) return;
+
+            // 找出自己的目标牌
+            let myTargetCard, myTargetIdx;
+            if (direction === 'lowest') {
+                // 最小价值牌（rank 最小）
+                let minRank = Infinity;
+                myHand.forEach((c, i) => {
+                    if (c.rank < minRank) { minRank = c.rank; myTargetIdx = i; }
+                });
+            } else {
+                // 最大价值牌
+                let maxRank = -Infinity;
+                myHand.forEach((c, i) => {
+                    if (c.rank > maxRank) { maxRank = c.rank; myTargetIdx = i; }
+                });
+            }
+            myTargetCard = myHand[myTargetIdx];
+
+            // 从对方手牌随机选一张
+            const oppRandomIdx = Math.floor(Math.random() * oppHand.length);
+            const oppTargetCard = oppHand[oppRandomIdx];
+
+            // 互换
+            myHand[myTargetIdx] = oppTargetCard;
+            oppHand[oppRandomIdx] = myTargetCard;
+
+            // 重新排序（保持顺序）
+            myHand.sort((a, b) => a.rank - b.rank);
+            oppHand.sort((a, b) => a.rank - b.rank);
         }
 
         if (e.noBomb) {
