@@ -466,11 +466,12 @@ class Game {
         return { valid: true, type: type };
     }
     getSelectedCards() {
-        return this.selectedIndices.map(i => this.myHand[i]);
+        return this.selectedIndices.map(i => this.players.me.hand[i]);
     }
     dealWithWeight(myWeight, oppWeight, myRandomness = 1.0, oppRandomness = 1.0) {
-        this.myHand = [];
-        this.oppHand = [];
+        // 清空手牌
+        this.players.me.hand = [];
+        this.players.opp.hand = [];
 
         let deck = buildDeck();
         for (let i = deck.length - 1; i > 0; i--) {
@@ -505,13 +506,13 @@ class Game {
         for (let i = 0; i < 16; i++) {
             const myCard = drawWeighted(myWeight || 1.0, myRandomness || 1.0);
             const oppCard = drawWeighted(oppWeight || 1.0, oppRandomness || 1.0);
-            if (myCard) this.myHand.push(myCard);
-            if (oppCard) this.oppHand.push(oppCard);
+            if (myCard) this.players.me.hand.push(myCard);
+            if (oppCard) this.players.opp.hand.push(oppCard);
         }
 
-        this.myHand.sort((a, b) => a.rank - b.rank);
-        this.oppHand.sort((a, b) => a.rank - b.rank);
-        this.deck = deck;  // 保存剩余未发的牌
+        this.players.me.hand.sort((a, b) => a.rank - b.rank);
+        this.players.opp.hand.sort((a, b) => a.rank - b.rank);
+        this.deck = deck;
     }
 }
 
@@ -607,7 +608,7 @@ function renderMyHand(animate = false) {
     
     
 
-    game.myHand.forEach((card, idx) => {
+    game.players.me.hand.forEach((card, idx) => {
         const el = renderCard(card, true, game.selectedIndices.includes(idx));
 
         el.addEventListener('click', () => {
@@ -628,7 +629,7 @@ function renderMyHand(animate = false) {
         fragments.push({ el, idx, card });
     });
 
-    myCountEl.textContent = game.myHand.length;
+    myCountEl.textContent = game.players.me.hand.length;
 
     if (!animate) {
         // 直接显示
@@ -686,7 +687,7 @@ function renderOppHand(animate = false) {
     oppHandEl.innerHTML = '';
     const fragments = [];
 
-    game.oppHand.forEach((card, idx) => {
+    game.players.opp.hand.forEach((card, idx) => {
         const el = renderCard(card, false); // 背面
         el.style.opacity = '0';
         el.style.transition = 'none';
@@ -694,7 +695,7 @@ function renderOppHand(animate = false) {
         fragments.push({ el, idx });
     });
 
-    oppCountEl.textContent = game.oppHand.length;
+    oppCountEl.textContent = game.players.opp.hand.length;
 
     if (!animate) {
         fragments.forEach(({ el }) => { el.style.opacity = '1'; });
@@ -977,30 +978,28 @@ function handleData(data) {
     switch (type) {
         case 'init': {
             if (!isHost) {
-                // 客机：交换手牌和塔罗牌
-                const tmpHand = game.myHand;
-                game.myHand = data.oppHand;
-                game.oppHand = data.myHand;
+                // 客机：房主发来的 players.me 是房主的牌，对应我们的 opp；players.opp 对应我们的 me
+                const tempMe = data.players.opp;
+                const tempOpp = data.players.me;
+                game.players.me = tempMe;
+                game.players.opp = tempOpp;
 
-                // 交换塔罗牌
+                // 塔罗牌也需要交换
                 window._myTarot = data.oppTarot;
                 window._oppTarot = data.myTarot;
-                
-                // ★ 接收组合状态并交换 my/opp
-                window._tarotCombos = data.tarotCombos || { my: { past: false, future: false, activeCards: [] }, opp: { past: false, future: false, activeCards: [] } };
-                // 交换 my 和 opp
-                const tmpCombo = window._tarotCombos.my;
-                window._tarotCombos.my = window._tarotCombos.opp;
-                window._tarotCombos.opp = tmpCombo;
 
+                // 交换 combo
+                const tmpCombo = data.tarotCombos.opp;
+                data.tarotCombos.opp = data.tarotCombos.my;
+                data.tarotCombos.my = tmpCombo;
+                window._tarotCombos = data.tarotCombos;
                 game.currentPlayer = data.currentPlayer === 'me' ? 'opp' : 'me';
             } else {
                 // 房主直接使用
-                game.myHand = data.myHand;
-                game.oppHand = data.oppHand;
+                game.players = data.players;
                 window._myTarot = data.myTarot;
                 window._oppTarot = data.oppTarot;
-                window._tarotCombos = data.tarotCombos || { my: { past: false, future: false, activeCards: [] }, opp: { past: false, future: false, activeCards: [] } };
+                window._tarotCombos = data.tarotCombos;
                 game.currentPlayer = data.currentPlayer;
             }
 
@@ -1030,13 +1029,13 @@ function handleData(data) {
             const oppIds = data.cardIds;
             if (isHost) {
                 oppIds.forEach(id => {
-                    const idx = game.oppHand.findIndex(c => c.id === id);
-                    if (idx > -1) game.oppHand.splice(idx, 1);
+                    const idx = game.players.opp.hand.findIndex(c => c.id === id);
+                    if (idx > -1) game.players.opp.hand.splice(idx, 1);
                 });
             } else {
                 oppIds.forEach(id => {
-                    const idx = game.oppHand.findIndex(c => c.id === id);
-                    if (idx > -1) game.oppHand.splice(idx, 1);
+                    const idx = game.players.opp.hand.findIndex(c => c.id === id);
+                    if (idx > -1) game.players.opp.hand.splice(idx, 1);
                 });
             }
             game.lastPlay = data.playType;
@@ -1045,7 +1044,7 @@ function handleData(data) {
             game.isMyTurn = (game.currentPlayer === 'me');
             renderPlay(data.cards, `对手出了 ${data.cards.length} 张`);
             setMessage('对手出牌，轮到你', 'info', 'play');
-            // if (game.oppHand.length === 0) gameOver('opp');
+            // if (game.players.opp.hand.length === 0) gameOver('opp');
             updateUI();
             break;
         }
@@ -1825,7 +1824,7 @@ function startGameAsHost() {
     
     // 处理皇帝未来逆：计算本局高价值牌数量（rank >= 10）
     if (myFutureEffect && myFutureEffect.type === 'future_randomness_based_on_high_cards') {
-        const highCards = game.myHand.filter(c => c.rank >= 10).length;
+        const highCards = game.players.me.hand.filter(c => c.rank >= 10).length;
         const boost = Math.min(highCards * 0.1, 0.6); // 每张+10%，最多60%
         const randomnessMod = 1 + boost;
         // 存储到 nextRoundTarotEffect（将在下一局应用）
@@ -1837,7 +1836,7 @@ function startGameAsHost() {
     }
     // 对手同理
     if (oppFutureEffect && oppFutureEffect.type === 'future_randomness_based_on_high_cards') {
-        const highCards = game.oppHand.filter(c => c.rank >= 10).length;
+        const highCards = game.players.opp.hand.filter(c => c.rank >= 10).length;
         const boost = Math.min(highCards * 0.1, 0.6);
         const randomnessMod = 1 + boost;
         nextRoundTarotEffect = {
@@ -1855,12 +1854,12 @@ function startGameAsHost() {
             // 找到自己手牌中 rank 最小的牌
             let minIdx = 0;
             let minRank = Infinity;
-            game.myHand.forEach((c, i) => {
+            game.players.me.hand.forEach((c, i) => {
                 if (c.rank < minRank) { minRank = c.rank; minIdx = i; }
             });
             // 替换
-            game.myHand[minIdx] = newCard;
-            game.myHand.sort((a, b) => a.rank - b.rank);
+            game.players.me.hand[minIdx] = newCard;
+            game.players.me.hand.sort((a, b) => a.rank - b.rank);
         }
     }
     // 对手同理
@@ -1869,11 +1868,11 @@ function startGameAsHost() {
             const newCard = game.deck.pop();
             let minIdx = 0;
             let minRank = Infinity;
-            game.oppHand.forEach((c, i) => {
+            game.players.opp.hand.forEach((c, i) => {
                 if (c.rank < minRank) { minRank = c.rank; minIdx = i; }
             });
-            game.oppHand[minIdx] = newCard;
-            game.oppHand.sort((a, b) => a.rank - b.rank);
+            game.players.opp.hand[minIdx] = newCard;
+            game.players.opp.hand.sort((a, b) => a.rank - b.rank);
         }
     }
 
@@ -1903,7 +1902,7 @@ function startGameAsHost() {
             return Object.values(counts).some(v => v >= 4);
         };
         // 检查双方是否有炸弹
-        if (!hasBomb(game.myHand) && !hasBomb(game.oppHand)) {
+        if (!hasBomb(game.players.me.hand) && !hasBomb(game.players.opp.hand)) {
             const w = nextRoundTarotEffect.reshuffleParams?.weight || 0.4;
             const r = nextRoundTarotEffect.reshuffleParams?.randomness || 1.8;
             game.dealWithWeight(w, w, r, r);
@@ -1915,8 +1914,8 @@ function startGameAsHost() {
 
     // 处理魔术师未来正：补全顺子
     if (myFutureEffect && myFutureEffect.type === 'fill_straight') {
-        const myHand = game.myHand;
-        const oppHand = game.oppHand;
+        const myHand = game.players.me.hand;
+        const oppHand = game.players.opp.hand;
         
         // 获取所有非鬼牌的rank（排除愚者0和世界21）
         const myRanks = myHand.filter(c => c.id !== '0' && c.id !== '21').map(c => c.rank).sort((a, b) => a - b);
@@ -1966,8 +1965,8 @@ function startGameAsHost() {
     }
     // 对手同理
     if (oppFutureEffect && oppFutureEffect.type === 'fill_straight') {
-        const myHand = game.myHand;
-        const oppHand = game.oppHand;
+        const myHand = game.players.me.hand;
+        const oppHand = game.players.opp.hand;
         
         const myRanks = myHand.filter(c => c.id !== '0' && c.id !== '21').map(c => c.rank).sort((a, b) => a - b);
         const oppRanks = oppHand.filter(c => c.id !== '0' && c.id !== '21').map(c => c.rank).sort((a, b) => a - b);
@@ -2014,8 +2013,8 @@ function startGameAsHost() {
     if (window._pendingJudgment) {
         const effect = window._pendingJudgment;
         const isMyEffect = (effect.player === 'me');
-        const myHand = isMyEffect ? game.myHand : game.oppHand;
-        const oppHand = isMyEffect ? game.oppHand : game.myHand;
+        const myHand = isMyEffect ? game.players.me.hand : game.players.opp.hand;
+        const oppHand = isMyEffect ? game.players.opp.hand : game.players.me.hand;
         
         if (effect.effect.type === 'future_judgment_positive') {
             // 如果对方有愚者/世界，且自己没有
@@ -2086,8 +2085,10 @@ function startGameAsHost() {
 
     sendData({
         type: 'init',
-        myHand: game.myHand,
-        oppHand: game.oppHand,
+        players: {
+            me: game.players.me,
+            opp: game.players.opp
+        },
         currentPlayer: first,
         myTarot: myTarot,
         oppTarot: oppTarot,
@@ -2120,49 +2121,49 @@ function applyPastEffect(effects) {
         const e = effects.my;
         if (e.type === 'force_3') {
             // 注入一张3，从对手或弃牌堆换一张3到玩家手牌
-            const has3 = game.myHand.some(c => c.rank === 3);
+            const has3 = game.players.me.hand.some(c => c.rank === 3);
             if (!has3) {
                 // 找一张最小的牌替换为3
-                const minCard = game.myHand.reduce((a, b) => a.rank < b.rank ? a : b);
-                const minIdx = game.myHand.indexOf(minCard);
+                const minCard = game.players.me.hand.reduce((a, b) => a.rank < b.rank ? a : b);
+                const minIdx = game.players.me.hand.indexOf(minCard);
                 // 从牌组中找一张3（如果牌组还有）
                 const threeCard = game.deck.find(c => c.rank === 3);
                 if (threeCard) {
-                    game.myHand[minIdx] = threeCard;
+                    game.players.me.hand[minIdx] = threeCard;
                     // 从牌组移除
                     const deckIdx = game.deck.indexOf(threeCard);
                     if (deckIdx > -1) game.deck.splice(deckIdx, 1);
                 } else {
                     // 牌组没有3，从对手手牌中交换
-                    const oppThree = game.oppHand.find(c => c.rank === 3);
+                    const oppThree = game.players.opp.hand.find(c => c.rank === 3);
                     if (oppThree) {
-                        const oppIdx = game.oppHand.indexOf(oppThree);
-                        game.oppHand[oppIdx] = minCard;
-                        game.myHand[minIdx] = oppThree;
+                        const oppIdx = game.players.opp.hand.indexOf(oppThree);
+                        game.players.opp.hand[oppIdx] = minCard;
+                        game.players.me.hand[minIdx] = oppThree;
                     }
                 }
                 // 重新排序
-                game.myHand.sort((a, b) => a.rank - b.rank);
-                game.oppHand.sort((a, b) => a.rank - b.rank);
+                game.players.me.hand.sort((a, b) => a.rank - b.rank);
+                game.players.opp.hand.sort((a, b) => a.rank - b.rank);
             }
         } else if (e.type === 'reshuffle') {
             // 重新洗牌：合并两人手牌，重新分配（保持每人16张）
             // 但为了公平，只洗自己的牌
             // 更复杂：重新打乱所有手牌并重新分配
             // 简单：交换玩家和对手手牌？不，随机重洗
-            const allCards = [...game.myHand, ...game.oppHand];
+            const allCards = [...game.players.me.hand, ...game.players.opp.hand];
             for (let i = allCards.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [allCards[i], allCards[j]] = [allCards[j], allCards[i]];
             }
-            game.myHand = allCards.slice(0, 16);
-            game.oppHand = allCards.slice(16);
-            game.myHand.sort((a, b) => a.rank - b.rank);
-            game.oppHand.sort((a, b) => a.rank - b.rank);
+            game.players.me.hand = allCards.slice(0, 16);
+            game.players.opp.hand = allCards.slice(16);
+            game.players.me.hand.sort((a, b) => a.rank - b.rank);
+            game.players.opp.hand.sort((a, b) => a.rank - b.rank);
         } else if (e.type === 'swap_card') {
             const direction = e.direction; // 'lowest' 或 'highest'
-            const myHand = game.myHand;
-            const oppHand = game.oppHand;
+            const myHand = game.players.me.hand;
+            const oppHand = game.players.opp.hand;
             if (myHand.length === 0 || oppHand.length === 0) return;
 
             // 找出自己的目标牌
@@ -2194,8 +2195,8 @@ function applyPastEffect(effects) {
             myHand.sort((a, b) => a.rank - b.rank);
             oppHand.sort((a, b) => a.rank - b.rank);
         } else if (e.type === 'magician_priestess_combo') {
-            const myHand = game.myHand;
-            const oppHand = game.oppHand;
+            const myHand = game.players.me.hand;
+            const oppHand = game.players.opp.hand;
             
             // 检查对方是否有愚者（id: '0'）和世界（id: '21'）
             const oppHasFool = oppHand.some(c => c.id === '0');
@@ -2234,7 +2235,7 @@ function applyPastEffect(effects) {
                 myHand.sort((a, b) => a.rank - b.rank);
             }
         } else if (e.type === 'hanged_man_past_positive') {
-            const myHand = game.myHand;
+            const myHand = game.players.me.hand;
             const deck = game.deck;
             if (myHand.length === 0) return;
             // 找到自己最低价值牌（rank 最小）
@@ -2261,8 +2262,8 @@ function applyPastEffect(effects) {
                 }
             }
         } else if (e.type === 'judgment_past_positive') {
-            const myHand = game.myHand;
-            const oppHand = game.oppHand;
+            const myHand = game.players.me.hand;
+            const oppHand = game.players.opp.hand;
             // 定义散牌：不属于任何牌型的单张（简化：只处理非对子、非顺子、非三条等）
             // 由于判断复杂，我们简单取最小的牌作为散牌，取对方最大的牌作为高价值牌
             if (myHand.length === 0 || oppHand.length === 0) return;
@@ -2287,8 +2288,8 @@ function applyPastEffect(effects) {
             myHand.sort((a, b) => a.rank - b.rank);
             oppHand.sort((a, b) => a.rank - b.rank);
         } else if (e.type === 'judgment_past_negative') {
-            const myHand = game.myHand;
-            const oppHand = game.oppHand;
+            const myHand = game.players.me.hand;
+            const oppHand = game.players.opp.hand;
             if (myHand.length === 0 || oppHand.length === 0) return;
             // 自己最大牌
             let myMaxIdx = 0;
@@ -2311,7 +2312,7 @@ function applyPastEffect(effects) {
             myHand.sort((a, b) => a.rank - b.rank);
             oppHand.sort((a, b) => a.rank - b.rank);
         } else if (e.type === 'hanged_man_death_combo') {
-            const myHand = game.myHand;
+            const myHand = game.players.me.hand;
             const deck = game.deck;
             // 选择三张非愚者/世界的牌（即非0和21）
             const nonJokerCards = myHand.filter(c => c.id !== '0' && c.id !== '21');
@@ -2340,7 +2341,7 @@ function applyPastEffect(effects) {
                 myHand.sort((a, b) => a.rank - b.rank);
             } else {
                 // 牌池不够，尝试从对手手牌换
-                const oppHand = game.oppHand;
+                const oppHand = game.players.opp.hand;
                 const oppCardsOfRank = oppHand.filter(c => c.rank === targetRank && c.id !== '0' && c.id !== '21');
                 if (oppCardsOfRank.length >= 3) {
                     for (let i = 0; i < 3; i++) {
@@ -2360,8 +2361,8 @@ function applyPastEffect(effects) {
                 // 如果还是失败，就什么都不做
             }
         } else if (e.type === 'lovers_devil_combo') {
-            const myHand = game.myHand;
-            const oppHand = game.oppHand;
+            const myHand = game.players.me.hand;
+            const oppHand = game.players.opp.hand;
             if (myHand.length === 0 || oppHand.length === 0) return;
             // 自己最大牌
             let myMaxIdx = 0, myMaxRank = -Infinity;
@@ -2381,8 +2382,8 @@ function applyPastEffect(effects) {
             myHand.sort((a, b) => a.rank - b.rank);
             oppHand.sort((a, b) => a.rank - b.rank);
         } else if (e.type === 'lovers_magician_combo') {
-            const myHand = game.myHand;
-            const oppHand = game.oppHand;
+            const myHand = game.players.me.hand;
+            const oppHand = game.players.opp.hand;
             // 统计双方 rank 计数
             const myCount = {};
             myHand.forEach(c => myCount[c.rank] = (myCount[c.rank] || 0) + 1);
@@ -2436,7 +2437,7 @@ function applyPastEffect(effects) {
                         game.deck.push(bombCard);
                     } else {
                         // 牌组没有不同 rank，从对方手牌交换
-                        const otherHand = (hand === game.myHand) ? game.oppHand : game.myHand;
+                        const otherHand = (hand === game.players.me.hand) ? game.players.opp.hand : game.players.me.hand;
                         const otherIdx = otherHand.findIndex(c => c.rank !== bombCard.rank);
                         if (otherIdx > -1) {
                             const otherCard = otherHand[otherIdx];
@@ -2448,7 +2449,7 @@ function applyPastEffect(effects) {
                     hand.sort((a, b) => a.rank - b.rank);
                 }
             };
-            checkAndRemoveBomb(game.myHand);
+            checkAndRemoveBomb(game.players.me.hand);
         }
     }
 
@@ -2456,40 +2457,40 @@ function applyPastEffect(effects) {
     if (effects.opp) {
         const e = effects.opp;
         if (e.type === 'force_3') {
-            const has3 = game.oppHand.some(c => c.rank === 3);
+            const has3 = game.players.opp.hand.some(c => c.rank === 3);
             if (!has3) {
-                const minCard = game.oppHand.reduce((a, b) => a.rank < b.rank ? a : b);
-                const minIdx = game.oppHand.indexOf(minCard);
+                const minCard = game.players.opp.hand.reduce((a, b) => a.rank < b.rank ? a : b);
+                const minIdx = game.players.opp.hand.indexOf(minCard);
                 const threeCard = game.deck.find(c => c.rank === 3);
                 if (threeCard) {
-                    game.oppHand[minIdx] = threeCard;
+                    game.players.opp.hand[minIdx] = threeCard;
                     const deckIdx = game.deck.indexOf(threeCard);
                     if (deckIdx > -1) game.deck.splice(deckIdx, 1);
                 } else {
-                    const myThree = game.myHand.find(c => c.rank === 3);
+                    const myThree = game.players.me.hand.find(c => c.rank === 3);
                     if (myThree) {
-                        const myIdx = game.myHand.indexOf(myThree);
-                        game.myHand[myIdx] = minCard;
-                        game.oppHand[minIdx] = myThree;
+                        const myIdx = game.players.me.hand.indexOf(myThree);
+                        game.players.me.hand[myIdx] = minCard;
+                        game.players.opp.hand[minIdx] = myThree;
                     }
                 }
-                game.myHand.sort((a, b) => a.rank - b.rank);
-                game.oppHand.sort((a, b) => a.rank - b.rank);
+                game.players.me.hand.sort((a, b) => a.rank - b.rank);
+                game.players.opp.hand.sort((a, b) => a.rank - b.rank);
             }
         } else if (e.type === 'reshuffle') {
-            const allCards = [...game.myHand, ...game.oppHand];
+            const allCards = [...game.players.me.hand, ...game.players.opp.hand];
             for (let i = allCards.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [allCards[i], allCards[j]] = [allCards[j], allCards[i]];
             }
-            game.myHand = allCards.slice(0, 16);
-            game.oppHand = allCards.slice(16);
-            game.myHand.sort((a, b) => a.rank - b.rank);
-            game.oppHand.sort((a, b) => a.rank - b.rank);
+            game.players.me.hand = allCards.slice(0, 16);
+            game.players.opp.hand = allCards.slice(16);
+            game.players.me.hand.sort((a, b) => a.rank - b.rank);
+            game.players.opp.hand.sort((a, b) => a.rank - b.rank);
         } else if (e.type === 'swap_card') {
             const direction = e.direction;
-            const myHand = game.myHand;
-            const oppHand = game.oppHand;
+            const myHand = game.players.me.hand;
+            const oppHand = game.players.opp.hand;
             if (myHand.length === 0 || oppHand.length === 0) return;
             let oppTargetIdx;
             if (direction === 'lowest') {
@@ -2511,8 +2512,8 @@ function applyPastEffect(effects) {
             myHand.sort((a, b) => a.rank - b.rank);
             oppHand.sort((a, b) => a.rank - b.rank);
         } else if (e.type === 'magician_priestess_combo') {
-            const myHand = game.myHand;
-            const oppHand = game.oppHand;
+            const myHand = game.players.me.hand;
+            const oppHand = game.players.opp.hand;
             const myHasFool = myHand.some(c => c.id === '0');
             const myHasWorld = myHand.some(c => c.id === '21');
             let targetCard = null;
@@ -2540,7 +2541,7 @@ function applyPastEffect(effects) {
                 oppHand.sort((a, b) => a.rank - b.rank);
             }
         } else if (e.type === 'hanged_man_past_positive') {
-            const oppHand = game.oppHand;
+            const oppHand = game.players.opp.hand;
             const deck = game.deck;
             if (oppHand.length === 0) return;
             let minIdx = 0;
@@ -2560,8 +2561,8 @@ function applyPastEffect(effects) {
                 }
             }
         } else if (e.type === 'judgment_past_positive') {
-            const myHand = game.myHand;
-            const oppHand = game.oppHand;
+            const myHand = game.players.me.hand;
+            const oppHand = game.players.opp.hand;
             if (myHand.length === 0 || oppHand.length === 0) return;
             let oppMinIdx = 0, minRank = Infinity;
             oppHand.forEach((c, i) => {
@@ -2578,8 +2579,8 @@ function applyPastEffect(effects) {
             myHand.sort((a, b) => a.rank - b.rank);
             oppHand.sort((a, b) => a.rank - b.rank);
         } else if (e.type === 'judgment_past_negative') {
-            const myHand = game.myHand;
-            const oppHand = game.oppHand;
+            const myHand = game.players.me.hand;
+            const oppHand = game.players.opp.hand;
             if (myHand.length === 0 || oppHand.length === 0) return;
             let oppMaxIdx = 0, maxRank = -Infinity;
             oppHand.forEach((c, i) => {
@@ -2596,7 +2597,7 @@ function applyPastEffect(effects) {
             myHand.sort((a, b) => a.rank - b.rank);
             oppHand.sort((a, b) => a.rank - b.rank);
         } else if (e.type === 'hanged_man_death_combo') {
-            const oppHand = game.oppHand;
+            const oppHand = game.players.opp.hand;
             const deck = game.deck;
             const nonJokerCards = oppHand.filter(c => c.id !== '0' && c.id !== '21');
             if (nonJokerCards.length < 3) return;
@@ -2618,7 +2619,7 @@ function applyPastEffect(effects) {
                 }
                 oppHand.sort((a, b) => a.rank - b.rank);
             } else {
-                const myHand = game.myHand;
+                const myHand = game.players.me.hand;
                 const myCardsOfRank = myHand.filter(c => c.rank === targetRank && c.id !== '0' && c.id !== '21');
                 if (myCardsOfRank.length >= 3) {
                     for (let i = 0; i < 3; i++) {
@@ -2637,8 +2638,8 @@ function applyPastEffect(effects) {
                 }
             }
         } else if (e.type === 'lovers_devil_combo') {
-            const myHand = game.myHand;
-            const oppHand = game.oppHand;
+            const myHand = game.players.me.hand;
+            const oppHand = game.players.opp.hand;
             if (myHand.length === 0 || oppHand.length === 0) return;
             let myMaxIdx = 0, myMaxRank = -Infinity;
             myHand.forEach((c, i) => {
@@ -2655,8 +2656,8 @@ function applyPastEffect(effects) {
             myHand.sort((a, b) => a.rank - b.rank);
             oppHand.sort((a, b) => a.rank - b.rank);
         } else if (e.type === 'lovers_magician_combo') {
-            const myHand = game.myHand;
-            const oppHand = game.oppHand;
+            const myHand = game.players.me.hand;
+            const oppHand = game.players.opp.hand;
             const myCount = {};
             myHand.forEach(c => myCount[c.rank] = (myCount[c.rank] || 0) + 1);
             const oppCount = {};
@@ -2700,7 +2701,7 @@ function applyPastEffect(effects) {
                         if (deckIdx > -1) game.deck.splice(deckIdx, 1);
                         game.deck.push(bombCard);
                     } else {
-                        const otherHand = (hand === game.myHand) ? game.oppHand : game.myHand;
+                        const otherHand = (hand === game.players.me.hand) ? game.players.opp.hand : game.players.me.hand;
                         const otherIdx = otherHand.findIndex(c => c.rank !== bombCard.rank);
                         if (otherIdx > -1) {
                             const otherCard = otherHand[otherIdx];
@@ -2711,7 +2712,7 @@ function applyPastEffect(effects) {
                     hand.sort((a, b) => a.rank - b.rank);
                 }
             };
-            checkAndRemoveBomb(game.oppHand);
+            checkAndRemoveBomb(game.players.opp.hand);
         }
     }
 }
@@ -2725,7 +2726,7 @@ function playerPlay() {
     const playType = result.type;
     const cardIds = selected.map(c => c.id);
     const indices = game.selectedIndices.slice().sort((a, b) => b - a);
-    indices.forEach(idx => game.myHand.splice(idx, 1));
+    indices.forEach(idx => game.players.me.hand.splice(idx, 1));
     game.selectedIndices = [];
     game.lastPlay = playType;
     game.lastPlayer = 'me';
@@ -2735,7 +2736,7 @@ function playerPlay() {
     renderPlay(selected, `你出了 ${selected.length} 张`);
     setMessage('你出了牌，等待对手', 'info');
     sendData({ type: 'play', cards: selected, playType: playType, cardIds: cardIds });
-    if (game.myHand.length === 0) {
+    if (game.players.me.hand.length === 0) {
         gameOver();
         return;
     }
@@ -2848,11 +2849,11 @@ function handleGameOver(sender) {
     game.gameOver = true;
     let iWon = (isHost && sender === 'host') || (!isHost && sender === 'guest');
     if (iWon) {
-        myWins++;
-        setMessage('🎉 你赢了！', 'win');
+        game.players.me.wins++;
+        myWins = game.players.me.wins; // 同步到全局，保持 UI 显示一致
     } else {
-        oppWins++;
-        setMessage('😞 你输了', 'lose');
+        game.players.opp.wins++;
+        oppWins = game.players.opp.wins;
     }
     round++;
     // 设置下一局先手：输方先出
