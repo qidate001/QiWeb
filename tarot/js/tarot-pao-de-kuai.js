@@ -2063,607 +2063,288 @@ function startGameAsHost() {
 }
 
 function applyPastEffect(effects) {
-    // effects: { my: { type, cardId, reversed }, opp: { ... } }
+    // effects: { me: { type, cardId, reversed }, opp: { ... } }
+    ['me', 'opp'].forEach(playerId => {
+        const effect = effects[playerId];
+        if (!effect) return;
 
-    // 处理玩家的过去效果
-    if (effects.my) {
-        const e = effects.my;
-        if (e.type === 'force_3') {
-            // 注入一张3，从对手或弃牌堆换一张3到玩家手牌
-            const has3 = game.players.me.hand.some(c => c.rank === 3);
-            if (!has3) {
-                // 找一张最小的牌替换为3
-                const minCard = game.players.me.hand.reduce((a, b) => a.rank < b.rank ? a : b);
-                const minIdx = game.players.me.hand.indexOf(minCard);
-                // 从牌组中找一张3（如果牌组还有）
-                const threeCard = game.deck.find(c => c.rank === 3);
-                if (threeCard) {
-                    game.players.me.hand[minIdx] = threeCard;
-                    // 从牌组移除
-                    const deckIdx = game.deck.indexOf(threeCard);
-                    if (deckIdx > -1) game.deck.splice(deckIdx, 1);
+        const hand = game.players[playerId].hand;
+        const otherHand = game.players[playerId === 'me' ? 'opp' : 'me'].hand;
+        const deck = game.deck;
+
+        // 内部函数用于检查并移除炸弹
+        const checkAndRemoveBomb = (targetHand) => {
+            const rankCount = {};
+            targetHand.forEach(c => rankCount[c.rank] = (rankCount[c.rank] || 0) + 1);
+            const bombRank = Object.keys(rankCount).find(r => rankCount[r] >= 4);
+            if (bombRank) {
+                const indices = [];
+                targetHand.forEach((c, i) => {
+                    if (c.rank === Number(bombRank)) indices.push(i);
+                });
+                const idx = indices.pop();
+                const bombCard = targetHand[idx];
+                let replacement = deck.find(c => c.rank !== bombCard.rank);
+                if (replacement) {
+                    targetHand[idx] = replacement;
+                    const deckIdx = deck.indexOf(replacement);
+                    if (deckIdx > -1) deck.splice(deckIdx, 1);
+                    deck.push(bombCard);
                 } else {
-                    // 牌组没有3，从对手手牌中交换
-                    const oppThree = game.players.opp.hand.find(c => c.rank === 3);
-                    if (oppThree) {
-                        const oppIdx = game.players.opp.hand.indexOf(oppThree);
-                        game.players.opp.hand[oppIdx] = minCard;
-                        game.players.me.hand[minIdx] = oppThree;
+                    const otherHandLocal = (targetHand === hand) ? otherHand : hand;
+                    const otherIdx = otherHandLocal.findIndex(c => c.rank !== bombCard.rank);
+                    if (otherIdx > -1) {
+                        const otherCard = otherHandLocal[otherIdx];
+                        targetHand[idx] = otherCard;
+                        otherHandLocal[otherIdx] = bombCard;
                     }
                 }
-                // 重新排序
-                game.players.me.hand.sort((a, b) => a.rank - b.rank);
-                game.players.opp.hand.sort((a, b) => a.rank - b.rank);
+                targetHand.sort((a, b) => a.rank - b.rank);
             }
-        } else if (e.type === 'reshuffle') {
-            // 重新洗牌：合并两人手牌，重新分配（保持每人16张）
-            // 但为了公平，只洗自己的牌
-            // 更复杂：重新打乱所有手牌并重新分配
-            // 简单：交换玩家和对手手牌？不，随机重洗
-            const allCards = [...game.players.me.hand, ...game.players.opp.hand];
-            for (let i = allCards.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [allCards[i], allCards[j]] = [allCards[j], allCards[i]];
-            }
-            game.players.me.hand = allCards.slice(0, 16);
-            game.players.opp.hand = allCards.slice(16);
-            game.players.me.hand.sort((a, b) => a.rank - b.rank);
-            game.players.opp.hand.sort((a, b) => a.rank - b.rank);
-        } else if (e.type === 'swap_card') {
-            const direction = e.direction; // 'lowest' 或 'highest'
-            const myHand = game.players.me.hand;
-            const oppHand = game.players.opp.hand;
-            if (myHand.length === 0 || oppHand.length === 0) return;
+        };
 
-            // 找出自己的目标牌
-            let myTargetCard, myTargetIdx;
-            if (direction === 'lowest') {
-                // 最小价值牌（rank 最小）
-                let minRank = Infinity;
-                myHand.forEach((c, i) => {
-                    if (c.rank < minRank) { minRank = c.rank; myTargetIdx = i; }
-                });
-            } else {
-                // 最大价值牌
-                let maxRank = -Infinity;
-                myHand.forEach((c, i) => {
-                    if (c.rank > maxRank) { maxRank = c.rank; myTargetIdx = i; }
-                });
-            }
-            myTargetCard = myHand[myTargetIdx];
-
-            // 从对方手牌随机选一张
-            const oppRandomIdx = Math.floor(Math.random() * oppHand.length);
-            const oppTargetCard = oppHand[oppRandomIdx];
-
-            // 互换
-            myHand[myTargetIdx] = oppTargetCard;
-            oppHand[oppRandomIdx] = myTargetCard;
-
-            // 重新排序（保持顺序）
-            myHand.sort((a, b) => a.rank - b.rank);
-            oppHand.sort((a, b) => a.rank - b.rank);
-        } else if (e.type === 'magician_priestess_combo') {
-            const myHand = game.players.me.hand;
-            const oppHand = game.players.opp.hand;
-            
-            // 检查对方是否有愚者（id: '0'）和世界（id: '21'）
-            const oppHasFool = oppHand.some(c => c.id === '0');
-            const oppHasWorld = oppHand.some(c => c.id === '21');
-            
-            let targetCard = null;
-            if (oppHasFool && oppHasWorld) {
-                // 对方同时拥有愚者和世界 → 获得一张2
-                targetCard = game.deck.find(c => c.rank === 16); // 找一张2
-            } else if (oppHasFool) {
-                // 对方只有愚者 → 获得世界
-                targetCard = game.deck.find(c => c.id === '21');
-            } else if (oppHasWorld) {
-                // 对方只有世界 → 获得愚者
-                targetCard = game.deck.find(c => c.id === '0');
-            }
-            
-            if (targetCard) {
-                // 替换自己最小的牌
-                let minIdx = 0;
-                let minRank = Infinity;
-                myHand.forEach((c, i) => {
-                    if (c.rank < minRank && c.id !== '0' && c.id !== '21') { // 不替换愚者和世界
-                        minRank = c.rank;
-                        minIdx = i;
-                    }
-                });
-                const oldCard = myHand[minIdx];
-                myHand[minIdx] = targetCard;
-                // 将旧牌放回牌组
-                game.deck.push(oldCard);
-                // 从牌组移除目标牌
-                const deckIdx = game.deck.indexOf(targetCard);
-                if (deckIdx > -1) game.deck.splice(deckIdx, 1);
-                // 重新排序
-                myHand.sort((a, b) => a.rank - b.rank);
-            }
-        } else if (e.type === 'hanged_man_past_positive') {
-            const myHand = game.players.me.hand;
-            const deck = game.deck;
-            if (myHand.length === 0) return;
-            // 找到自己最低价值牌（rank 最小）
-            let minIdx = 0;
-            let minRank = Infinity;
-            myHand.forEach((c, i) => {
-                if (c.rank < minRank) {
-                    minRank = c.rank;
-                    minIdx = i;
-                }
-            });
-            const myMinCard = myHand[minIdx];
-            // 从牌池中找一张比它 rank 高的牌
-            const higherCards = deck.filter(c => c.rank > myMinCard.rank);
-            if (higherCards.length > 0) {
-                const randomHigh = higherCards[Math.floor(Math.random() * higherCards.length)];
-                const deckIdx = deck.indexOf(randomHigh);
-                if (deckIdx > -1) {
-                    // 交换
-                    myHand[minIdx] = randomHigh;
-                    deck[deckIdx] = myMinCard;
-                    // 重新排序
-                    myHand.sort((a, b) => a.rank - b.rank);
-                }
-            }
-        } else if (e.type === 'judgment_past_positive') {
-            const myHand = game.players.me.hand;
-            const oppHand = game.players.opp.hand;
-            // 定义散牌：不属于任何牌型的单张（简化：只处理非对子、非顺子、非三条等）
-            // 由于判断复杂，我们简单取最小的牌作为散牌，取对方最大的牌作为高价值牌
-            if (myHand.length === 0 || oppHand.length === 0) return;
-            // 自己最小牌
-            let myMinIdx = 0;
-            let minRank = Infinity;
-            myHand.forEach((c, i) => {
-                if (c.rank < minRank) { minRank = c.rank; myMinIdx = i; }
-            });
-            const myMinCard = myHand[myMinIdx];
-            // 对方最大牌
-            let oppMaxIdx = 0;
-            let maxRank = -Infinity;
-            oppHand.forEach((c, i) => {
-                if (c.rank > maxRank) { maxRank = c.rank; oppMaxIdx = i; }
-            });
-            const oppMaxCard = oppHand[oppMaxIdx];
-            // 交换
-            myHand[myMinIdx] = oppMaxCard;
-            oppHand[oppMaxIdx] = myMinCard;
-            // 重新排序
-            myHand.sort((a, b) => a.rank - b.rank);
-            oppHand.sort((a, b) => a.rank - b.rank);
-        } else if (e.type === 'judgment_past_negative') {
-            const myHand = game.players.me.hand;
-            const oppHand = game.players.opp.hand;
-            if (myHand.length === 0 || oppHand.length === 0) return;
-            // 自己最大牌
-            let myMaxIdx = 0;
-            let maxRank = -Infinity;
-            myHand.forEach((c, i) => {
-                if (c.rank > maxRank) { maxRank = c.rank; myMaxIdx = i; }
-            });
-            const myMaxCard = myHand[myMaxIdx];
-            // 对方最小牌
-            let oppMinIdx = 0;
-            let minRank = Infinity;
-            oppHand.forEach((c, i) => {
-                if (c.rank < minRank) { minRank = c.rank; oppMinIdx = i; }
-            });
-            const oppMinCard = oppHand[oppMinIdx];
-            // 交换
-            myHand[myMaxIdx] = oppMinCard;
-            oppHand[oppMinIdx] = myMaxCard;
-            // 排序
-            myHand.sort((a, b) => a.rank - b.rank);
-            oppHand.sort((a, b) => a.rank - b.rank);
-        } else if (e.type === 'hanged_man_death_combo') {
-            const myHand = game.players.me.hand;
-            const deck = game.deck;
-            // 选择三张非愚者/世界的牌（即非0和21）
-            const nonJokerCards = myHand.filter(c => c.id !== '0' && c.id !== '21');
-            if (nonJokerCards.length < 3) return;
-            // 随机选三张
-            const shuffled = nonJokerCards.sort(() => Math.random() - 0.5);
-            const selected = shuffled.slice(0, 3);
-            // 获取这三张牌的 rank（取众数，但我们要求三条，需要三张同 rank）
-            // 我们随机选择一个 rank 作为目标三条
-            const targetRank = selected[Math.floor(Math.random() * selected.length)].rank;
-            // 从牌池找三张该 rank 的牌
-            const cardsOfRank = deck.filter(c => c.rank === targetRank && c.id !== '0' && c.id !== '21');
-            if (cardsOfRank.length >= 3) {
-                // 用这三张替换选中的三张
-                for (let i = 0; i < 3; i++) {
-                    const idx = myHand.indexOf(selected[i]);
-                    if (idx > -1) {
-                        const newCard = cardsOfRank.pop();
-                        const deckIdx = deck.indexOf(newCard);
-                        if (deckIdx > -1) {
-                            myHand[idx] = newCard;
-                            deck[deckIdx] = selected[i];
-                        }
-                    }
-                }
-                myHand.sort((a, b) => a.rank - b.rank);
-            } else {
-                // 牌池不够，尝试从对手手牌换
-                const oppHand = game.players.opp.hand;
-                const oppCardsOfRank = oppHand.filter(c => c.rank === targetRank && c.id !== '0' && c.id !== '21');
-                if (oppCardsOfRank.length >= 3) {
-                    for (let i = 0; i < 3; i++) {
-                        const idx = myHand.indexOf(selected[i]);
-                        if (idx > -1) {
-                            const newCard = oppCardsOfRank.pop();
-                            const oppIdx = oppHand.indexOf(newCard);
-                            if (oppIdx > -1) {
-                                myHand[idx] = newCard;
-                                oppHand[oppIdx] = selected[i];
-                            }
-                        }
-                    }
-                    myHand.sort((a, b) => a.rank - b.rank);
-                    oppHand.sort((a, b) => a.rank - b.rank);
-                }
-                // 如果还是失败，就什么都不做
-            }
-        } else if (e.type === 'lovers_devil_combo') {
-            const myHand = game.players.me.hand;
-            const oppHand = game.players.opp.hand;
-            if (myHand.length === 0 || oppHand.length === 0) return;
-            // 自己最大牌
-            let myMaxIdx = 0, myMaxRank = -Infinity;
-            myHand.forEach((c, i) => {
-                if (c.rank > myMaxRank) { myMaxRank = c.rank; myMaxIdx = i; }
-            });
-            const myMaxCard = myHand[myMaxIdx];
-            // 对方最大牌
-            let oppMaxIdx = 0, oppMaxRank = -Infinity;
-            oppHand.forEach((c, i) => {
-                if (c.rank > oppMaxRank) { oppMaxRank = c.rank; oppMaxIdx = i; }
-            });
-            const oppMaxCard = oppHand[oppMaxIdx];
-            // 交换
-            myHand[myMaxIdx] = oppMaxCard;
-            oppHand[oppMaxIdx] = myMaxCard;
-            myHand.sort((a, b) => a.rank - b.rank);
-            oppHand.sort((a, b) => a.rank - b.rank);
-        } else if (e.type === 'lovers_magician_combo') {
-            const myHand = game.players.me.hand;
-            const oppHand = game.players.opp.hand;
-            // 统计双方 rank 计数
-            const myCount = {};
-            myHand.forEach(c => myCount[c.rank] = (myCount[c.rank] || 0) + 1);
-            const oppCount = {};
-            oppHand.forEach(c => oppCount[c.rank] = (oppCount[c.rank] || 0) + 1);
-            // 找自己的散牌（计数为1，且非鬼牌）
-            const mySingles = myHand.filter(c => myCount[c.rank] === 1 && c.id !== '0' && c.id !== '21');
-            const oppSingles = oppHand.filter(c => oppCount[c.rank] === 1 && c.id !== '0' && c.id !== '21');
-            // 尝试配对：找到一个双方都有的散牌 rank
-            const myRanks = mySingles.map(c => c.rank);
-            const oppRanks = oppSingles.map(c => c.rank);
-            for (let r of myRanks) {
-                if (oppRanks.includes(r)) {
-                    const myIdx = myHand.findIndex(c => c.rank === r && c.id !== '0' && c.id !== '21');
-                    const oppIdx = oppHand.findIndex(c => c.rank === r && c.id !== '0' && c.id !== '21');
-                    if (myIdx > -1 && oppIdx > -1) {
-                        // 交换两张牌（双方各自得到一对）
-                        const temp = myHand[myIdx];
-                        myHand[myIdx] = oppHand[oppIdx];
-                        oppHand[oppIdx] = temp;
-                        break;
-                    }
-                }
-            }
-            myHand.sort((a, b) => a.rank - b.rank);
-            oppHand.sort((a, b) => a.rank - b.rank);
-        }
-
-        if (e.noBomb) {
-            // 检查手牌是否有炸弹（四张相同）
-            const checkAndRemoveBomb = (hand) => {
-                const rankCount = {};
-                hand.forEach(c => rankCount[c.rank] = (rankCount[c.rank] || 0) + 1);
-                const bombRank = Object.keys(rankCount).find(r => rankCount[r] >= 4);
-                if (bombRank) {
-                    // 找到所有该 rank 的牌
-                    const indices = [];
-                    hand.forEach((c, i) => {
-                        if (c.rank === Number(bombRank)) indices.push(i);
-                    });
-                    // 取最后一张
-                    const idx = indices.pop();
-                    const bombCard = hand[idx];
-                    // 从牌组找一张不同 rank 的牌替换
-                    let replacement = game.deck.find(c => c.rank !== bombCard.rank);
-                    if (replacement) {
-                        hand[idx] = replacement;
-                        const deckIdx = game.deck.indexOf(replacement);
-                        if (deckIdx > -1) game.deck.splice(deckIdx, 1);
-                        // 将炸弹牌放回牌组
-                        game.deck.push(bombCard);
+        // 根据 effect.type 处理
+        switch (effect.type) {
+            case 'force_3': {
+                const has3 = hand.some(c => c.rank === 3);
+                if (!has3) {
+                    const minCard = hand.reduce((a, b) => a.rank < b.rank ? a : b);
+                    const minIdx = hand.indexOf(minCard);
+                    const threeCard = deck.find(c => c.rank === 3);
+                    if (threeCard) {
+                        hand[minIdx] = threeCard;
+                        const deckIdx = deck.indexOf(threeCard);
+                        if (deckIdx > -1) deck.splice(deckIdx, 1);
                     } else {
-                        // 牌组没有不同 rank，从对方手牌交换
-                        const otherHand = (hand === game.players.me.hand) ? game.players.opp.hand : game.players.me.hand;
-                        const otherIdx = otherHand.findIndex(c => c.rank !== bombCard.rank);
-                        if (otherIdx > -1) {
-                            const otherCard = otherHand[otherIdx];
-                            hand[idx] = otherCard;
-                            otherHand[otherIdx] = bombCard;
-                        }
-                    }
-                    // 重新排序
-                    hand.sort((a, b) => a.rank - b.rank);
-                }
-            };
-            checkAndRemoveBomb(game.players.me.hand);
-        }
-    }
-
-    // 同样处理对手的过去效果
-    if (effects.opp) {
-        const e = effects.opp;
-        if (e.type === 'force_3') {
-            const has3 = game.players.opp.hand.some(c => c.rank === 3);
-            if (!has3) {
-                const minCard = game.players.opp.hand.reduce((a, b) => a.rank < b.rank ? a : b);
-                const minIdx = game.players.opp.hand.indexOf(minCard);
-                const threeCard = game.deck.find(c => c.rank === 3);
-                if (threeCard) {
-                    game.players.opp.hand[minIdx] = threeCard;
-                    const deckIdx = game.deck.indexOf(threeCard);
-                    if (deckIdx > -1) game.deck.splice(deckIdx, 1);
-                } else {
-                    const myThree = game.players.me.hand.find(c => c.rank === 3);
-                    if (myThree) {
-                        const myIdx = game.players.me.hand.indexOf(myThree);
-                        game.players.me.hand[myIdx] = minCard;
-                        game.players.opp.hand[minIdx] = myThree;
-                    }
-                }
-                game.players.me.hand.sort((a, b) => a.rank - b.rank);
-                game.players.opp.hand.sort((a, b) => a.rank - b.rank);
-            }
-        } else if (e.type === 'reshuffle') {
-            const allCards = [...game.players.me.hand, ...game.players.opp.hand];
-            for (let i = allCards.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [allCards[i], allCards[j]] = [allCards[j], allCards[i]];
-            }
-            game.players.me.hand = allCards.slice(0, 16);
-            game.players.opp.hand = allCards.slice(16);
-            game.players.me.hand.sort((a, b) => a.rank - b.rank);
-            game.players.opp.hand.sort((a, b) => a.rank - b.rank);
-        } else if (e.type === 'swap_card') {
-            const direction = e.direction;
-            const myHand = game.players.me.hand;
-            const oppHand = game.players.opp.hand;
-            if (myHand.length === 0 || oppHand.length === 0) return;
-            let oppTargetIdx;
-            if (direction === 'lowest') {
-                let minRank = Infinity;
-                oppHand.forEach((c, i) => {
-                    if (c.rank < minRank) { minRank = c.rank; oppTargetIdx = i; }
-                });
-            } else {
-                let maxRank = -Infinity;
-                oppHand.forEach((c, i) => {
-                    if (c.rank > maxRank) { maxRank = c.rank; oppTargetIdx = i; }
-                });
-            }
-            const oppTargetCard = oppHand[oppTargetIdx];
-            const myRandomIdx = Math.floor(Math.random() * myHand.length);
-            const myRandomCard = myHand[myRandomIdx];
-            oppHand[oppTargetIdx] = myRandomCard;
-            myHand[myRandomIdx] = oppTargetCard;
-            myHand.sort((a, b) => a.rank - b.rank);
-            oppHand.sort((a, b) => a.rank - b.rank);
-        } else if (e.type === 'magician_priestess_combo') {
-            const myHand = game.players.me.hand;
-            const oppHand = game.players.opp.hand;
-            const myHasFool = myHand.some(c => c.id === '0');
-            const myHasWorld = myHand.some(c => c.id === '21');
-            let targetCard = null;
-            if (myHasFool && myHasWorld) {
-                targetCard = game.deck.find(c => c.rank === 16);
-            } else if (myHasFool) {
-                targetCard = game.deck.find(c => c.id === '21');
-            } else if (myHasWorld) {
-                targetCard = game.deck.find(c => c.id === '0');
-            }
-            if (targetCard) {
-                let minIdx = 0;
-                let minRank = Infinity;
-                oppHand.forEach((c, i) => {
-                    if (c.rank < minRank && c.id !== '0' && c.id !== '21') {
-                        minRank = c.rank;
-                        minIdx = i;
-                    }
-                });
-                const oldCard = oppHand[minIdx];
-                oppHand[minIdx] = targetCard;
-                game.deck.push(oldCard);
-                const deckIdx = game.deck.indexOf(targetCard);
-                if (deckIdx > -1) game.deck.splice(deckIdx, 1);
-                oppHand.sort((a, b) => a.rank - b.rank);
-            }
-        } else if (e.type === 'hanged_man_past_positive') {
-            const oppHand = game.players.opp.hand;
-            const deck = game.deck;
-            if (oppHand.length === 0) return;
-            let minIdx = 0;
-            let minRank = Infinity;
-            oppHand.forEach((c, i) => {
-                if (c.rank < minRank) { minRank = c.rank; minIdx = i; }
-            });
-            const oppMinCard = oppHand[minIdx];
-            const higherCards = deck.filter(c => c.rank > oppMinCard.rank);
-            if (higherCards.length > 0) {
-                const randomHigh = higherCards[Math.floor(Math.random() * higherCards.length)];
-                const deckIdx = deck.indexOf(randomHigh);
-                if (deckIdx > -1) {
-                    oppHand[minIdx] = randomHigh;
-                    deck[deckIdx] = oppMinCard;
-                    oppHand.sort((a, b) => a.rank - b.rank);
-                }
-            }
-        } else if (e.type === 'judgment_past_positive') {
-            const myHand = game.players.me.hand;
-            const oppHand = game.players.opp.hand;
-            if (myHand.length === 0 || oppHand.length === 0) return;
-            let oppMinIdx = 0, minRank = Infinity;
-            oppHand.forEach((c, i) => {
-                if (c.rank < minRank) { minRank = c.rank; oppMinIdx = i; }
-            });
-            const oppMinCard = oppHand[oppMinIdx];
-            let myMaxIdx = 0, maxRank = -Infinity;
-            myHand.forEach((c, i) => {
-                if (c.rank > maxRank) { maxRank = c.rank; myMaxIdx = i; }
-            });
-            const myMaxCard = myHand[myMaxIdx];
-            oppHand[oppMinIdx] = myMaxCard;
-            myHand[myMaxIdx] = oppMinCard;
-            myHand.sort((a, b) => a.rank - b.rank);
-            oppHand.sort((a, b) => a.rank - b.rank);
-        } else if (e.type === 'judgment_past_negative') {
-            const myHand = game.players.me.hand;
-            const oppHand = game.players.opp.hand;
-            if (myHand.length === 0 || oppHand.length === 0) return;
-            let oppMaxIdx = 0, maxRank = -Infinity;
-            oppHand.forEach((c, i) => {
-                if (c.rank > maxRank) { maxRank = c.rank; oppMaxIdx = i; }
-            });
-            const oppMaxCard = oppHand[oppMaxIdx];
-            let myMinIdx = 0, minRank = Infinity;
-            myHand.forEach((c, i) => {
-                if (c.rank < minRank) { minRank = c.rank; myMinIdx = i; }
-            });
-            const myMinCard = myHand[myMinIdx];
-            oppHand[oppMaxIdx] = myMinCard;
-            myHand[myMinIdx] = oppMaxCard;
-            myHand.sort((a, b) => a.rank - b.rank);
-            oppHand.sort((a, b) => a.rank - b.rank);
-        } else if (e.type === 'hanged_man_death_combo') {
-            const oppHand = game.players.opp.hand;
-            const deck = game.deck;
-            const nonJokerCards = oppHand.filter(c => c.id !== '0' && c.id !== '21');
-            if (nonJokerCards.length < 3) return;
-            const shuffled = nonJokerCards.sort(() => Math.random() - 0.5);
-            const selected = shuffled.slice(0, 3);
-            const targetRank = selected[Math.floor(Math.random() * selected.length)].rank;
-            const cardsOfRank = deck.filter(c => c.rank === targetRank && c.id !== '0' && c.id !== '21');
-            if (cardsOfRank.length >= 3) {
-                for (let i = 0; i < 3; i++) {
-                    const idx = oppHand.indexOf(selected[i]);
-                    if (idx > -1) {
-                        const newCard = cardsOfRank.pop();
-                        const deckIdx = deck.indexOf(newCard);
-                        if (deckIdx > -1) {
-                            oppHand[idx] = newCard;
-                            deck[deckIdx] = selected[i];
-                        }
-                    }
-                }
-                oppHand.sort((a, b) => a.rank - b.rank);
-            } else {
-                const myHand = game.players.me.hand;
-                const myCardsOfRank = myHand.filter(c => c.rank === targetRank && c.id !== '0' && c.id !== '21');
-                if (myCardsOfRank.length >= 3) {
-                    for (let i = 0; i < 3; i++) {
-                        const idx = oppHand.indexOf(selected[i]);
-                        if (idx > -1) {
-                            const newCard = myCardsOfRank.pop();
-                            const myIdx = myHand.indexOf(newCard);
-                            if (myIdx > -1) {
-                                oppHand[idx] = newCard;
-                                myHand[myIdx] = selected[i];
-                            }
-                        }
-                    }
-                    oppHand.sort((a, b) => a.rank - b.rank);
-                    myHand.sort((a, b) => a.rank - b.rank);
-                }
-            }
-        } else if (e.type === 'lovers_devil_combo') {
-            const myHand = game.players.me.hand;
-            const oppHand = game.players.opp.hand;
-            if (myHand.length === 0 || oppHand.length === 0) return;
-            let myMaxIdx = 0, myMaxRank = -Infinity;
-            myHand.forEach((c, i) => {
-                if (c.rank > myMaxRank) { myMaxRank = c.rank; myMaxIdx = i; }
-            });
-            const myMaxCard = myHand[myMaxIdx];
-            let oppMaxIdx = 0, oppMaxRank = -Infinity;
-            oppHand.forEach((c, i) => {
-                if (c.rank > oppMaxRank) { oppMaxRank = c.rank; oppMaxIdx = i; }
-            });
-            const oppMaxCard = oppHand[oppMaxIdx];
-            myHand[myMaxIdx] = oppMaxCard;
-            oppHand[oppMaxIdx] = myMaxCard;
-            myHand.sort((a, b) => a.rank - b.rank);
-            oppHand.sort((a, b) => a.rank - b.rank);
-        } else if (e.type === 'lovers_magician_combo') {
-            const myHand = game.players.me.hand;
-            const oppHand = game.players.opp.hand;
-            const myCount = {};
-            myHand.forEach(c => myCount[c.rank] = (myCount[c.rank] || 0) + 1);
-            const oppCount = {};
-            oppHand.forEach(c => oppCount[c.rank] = (oppCount[c.rank] || 0) + 1);
-            const mySingles = myHand.filter(c => myCount[c.rank] === 1 && c.id !== '0' && c.id !== '21');
-            const oppSingles = oppHand.filter(c => oppCount[c.rank] === 1 && c.id !== '0' && c.id !== '21');
-            const myRanks = mySingles.map(c => c.rank);
-            const oppRanks = oppSingles.map(c => c.rank);
-            for (let r of myRanks) {
-                if (oppRanks.includes(r)) {
-                    const myIdx = myHand.findIndex(c => c.rank === r && c.id !== '0' && c.id !== '21');
-                    const oppIdx = oppHand.findIndex(c => c.rank === r && c.id !== '0' && c.id !== '21');
-                    if (myIdx > -1 && oppIdx > -1) {
-                        const temp = myHand[myIdx];
-                        myHand[myIdx] = oppHand[oppIdx];
-                        oppHand[oppIdx] = temp;
-                        break;
-                    }
-                }
-            }
-            myHand.sort((a, b) => a.rank - b.rank);
-            oppHand.sort((a, b) => a.rank - b.rank);
-        }
-
-        if (e.noBomb) {
-            const checkAndRemoveBomb = (hand) => {
-                const rankCount = {};
-                hand.forEach(c => rankCount[c.rank] = (rankCount[c.rank] || 0) + 1);
-                const bombRank = Object.keys(rankCount).find(r => rankCount[r] >= 4);
-                if (bombRank) {
-                    const indices = [];
-                    hand.forEach((c, i) => {
-                        if (c.rank === Number(bombRank)) indices.push(i);
-                    });
-                    const idx = indices.pop();
-                    const bombCard = hand[idx];
-                    let replacement = game.deck.find(c => c.rank !== bombCard.rank);
-                    if (replacement) {
-                        hand[idx] = replacement;
-                        const deckIdx = game.deck.indexOf(replacement);
-                        if (deckIdx > -1) game.deck.splice(deckIdx, 1);
-                        game.deck.push(bombCard);
-                    } else {
-                        const otherHand = (hand === game.players.me.hand) ? game.players.opp.hand : game.players.me.hand;
-                        const otherIdx = otherHand.findIndex(c => c.rank !== bombCard.rank);
-                        if (otherIdx > -1) {
-                            const otherCard = otherHand[otherIdx];
-                            hand[idx] = otherCard;
-                            otherHand[otherIdx] = bombCard;
+                        const oppThree = otherHand.find(c => c.rank === 3);
+                        if (oppThree) {
+                            const oppIdx = otherHand.indexOf(oppThree);
+                            otherHand[oppIdx] = minCard;
+                            hand[minIdx] = oppThree;
                         }
                     }
                     hand.sort((a, b) => a.rank - b.rank);
+                    otherHand.sort((a, b) => a.rank - b.rank);
                 }
-            };
-            checkAndRemoveBomb(game.players.opp.hand);
+                break;
+            }
+            case 'reshuffle': {
+                const allCards = [...game.players.me.hand, ...game.players.opp.hand];
+                for (let i = allCards.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [allCards[i], allCards[j]] = [allCards[j], allCards[i]];
+                }
+                game.players.me.hand = allCards.slice(0, 16);
+                game.players.opp.hand = allCards.slice(16);
+                game.players.me.hand.sort((a, b) => a.rank - b.rank);
+                game.players.opp.hand.sort((a, b) => a.rank - b.rank);
+                break;
+            }
+            case 'swap_card': {
+                const direction = effect.direction; // 'lowest' 或 'highest'
+                if (hand.length === 0 || otherHand.length === 0) return;
+                let targetIdx;
+                if (direction === 'lowest') {
+                    let minRank = Infinity;
+                    hand.forEach((c, i) => {
+                        if (c.rank < minRank) { minRank = c.rank; targetIdx = i; }
+                    });
+                } else {
+                    let maxRank = -Infinity;
+                    hand.forEach((c, i) => {
+                        if (c.rank > maxRank) { maxRank = c.rank; targetIdx = i; }
+                    });
+                }
+                const targetCard = hand[targetIdx];
+                const randomIdx = Math.floor(Math.random() * otherHand.length);
+                const randomCard = otherHand[randomIdx];
+                hand[targetIdx] = randomCard;
+                otherHand[randomIdx] = targetCard;
+                hand.sort((a, b) => a.rank - b.rank);
+                otherHand.sort((a, b) => a.rank - b.rank);
+                break;
+            }
+            case 'magician_priestess_combo': {
+                const oppHasFool = otherHand.some(c => c.id === '0');
+                const oppHasWorld = otherHand.some(c => c.id === '21');
+                let targetCard = null;
+                if (oppHasFool && oppHasWorld) {
+                    targetCard = deck.find(c => c.rank === 16);
+                } else if (oppHasFool) {
+                    targetCard = deck.find(c => c.id === '21');
+                } else if (oppHasWorld) {
+                    targetCard = deck.find(c => c.id === '0');
+                }
+                if (targetCard) {
+                    let minIdx = 0;
+                    let minRank = Infinity;
+                    hand.forEach((c, i) => {
+                        if (c.rank < minRank && c.id !== '0' && c.id !== '21') {
+                            minRank = c.rank;
+                            minIdx = i;
+                        }
+                    });
+                    const oldCard = hand[minIdx];
+                    hand[minIdx] = targetCard;
+                    deck.push(oldCard);
+                    const deckIdx = deck.indexOf(targetCard);
+                    if (deckIdx > -1) deck.splice(deckIdx, 1);
+                    hand.sort((a, b) => a.rank - b.rank);
+                }
+                break;
+            }
+            case 'hanged_man_past_positive': {
+                if (hand.length === 0) return;
+                let minIdx = 0;
+                let minRank = Infinity;
+                hand.forEach((c, i) => {
+                    if (c.rank < minRank) { minRank = c.rank; minIdx = i; }
+                });
+                const minCard = hand[minIdx];
+                const higherCards = deck.filter(c => c.rank > minCard.rank);
+                if (higherCards.length > 0) {
+                    const randomHigh = higherCards[Math.floor(Math.random() * higherCards.length)];
+                    const deckIdx = deck.indexOf(randomHigh);
+                    if (deckIdx > -1) {
+                        hand[minIdx] = randomHigh;
+                        deck[deckIdx] = minCard;
+                        hand.sort((a, b) => a.rank - b.rank);
+                    }
+                }
+                break;
+            }
+            case 'judgment_past_positive': {
+                if (hand.length === 0 || otherHand.length === 0) return;
+                let handMinIdx = 0, minRank = Infinity;
+                hand.forEach((c, i) => {
+                    if (c.rank < minRank) { minRank = c.rank; handMinIdx = i; }
+                });
+                const handMinCard = hand[handMinIdx];
+                let oppMaxIdx = 0, maxRank = -Infinity;
+                otherHand.forEach((c, i) => {
+                    if (c.rank > maxRank) { maxRank = c.rank; oppMaxIdx = i; }
+                });
+                const oppMaxCard = otherHand[oppMaxIdx];
+                hand[handMinIdx] = oppMaxCard;
+                otherHand[oppMaxIdx] = handMinCard;
+                hand.sort((a, b) => a.rank - b.rank);
+                otherHand.sort((a, b) => a.rank - b.rank);
+                break;
+            }
+            case 'judgment_past_negative': {
+                if (hand.length === 0 || otherHand.length === 0) return;
+                let handMaxIdx = 0, maxRank = -Infinity;
+                hand.forEach((c, i) => {
+                    if (c.rank > maxRank) { maxRank = c.rank; handMaxIdx = i; }
+                });
+                const handMaxCard = hand[handMaxIdx];
+                let oppMinIdx = 0, minRank = Infinity;
+                otherHand.forEach((c, i) => {
+                    if (c.rank < minRank) { minRank = c.rank; oppMinIdx = i; }
+                });
+                const oppMinCard = otherHand[oppMinIdx];
+                hand[handMaxIdx] = oppMinCard;
+                otherHand[oppMinIdx] = handMaxCard;
+                hand.sort((a, b) => a.rank - b.rank);
+                otherHand.sort((a, b) => a.rank - b.rank);
+                break;
+            }
+            case 'hanged_man_death_combo': {
+                const nonJokerCards = hand.filter(c => c.id !== '0' && c.id !== '21');
+                if (nonJokerCards.length < 3) return;
+                const shuffled = nonJokerCards.sort(() => Math.random() - 0.5);
+                const selected = shuffled.slice(0, 3);
+                const targetRank = selected[Math.floor(Math.random() * selected.length)].rank;
+                const cardsOfRank = deck.filter(c => c.rank === targetRank && c.id !== '0' && c.id !== '21');
+                if (cardsOfRank.length >= 3) {
+                    for (let i = 0; i < 3; i++) {
+                        const idx = hand.indexOf(selected[i]);
+                        if (idx > -1) {
+                            const newCard = cardsOfRank.pop();
+                            const deckIdx = deck.indexOf(newCard);
+                            if (deckIdx > -1) {
+                                hand[idx] = newCard;
+                                deck[deckIdx] = selected[i];
+                            }
+                        }
+                    }
+                    hand.sort((a, b) => a.rank - b.rank);
+                } else {
+                    const oppCardsOfRank = otherHand.filter(c => c.rank === targetRank && c.id !== '0' && c.id !== '21');
+                    if (oppCardsOfRank.length >= 3) {
+                        for (let i = 0; i < 3; i++) {
+                            const idx = hand.indexOf(selected[i]);
+                            if (idx > -1) {
+                                const newCard = oppCardsOfRank.pop();
+                                const oppIdx = otherHand.indexOf(newCard);
+                                if (oppIdx > -1) {
+                                    hand[idx] = newCard;
+                                    otherHand[oppIdx] = selected[i];
+                                }
+                            }
+                        }
+                        hand.sort((a, b) => a.rank - b.rank);
+                        otherHand.sort((a, b) => a.rank - b.rank);
+                    }
+                }
+                break;
+            }
+            case 'lovers_devil_combo': {
+                if (hand.length === 0 || otherHand.length === 0) return;
+                let handMaxIdx = 0, maxRank = -Infinity;
+                hand.forEach((c, i) => {
+                    if (c.rank > maxRank) { maxRank = c.rank; handMaxIdx = i; }
+                });
+                const handMaxCard = hand[handMaxIdx];
+                let oppMaxIdx = 0, oppMaxRank = -Infinity;
+                otherHand.forEach((c, i) => {
+                    if (c.rank > oppMaxRank) { oppMaxRank = c.rank; oppMaxIdx = i; }
+                });
+                const oppMaxCard = otherHand[oppMaxIdx];
+                hand[handMaxIdx] = oppMaxCard;
+                otherHand[oppMaxIdx] = handMaxCard;
+                hand.sort((a, b) => a.rank - b.rank);
+                otherHand.sort((a, b) => a.rank - b.rank);
+                break;
+            }
+            case 'lovers_magician_combo': {
+                const myCount = {};
+                hand.forEach(c => myCount[c.rank] = (myCount[c.rank] || 0) + 1);
+                const oppCount = {};
+                otherHand.forEach(c => oppCount[c.rank] = (oppCount[c.rank] || 0) + 1);
+                const mySingles = hand.filter(c => myCount[c.rank] === 1 && c.id !== '0' && c.id !== '21');
+                const oppSingles = otherHand.filter(c => oppCount[c.rank] === 1 && c.id !== '0' && c.id !== '21');
+                const myRanks = mySingles.map(c => c.rank);
+                const oppRanks = oppSingles.map(c => c.rank);
+                for (let r of myRanks) {
+                    if (oppRanks.includes(r)) {
+                        const myIdx = hand.findIndex(c => c.rank === r && c.id !== '0' && c.id !== '21');
+                        const oppIdx = otherHand.findIndex(c => c.rank === r && c.id !== '0' && c.id !== '21');
+                        if (myIdx > -1 && oppIdx > -1) {
+                            const temp = hand[myIdx];
+                            hand[myIdx] = otherHand[oppIdx];
+                            otherHand[oppIdx] = temp;
+                            break;
+                        }
+                    }
+                }
+                hand.sort((a, b) => a.rank - b.rank);
+                otherHand.sort((a, b) => a.rank - b.rank);
+                break;
+            }
+            case 'weight_random': {
+                // 仅用于 noBomb 检查
+                break;
+            }
+            default:
+                break;
         }
-    }
+
+        // 处理 noBomb（炸弹移除）
+        if (effect.noBomb) {
+            checkAndRemoveBomb(hand);
+        }
+    });
 }
 
 function playerPlay() {
