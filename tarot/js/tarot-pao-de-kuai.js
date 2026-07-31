@@ -918,6 +918,45 @@ function startGameAsHost() {
             }
         }
 
+        if (effect.effect.type === 'future_forced_first') {
+            // 强制自己先手
+            nextFirstPlayer = 'me';
+            // 随机性调整已包含在 randomnessMod 中
+        } else if (effect.effect.type === 'future_forced_give_first') {
+            // 强制让先手
+            nextFirstPlayer = 'opp';
+            // 随机性调整已包含
+        }
+
+        // 高塔未来
+        if (effect.effect.type === 'future_high_tower_positive') {
+            if (effect.player === 'me') {
+                myRandomness = effect.randomnessMod;
+                myWeight = effect.weightMod;
+            } else {
+                oppRandomness = effect.randomnessMod;
+                oppWeight = effect.weightMod;
+            }
+            nextRoundTarotEffect = null;
+        }
+        if (effect.effect.type === 'future_high_tower_negative') {
+            if (effect.player === 'me') {
+                myRandomness = effect.randomnessMod;
+                myWeight = effect.weightMod;
+            } else {
+                oppRandomness = effect.randomnessMod;
+                oppWeight = effect.weightMod;
+            }
+            nextRoundTarotEffect = null;
+        }
+
+        // 审判未来（在发牌后处理，因为要操作手牌）
+        if (effect.effect.type === 'future_judgment_positive' || effect.effect.type === 'future_judgment_negative') {
+            // 这些需要发牌后执行，标记为待处理
+            window._pendingJudgment = effect;
+            nextRoundTarotEffect = null;
+        }
+
         // 清空，避免重复使用
         nextRoundTarotEffect = null;
     }
@@ -1085,6 +1124,58 @@ function startGameAsHost() {
                 }
                 myPastEffect = { type: 'weight_random' };
             }
+
+            // 倒吊人 (id: 12)
+            if (card.id === '12') {
+                if (!card.reversed) {
+                    // 正：最低牌换更高牌（在 applyPastEffect 中处理）
+                    myPastEffect = {
+                        type: 'hanged_man_past_positive',
+                        direction: 'higher'
+                    };
+                } else {
+                    // 逆：强制让先手 + 好牌
+                    // 先手权在 later 设置，这里标记
+                    myPastEffect = {
+                        type: 'hanged_man_past_negative',
+                        giveFirst: true
+                    };
+                    // 好牌：权重提升
+                    myWeightMod *= 1.2;
+                    myRandomnessMod *= 0.9;
+                }
+            }
+
+            // 高塔 (id: 16)
+            if (card.id === '16') {
+                if (!card.reversed) {
+                    myRandomnessMod *= 2.0;      // 随机性 +100%
+                    myWeightMod *= 1.3;          // 高价值 ×1.3
+                } else {
+                    myRandomnessMod *= 2.0;      // 随机性 +100%
+                    myWeightMod *= 1.2;          // 对子/姊妹提升（近似）
+                    myRandomnessMod *= 0.9;      // 组合概率提升
+                }
+                myPastEffect = { type: 'weight_random' };
+            }
+
+            // 审判 (id: 20)
+            if (card.id === '20') {
+                if (!card.reversed) {
+                    // 正：己方散牌 ↔ 对方高价值牌
+                    myPastEffect = {
+                        type: 'judgment_past_positive',
+                        swapType: 'scattered_to_high'
+                    };
+                } else {
+                    // 逆：己方高价值牌 ↔ 对方散牌
+                    myPastEffect = {
+                        type: 'judgment_past_negative',
+                        swapType: 'high_to_scattered'
+                    };
+                }
+            }
+
         } else if (position === 'future') {
             myFutureEffect = { cardId: card.id, reversed: card.reversed };
 
@@ -1241,6 +1332,59 @@ function startGameAsHost() {
                     myFutureRandomnessMod = 0.7; // 烂牌参数
                 }
             }
+
+            // 倒吊人未来
+            if (card.id === '12') {
+                if (!card.reversed) {
+                    // 正：强制先手，随机性+30%
+                    myFutureEffect = {
+                        type: 'future_forced_first',
+                        randomnessMod: 1.3
+                    };
+                    myFutureRandomnessMod = 1.3;
+                } else {
+                    // 逆：强制让先手，随机性-30%
+                    myFutureEffect = {
+                        type: 'future_forced_give_first',
+                        randomnessMod: 0.7
+                    };
+                    myFutureRandomnessMod = 0.7;
+                }
+            }
+
+            // 高塔未来
+            if (card.id === '16') {
+                if (!card.reversed) {
+                    myFutureEffect = {
+                        type: 'future_high_tower_positive',
+                        randomnessMod: 2.0,
+                        weightMod: 1.3
+                    };
+                    myFutureRandomnessMod = 2.0;
+                    myFutureWeightMod = 1.3;
+                } else {
+                    myFutureEffect = {
+                        type: 'future_high_tower_negative',
+                        randomnessMod: 2.0,
+                        weightMod: 0.7   // 低价值提升（权重降低）
+                    };
+                    myFutureRandomnessMod = 2.0;
+                    myFutureWeightMod = 0.7;
+                }
+            }
+
+            // 审判未来
+            if (card.id === '20') {
+                if (!card.reversed) {
+                    myFutureEffect = {
+                        type: 'future_judgment_positive'
+                    };
+                } else {
+                    myFutureEffect = {
+                        type: 'future_judgment_negative'
+                    };
+                }
+            }
         }
     });
 
@@ -1389,6 +1533,57 @@ function startGameAsHost() {
                     oppRandomnessMod *= 0.85; // 组合×0.7，三条×1.3
                 }
                 oppPastEffect = { type: 'weight_random' };
+            }
+
+            // 倒吊人 (id: 12)
+            if (card.id === '12') {
+                if (!card.reversed) {
+                    // 正：最低牌换更高牌（在 applyPastEffect 中处理）
+                    oppPastEffect = {
+                        type: 'hanged_man_past_positive',
+                        direction: 'higher'
+                    };
+                } else {
+                    // 逆：强制让先手 + 好牌
+                    // 先手权在 later 设置，这里标记
+                    oppPastEffect = {
+                        type: 'hanged_man_past_negative',
+                        giveFirst: true
+                    };
+                    // 好牌：权重提升
+                    oppWeightMod *= 1.2;
+                    oppRandomnessMod *= 0.9;
+                }
+            }
+
+            // 高塔 (id: 16)
+            if (card.id === '16') {
+                if (!card.reversed) {
+                    oppRandomnessMod *= 2.0;      // 随机性 +100%
+                    oppWeightMod *= 1.3;          // 高价值 ×1.3
+                } else {
+                    oppRandomnessMod *= 2.0;      // 随机性 +100%
+                    oppWeightMod *= 1.2;          // 对子/姊妹提升（近似）
+                    oppRandomnessMod *= 0.9;      // 组合概率提升
+                }
+                oppPastEffect = { type: 'weight_random' };
+            }
+
+            // 审判 (id: 20)
+            if (card.id === '20') {
+                if (!card.reversed) {
+                    // 正：己方散牌 ↔ 对方高价值牌
+                    oppPastEffect = {
+                        type: 'judgment_past_positive',
+                        swapType: 'scattered_to_high'
+                    };
+                } else {
+                    // 逆：己方高价值牌 ↔ 对方散牌
+                    oppPastEffect = {
+                        type: 'judgment_past_negative',
+                        swapType: 'high_to_scattered'
+                    };
+                }
             }
         } else if (position === 'future') {
             oppFutureEffect = { cardId: card.id, reversed: card.reversed };
@@ -1547,6 +1742,59 @@ function startGameAsHost() {
                     oppFutureRandomnessMod = 0.7; // 烂牌参数
                 }
             }
+
+            // 倒吊人未来
+            if (card.id === '12') {
+                if (!card.reversed) {
+                    // 正：强制先手，随机性+30%
+                    oppFutureEffect = {
+                        type: 'future_forced_first',
+                        randomnessMod: 1.3
+                    };
+                    oppFutureRandomnessMod = 1.3;
+                } else {
+                    // 逆：强制让先手，随机性-30%
+                    oppFutureEffect = {
+                        type: 'future_forced_give_first',
+                        randomnessMod: 0.7
+                    };
+                    oppFutureRandomnessMod = 0.7;
+                }
+            }
+
+            // 高塔未来
+            if (card.id === '16') {
+                if (!card.reversed) {
+                    oppFutureEffect = {
+                        type: 'future_high_tower_positive',
+                        randomnessMod: 2.0,
+                        weightMod: 1.3
+                    };
+                    oppFutureRandomnessMod = 2.0;
+                    oppFutureWeightMod = 1.3;
+                } else {
+                    oppFutureEffect = {
+                        type: 'future_high_tower_negative',
+                        randomnessMod: 2.0,
+                        weightMod: 0.7   // 低价值提升（权重降低）
+                    };
+                    oppFutureRandomnessMod = 2.0;
+                    oppFutureWeightMod = 0.7;
+                }
+            }
+
+            // 审判未来
+            if (card.id === '20') {
+                if (!card.reversed) {
+                    oppFutureEffect = {
+                        type: 'future_judgment_positive'
+                    };
+                } else {
+                    oppFutureEffect = {
+                        type: 'future_judgment_negative'
+                    };
+                }
+            }
         }
     });
 
@@ -1557,6 +1805,8 @@ function startGameAsHost() {
     const myHasEmpress = myTarot.some(c => c.id === '3');
     const myHasEmperor = myTarot.some(c => c.id === '4');
     const myHasHermit = myTarot.some(c => c.id === '9');
+    const myHasHangedMan = myTarot.some(c => c.id === '12');
+    const myHasDeath = myTarot.some(c => c.id === '13');
     const myHasDevil = myTarot.some(c => c.id === '15');
     const myHasStar = myTarot.some(c => c.id === '17');
     const myHasMoon = myTarot.some(c => c.id === '18');
@@ -1679,6 +1929,52 @@ function startGameAsHost() {
         }
     }
 
+    // 检查我方的未来组合：倒吊人 + 恶魔
+    if (myHasHangedMan && myHasDevil) {
+        const hangedRev = myTarot.find(c => c.id === '12').reversed;
+        const devilRev = myTarot.find(c => c.id === '15').reversed;
+        if (!hangedRev && !devilRev) {
+            // 正正：炸弹概率×1.5，若无炸弹则好牌重发
+            myFutureEffect = {
+                type: 'future_bomb_boost',
+                bombBoost: 1.5,
+                reshuffleIfNoBomb: true,
+                reshuffleParams: { weight: 1.3, randomness: 0.8 }  // 好牌参数
+            };
+            myFutureWeightMod = 1.5;
+            myFutureRandomnessMod = 1.0;
+        } else if (hangedRev && devilRev) {
+            // 逆逆：低价值×1.2，高价值×1.2
+            myFutureEffect = {
+                type: 'future_weight',
+                weightMod: 1.2,
+                randomnessMod: 1.2
+            };
+            myFutureWeightMod = 1.2;
+            myFutureRandomnessMod = 1.2;
+        } else {
+            // 一正一逆：炸弹概率×1.3
+            myFutureEffect = {
+                type: 'future_bomb_boost',
+                bombBoost: 1.3,
+                reshuffleIfNoBomb: false
+            };
+            myFutureWeightMod = 1.3;
+            myFutureRandomnessMod = 1.0;
+        }
+    }
+
+    // 检查我方的过去组合：倒吊人 + 死神
+    if (myHasHangedMan && myHasDevil) {
+        // 替换为三条
+        myPastEffect = {
+            type: 'hanged_man_death_combo'
+        };
+        // 清除其他过去效果
+        myWeightMod = 1.0;
+        myRandomnessMod = 1.0;
+    }
+
 
 
 
@@ -1690,6 +1986,8 @@ function startGameAsHost() {
     const oppHasEmpress = oppTarot.some(c => c.id === '3');
     const oppHasEmperor = oppTarot.some(c => c.id === '4');
     const oppHasHermit = oppTarot.some(c => c.id === '9');
+    const oppHasHangedMan = oppTarot.some(c => c.id === '12');
+    const oppHasDeath = oppTarot.some(c => c.id === '13');
     const oppHasDevil = oppTarot.some(c => c.id === '15');
     const oppHasStar = oppTarot.some(c => c.id === '17');
     const oppHasMoon = oppTarot.some(c => c.id === '18');
@@ -1806,6 +2104,52 @@ function startGameAsHost() {
             oppFutureRandomnessMod = 0.8;
         }
     }
+    
+    // 检查对方的未来组合：倒吊人 + 恶魔
+    if (oppHasHangedMan && oppHasDevil) {
+        const hangedRev = oppTarot.find(c => c.id === '12').reversed;
+        const devilRev = oppTarot.find(c => c.id === '15').reversed;
+        if (!hangedRev && !devilRev) {
+            // 正正：炸弹概率×1.5，若无炸弹则好牌重发
+            oppFutureEffect = {
+                type: 'future_bomb_boost',
+                bombBoost: 1.5,
+                reshuffleIfNoBomb: true,
+                reshuffleParams: { weight: 1.3, randomness: 0.8 }  // 好牌参数
+            };
+            oppFutureWeightMod = 1.5;
+            oppFutureRandomnessMod = 1.0;
+        } else if (hangedRev && devilRev) {
+            // 逆逆：低价值×1.2，高价值×1.2
+            oppFutureEffect = {
+                type: 'future_weight',
+                weightMod: 1.2,
+                randomnessMod: 1.2
+            };
+            oppFutureWeightMod = 1.2;
+            oppFutureRandomnessMod = 1.2;
+        } else {
+            // 一正一逆：炸弹概率×1.3
+            oppFutureEffect = {
+                type: 'future_bomb_boost',
+                bombBoost: 1.3,
+                reshuffleIfNoBomb: false
+            };
+            oppFutureWeightMod = 1.3;
+            oppFutureRandomnessMod = 1.0;
+        }
+    }
+
+    // 检查对方的过去组合：倒吊人 + 死神
+    if (oppHasHangedMan && oppHasDevil) {
+        // 替换为三条
+        oppPastEffect = {
+            type: 'hanged_man_death_combo'
+        };
+        // 清除其他过去效果
+        oppWeightMod = 1.0;
+        oppRandomnessMod = 1.0;
+    }
 
 
 
@@ -1823,6 +2167,8 @@ function startGameAsHost() {
     if (myHasMagician && myHasPriestess) { myActiveCards.push('1', '2'); }
     if (myHasEmperor && myHasEmpress) { myActiveCards.push('3', '4'); }
     if (myHasHermit && myHasPriestess) { myActiveCards.push('9', '2'); }
+    if (myHasHangedMan && myHasDevil) { myActiveCards.push('12', '15'); }
+    if (myHasHangedMan && myHasDeath) { myActiveCards.push('12', '13'); }
     if (myHasDevil && myHasSun) { myActiveCards.push('15', '19'); }
     if (myHasStar && myHasMoon) { myActiveCards.push('17', '18'); }
     if (myHasSun && myHasMoon) { myActiveCards.push('19', '18'); }
@@ -1832,6 +2178,8 @@ function startGameAsHost() {
     if (oppHasMagician && oppHasPriestess) { oppActiveCards.push('1', '2'); }
     if (oppHasEmperor && oppHasEmpress) { oppActiveCards.push('3', '4'); }
     if (oppHasHermit && oppHasPriestess) { oppActiveCards.push('9', '2'); }
+    if (oppHasHangedMan  && oppHasDevil) { oppActiveCards.push('12', '15'); }
+    if (oppHasHangedMan  && oppHasDeath) { oppActiveCards.push('12', '13'); }
     if (oppHasDevil && oppHasSun) { oppActiveCards.push('15', '19'); }
     if (oppHasStar && oppHasMoon) { oppActiveCards.push('17', '18'); }
     if (oppHasSun && oppHasMoon) { oppActiveCards.push('19', '18'); }
@@ -2080,6 +2428,70 @@ function startGameAsHost() {
         }
     }
 
+    // 处理审判未来
+    if (window._pendingJudgment) {
+        const effect = window._pendingJudgment;
+        const isMyEffect = (effect.player === 'me');
+        const myHand = isMyEffect ? game.myHand : game.oppHand;
+        const oppHand = isMyEffect ? game.oppHand : game.myHand;
+        
+        if (effect.effect.type === 'future_judgment_positive') {
+            // 如果对方有愚者/世界，且自己没有
+            const oppHasJoker = oppHand.some(c => c.id === '0' || c.id === '21');
+            const myHasJoker = myHand.some(c => c.id === '0' || c.id === '21');
+            if (oppHasJoker && !myHasJoker) {
+                // 找自己最大的非鬼牌
+                let maxIdx = 0;
+                let maxRank = -Infinity;
+                myHand.forEach((c, i) => {
+                    if (c.id !== '0' && c.id !== '21' && c.rank > maxRank) {
+                        maxRank = c.rank;
+                        maxIdx = i;
+                    }
+                });
+                const myMaxCard = myHand[maxIdx];
+                // 找对方一张愚者/世界
+                const oppJokerIdx = oppHand.findIndex(c => c.id === '0' || c.id === '21');
+                if (oppJokerIdx > -1) {
+                    const oppJoker = oppHand[oppJokerIdx];
+                    // 交换
+                    myHand[maxIdx] = oppJoker;
+                    oppHand[oppJokerIdx] = myMaxCard;
+                    myHand.sort((a, b) => a.rank - b.rank);
+                    oppHand.sort((a, b) => a.rank - b.rank);
+                }
+            }
+        } else if (effect.effect.type === 'future_judgment_negative') {
+            // 如果自己有愚者/世界，且对方没有
+            const myHasJoker = myHand.some(c => c.id === '0' || c.id === '21');
+            const oppHasJoker = oppHand.some(c => c.id === '0' || c.id === '21');
+            if (myHasJoker && !oppHasJoker) {
+                // 找自己的愚者/世界
+                const myJokerIdx = myHand.findIndex(c => c.id === '0' || c.id === '21');
+                if (myJokerIdx > -1) {
+                    const myJoker = myHand[myJokerIdx];
+                    // 找对方最大牌
+                    let oppMaxIdx = 0;
+                    let maxRank = -Infinity;
+                    oppHand.forEach((c, i) => {
+                        if (c.rank > maxRank) { maxRank = c.rank; oppMaxIdx = i; }
+                    });
+                    const oppMaxCard = oppHand[oppMaxIdx];
+                    // 交换
+                    myHand[myJokerIdx] = oppMaxCard;
+                    oppHand[oppMaxIdx] = myJoker;
+                    myHand.sort((a, b) => a.rank - b.rank);
+                    oppHand.sort((a, b) => a.rank - b.rank);
+                }
+            }
+        }
+        window._pendingJudgment = null;
+    }
+
+
+
+
+
     // 使用 nextFirstPlayer 作为先手
     const first = nextFirstPlayer || 'me';
     game.currentPlayer = first;
@@ -2238,6 +2650,132 @@ function applyPastEffect(effects) {
                 if (deckIdx > -1) game.deck.splice(deckIdx, 1);
                 // 重新排序
                 myHand.sort((a, b) => a.rank - b.rank);
+            }
+        } else if (e.type === 'hanged_man_past_positive') {
+            const myHand = game.myHand;
+            const deck = game.deck;
+            if (myHand.length === 0) return;
+            // 找到自己最低价值牌（rank 最小）
+            let minIdx = 0;
+            let minRank = Infinity;
+            myHand.forEach((c, i) => {
+                if (c.rank < minRank) {
+                    minRank = c.rank;
+                    minIdx = i;
+                }
+            });
+            const myMinCard = myHand[minIdx];
+            // 从牌池中找一张比它 rank 高的牌
+            const higherCards = deck.filter(c => c.rank > myMinCard.rank);
+            if (higherCards.length > 0) {
+                const randomHigh = higherCards[Math.floor(Math.random() * higherCards.length)];
+                const deckIdx = deck.indexOf(randomHigh);
+                if (deckIdx > -1) {
+                    // 交换
+                    myHand[minIdx] = randomHigh;
+                    deck[deckIdx] = myMinCard;
+                    // 重新排序
+                    myHand.sort((a, b) => a.rank - b.rank);
+                }
+            }
+        } else if (e.type === 'judgment_past_positive') {
+            const myHand = game.myHand;
+            const oppHand = game.oppHand;
+            // 定义散牌：不属于任何牌型的单张（简化：只处理非对子、非顺子、非三条等）
+            // 由于判断复杂，我们简单取最小的牌作为散牌，取对方最大的牌作为高价值牌
+            if (myHand.length === 0 || oppHand.length === 0) return;
+            // 自己最小牌
+            let myMinIdx = 0;
+            let minRank = Infinity;
+            myHand.forEach((c, i) => {
+                if (c.rank < minRank) { minRank = c.rank; myMinIdx = i; }
+            });
+            const myMinCard = myHand[myMinIdx];
+            // 对方最大牌
+            let oppMaxIdx = 0;
+            let maxRank = -Infinity;
+            oppHand.forEach((c, i) => {
+                if (c.rank > maxRank) { maxRank = c.rank; oppMaxIdx = i; }
+            });
+            const oppMaxCard = oppHand[oppMaxIdx];
+            // 交换
+            myHand[myMinIdx] = oppMaxCard;
+            oppHand[oppMaxIdx] = myMinCard;
+            // 重新排序
+            myHand.sort((a, b) => a.rank - b.rank);
+            oppHand.sort((a, b) => a.rank - b.rank);
+        } else if (e.type === 'judgment_past_negative') {
+            const myHand = game.myHand;
+            const oppHand = game.oppHand;
+            if (myHand.length === 0 || oppHand.length === 0) return;
+            // 自己最大牌
+            let myMaxIdx = 0;
+            let maxRank = -Infinity;
+            myHand.forEach((c, i) => {
+                if (c.rank > maxRank) { maxRank = c.rank; myMaxIdx = i; }
+            });
+            const myMaxCard = myHand[myMaxIdx];
+            // 对方最小牌
+            let oppMinIdx = 0;
+            let minRank = Infinity;
+            oppHand.forEach((c, i) => {
+                if (c.rank < minRank) { minRank = c.rank; oppMinIdx = i; }
+            });
+            const oppMinCard = oppHand[oppMinIdx];
+            // 交换
+            myHand[myMaxIdx] = oppMinCard;
+            oppHand[oppMinIdx] = myMaxCard;
+            // 排序
+            myHand.sort((a, b) => a.rank - b.rank);
+            oppHand.sort((a, b) => a.rank - b.rank);
+        } else if (e.type === 'hanged_man_death_combo') {
+            const myHand = game.myHand;
+            const deck = game.deck;
+            // 选择三张非愚者/世界的牌（即非0和21）
+            const nonJokerCards = myHand.filter(c => c.id !== '0' && c.id !== '21');
+            if (nonJokerCards.length < 3) return;
+            // 随机选三张
+            const shuffled = nonJokerCards.sort(() => Math.random() - 0.5);
+            const selected = shuffled.slice(0, 3);
+            // 获取这三张牌的 rank（取众数，但我们要求三条，需要三张同 rank）
+            // 我们随机选择一个 rank 作为目标三条
+            const targetRank = selected[Math.floor(Math.random() * selected.length)].rank;
+            // 从牌池找三张该 rank 的牌
+            const cardsOfRank = deck.filter(c => c.rank === targetRank && c.id !== '0' && c.id !== '21');
+            if (cardsOfRank.length >= 3) {
+                // 用这三张替换选中的三张
+                for (let i = 0; i < 3; i++) {
+                    const idx = myHand.indexOf(selected[i]);
+                    if (idx > -1) {
+                        const newCard = cardsOfRank.pop();
+                        const deckIdx = deck.indexOf(newCard);
+                        if (deckIdx > -1) {
+                            myHand[idx] = newCard;
+                            deck[deckIdx] = selected[i];
+                        }
+                    }
+                }
+                myHand.sort((a, b) => a.rank - b.rank);
+            } else {
+                // 牌池不够，尝试从对手手牌换
+                const oppHand = game.oppHand;
+                const oppCardsOfRank = oppHand.filter(c => c.rank === targetRank && c.id !== '0' && c.id !== '21');
+                if (oppCardsOfRank.length >= 3) {
+                    for (let i = 0; i < 3; i++) {
+                        const idx = myHand.indexOf(selected[i]);
+                        if (idx > -1) {
+                            const newCard = oppCardsOfRank.pop();
+                            const oppIdx = oppHand.indexOf(newCard);
+                            if (oppIdx > -1) {
+                                myHand[idx] = newCard;
+                                oppHand[oppIdx] = selected[i];
+                            }
+                        }
+                    }
+                    myHand.sort((a, b) => a.rank - b.rank);
+                    oppHand.sort((a, b) => a.rank - b.rank);
+                }
+                // 如果还是失败，就什么都不做
             }
         }
 
