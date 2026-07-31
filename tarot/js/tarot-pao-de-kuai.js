@@ -50,6 +50,214 @@ const MAJOR_ARCANA = [
     { id: '20', name: '审判' }
 ];
 
+const TAROT_EFFECTS = {
+    // ========== 1 魔术师 ==========
+    '1': {
+        past: (reversed) => ({
+            type: 'weight_random',
+            weightMod: 1.1,
+            randomnessMod: 0.85
+        }),
+        future: (reversed) => reversed
+            ? { type: 'future_weight_bad', weightMod: 1.3, randomnessMod: 0.7 }
+            : { type: 'fill_straight' }
+    },
+
+    // ========== 2 女祭司 ==========
+    '2': {
+        past: (reversed) => ({
+            type: 'weight_random',
+            randomnessMod: reversed ? 1.3 : 0.7
+        }),
+        future: (reversed) => ({
+            type: 'future_randomness',
+            randomnessMod: reversed ? 1.3 : 0.7
+        })
+    },
+
+    // ========== 3 女皇 ==========
+    '3': {
+        past: (reversed) => reversed
+            ? { type: 'weight_random', randomnessMod: 0.75 }
+            : { type: 'weight_random', weightMod: 1.1, randomnessMod: 0.9 },
+        future: (reversed) => reversed
+            ? { type: 'future_weight', weightMod: 1.0, randomnessMod: 0.7 }
+            : { type: 'extra_draw_replace' }
+    },
+
+    // ========== 4 皇帝 ==========
+    '4': {
+        past: (reversed) => reversed
+            ? { type: 'weight_random', weightMod: 1.2, randomnessMod: 0.8 }
+            : { type: 'weight_random', weightMod: 1.1, randomnessMod: 0.9 },
+        future: (reversed) => reversed
+            ? { type: 'future_randomness_based_on_high_cards' }
+            : { type: 'future_randomness', randomnessMod: 0.8 }
+    },
+
+    // ========== 5 教皇 ==========
+    '5': {
+        past: (reversed) => reversed
+            ? { type: 'weight_random', weightMod: 1.15, randomnessMod: 0.8 }
+            : { type: 'weight_random', weightMod: 1.1, randomnessMod: 1.3 },
+        future: (reversed) => reversed
+            ? { type: 'future_weight_gamble', weightMod: 0.5, randomnessMod: 0.7 }
+            : { type: 'future_weight_gamble', weightMod: 0.8, randomnessMod: 0.8 }
+    },
+
+    // ========== 6 恋人 ==========
+    '6': {
+        past: (reversed) => reversed
+            ? { type: 'weight_random', weightMod: 1.1, randomnessMod: 0.8 }
+            : { type: 'weight_random', weightMod: 1.15, randomnessMod: 0.85 },
+        future: (reversed) => reversed
+            ? { type: 'future_weight', weightMod: 0.9, randomnessMod: 0.7 }
+            : { type: 'future_weight', weightMod: 1.1, randomnessMod: 0.8 }
+    },
+
+    // ========== 7 战车 ==========
+    '7': {
+        past: (reversed) => reversed
+            ? { type: 'weight_random', weightMod: 1.3, randomnessMod: 0.85 }
+            : { type: 'chariot_past_positive', stealFirstChance: 0.3, weightMod: 1.2 },
+        future: (reversed) => reversed
+            ? { type: 'future_chariot_negative_pending' }  // 特殊处理
+            : { type: 'future_chariot_positive', stealFirstChance: 0.5 }
+    },
+
+    // ========== 8 力量 ==========
+    '8': {
+        past: (reversed) => ({
+            type: 'weight_random',
+            weightMod: reversed ? 1.2 : 1.3
+        }),
+        future: (reversed) => reversed
+            ? { type: 'future_forced_give_first' }
+            : { type: 'future_weight_gamble', weightMod: 0.8, randomnessMod: 0.8 }
+    },
+
+    // ========== 9 隐者 ==========
+    '9': {
+        past: (reversed) => reversed
+            ? { type: 'weight_random', weightMod: 1.1, randomnessMod: 0.85 }
+            : { type: 'weight_random', weightMod: 1.05, randomnessMod: 0.8 },
+        future: (reversed) => reversed
+            ? { type: 'future_weight_gamble', weightMod: 0.2, randomnessMod: 0.7 }
+            : { type: 'future_weight_gamble', weightMod: 0.8, randomnessMod: 0.8 }
+    },
+
+    // ========== 10 命运之轮 ==========
+    '10': {
+        past: (reversed) => ({
+            type: reversed ? 'force_3' : 'reshuffle'
+        }),
+        future: (reversed) => reversed
+            ? { type: 'gamble' }
+            : { type: 'high_weights', weightMod: 1.3 }
+    },
+
+    // ========== 11 正义 ==========
+    // （依赖比分，单独处理，此处留空）
+
+    // ========== 12 倒吊人 ==========
+    '12': {
+        past: (reversed) => reversed
+            ? { type: 'hanged_man_past_negative', giveFirst: true, weightMod: 1.2, randomnessMod: 0.9 }
+            : { type: 'hanged_man_past_positive', direction: 'higher' },
+        future: (reversed) => reversed
+            ? { type: 'future_forced_give_first', randomnessMod: 0.7 }
+            : { type: 'future_forced_first', randomnessMod: 1.3 }
+    },
+
+    // ========== 13 死神 ==========
+    '13': {
+        past: (reversed) => ({
+            type: 'swap_card',
+            direction: reversed ? 'highest' : 'lowest'
+        }),
+        future: (reversed) => reversed
+            ? { type: 'inherit_past' }
+            : { type: 'future_randomness', randomnessMod: 1.3 }
+    },
+
+    // ========== 14 节制 ==========
+    '14': {
+        past: (reversed) => reversed
+            ? { type: 'weight_random', weightMod: 1.2, randomnessMod: 1.88 }
+            : { type: 'weight_random', weightMod: 1.2, randomnessMod: 0.8 },
+        future: (reversed) => reversed
+            ? { type: 'future_randomness', randomnessMod: 2.28 }
+            : { type: 'future_weight', weightMod: 1.3, randomnessMod: 0.7 }
+    },
+
+    // ========== 15 恶魔 ==========
+    '15': {
+        past: (reversed) => reversed
+            ? { type: 'weight_random', weightMod: 0.85, randomnessMod: 0.80, noBomb: true }
+            : { type: 'weight_random', weightMod: 1.25, randomnessMod: 1.25 },
+        future: (reversed) => reversed
+            ? { type: 'future_weight', weightMod: 1.15, randomnessMod: 1.3 }
+            : {
+                type: 'future_bomb_boost',
+                bombBoost: 1.5,
+                reshuffleIfNoBomb: true,
+                reshuffleParams: { weight: 0.7, randomness: 1.5 },
+                weightMod: 1.5,
+                randomnessMod: 1.0
+              }
+    },
+
+    // ========== 16 高塔 ==========
+    '16': {
+        past: (reversed) => reversed
+            ? { type: 'weight_random', weightMod: 1.2, randomnessMod: 1.8 }  // 2.0 * 0.9
+            : { type: 'weight_random', weightMod: 1.3, randomnessMod: 2.0 },
+        future: (reversed) => reversed
+            ? { type: 'future_high_tower_negative', randomnessMod: 2.0, weightMod: 0.7 }
+            : { type: 'future_high_tower_positive', randomnessMod: 2.0, weightMod: 1.3 }
+    },
+
+    // ========== 17 星星 ==========
+    '17': {
+        past: (reversed) => reversed
+            ? { type: 'weight_random', randomnessMod: 1.35 }
+            : { type: 'weight_random', weightMod: 1.10, randomnessMod: 0.90 },
+        future: (reversed) => reversed
+            ? { type: 'future_weight_bad', weightMod: 1.20, randomnessMod: 1.20 }
+            : { type: 'future_weight', weightMod: 1.10, randomnessMod: 0.90 }
+    },
+
+    // ========== 18 月亮 ==========
+    '18': {
+        past: (reversed) => reversed
+            ? { type: 'weight_random', weightMod: 0.8, randomnessMod: 0.8 }
+            : { type: 'weight_random', randomnessMod: 1.2 },
+        future: (reversed) => reversed
+            ? { type: 'future_randomness', randomnessMod: 0.8 }
+            : { type: 'future_randomness', randomnessMod: 1.2 }
+    },
+
+    // ========== 19 太阳 ==========
+    '19': {
+        past: (reversed) => reversed
+            ? { type: 'weight_random', weightMod: 0.70, randomnessMod: 1.25 }
+            : { type: 'weight_random', weightMod: 1.25, randomnessMod: 0.85 },
+        future: (reversed) => reversed
+            ? { type: 'future_weight_bad', weightMod: 1.10, randomnessMod: 0.8 }
+            : { type: 'future_weight', weightMod: 1.25 }
+    },
+
+    // ========== 20 审判 ==========
+    '20': {
+        past: (reversed) => reversed
+            ? { type: 'judgment_past_negative', swapType: 'high_to_scattered' }
+            : { type: 'judgment_past_positive', swapType: 'scattered_to_high' },
+        future: (reversed) => reversed
+            ? { type: 'future_judgment_negative' }
+            : { type: 'future_judgment_positive' }
+    }
+};
+
 const CARD_EFFECTS = {
     '10': {  // 命运之轮
         past: { positive: 'reshuffle', negative: 'force_3' },
@@ -106,9 +314,15 @@ function drawTarotCards() {
 class Game {
     constructor() { this.reset(); }
     reset() {
+        this.players = {
+            me: { hand: [], tarot: [], wins: 0 },
+            opp: { hand: [], tarot: [], wins: 0 }
+        };
+        this.players.me.wins = 0;
+        this.players.opp.wins = 0;
         this.deck = [];
-        this.myHand = [];
-        this.oppHand = [];
+        // this.myHand = [];
+        // this.oppHand = [];
         this.currentPlay = null;
         this.currentPlayer = null; // 'me' 或 'opp'
         this.lastPlay = null;      // 上一手牌型
@@ -870,8 +1084,6 @@ function startGameAsHost() {
     let oppWeight = 1.0;
     let myRandomness = 1.0;
     let oppRandomness = 1.0;
-    let myPastEffect = null;
-    let oppPastEffect = null;
 
     if (nextRoundTarotEffect) {
         const effect = nextRoundTarotEffect;
@@ -983,19 +1195,6 @@ function startGameAsHost() {
         nextRoundTarotEffect = null;
     }
 
-    if (myPastEffect && myPastEffect.stealFirstChance) {
-        const currentFirst = nextFirstPlayer || 'me';
-        if (currentFirst === 'opp' && Math.random() < myPastEffect.stealFirstChance) {
-            nextFirstPlayer = 'me';
-        }
-    }
-    if (oppPastEffect && oppPastEffect.stealFirstChance) {
-        const currentFirst = nextFirstPlayer || 'me';
-        if (currentFirst === 'me' && Math.random() < oppPastEffect.stealFirstChance) {
-            nextFirstPlayer = 'opp';
-        }
-    }
-
     if (nextRoundTarotEffect && nextRoundTarotEffect.effect.type === 'inherit_past') {
         const inherited = nextRoundTarotEffect.effect.pastEffect;
         window._inheritedPastEffect = inherited;
@@ -1009,1227 +1208,45 @@ function startGameAsHost() {
     window._myTarot = myTarot;
     window._oppTarot = oppTarot;
 
-    // 解析我的塔罗牌
-    // let myPastEffect = null;
-    // let myFutureEffect = null;
-    let myWeightMod = 1.0;      // 过去权重调整
-    let myRandomnessMod = 1.0;  // 过去随机性调整
-    let myFutureWeightMod = 1.0;
-    let myFutureRandomnessMod = 1.0;
+    // ===== 使用通用解析函数 =====
+    const myEffects = parseTarotEffects('me', myTarot, myWins, oppWins);
+    const oppEffects = parseTarotEffects('opp', oppTarot, myWins, oppWins);
 
-    myTarot.forEach((card, idx) => {
-        const position = ['past', 'present', 'future'][idx];
-        if (position === 'past') {
-            myPastEffect = { cardId: card.id, reversed: card.reversed };
+    // 从解析结果中提取变量，保持与原变量名一致，方便后续组合代码使用
+    let myWeightMod = myEffects.weightMod;
+    let myRandomnessMod = myEffects.randomnessMod;
+    let myPastEffect = myEffects.pastEffect;
+    let myFutureEffect = myEffects.futureEffect;
+    let myFutureWeightMod = myEffects.futureWeightMod;
+    let myFutureRandomnessMod = myEffects.futureRandomnessMod;
 
-            // 命运之轮
-            if (card.id === '10') {
-                if (!card.reversed) {
-                    myPastEffect.type = 'reshuffle';
-                } else {
-                    myPastEffect.type = 'force_3';
-                }
-            }
+    let oppWeightMod = oppEffects.weightMod;
+    let oppRandomnessMod = oppEffects.randomnessMod;
+    let oppPastEffect = oppEffects.pastEffect;
+    let oppFutureEffect = oppEffects.futureEffect;
+    let oppFutureWeightMod = oppEffects.futureWeightMod;
+    let oppFutureRandomnessMod = oppEffects.futureRandomnessMod;
 
-            // 星星
-            if (card.id === '17') {
-                if (!card.reversed) {
-                    // 正：低价值牌转换概率×1.25，对子概率×1.10
-                    myWeightMod *= 1.10;
-                    myRandomnessMod *= 0.90;
-                } else {
-                    // 逆：随机性+35%
-                    myRandomnessMod *= 1.35;
-                }
-                myPastEffect.type = 'weight_random';
-            }
+    // 存储过去效果（供 applyPastEffect 使用）
+    const pastEffects = {
+        me: myPastEffect,
+        opp: oppPastEffect
+    };
 
-            // 太阳
-            if (card.id === '19') {
-                if (!card.reversed) {
-                    myWeightMod *= 1.25;
-                    // 对子概率下降（用随机性模拟，降低牌值集中度）
-                    myRandomnessMod *= 0.85;
-                } else {
-                    myWeightMod *= 0.70;
-                    myRandomnessMod *= 1.25;
-                }
-                myPastEffect.type = 'weight_random';
-            }
+    
 
-            // 月亮
-            if (card.id === '18') {
-                if (!card.reversed) {
-                    myRandomnessMod *= 1.2;
-                } else {
-                    myRandomnessMod *= 0.8;
-                    // 烂牌概率提升（权重降低）
-                    myWeightMod *= 0.8;
-                }
-                myPastEffect.type = 'weight_random';
-            }
-
-            // 恶魔
-            if (card.id === '15') {
-                if (!card.reversed) {
-                    // 正：高价值×1.25，单牌×1.25（高随机性）
-                    myWeightMod *= 1.25;
-                    myRandomnessMod *= 1.25;
-                } else {
-                    // 逆：低价值×0.85，组合×1.2（低随机性）
-                    myWeightMod *= 0.85;
-                    myRandomnessMod *= 0.80;
-                    // 炸弹概率×0.01，标记 noBomb
-                    if (!myPastEffect) myPastEffect = { type: 'weight_random' };
-                    myPastEffect.noBomb = true;
-                }
-                if (!myPastEffect) myPastEffect = { type: 'weight_random' };
-            }
-
-            // 死神 (id: 13)
-            if (card.id === '13') {
-                myPastEffect = {
-                    cardId: card.id,
-                    reversed: card.reversed,
-                    type: 'swap_card',
-                    direction: card.reversed ? 'highest' : 'lowest'
-                };
-            }
-
-            // 皇帝 (id: 4)
-            if (card.id === '4') {
-                if (!card.reversed) {
-                    myWeightMod *= 1.1;
-                    myRandomnessMod *= 0.9; // 对子/顺子概率提升
-                } else {
-                    myWeightMod *= 1.2;
-                    myRandomnessMod *= 0.8; // 高价值提升，组合降低
-                }
-                myPastEffect = { type: 'weight_random' };
-            }
-
-            // 女皇 (id: 3)
-            if (card.id === '3') {
-                if (!card.reversed) {
-                    myWeightMod *= 1.1;
-                    myRandomnessMod *= 0.9; // 同花色概率提升（近似）
-                } else {
-                    myRandomnessMod *= 0.75; // 特殊组合概率降低
-                }
-                myPastEffect = { type: 'weight_random' };
-            }
-
-            // 魔术师 (id: 1)
-            if (card.id === '1') {
-                if (!card.reversed) {
-                    // 正：顺子概率×1.3
-                    myWeightMod *= 1.1;
-                    myRandomnessMod *= 0.85; // 近似顺子提升
-                } else {
-                    // 逆：特殊组合×1.2，顺子×0.7
-                    myWeightMod *= 1.1;
-                    myRandomnessMod *= 0.85; // 组合提升
-                    // 顺子下降通过后续组合覆盖
-                }
-                myPastEffect = { type: 'weight_random' };
-            }
-
-            // 女祭司 (id: 2)
-            if (card.id === '2') {
-                if (!card.reversed) {
-                    myRandomnessMod *= 0.7; // 随机性-30%
-                } else {
-                    myRandomnessMod *= 1.3; // 随机性+30%
-                }
-                myPastEffect = { type: 'weight_random' };
-            }
-
-            // 隐者 (id: 9)
-            if (card.id === '9') {
-                if (!card.reversed) {
-                    myWeightMod *= 1.05;
-                    myRandomnessMod *= 0.8; // 组合概率×1.3，顺子×0.7
-                } else {
-                    myWeightMod *= 1.1;
-                    myRandomnessMod *= 0.85; // 组合×0.7，三条×1.3
-                }
-                myPastEffect = { type: 'weight_random' };
-            }
-
-            // 倒吊人 (id: 12)
-            if (card.id === '12') {
-                if (!card.reversed) {
-                    // 正：最低牌换更高牌（在 applyPastEffect 中处理）
-                    myPastEffect = {
-                        type: 'hanged_man_past_positive',
-                        direction: 'higher'
-                    };
-                } else {
-                    // 逆：强制让先手 + 好牌
-                    // 先手权在 later 设置，这里标记
-                    myPastEffect = {
-                        type: 'hanged_man_past_negative',
-                        giveFirst: true
-                    };
-                    // 好牌：权重提升
-                    myWeightMod *= 1.2;
-                    myRandomnessMod *= 0.9;
-                }
-            }
-
-            // 高塔 (id: 16)
-            if (card.id === '16') {
-                if (!card.reversed) {
-                    myRandomnessMod *= 2.0;      // 随机性 +100%
-                    myWeightMod *= 1.3;          // 高价值 ×1.3
-                } else {
-                    myRandomnessMod *= 2.0;      // 随机性 +100%
-                    myWeightMod *= 1.2;          // 对子/姊妹提升（近似）
-                    myRandomnessMod *= 0.9;      // 组合概率提升
-                }
-                myPastEffect = { type: 'weight_random' };
-            }
-
-            // 审判 (id: 20)
-            if (card.id === '20') {
-                if (!card.reversed) {
-                    // 正：己方散牌 ↔ 对方高价值牌
-                    myPastEffect = {
-                        type: 'judgment_past_positive',
-                        swapType: 'scattered_to_high'
-                    };
-                } else {
-                    // 逆：己方高价值牌 ↔ 对方散牌
-                    myPastEffect = {
-                        type: 'judgment_past_negative',
-                        swapType: 'high_to_scattered'
-                    };
-                }
-            }
-
-            // 恋人 (id: 6)
-            if (card.id === '6') {
-                if (!card.reversed) {
-                    // 正：同花×1.3，顺子×1.2，对子×1.15
-                    myWeightMod *= 1.15;
-                    myRandomnessMod *= 0.85;
-                } else {
-                    // 逆：顺子×0.7，特殊组合×1.3
-                    myWeightMod *= 1.1;
-                    myRandomnessMod *= 0.8;
-                }
-                myPastEffect = { type: 'weight_random' };
-            }
-
-            // 战车 (id: 7)
-            if (card.id === '7') {
-                if (!card.reversed) {
-                    // 正：高价值×1.2，若对方先手，30%改为我方先手
-                    myWeightMod *= 1.2;
-                    myPastEffect = {
-                        type: 'chariot_past_positive',
-                        stealFirstChance: 0.3
-                    };
-                } else {
-                    // 逆：高价值×1.3，顺子×0.6
-                    myWeightMod *= 1.3;
-                    myRandomnessMod *= 0.85;
-                    myPastEffect = { type: 'weight_random' };
-                }
-            }
-
-            // 力量 (id: 8)
-            if (card.id === '8') {
-                if (!card.reversed) {
-                    // 正：低价值×0.7 → 高价值提升
-                    myWeightMod *= 1.3;
-                } else {
-                    // 逆：高价值×1.2
-                    myWeightMod *= 1.2;
-                }
-                myPastEffect = { type: 'weight_random' };
-            }
-
-            // 教皇 (id: 5)
-            if (card.id === '5') {
-                if (!card.reversed) {
-                    // 正：顺子×1.3，随机+30%
-                    myWeightMod *= 1.1;      // 近似顺子提升
-                    myRandomnessMod *= 1.3;  // 随机+30%
-                } else {
-                    // 逆：组合×1.3，随机-20%
-                    myWeightMod *= 1.15;
-                    myRandomnessMod *= 0.8;  // 随机-20%
-                }
-                myPastEffect = { type: 'weight_random' };
-            }
-
-            // 正义 (id: 11)
-            if (card.id === '11') {
-                const diff = Math.abs(myWins - oppWins);
-                let comboMultiplier = 0;
-                if (!card.reversed) {
-                    // 正：领先时增加，落后时减少
-                    if (myWins > oppWins) {
-                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
-                    } else if (myWins < oppWins) {
-                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
-                    } else {
-                        comboMultiplier = 1;
-                    }
-                } else {
-                    // 逆：落后时增加，领先时减少
-                    if (myWins < oppWins) {
-                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
-                    } else if (myWins > oppWins) {
-                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
-                    } else {
-                        comboMultiplier = 1;
-                    }
-                }
-                // 组合概率调整（通过权重和随机性的组合近似）
-                myWeightMod *= (0.9 + comboMultiplier * 0.1);
-                myRandomnessMod *= (1.1 - comboMultiplier * 0.1);
-                myPastEffect = { type: 'weight_random' };
-            }
-
-            // 节制 (id: 14)
-            if (card.id === '14') {
-                if (!card.reversed) {
-                    // 正：顺子×1.3，对子×1.3，炸弹×0.5，三条×0.7
-                    myWeightMod *= 1.2;
-                    myRandomnessMod *= 0.8;
-                } else {
-                    // 逆：炸弹×1.3，三条×1.3，随机+88%
-                    myWeightMod *= 1.2;
-                    myRandomnessMod *= 1.88;
-                }
-                myPastEffect = { type: 'weight_random' };
-            }
-
-        } else if (position === 'future') {
-            myFutureEffect = { cardId: card.id, reversed: card.reversed };
-
-            // 命运之轮
-            if (card.id === '10') {
-                if (!card.reversed) {
-                    myFutureEffect.type = 'high_weights';
-                    myFutureWeightMod = 1.3;
-                } else {
-                    myFutureEffect.type = 'gamble';
-                }
-            }
-
-            // 星星
-            if (card.id === '17') {
-                if (!card.reversed) {
-                    // 正：特殊组合概率×1.2
-                    myFutureEffect.type = 'future_weight';
-                    myFutureWeightMod = 1.10;
-                    myFutureRandomnessMod = 0.90;
-                } else {
-                    // 逆：烂牌概率×0.8，高价值牌×1.2
-                    myFutureEffect.type = 'future_weight_bad';
-                    myFutureWeightMod = 1.20;
-                    myFutureRandomnessMod = 1.20;
-                }
-            }
-
-            // 太阳
-            if (card.id === '19') {
-                if (!card.reversed) {
-                    myFutureEffect.type = 'future_weight';
-                    myFutureWeightMod = 1.25;
-                } else {
-                    myFutureEffect.type = 'future_weight_bad';
-                    myFutureWeightMod = 1.10;
-                    myFutureRandomnessMod = 0.8;
-                }
-            }
-
-            // 月亮
-            if (card.id === '18') {
-                if (!card.reversed) {
-                    myFutureEffect.type = 'future_randomness';
-                    myFutureRandomnessMod = 1.2;
-                } else {
-                    myFutureEffect.type = 'future_randomness';
-                    myFutureRandomnessMod = 0.8;
-                }
-            }
-            // 恶魔
-            if (card.id === '15') {
-                if (!card.reversed) {
-                    // 正：下一局炸弹概率×1.5，若无炸弹则烂牌重发
-                    myFutureEffect = {
-                        type: 'future_bomb_boost',
-                        bombBoost: 1.5,
-                        reshuffleIfNoBomb: true,
-                        reshuffleParams: { weight: 0.7, randomness: 1.5 }
-                    };
-                    myFutureWeightMod = 1.5;
-                    myFutureRandomnessMod = 1.0;
-                } else {
-                    // 逆：低价值×1.15，高价值×1.15（权重1.15，极端）
-                    myFutureEffect = {
-                        type: 'future_weight',
-                        weightMod: 1.15,
-                        randomnessMod: 1.3
-                    };
-                    myFutureWeightMod = 1.15;
-                    myFutureRandomnessMod = 1.3;
-                }
-            }
-
-            // 死神未来
-            if (card.id === '13') {
-                if (!card.reversed) {
-                    // 正：随机性+30%
-                    myFutureEffect = { type: 'future_randomness' };
-                    myFutureRandomnessMod = 1.3;
-                } else {
-                    // 逆：延续本局过去效果
-                    myFutureEffect = {
-                        type: 'inherit_past',
-                        pastEffect: myPastEffect // 注意：myPastEffect 可能在后面被修改，最好复制一份
-                    };
-                    // 这里不设置 weightMod/randomnessMod，因为继承的是过去效果
-                }
-            }
-
-            // 皇帝未来
-            if (card.id === '4') {
-                if (!card.reversed) {
-                    // 正：随机性-20%
-                    myFutureEffect = { type: 'future_randomness' };
-                    myFutureRandomnessMod = 0.8;
-                } else {
-                    // 逆：根据本局高价值牌数量增加随机性
-                    myFutureEffect = {
-                        type: 'future_randomness_based_on_high_cards',
-                    };
-                    // 不在这里设置具体数值，在发牌后计算
-                }
-            }
-
-            // 女皇未来
-            if (card.id === '3') {
-                if (!card.reversed) {
-                    // 正：额外抽牌替换最小牌
-                    myFutureEffect = { type: 'extra_draw_replace' };
-                } else {
-                    // 逆：对子概率×0.7，顺子概率×1.3
-                    myFutureEffect = { type: 'future_weight' };
-                    myFutureWeightMod = 1.0;
-                    myFutureRandomnessMod = 0.7; // 近似
-                }
-            }
-
-            // 魔术师未来
-            if (card.id === '1') {
-                if (!card.reversed) {
-                    // 正：补全顺子
-                    myFutureEffect = { type: 'fill_straight' };
-                } else {
-                    // 逆：高价值×1.3，烂牌
-                    myFutureEffect = { type: 'future_weight_bad' };
-                    myFutureWeightMod = 1.3;
-                    myFutureRandomnessMod = 0.7;
-                }
-            }
-
-            // 女祭司未来
-            if (card.id === '2') {
-                if (!card.reversed) {
-                    myFutureEffect = { type: 'future_randomness' };
-                    myFutureRandomnessMod = 0.7;
-                } else {
-                    myFutureEffect = { type: 'future_randomness' };
-                    myFutureRandomnessMod = 1.3;
-                }
-            }
-
-            // 隐者未来
-            if (card.id === '9') {
-                if (!card.reversed) {
-                    // 正：80%好牌，20%超级烂牌
-                    myFutureEffect = { type: 'future_weight_gamble' };
-                    myFutureWeightMod = 0.8; // 好牌权重
-                    myFutureRandomnessMod = 0.8; // 超级烂牌参数
-                } else {
-                    // 逆：80%烂牌，20%超级好牌
-                    myFutureEffect = { type: 'future_weight_gamble' };
-                    myFutureWeightMod = 0.2; // 好牌权重
-                    myFutureRandomnessMod = 0.7; // 烂牌参数
-                }
-            }
-
-            // 倒吊人未来
-            if (card.id === '12') {
-                if (!card.reversed) {
-                    // 正：强制先手，随机性+30%
-                    myFutureEffect = {
-                        type: 'future_forced_first',
-                        randomnessMod: 1.3
-                    };
-                    myFutureRandomnessMod = 1.3;
-                } else {
-                    // 逆：强制让先手，随机性-30%
-                    myFutureEffect = {
-                        type: 'future_forced_give_first',
-                        randomnessMod: 0.7
-                    };
-                    myFutureRandomnessMod = 0.7;
-                }
-            }
-
-            // 高塔未来
-            if (card.id === '16') {
-                if (!card.reversed) {
-                    myFutureEffect = {
-                        type: 'future_high_tower_positive',
-                        randomnessMod: 2.0,
-                        weightMod: 1.3
-                    };
-                    myFutureRandomnessMod = 2.0;
-                    myFutureWeightMod = 1.3;
-                } else {
-                    myFutureEffect = {
-                        type: 'future_high_tower_negative',
-                        randomnessMod: 2.0,
-                        weightMod: 0.7   // 低价值提升（权重降低）
-                    };
-                    myFutureRandomnessMod = 2.0;
-                    myFutureWeightMod = 0.7;
-                }
-            }
-
-            // 审判未来
-            if (card.id === '20') {
-                if (!card.reversed) {
-                    myFutureEffect = {
-                        type: 'future_judgment_positive'
-                    };
-                } else {
-                    myFutureEffect = {
-                        type: 'future_judgment_negative'
-                    };
-                }
-            }
-
-            // 恋人未来
-            if (card.id === '6') {
-                if (!card.reversed) {
-                    myFutureEffect = { type: 'future_weight' };
-                    myFutureWeightMod = 1.1;
-                    myFutureRandomnessMod = 0.8;
-                } else {
-                    myFutureEffect = { type: 'future_weight' };
-                    myFutureWeightMod = 0.9;
-                    myFutureRandomnessMod = 0.7;
-                }
-            }
-
-            // 战车未来
-            if (card.id === '7') {
-                if (!card.reversed) {
-                    myFutureEffect = {
-                        type: 'future_chariot_positive',
-                        stealFirstChance: 0.5
-                    };
-                } else {
-                    // myFutureEffect = {
-                    //     type: 'future_chariot_negative'
-                    // };
-                    window._pendingChariotNegative = 'me';
-                }
-            }
-
-            // 力量未来
-            if (card.id === '8') {
-                if (!card.reversed) {
-                    // 好牌
-                    myFutureEffect = { type: 'future_weight_gamble' };
-                    myFutureWeightMod = 0.8;
-                    myFutureRandomnessMod = 0.8;
-                } else {
-                    // 对方先手
-                    myFutureEffect = { type: 'future_forced_give_first' };
-                }
-            }
-
-            // 教皇未来
-            if (card.id === '5') {
-                if (!card.reversed) {
-                    // 正：好牌
-                    myFutureEffect = { type: 'future_weight_gamble' };
-                    myFutureWeightMod = 0.8;
-                    myFutureRandomnessMod = 0.8;
-                } else {
-                    // 逆：50%好牌，50%烂牌
-                    myFutureEffect = { type: 'future_weight_gamble' };
-                    myFutureWeightMod = 0.5;
-                    myFutureRandomnessMod = 0.7;
-                }
-            }
-
-            // 正义未来
-            if (card.id === '11') {
-                const diff = Math.abs(myWins - oppWins);
-                let comboMultiplier = 0;
-                if (!card.reversed) {
-                    if (myWins > oppWins) {
-                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
-                    } else if (myWins < oppWins) {
-                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
-                    } else {
-                        comboMultiplier = 1;
-                    }
-                } else {
-                    if (myWins < oppWins) {
-                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
-                    } else if (myWins > oppWins) {
-                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
-                    } else {
-                        comboMultiplier = 1;
-                    }
-                }
-                // 存储到未来效果
-                myFutureEffect = {
-                    type: 'future_justice',
-                    comboMultiplier: comboMultiplier,
-                    randomnessMod: (1.1 - comboMultiplier * 0.1)
-                };
-                myFutureWeightMod = (0.9 + comboMultiplier * 0.1);
-                myFutureRandomnessMod = (1.1 - comboMultiplier * 0.1);
-            }
-
-            // 节制未来
-            if (card.id === '14') {
-                if (!card.reversed) {
-                    // 正：低价值×0.7，高价值×1.3
-                    myFutureEffect = { type: 'future_weight' };
-                    myFutureWeightMod = 1.3;
-                    myFutureRandomnessMod = 0.7;
-                } else {
-                    // 逆：随机+128%
-                    myFutureEffect = { type: 'future_randomness' };
-                    myFutureRandomnessMod = 2.28;
-                }
-            }
+    if (myPastEffect && myPastEffect.stealFirstChance) {
+        const currentFirst = nextFirstPlayer || 'me';
+        if (currentFirst === 'opp' && Math.random() < myPastEffect.stealFirstChance) {
+            nextFirstPlayer = 'me';
         }
-    });
-
-    // 解析对手的塔罗牌
-    // let oppPastEffect = null;
-    // let oppFutureEffect = null;
-    let oppWeightMod = 1.0;      // 过去权重调整
-    let oppRandomnessMod = 1.0;  // 过去随机性调整
-    let oppFutureWeightMod = 1.0;
-    let oppFutureRandomnessMod = 1.0;
-
-    oppTarot.forEach((card, idx) => {
-        const position = ['past', 'present', 'future'][idx];
-        if (position === 'past') {
-            oppPastEffect = { cardId: card.id, reversed: card.reversed };
-
-            // 命运之轮
-            if (card.id === '10') {
-                if (!card.reversed) {
-                    oppPastEffect.type = 'reshuffle';
-                } else {
-                    oppPastEffect.type = 'force_3';
-                }
-            }
-
-            // 星星
-            if (card.id === '17') {
-                if (!card.reversed) {
-                    // 正：低价值牌转换概率×1.25，对子概率×1.10
-                    oppWeightMod *= 1.10;
-                    oppRandomnessMod *= 0.90;
-                } else {
-                    // 逆：随机性+35%
-                    oppRandomnessMod *= 1.35;
-                }
-                oppPastEffect.type = 'weight_random';
-            }
-
-            // 太阳
-            if (card.id === '19') {
-                if (!card.reversed) {
-                    oppWeightMod *= 1.25;
-                    // 对子概率下降（用随机性模拟，降低牌值集中度）
-                    oppRandomnessMod *= 0.85;
-                } else {
-                    oppWeightMod *= 0.70;
-                    oppRandomnessMod *= 1.25;
-                }
-                oppPastEffect.type = 'weight_random';
-            }
-
-            // 月亮
-            if (card.id === '18') {
-                if (!card.reversed) {
-                    oppRandomnessMod *= 1.2;
-                } else {
-                    oppRandomnessMod *= 0.8;
-                    // 烂牌概率提升（权重降低）
-                    oppWeightMod *= 0.8;
-                }
-                oppPastEffect.type = 'weight_random';
-            }
-
-            // 恶魔
-            if (card.id === '15') {
-                if (!card.reversed) {
-                    // 正：高价值×1.25，单牌×1.25（高随机性）
-                    oppWeightMod *= 1.25;
-                    oppRandomnessMod *= 1.25;
-                } else {
-                    // 逆：低价值×0.85，组合×1.2（低随机性）
-                    oppWeightMod *= 0.85;
-                    oppRandomnessMod *= 0.80;
-                    // 炸弹概率×0.01，标记 noBomb
-                    if (!oppPastEffect) oppPastEffect = { type: 'weight_random' };
-                    oppPastEffect.noBomb = true;
-                }
-                if (!oppPastEffect) oppPastEffect = { type: 'weight_random' };
-            }
-
-            // 死神 (id: 13)
-            if (card.id === '13') {
-                oppPastEffect = {
-                    cardId: card.id,
-                    reversed: card.reversed,
-                    type: 'swap_card',
-                    direction: card.reversed ? 'highest' : 'lowest'
-                };
-            }
-
-            // 皇帝 (id: 4)
-            if (card.id === '4') {
-                if (!card.reversed) {
-                    oppWeightMod *= 1.1;
-                    oppRandomnessMod *= 0.9; // 对子/顺子概率提升
-                } else {
-                    oppWeightMod *= 1.2;
-                    oppRandomnessMod *= 0.8; // 高价值提升，组合降低
-                }
-                oppPastEffect = { type: 'weight_random' };
-            }
-
-            // 女皇 (id: 3)
-            if (card.id === '3') {
-                if (!card.reversed) {
-                    oppWeightMod *= 1.1;
-                    oppRandomnessMod *= 0.9; // 同花色概率提升（近似）
-                } else {
-                    oppRandomnessMod *= 0.75; // 特殊组合概率降低
-                }
-                oppPastEffect = { type: 'weight_random' };
-            }
-
-            // 魔术师 (id: 1)
-            if (card.id === '1') {
-                if (!card.reversed) {
-                    // 正：顺子概率×1.3
-                    oppWeightMod *= 1.1;
-                    oppRandomnessMod *= 0.85; // 近似顺子提升
-                } else {
-                    // 逆：特殊组合×1.2，顺子×0.7
-                    oppWeightMod *= 1.1;
-                    oppRandomnessMod *= 0.85; // 组合提升
-                    // 顺子下降通过后续组合覆盖
-                }
-                oppPastEffect = { type: 'weight_random' };
-            }
-
-            // 女祭司 (id: 2)
-            if (card.id === '2') {
-                if (!card.reversed) {
-                    oppRandomnessMod *= 0.7; // 随机性-30%
-                } else {
-                    oppRandomnessMod *= 1.3; // 随机性+30%
-                }
-                oppPastEffect = { type: 'weight_random' };
-            }
-
-            // 隐者 (id: 9)
-            if (card.id === '9') {
-                if (!card.reversed) {
-                    oppWeightMod *= 1.05;
-                    oppRandomnessMod *= 0.8; // 组合概率×1.3，顺子×0.7
-                } else {
-                    oppWeightMod *= 1.1;
-                    oppRandomnessMod *= 0.85; // 组合×0.7，三条×1.3
-                }
-                oppPastEffect = { type: 'weight_random' };
-            }
-
-            // 倒吊人 (id: 12)
-            if (card.id === '12') {
-                if (!card.reversed) {
-                    // 正：最低牌换更高牌（在 applyPastEffect 中处理）
-                    oppPastEffect = {
-                        type: 'hanged_man_past_positive',
-                        direction: 'higher'
-                    };
-                } else {
-                    // 逆：强制让先手 + 好牌
-                    // 先手权在 later 设置，这里标记
-                    oppPastEffect = {
-                        type: 'hanged_man_past_negative',
-                        giveFirst: true
-                    };
-                    // 好牌：权重提升
-                    oppWeightMod *= 1.2;
-                    oppRandomnessMod *= 0.9;
-                }
-            }
-
-            // 高塔 (id: 16)
-            if (card.id === '16') {
-                if (!card.reversed) {
-                    oppRandomnessMod *= 2.0;      // 随机性 +100%
-                    oppWeightMod *= 1.3;          // 高价值 ×1.3
-                } else {
-                    oppRandomnessMod *= 2.0;      // 随机性 +100%
-                    oppWeightMod *= 1.2;          // 对子/姊妹提升（近似）
-                    oppRandomnessMod *= 0.9;      // 组合概率提升
-                }
-                oppPastEffect = { type: 'weight_random' };
-            }
-
-            // 审判 (id: 20)
-            if (card.id === '20') {
-                if (!card.reversed) {
-                    // 正：己方散牌 ↔ 对方高价值牌
-                    oppPastEffect = {
-                        type: 'judgment_past_positive',
-                        swapType: 'scattered_to_high'
-                    };
-                } else {
-                    // 逆：己方高价值牌 ↔ 对方散牌
-                    oppPastEffect = {
-                        type: 'judgment_past_negative',
-                        swapType: 'high_to_scattered'
-                    };
-                }
-            }
-
-            // 恋人 (id: 6)
-            if (card.id === '6') {
-                if (!card.reversed) {
-                    // 正：同花×1.3，顺子×1.2，对子×1.15
-                    oppWeightMod *= 1.15;
-                    oppRandomnessMod *= 0.85;
-                } else {
-                    // 逆：顺子×0.7，特殊组合×1.3
-                    oppWeightMod *= 1.1;
-                    oppRandomnessMod *= 0.8;
-                }
-                oppPastEffect = { type: 'weight_random' };
-            }
-
-            // 战车 (id: 7)
-            if (card.id === '7') {
-                if (!card.reversed) {
-                    // 正：高价值×1.2，若对方先手，30%改为我方先手
-                    oppWeightMod *= 1.2;
-                    oppPastEffect = {
-                        type: 'chariot_past_positive',
-                        stealFirstChance: 0.3
-                    };
-                } else {
-                    // 逆：高价值×1.3，顺子×0.6
-                    oppWeightMod *= 1.3;
-                    oppRandomnessMod *= 0.85;
-                    oppPastEffect = { type: 'weight_random' };
-                }
-            }
-
-            // 力量 (id: 8)
-            if (card.id === '8') {
-                if (!card.reversed) {
-                    // 正：低价值×0.7 → 高价值提升
-                    oppWeightMod *= 1.3;
-                } else {
-                    // 逆：高价值×1.2
-                    oppWeightMod *= 1.2;
-                }
-                oppPastEffect = { type: 'weight_random' };
-            }
-
-            // 教皇 (id: 5)
-            if (card.id === '5') {
-                if (!card.reversed) {
-                    // 正：顺子×1.3，随机+30%
-                    oppWeightMod *= 1.1;      // 近似顺子提升
-                    oppRandomnessMod *= 1.3;  // 随机+30%
-                } else {
-                    // 逆：组合×1.3，随机-20%
-                    oppWeightMod *= 1.15;
-                    oppRandomnessMod *= 0.8;  // 随机-20%
-                }
-                oppPastEffect = { type: 'weight_random' };
-            }
-
-            // 正义 (id: 11)
-            if (card.id === '11') {
-                const diff = Math.abs(oppWins - myWins);
-                let comboMultiplier = 0;
-                if (!card.reversed) {
-                    // 正：领先时增加，落后时减少
-                    if (oppWins > myWins) {
-                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
-                    } else if (oppWins < myWins) {
-                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
-                    } else {
-                        comboMultiplier = 1;
-                    }
-                } else {
-                    // 逆：落后时增加，领先时减少
-                    if (oppWins < myWins) {
-                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
-                    } else if (oppWins > myWins) {
-                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
-                    } else {
-                        comboMultiplier = 1;
-                    }
-                }
-                // 组合概率调整（通过权重和随机性的组合近似）
-                oppWeightMod *= (0.9 + comboMultiplier * 0.1);
-                oppRandomnessMod *= (1.1 - comboMultiplier * 0.1);
-                oppPastEffect = { type: 'weight_random' };
-            }
-
-            // 节制 (id: 14)
-            if (card.id === '14') {
-                if (!card.reversed) {
-                    // 正：顺子×1.3，对子×1.3，炸弹×0.5，三条×0.7
-                    oppWeightMod *= 1.2;
-                    oppRandomnessMod *= 0.8;
-                } else {
-                    // 逆：炸弹×1.3，三条×1.3，随机+88%
-                    oppWeightMod *= 1.2;
-                    oppRandomnessMod *= 1.88;
-                }
-                oppPastEffect = { type: 'weight_random' };
-            }
-        } else if (position === 'future') {
-            oppFutureEffect = { cardId: card.id, reversed: card.reversed };
-
-            // 命运之轮
-            if (card.id === '10') {
-                if (!card.reversed) {
-                    oppFutureEffect.type = 'high_weights';
-                    oppFutureWeightMod = 1.3;
-                } else {
-                    oppFutureEffect.type = 'gamble';
-                }
-            }
-
-            // 星星
-            if (card.id === '17') {
-                if (!card.reversed) {
-                    // 正：特殊组合概率×1.2
-                    oppFutureEffect.type = 'future_weight';
-                    oppFutureWeightMod = 1.10;
-                    oppFutureRandomnessMod = 0.90;
-                } else {
-                    // 逆：烂牌概率×0.8，高价值牌×1.2
-                    oppFutureEffect.type = 'future_weight_bad';
-                    oppFutureWeightMod = 1.20;
-                    oppFutureRandomnessMod = 1.20;
-                }
-            }
-
-            // 太阳
-            if (card.id === '19') {
-                if (!card.reversed) {
-                    oppFutureEffect.type = 'future_weight';
-                    oppFutureWeightMod = 1.25;
-                } else {
-                    oppFutureEffect.type = 'future_weight_bad';
-                    oppFutureWeightMod = 1.10;
-                    oppFutureRandomnessMod = 0.8;
-                }
-            }
-
-            // 月亮
-            if (card.id === '18') {
-                if (!card.reversed) {
-                    oppFutureEffect.type = 'future_randomness';
-                    oppFutureRandomnessMod = 1.2;
-                } else {
-                    oppFutureEffect.type = 'future_randomness';
-                    oppFutureRandomnessMod = 0.8;
-                }
-            }
-
-            // 恶魔
-            if (card.id === '15') {
-                if (!card.reversed) {
-                    // 正：下一局炸弹概率×1.5，若无炸弹则烂牌重发
-                    oppFutureEffect = {
-                        type: 'future_bomb_boost',
-                        bombBoost: 1.5,
-                        reshuffleIfNoBomb: true,
-                        reshuffleParams: { weight: 0.7, randomness: 1.5 }
-                    };
-                    oppFutureWeightMod = 1.5;
-                    oppFutureRandomnessMod = 1.0;
-                } else {
-                    // 逆：低价值×1.15，高价值×1.15（权重1.15，极端）
-                    oppFutureEffect = {
-                        type: 'future_weight',
-                        weightMod: 1.15,
-                        randomnessMod: 1.3
-                    };
-                    oppFutureWeightMod = 1.15;
-                    oppFutureRandomnessMod = 1.3;
-                }
-            }
-
-            // 死神未来
-            if (card.id === '13') {
-                if (!card.reversed) {
-                    // 正：随机性+30%
-                    oppFutureEffect = { type: 'future_randomness' };
-                    oppFutureRandomnessMod = 1.3;
-                } else {
-                    // 逆：延续本局过去效果
-                    oppFutureEffect = {
-                        type: 'inherit_past',
-                        pastEffect: oppPastEffect // 注意：oppPastEffect 可能在后面被修改，最好复制一份
-                    };
-                    // 这里不设置 weightMod/randomnessMod，因为继承的是过去效果
-                }
-            }
-
-            // 皇帝未来
-            if (card.id === '4') {
-                if (!card.reversed) {
-                    // 正：随机性-20%
-                    oppFutureEffect = { type: 'future_randomness' };
-                    oppFutureRandomnessMod = 0.8;
-                } else {
-                    // 逆：根据本局高价值牌数量增加随机性
-                    oppFutureEffect = {
-                        type: 'future_randomness_based_on_high_cards',
-                    };
-                    // 不在这里设置具体数值，在发牌后计算
-                }
-            }
-
-            // 女皇未来
-            if (card.id === '3') {
-                if (!card.reversed) {
-                    // 正：额外抽牌替换最小牌
-                    oppFutureEffect = { type: 'extra_draw_replace' };
-                } else {
-                    // 逆：对子概率×0.7，顺子概率×1.3
-                    oppFutureEffect = { type: 'future_weight' };
-                    oppFutureWeightMod = 1.0;
-                    oppFutureRandomnessMod = 0.7; // 近似
-                }
-            }
-
-            // 魔术师未来
-            if (card.id === '1') {
-                if (!card.reversed) {
-                    // 正：补全顺子
-                    oppFutureEffect = { type: 'fill_straight' };
-                } else {
-                    // 逆：高价值×1.3，烂牌
-                    oppFutureEffect = { type: 'future_weight_bad' };
-                    oppFutureWeightMod = 1.3;
-                    oppFutureRandomnessMod = 0.7;
-                }
-            }
-
-            // 女祭司未来
-            if (card.id === '2') {
-                if (!card.reversed) {
-                    oppFutureEffect = { type: 'future_randomness' };
-                    oppFutureRandomnessMod = 0.7;
-                } else {
-                    oppFutureEffect = { type: 'future_randomness' };
-                    oppFutureRandomnessMod = 1.3;
-                }
-            }
-
-            // 隐者未来
-            if (card.id === '9') {
-                if (!card.reversed) {
-                    // 正：80%好牌，20%超级烂牌
-                    oppFutureEffect = { type: 'future_weight_gamble' };
-                    oppFutureWeightMod = 0.8; // 好牌权重
-                    oppFutureRandomnessMod = 0.8; // 超级烂牌参数
-                } else {
-                    // 逆：80%烂牌，20%超级好牌
-                    oppFutureEffect = { type: 'future_weight_gamble' };
-                    oppFutureWeightMod = 0.2; // 好牌权重
-                    oppFutureRandomnessMod = 0.7; // 烂牌参数
-                }
-            }
-
-            // 倒吊人未来
-            if (card.id === '12') {
-                if (!card.reversed) {
-                    // 正：强制先手，随机性+30%
-                    oppFutureEffect = {
-                        type: 'future_forced_first',
-                        randomnessMod: 1.3
-                    };
-                    oppFutureRandomnessMod = 1.3;
-                } else {
-                    // 逆：强制让先手，随机性-30%
-                    oppFutureEffect = {
-                        type: 'future_forced_give_first',
-                        randomnessMod: 0.7
-                    };
-                    oppFutureRandomnessMod = 0.7;
-                }
-            }
-
-            // 高塔未来
-            if (card.id === '16') {
-                if (!card.reversed) {
-                    oppFutureEffect = {
-                        type: 'future_high_tower_positive',
-                        randomnessMod: 2.0,
-                        weightMod: 1.3
-                    };
-                    oppFutureRandomnessMod = 2.0;
-                    oppFutureWeightMod = 1.3;
-                } else {
-                    oppFutureEffect = {
-                        type: 'future_high_tower_negative',
-                        randomnessMod: 2.0,
-                        weightMod: 0.7   // 低价值提升（权重降低）
-                    };
-                    oppFutureRandomnessMod = 2.0;
-                    oppFutureWeightMod = 0.7;
-                }
-            }
-
-            // 审判未来
-            if (card.id === '20') {
-                if (!card.reversed) {
-                    oppFutureEffect = {
-                        type: 'future_judgment_positive'
-                    };
-                } else {
-                    oppFutureEffect = {
-                        type: 'future_judgment_negative'
-                    };
-                }
-            }
-
-            // 恋人未来
-            if (card.id === '6') {
-                if (!card.reversed) {
-                    oppFutureEffect = { type: 'future_weight' };
-                    oppFutureWeightMod = 1.1;
-                    oppFutureRandomnessMod = 0.8;
-                } else {
-                    oppFutureEffect = { type: 'future_weight' };
-                    oppFutureWeightMod = 0.9;
-                    oppFutureRandomnessMod = 0.7;
-                }
-            }
-
-            // 战车未来
-            if (card.id === '7') {
-                if (!card.reversed) {
-                    oppFutureEffect = {
-                        type: 'future_chariot_positive',
-                        stealFirstChance: 0.5
-                    };
-                } else {
-                    // oppFutureEffect = {
-                    //     type: 'future_chariot_negative'
-                    // };
-                    window._pendingChariotNegative = 'opp';
-                }
-            }
-
-            // 力量未来
-            if (card.id === '8') {
-                if (!card.reversed) {
-                    // 好牌
-                    oppFutureEffect = { type: 'future_weight_gamble' };
-                    oppFutureWeightMod = 0.8;
-                    oppFutureRandomnessMod = 0.8;
-                } else {
-                    // 对方先手
-                    oppFutureEffect = { type: 'future_forced_give_first' };
-                }
-            }
-
-            // 教皇未来
-            if (card.id === '5') {
-                if (!card.reversed) {
-                    // 正：好牌
-                    oppFutureEffect = { type: 'future_weight_gamble' };
-                    oppFutureWeightMod = 0.8;
-                    oppFutureRandomnessMod = 0.8;
-                } else {
-                    // 逆：50%好牌，50%烂牌
-                    oppFutureEffect = { type: 'future_weight_gamble' };
-                    oppFutureWeightMod = 0.5;
-                    oppFutureRandomnessMod = 0.7;
-                }
-            }
-
-            // 正义未来
-            if (card.id === '11') {
-                const diff = Math.abs(oppWins - myWins);
-                let comboMultiplier = 0;
-                if (!card.reversed) {
-                    if (oppWins > myWins) {
-                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
-                    } else if (oppWins < myWins) {
-                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
-                    } else {
-                        comboMultiplier = 1;
-                    }
-                } else {
-                    if (oppWins < myWins) {
-                        comboMultiplier = Math.min(diff * 0.1 + 1, 2);
-                    } else if (oppWins > myWins) {
-                        comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
-                    } else {
-                        comboMultiplier = 1;
-                    }
-                }
-                // 存储到未来效果
-                oppFutureEffect = {
-                    type: 'future_justice',
-                    comboMultiplier: comboMultiplier,
-                    randomnessMod: (1.1 - comboMultiplier * 0.1)
-                };
-                oppFutureWeightMod = (0.9 + comboMultiplier * 0.1);
-                oppFutureRandomnessMod = (1.1 - comboMultiplier * 0.1);
-            }
-
-            // 节制未来
-            if (card.id === '14') {
-                if (!card.reversed) {
-                    // 正：低价值×0.7，高价值×1.3
-                    oppFutureEffect = { type: 'future_weight' };
-                    oppFutureWeightMod = 1.3;
-                    oppFutureRandomnessMod = 0.7;
-                } else {
-                    // 逆：随机+128%
-                    oppFutureEffect = { type: 'future_randomness' };
-                    oppFutureRandomnessMod = 2.28;
-                }
-            }
+    }
+    if (oppPastEffect && oppPastEffect.stealFirstChance) {
+        const currentFirst = nextFirstPlayer || 'me';
+        if (currentFirst === 'me' && Math.random() < oppPastEffect.stealFirstChance) {
+            nextFirstPlayer = 'opp';
         }
-    });
+    }
 
 
     // 检查我方的过去组合
@@ -2754,10 +1771,10 @@ function startGameAsHost() {
 
     // ★ 应用过去效果（当前局） ★
     // 存储效果供发牌使用
-    const pastEffects = {
-        my: myPastEffect,
-        opp: oppPastEffect
-    };
+    // const pastEffects = {
+    //     my: myPastEffect,
+    //     opp: oppPastEffect
+    // };
 
     
     // 执行发牌（带权重）
@@ -3741,6 +2758,73 @@ function drawTarotCardsForBoth() {
         reversed: Math.random() < 0.5
     }));
     return { myCards, oppCards };
+}
+
+function parseTarotEffects(playerId, tarotCards, myWins, oppWins) {
+    let weightMod = 1.0;
+    let randomnessMod = 1.0;
+    let pastEffect = null;
+    let futureEffect = null;
+    let futureWeightMod = 1.0;
+    let futureRandomnessMod = 1.0;
+
+    tarotCards.forEach((card, idx) => {
+        const pos = ['past', 'present', 'future'][idx];
+        const config = TAROT_EFFECTS[card.id];
+
+        // 处理正义（特殊依赖比分）
+        if (card.id === '11') {
+            const diff = Math.abs(myWins - oppWins);
+            let comboMultiplier;
+            if (!card.reversed) {
+                if (myWins > oppWins) comboMultiplier = Math.min(diff * 0.1 + 1, 2);
+                else if (myWins < oppWins) comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
+                else comboMultiplier = 1;
+            } else {
+                if (myWins < oppWins) comboMultiplier = Math.min(diff * 0.1 + 1, 2);
+                else if (myWins > oppWins) comboMultiplier = 1 - Math.min(diff * 0.1, 0.9);
+                else comboMultiplier = 1;
+            }
+            const wMod = 0.9 + comboMultiplier * 0.1;
+            const rMod = 1.1 - comboMultiplier * 0.1;
+            if (pos === 'past') {
+                pastEffect = { type: 'weight_random', weightMod: wMod, randomnessMod: rMod };
+                weightMod *= wMod;
+                randomnessMod *= rMod;
+            } else if (pos === 'future') {
+                futureEffect = { type: 'future_justice', comboMultiplier, randomnessMod: rMod };
+                futureWeightMod = wMod;
+                futureRandomnessMod = rMod;
+            }
+            return;
+        }
+
+        if (!config) return;
+
+        if (pos === 'past' && config.past) {
+            const result = config.past(card.reversed);
+            if (result) {
+                pastEffect = { ...result, cardId: card.id, reversed: card.reversed };
+                if (result.weightMod) weightMod *= result.weightMod;
+                if (result.randomnessMod) randomnessMod *= result.randomnessMod;
+            }
+        } else if (pos === 'future' && config.future) {
+            const result = config.future(card.reversed);
+            if (result) {
+                futureEffect = { ...result, cardId: card.id, reversed: card.reversed };
+                if (result.weightMod) futureWeightMod = result.weightMod;
+                if (result.randomnessMod) futureRandomnessMod = result.randomnessMod;
+                // 特殊标记：战车未来逆
+                if (result.type === 'future_chariot_negative_pending') {
+                    window._pendingChariotNegative = playerId;
+                    // 不存储为实际效果，清除
+                    futureEffect = null;
+                }
+            }
+        }
+    });
+
+    return { weightMod, randomnessMod, pastEffect, futureEffect, futureWeightMod, futureRandomnessMod };
 }
 
 function playerPass() {
