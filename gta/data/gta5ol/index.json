@@ -74,7 +74,18 @@
     "update_date": "2025-12-21",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1uMYheyELE/?p=36",
     "coverImage": "必福塔_1.png",
-    "variantsCount": 3
+    "variantsCount": 4
+  },
+  {
+    "id": "kalahari",
+    "name": "卡拉哈里",
+    "category": "沙滩聚会系列",
+    "difficulty": "★★★★★",
+    "description": "特殊沙滩聚会卡拉哈里",
+    "update_date": "2026-08-01",
+    "bilibiliVideo": "",
+    "coverImage": "卡拉哈里_1.png",
+    "variantsCount": 2
   },
   {
     "id": "super-diamond",

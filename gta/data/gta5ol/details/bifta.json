@@ -5,6 +5,7 @@
   "difficulty": "★★★★☆",
   "description": "特殊沙滩聚会必福塔",
   "bilibiliVideo": "https://www.bilibili.com/video/BV1uMYheyELE/?p=36",
+  "routeImage": "",
   "update_date": "2025-12-21",
   "variants": [
     {
@@ -13,7 +14,8 @@
       "specs": [
         {
           "label": "主色调",
-          "value": "未知"
+          "value": "未知",
+          "isRare": false
         },
         {
           "label": "副色调",
@@ -22,11 +24,13 @@
         },
         {
           "label": "轮胎色",
-          "value": "未知"
+          "value": "未知",
+          "isRare": false
         },
         {
           "label": "珠光",
-          "value": "无"
+          "value": "无",
+          "isRare": false
         }
       ],
       "properties": {
@@ -42,15 +46,18 @@
       "specs": [
         {
           "label": "主色调",
-          "value": "铬合金"
+          "value": "铬合金",
+          "isRare": false
         },
         {
           "label": "副色调",
-          "value": "亮粉色"
+          "value": "亮粉色",
+          "isRare": false
         },
         {
           "label": "轮胎色",
-          "value": "黄色鸟/露珠色"
+          "value": "黄色鸟/露珠色",
+          "isRare": false
         },
         {
           "label": "珠光",
@@ -71,11 +78,13 @@
       "specs": [
         {
           "label": "主色调",
-          "value": "竞速黄"
+          "value": "竞速黄",
+          "isRare": false
         },
         {
           "label": "副色调",
-          "value": "哑光青柠绿"
+          "value": "哑光青柠绿",
+          "isRare": false
         },
         {
           "label": "轮胎色",
@@ -91,6 +100,38 @@
       "properties": {
         "入库情况": "复制车 / LSC",
         "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      }
+    },
+    {
+      "name": "黑蓝款",
+      "image": "必福塔_4.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "红酒色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "工业亮蓝色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "工业亮红色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "磨损蓝",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "复制车 / LSC",
+        "获取难度": "★★★★☆",
         "收藏价值": "★★★★☆",
         "车友会": "完全继承"
       }
@@ -100,7 +141,11 @@
     {
       "title": "暂无获取方法",
       "number": 0,
-      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+      "details": {},
+      "intro": "",
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦",
+      "noteLink": "",
+      "noteText": ""
     }
   ]
 }

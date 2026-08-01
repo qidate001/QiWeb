@@ -1,0 +1,149 @@
+{
+  "id": "kalahari",
+  "name": "卡拉哈里",
+  "category": "沙滩聚会系列",
+  "difficulty": "★★★★★",
+  "description": "特殊沙滩聚会卡拉哈里",
+  "bilibiliVideo": "",
+  "routeImage": "",
+  "update_date": "2026-08-01",
+  "variants": [
+    {
+      "name": "紫色款",
+      "image": "卡拉哈里_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "工业亮蓝色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "工业亮红色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "糖果红",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "入库情况": "复制车 / LSC",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★★★",
+        "车友会": "完全继承"
+      },
+      "explosion_data": [
+        92612664,
+        "卡拉哈里 紫色",
+        {
+          "priColor": 81,
+          "secColor": 12,
+          "pearlColor": 35,
+          "wheelColor": 44,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 4,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "61RFN955",
+          "mods": {
+            "1": 1,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "22": 0,
+            "23": 1
+          },
+          "extras": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          }
+        }
+      ]
+    },
+    {
+      "name": "橙色款",
+      "image": "卡拉哈里_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "日出橙",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "黄色",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "银光蓝",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "复制车 / LSC",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "完全继承"
+      },
+      "explosion_data": [
+        92612664,
+        "卡拉哈里 橙色",
+        {
+          "priColor": 36,
+          "secColor": 0,
+          "pearlColor": 88,
+          "wheelColor": 140,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 4,
+          "lowGripTyres": 0,
+          "plateIndex": 3,
+          "plate": "42BXI072",
+          "mods": {
+            "1": 1,
+            "2": 0,
+            "3": 0,
+            "7": 0,
+            "22": 0,
+            "23": 3
+          },
+          "extras": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

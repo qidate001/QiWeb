@@ -47,12 +47,12 @@
       "specs": [
         {
           "label": "主色调",
-          "value": "未知",
+          "value": "黄色",
           "isRare": false
         },
         {
           "label": "副色调",
-          "value": "未知",
+          "value": "黄色",
           "isRare": false
         },
         {
@@ -62,7 +62,7 @@
         },
         {
           "label": "珠光",
-          "value": "未知",
+          "value": "橘色",
           "isRare": false
         }
       ],
@@ -97,7 +97,7 @@
       "intro": "时间限制",
       "description": "开着任意载具不断按路线行驶，直至目标稀有载具在标点位置刷出。开进车库保存即可。",
       "noteLink": "12:00 左右",
-      "noteText": ""
+      "noteText": "时间限制"
     }
   ]
 }
