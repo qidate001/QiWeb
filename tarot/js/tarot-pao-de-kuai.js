@@ -1737,9 +1737,11 @@ function handleGameOver(sender) {
     if (iWon) {
         game.players.me.wins++;
         myWins = game.players.me.wins; // 同步到全局，保持 UI 显示一致
+        setMessage('🎉 你赢了！', 'win', 'play');
     } else {
         game.players.opp.wins++;
         oppWins = game.players.opp.wins;
+        setMessage('😞 你输了', 'lose', 'play');
     }
     round++;
     // 设置下一局先手：输方先出
