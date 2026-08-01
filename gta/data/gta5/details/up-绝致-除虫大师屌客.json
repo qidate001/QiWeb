@@ -1,0 +1,44 @@
+{
+  "id": "up-绝致-除虫大师屌客",
+  "name": "UP 绝致 除虫大师屌客",
+  "category": "主线：珠宝店劫案",
+  "difficulty": "★★☆☆☆",
+  "description": "此车为“智取”方案专属。",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1U7421K7Xo",
+  "routeImage": "",
+  "update_date": "2026-08-01",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "up-绝致-除虫大师屌客.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "浅蓝色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "磨损白",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "蓝光银",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "accessory": "特殊车牌：TODO PT1"
+    }
+  ],
+  "methods": []
+}

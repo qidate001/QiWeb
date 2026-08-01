@@ -209,6 +209,17 @@
     "variantsCount": 1
   },
   {
+    "id": "up-绝致-除虫大师屌客",
+    "name": "UP 绝致 除虫大师屌客",
+    "category": "主线：珠宝店劫案",
+    "difficulty": "★★☆☆☆",
+    "description": "此车为“智取”方案专属。",
+    "update_date": "2026-08-01",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1U7421K7Xo",
+    "coverImage": "up-绝致-除虫大师屌客.png",
+    "variantsCount": 1
+  },
+  {
     "id": "ec2-red-卡林-入侵者",
     "name": "EC2 Red 卡林 入侵者",
     "category": "主线：珠宝店劫案",
@@ -223,8 +234,8 @@
     "id": "ec2-grey-lustered-亚班尼-华盛顿",
     "name": "EC2 Grey/Lustered 亚班尼 华盛顿",
     "category": "主线：珠宝店劫案",
-    "difficulty": "★★☆☆☆",
-    "description": "请填写描述",
+    "difficulty": "★★★☆☆",
+    "description": "珠光随机，难刷的一批",
     "update_date": "2026-07-30",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1Q1Nde7E84",
     "coverImage": "ec2-grey-lustered-亚班尼-华盛顿_1.png",

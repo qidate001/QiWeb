@@ -833,6 +833,40 @@
         }
 
         // ================================================================
+        //  根据版本生成默认变体
+        // ================================================================
+        function getDefaultVariant(version) {
+            const base = {
+                name: '默认款',
+                image: '',
+                specs: [
+                    { label: "主色调", value: "" },
+                    { label: "副色调", value: "" },
+                    { label: "轮胎色", value: "" },
+                    { label: "珠光", value: "" }
+                ],
+                properties: {} // 占位
+            };
+
+            if (version === 'gta5ol') {
+                // Online 模式：按指定顺序
+                base.properties = {
+                    "入库情况": "直接入库",
+                    "获取难度": "★★★☆☆",
+                    "收藏价值": "★★★☆☆",
+                    "车友会": "完全继承"
+                };
+            } else {
+                // 故事模式：仅两项
+                base.properties = {
+                    "获取难度": "★★★☆☆",
+                    "收藏价值": "★★★☆☆"
+                };
+            }
+            return base;
+        }
+
+        // ================================================================
         //  选择 / 新建 / 删除
         // ================================================================
         function selectVehicle(id) {
@@ -847,6 +881,7 @@
 
         function createNewVehicle() {
             const newId = 'new-' + Date.now().toString(36);
+            const defaultVariant = getDefaultVariant(getVersion());
             const newV = {
                 id: newId,
                 name: '新载具',
@@ -856,20 +891,7 @@
                 routeImage: '',
                 bilibiliVideo: '',
                 update_date: new Date().toISOString().split('T')[0],
-                variants: [{
-                    name: '默认款',
-                    image: '',
-                    specs: [
-                        { label: "主色调", value: "" },
-                        { label: "副色调", value: "" },
-                        { label: "轮胎色", value: "" },
-                        { label: "珠光", value: "" }
-                    ],
-                    properties: {
-                        "获取难度": "★★★☆☆",
-                        "收藏价值": "★★★☆☆"
-                    }
-                }],
+                variants: [defaultVariant],
                 methods: []
             };
             vehicles.push(newV);
@@ -1050,20 +1072,9 @@
             const div = document.createElement('div');
             div.className = 'card-item';
 
-            const variantData = data || {
-                name: '特殊款',
-                image: '',
-                specs: [
-                    { label: "主色调", value: "" },
-                    { label: "副色调", value: "" },
-                    { label: "轮胎色", value: "" },
-                    { label: "珠光", value: "" }
-                ],
-                properties: {
-                    "获取难度": "★★★☆☆",
-                    "收藏价值": "★★★☆☆"
-                }
-            };
+            const variantData = (data === undefined || data === null) 
+                ? getDefaultVariant(getVersion()) 
+                : data;
 
             // 处理爆炸数据
             const explosionVal = variantData.explosion_data
