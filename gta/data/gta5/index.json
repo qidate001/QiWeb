@@ -251,5 +251,16 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV18H4y1h7m8",
     "coverImage": "ec-dark-green-lustered-pp-ee-威皮-班森.png",
     "variantsCount": 1
+  },
+  {
+    "id": "gang-peyote",
+    "name": "帮派佩优特",
+    "category": "零散系列",
+    "difficulty": "★★☆☆☆",
+    "description": "请填写描述",
+    "update_date": "2026-08-01",
+    "bilibiliVideo": "",
+    "coverImage": null,
+    "variantsCount": 1
   }
 ]

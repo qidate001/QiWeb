@@ -209,6 +209,17 @@
     "variantsCount": 4
   },
   {
+    "id": "gang-peyote",
+    "name": "帮派佩优特",
+    "category": "帮派载具系列",
+    "difficulty": "★★☆☆☆",
+    "description": "请填写描述",
+    "update_date": "2026-08-01",
+    "bilibiliVideo": "",
+    "coverImage": "帮派佩优特_1.png",
+    "variantsCount": 4
+  },
+  {
     "id": "industrial_black-granger",
     "name": "绝致 屌王",
     "category": "零散系列",
