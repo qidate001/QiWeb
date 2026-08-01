@@ -435,10 +435,31 @@ function renderPlay(cards, info, playType) {
     }
 
     playCardsContainer.innerHTML = '';
+
+    // ===== 根据卡牌数量动态决定排版方式 =====
+    const shouldStack = cards && cards.length >= 8; // 8 张及以上触发叠放
+    
+    if (shouldStack) {
+        // 强制不换行，取消间距
+        playCardsContainer.style.flexWrap = 'nowrap';
+        playCardsContainer.style.gap = '0';
+    } else {
+        // 允许换行，恢复间距（平铺排列）
+        playCardsContainer.style.flexWrap = 'wrap';
+        playCardsContainer.style.gap = '12px';
+    }
+    // ==================================================
+
     if (cards && cards.length > 0) {
-        cards.forEach(c => {
+        cards.forEach((c, index) => {
             const el = renderCard(c, true, false);
             el.style.cursor = 'default';
+
+            // 如果当前为叠放模式，且不是第一张牌，就加上 stacked 类触发重叠
+            if (shouldStack && index > 0) {
+                el.classList.add('stacked');
+            }
+
             playCardsContainer.appendChild(el);
         });
     }

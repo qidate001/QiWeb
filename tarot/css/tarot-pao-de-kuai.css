@@ -47,7 +47,7 @@ body::before {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 20px 16px;
+    padding: 12px 0 16px; /* 改为 0，让内部的 header 控制边距 */
     background: rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
@@ -56,13 +56,13 @@ body::before {
 /* ---------- 顶部 ---------- */
 .game-header {
     width: 100%;
-    max-width: 1200px;
+    max-width: 100%; /* 去掉 1200px 限制，彻底撑满屏幕 */
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 16px 24px;
-    padding: 6px 0;
+    padding: 6px 20px; /* 左右各留 20px 的贴边边距 */
     flex-shrink: 0;
 }
 
@@ -92,10 +92,9 @@ body::before {
     flex-wrap: wrap;
 }
 
-/* 对手手牌向上挪一点 */
+/* 对手手牌向上挪动 */
 #oppArea {
-    margin-top: -15px;
-    /* 数值可微调，向上移动15px */
+    margin-top: -25px; /* 往上移，数值越大挪得越高 */
     position: relative;
     z-index: 2;
 }
@@ -384,13 +383,14 @@ body::before {
     color: #d8c8e0;
 }
 
+/* ---------- 卡牌 牌背 ---------- */
 .card-back {
     background: linear-gradient(145deg, #12081a, #2d1a3d);
     border: 3px solid rgba(255, 215, 0, 0.3);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), inset 0 0 60px rgba(255, 215, 0, 0.05);
     font-size: 4rem;
     color: #ffd700;
-    opacity: 0.6;
+    opacity: 1;
 }
 
 .card-back::after {
@@ -398,7 +398,7 @@ body::before {
     position: absolute;
     font-size: 3rem;
     color: #ffd700;
-    opacity: 0.08;
+    opacity: 0.2; /* 星星清晰可见 */
     text-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
 }
 
@@ -426,7 +426,7 @@ body::before {
 /* ---------- 出牌区 ---------- */
 .play-area {
     width: 100%;
-    max-width: 800px;
+    max-width: 1100px;
     min-height: 160px;
     display: flex;
     flex-direction: column;
@@ -449,21 +449,29 @@ body::before {
 
 .play-area .play-cards {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+    flex-wrap: wrap;     /* 默认允许换行，平铺排列 */
+    gap: 12px;           /* 默认有间距 */
     justify-content: center;
     min-height: 80px;
     align-items: center;
+    padding: 4px 0;
+    overflow: visible;
 }
 
 .play-area .play-cards .card-slot {
     width: 90px;
     height: 135px;
     cursor: default;
+    flex-shrink: 0;
+    margin-left: 0;      /* 默认没有负边距 */
 }
-
 .play-area .play-cards .card-slot:hover {
     transform: none;
+}
+
+/* === 只有带 .stacked 类的卡片才触发叠放重叠 === */
+.play-area .play-cards .card-slot.stacked {
+    margin-left: -40px;  /* 重叠度 */
 }
 
 .hand-total {
@@ -1005,6 +1013,10 @@ img {
         height: 105px;
     }
 
+    .play-area .play-cards .card-slot.stacked {
+        margin-left: -25px; /* 小屏卡牌小，负边距也改小 */
+    }
+
     #oppTarot {
         left: 6px;
     }
@@ -1070,7 +1082,7 @@ img {
         min-height: 100px;
         padding: 8px;
     }
-    
+
     .header-left {
         gap: 12px;
     }
@@ -1101,6 +1113,10 @@ img {
     .play-area .play-cards .card-slot {
         width: 60px;
         height: 90px;
+    }
+
+    .play-area .play-cards .card-slot.stacked {
+        margin-left: -20px;
     }
 
     #oppTarot {
