@@ -20,24 +20,29 @@
     <div class="game-container">
         <!-- 顶部 -->
         <div class="game-header">
-            <h1 class="game-title">塔罗跑得快</h1>
+            <!-- 左侧：标题 + 计分板 -->
+            <div class="header-left">
+                <h1 class="game-title">塔罗跑得快</h1>
+                <div class="scoreboard" id="scoreboard">
+                    <div class="score">
+                        <span>👤 我</span>
+                        <span class="num" id="myWins">0</span>
+                    </div>
+                    <span class="vs">⚔️</span>
+                    <div class="score">
+                        <span>👤 对手</span>
+                        <span class="num" id="oppWins">0</span>
+                    </div>
+                    <span class="round-info" id="roundInfo">第 1 局</span>
+                </div>
+            </div>
+            
+            <!-- 右侧：连接面板 -->
             <div class="connection-panel" id="connectionPanel">
                 <input type="text" id="peerIdInput" placeholder="输入房间号">
                 <button class="btn btn-create" id="createBtn">创建房间</button>
                 <button class="btn" id="joinBtn">加入房间</button>
                 <span class="peer-id-display" id="myPeerIdDisplay" title="点击复制">未连接</span>
-            </div>
-            <div class="scoreboard" id="scoreboard">
-                <div class="score">
-                    <span>👤 我</span>
-                    <span class="num" id="myWins">0</span>
-                </div>
-                <span class="vs">⚔️</span>
-                <div class="score">
-                    <span>👤 对手</span>
-                    <span class="num" id="oppWins">0</span>
-                </div>
-                <span class="round-info" id="roundInfo">第 1 局</span>
             </div>
         </div>
 
