@@ -5,14 +5,13 @@
     box-sizing: border-box;
 }
 
-html,
-body {
+html, body {
     width: 100%;
-    min-height: 100vh;
+    height: 100%;
+    overflow: hidden;
     font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
     background: linear-gradient(135deg, #0d0610 0%, #1a0a2e 30%, #2d1b3d 60%, #1a0a2e 100%);
     color: #d8c8e0;
-    overflow-x: hidden;
 }
 
 /* 星空背景 */
@@ -36,16 +35,18 @@ body::before {
     z-index: 0;
 }
 
+/* ---------- 游戏容器 ---------- */
 .game-container {
     position: relative;
     z-index: 1;
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 20px 20px;
+    padding: 12px 20px 16px;
     background: rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
@@ -71,12 +72,10 @@ body::before {
     letter-spacing: 6px;
     text-shadow: 0 0 40px rgba(255, 215, 0, 0.15);
 }
-
 .game-title::before {
     content: '♠ ';
     opacity: 0.5;
 }
-
 .game-title::after {
     content: ' ♥';
     opacity: 0.5;
@@ -94,7 +93,6 @@ body::before {
     flex-wrap: wrap;
     justify-content: center;
 }
-
 .connection-panel input {
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 215, 0, 0.2);
@@ -106,12 +104,10 @@ body::before {
     outline: none;
     transition: 0.3s;
 }
-
 .connection-panel input:focus {
     border-color: #ffd700;
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
 }
-
 .connection-panel .btn {
     border: none;
     border-radius: 30px;
@@ -125,21 +121,17 @@ body::before {
     background: linear-gradient(135deg, #4a7a9c, #2a5a7a);
     color: #fff;
 }
-
 .connection-panel .btn:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 25px rgba(74, 122, 156, 0.4);
 }
-
 .connection-panel .btn-create {
     background: linear-gradient(135deg, #ffd700, #f0a500);
     color: #1a0a1e;
 }
-
 .connection-panel .btn-create:hover {
     box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
 }
-
 .connection-panel .peer-id-display {
     color: #ffd700;
     font-size: 0.9rem;
@@ -154,7 +146,6 @@ body::before {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
 .connection-panel .peer-id-display:hover {
     background: rgba(255, 215, 0, 0.1);
 }
@@ -173,13 +164,11 @@ body::before {
     flex-wrap: wrap;
     justify-content: center;
 }
-
 .scoreboard .score {
     display: flex;
     align-items: center;
     gap: 8px;
 }
-
 .scoreboard .score .num {
     font-weight: 700;
     font-size: 1.6rem;
@@ -187,12 +176,10 @@ body::before {
     min-width: 28px;
     text-align: center;
 }
-
 .scoreboard .vs {
     color: #6a5a7a;
     padding: 0 4px;
 }
-
 .scoreboard .round-info {
     color: #8a7a9a;
     font-size: 0.85rem;
@@ -200,15 +187,16 @@ body::before {
 
 /* ---------- 牌桌 ---------- */
 .table-area {
-    flex: 1;
+    flex: 1 1 auto;
     width: 100%;
     max-width: 1300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 8px 0;
+    padding: 4px 0;
     min-height: 0;
+    overflow: visible;
 }
 
 .hand-area {
@@ -216,13 +204,13 @@ body::before {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 6px 0;
+    flex-shrink: 0;
+    overflow: visible;
+    padding: 2px 0;
 }
-
 .hand-area:first-child {
     margin-bottom: 4px;
 }
-
 .hand-area:last-child {
     margin-top: 4px;
 }
@@ -241,25 +229,44 @@ body::before {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    flex: 0 1 auto;
+    max-width: 100%;
+    overflow: visible;
+    min-height: 0;
+    padding: 4px 80px;
     gap: 16px 20px;
-    min-height: 180px;
-    padding: 6px 0;
 }
 
-/* 卡牌尺寸 */
+/* 对手手牌叠放 */
+#oppHand.hand-cards-opp {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: flex-start;
+    overflow: visible;
+    padding: 4px 0;
+    min-height: 100px;
+}
+#oppHand .card-slot:not(:first-child) {
+    margin-left: -50px;
+    flex-shrink: 0;
+}
+#oppHand .card-slot:first-child {
+    margin-left: 0;
+}
+
+/* ---------- 卡牌 ---------- */
 .card-slot {
-    width: 120px;
-    height: 180px;
+    width: 110px;
+    height: 165px;
     perspective: 1200px;
     transition: transform 0.3s ease;
     flex-shrink: 0;
     cursor: pointer;
 }
-
 .card-slot:hover {
     transform: translateY(-8px) scale(1.04);
 }
-
 .card-slot.selected {
     transform: translateY(-20px) scale(1.08);
     box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
@@ -273,7 +280,6 @@ body::before {
     transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
     transform-style: preserve-3d;
 }
-
 .card-slot.flipped .card-inner {
     transform: rotateY(180deg);
 }
@@ -304,38 +310,31 @@ body::before {
     text-align: center;
     line-height: 1.3;
 }
-
 .card-front .card-name {
     font-size: 1.1rem;
     color: #ffd700;
     margin-top: 4px;
 }
-
 .card-front .card-suit {
     font-size: 2.2rem;
 }
-
 .card-front .card-rank {
     font-size: 1.6rem;
     font-weight: 700;
 }
-
 .card-front .card-element {
     font-size: 1.8rem;
     opacity: 0.6;
     margin-top: 2px;
 }
-
 .card-front .card-sub {
     font-size: 0.7rem;
     opacity: 0.5;
     margin-top: 4px;
 }
-
 .card-front.red {
     color: #ff7a7a;
 }
-
 .card-front.black {
     color: #d8c8e0;
 }
@@ -348,7 +347,6 @@ body::before {
     color: #ffd700;
     opacity: 0.6;
 }
-
 .card-back::after {
     content: '✦';
     position: absolute;
@@ -358,11 +356,32 @@ body::before {
     text-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
 }
 
-/* 出牌区 */
+/* ---------- 牌名标签 ---------- */
+.card-name-label {
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #ffd700;
+    font-size: 0.75rem;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 2px 4px;
+    border-radius: 4px;
+    opacity: 0.9;
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+/* ---------- 出牌区 ---------- */
 .play-area {
     width: 100%;
     max-width: 800px;
-    min-height: 120px;
+    min-height: 160px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -372,15 +391,14 @@ body::before {
     border: 1px dashed rgba(255, 215, 0, 0.1);
     margin: 8px 0;
     padding: 12px;
+    flex-shrink: 0;
 }
-
 .play-area .play-label {
     font-size: 0.9rem;
     color: #6a5a7a;
     letter-spacing: 2px;
     margin-bottom: 8px;
 }
-
 .play-area .play-cards {
     display: flex;
     flex-wrap: wrap;
@@ -389,17 +407,14 @@ body::before {
     min-height: 80px;
     align-items: center;
 }
-
 .play-area .play-cards .card-slot {
     width: 90px;
     height: 135px;
     cursor: default;
 }
-
 .play-area .play-cards .card-slot:hover {
     transform: none;
 }
-
 .hand-total {
     font-size: 1rem;
     color: #b8a0c0;
@@ -443,7 +458,6 @@ body::before {
     flex-wrap: wrap;
     justify-content: center;
 }
-
 .game-actions .btn {
     border: none;
     border-radius: 50px;
@@ -457,37 +471,30 @@ body::before {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
     min-width: 130px;
 }
-
 .btn-play {
     background: linear-gradient(135deg, #4a7a9c, #2a5a7a);
     color: #fff;
 }
-
 .btn-play:hover:not(:disabled) {
     transform: translateY(-4px) scale(1.05);
     box-shadow: 0 12px 40px rgba(74, 122, 156, 0.5);
 }
-
 .btn-pass {
     background: linear-gradient(135deg, #6a5a7a, #4a3a5a);
     color: #fff;
 }
-
 .btn-pass:hover:not(:disabled) {
     transform: translateY(-4px) scale(1.05);
     box-shadow: 0 12px 40px rgba(106, 90, 122, 0.5);
 }
-
 .btn-reset {
     background: linear-gradient(135deg, #ffd700, #f0a500);
     color: #1a0a1e;
 }
-
 .btn-reset:hover {
     transform: translateY(-4px) scale(1.05);
     box-shadow: 0 12px 45px rgba(255, 215, 0, 0.4);
 }
-
 .game-actions .btn:disabled {
     opacity: 0.35;
     transform: none !important;
@@ -495,145 +502,6 @@ body::before {
     box-shadow: none !important;
 }
 
-/* 响应式 */
-@media (max-width: 1024px) {
-    .card-slot {
-        width: 100px;
-        height: 150px;
-    }
-
-    .game-title {
-        font-size: 2rem;
-    }
-
-    .scoreboard {
-        font-size: 0.9rem;
-        padding: 6px 18px;
-        gap: 14px;
-    }
-
-    .game-message {
-        font-size: 1rem;
-        padding: 10px 20px;
-        min-height: 48px;
-    }
-
-    .game-actions .btn {
-        padding: 12px 28px;
-        font-size: 1rem;
-        min-width: 110px;
-    }
-
-    .connection-panel input {
-        width: 110px;
-    }
-}
-
-@media (max-width: 768px) {
-    .card-slot {
-        width: 80px;
-        height: 120px;
-    }
-
-    .hand-cards {
-        gap: 12px;
-    }
-
-    .game-title {
-        font-size: 1.6rem;
-        letter-spacing: 3px;
-    }
-
-    .game-header {
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .scoreboard {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .connection-panel {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .game-message {
-        font-size: 0.9rem;
-        min-height: 44px;
-    }
-
-    .game-actions .btn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-        min-width: 90px;
-    }
-
-    .play-area .play-cards .card-slot {
-        width: 70px;
-        height: 105px;
-    }
-}
-
-@media (max-width: 480px) {
-    .card-slot {
-        width: 60px;
-        height: 90px;
-    }
-
-    .hand-cards {
-        gap: 8px;
-        min-height: 120px;
-    }
-
-    .card-front .card-name {
-        font-size: 0.7rem;
-    }
-
-    .card-front .card-rank {
-        font-size: 1rem;
-    }
-
-    .card-front .card-suit {
-        font-size: 1.4rem;
-    }
-
-    .card-front .card-element {
-        font-size: 1.2rem;
-    }
-
-    .game-message {
-        font-size: 0.8rem;
-        padding: 8px 14px;
-        min-height: 40px;
-    }
-
-    .game-actions .btn {
-        padding: 8px 16px;
-        font-size: 0.8rem;
-        min-width: 70px;
-    }
-
-    .connection-panel input {
-        width: 90px;
-        font-size: 0.8rem;
-        padding: 6px 12px;
-    }
-
-    .connection-panel .btn {
-        padding: 6px 14px;
-        font-size: 0.8rem;
-    }
-
-    .play-area .play-cards .card-slot {
-        width: 60px;
-        height: 90px;
-    }
-}
-
-/* ---------- 规则按钮 ---------- */
 .btn-rules {
     background: rgba(255, 255, 255, 0.06);
     color: #b8a0c0;
@@ -660,40 +528,111 @@ body::before {
     transform: translateY(-4px) scale(1.05);
 }
 
-
-
-
-/* ---------- 牌名标签 ---------- */
-.card-name-label {
-    position: absolute;
-    bottom: 8px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    color: #ffd700;
-    font-size: 0.75rem;          /* 默认字号 */
-    background: rgba(0, 0, 0, 0.6);
-    padding: 2px 4px;
-    border-radius: 4px;
-    opacity: 0.9;
+/* ---------- 塔罗牌侧栏 ---------- */
+#oppTarot,
+#myTarot {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
     pointer-events: none;
-    white-space: nowrap;
+}
+#oppTarot { left: 12px; }
+#myTarot { right: 12px; }
+
+.tarot-card-mini {
+    width: 110px;
+    height: 165px;
+    border-radius: 12px;
+    background: #1a0a2e;
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s;
     overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 90%;
-    margin: 0 auto;
+    pointer-events: auto;
+}
+.tarot-card-mini:hover {
+    transform: scale(1.05);
+}
+.tarot-card-mini img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+.tarot-card-mini .tarot-position {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    font-size: 0.6rem;
+    color: #ffd700;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1px 8px;
+    border-radius: 12px;
+    z-index: 2;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+.tarot-card-mini .tarot-reverse-indicator,
+.tarot-card-mini .tarot-upright-indicator {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    font-size: 0.65rem;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 2px 10px;
+    border-radius: 12px;
+    z-index: 2;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+}
+.tarot-reverse-indicator {
+    color: #ff7a7a;
+    border: 1px solid rgba(255, 100, 100, 0.4);
+}
+.tarot-upright-indicator {
+    color: #69f0ae;
+    border: 1px solid rgba(100, 255, 100, 0.4);
+}
+.tarot-card-mini.face-down img {
+    filter: brightness(0.6);
 }
 
-/* ---------- 大字模式：只放大牌名 ---------- */
+.tarot-column-label {
+    color: #ffd700;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 2px;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
+    margin-bottom: 8px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 4px 0;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 215, 0, 0.08);
+}
+
+/* ---------- 大字模式 ---------- */
 body.large-mode .card-name-label {
     font-size: 1.5rem;
-    white-space: normal;        /* 允许换行 */
+    white-space: normal;
     line-height: 1.2;
     padding: 2px 2px;
     max-width: 95%;
 }
-
-/* 大字模式：塔罗牌文字放大 */
 body.large-mode .tarot-position {
     font-size: 1.6rem;
 }
@@ -701,38 +640,10 @@ body.large-mode .tarot-reverse-indicator,
 body.large-mode .tarot-upright-indicator {
     font-size: 1rem;
 }
-/* 标签也放大 */
 body.large-mode .tarot-column-label {
     font-size: 1.5rem;
 }
 
-/* 移动端大字适配 */
-@media (max-width: 768px) {
-    body.large-mode .tarot-position {
-        font-size: 1.5rem;
-    }
-    body.large-mode .tarot-reverse-indicator,
-    body.large-mode .tarot-upright-indicator {
-        font-size: 1.5rem;
-    }
-    body.large-mode .tarot-column-label {
-        font-size: 1.5rem;
-    }
-}
-@media (max-width: 480px) {
-    body.large-mode .tarot-position {
-        font-size: 0.55rem;
-    }
-    body.large-mode .tarot-reverse-indicator,
-    body.large-mode .tarot-upright-indicator {
-        font-size: 0.55rem;
-    }
-    body.large-mode .tarot-column-label {
-        font-size: 0.9rem;
-    }
-}
-
-/* ---------- 大字模式按钮 ---------- */
 .btn-large-font {
     position: fixed;
     bottom: 20px;
@@ -756,9 +667,7 @@ body.large-mode .tarot-column-label {
     transform: scale(1.05);
 }
 
-
-
-/* ---------- 消息栏闪烁提示 ---------- */
+/* ---------- 动画与特效 ---------- */
 @keyframes flash-play {
     0% { background-color: rgba(74, 122, 156, 0.2); border-left-color: #4a7a9c; }
     50% { background-color: rgba(74, 122, 156, 0.5); border-left-color: #69f0ae; }
@@ -776,7 +685,6 @@ body.large-mode .tarot-column-label {
     animation: flash-pass 0.8s ease 2;
 }
 
-/* ---------- 出牌区淡入动画 ---------- */
 @keyframes card-appear {
     0% { transform: scale(0.8) translateY(-20px); opacity: 0; }
     100% { transform: scale(1) translateY(0); opacity: 1; }
@@ -785,8 +693,7 @@ body.large-mode .tarot-column-label {
     animation: card-appear 0.3s ease-out;
 }
 
-
-/* 禁止所有图片拖动和选中（防止点击选牌时误拖） */
+/* 禁止图片拖动 */
 img {
     user-select: none;
     -webkit-user-select: none;
@@ -794,213 +701,10 @@ img {
     -ms-user-select: none;
     -webkit-user-drag: none;
     -webkit-touch-callout: none;
-    pointer-events: none; /* 确保点击穿透到父容器，触发选牌事件 */
-}
-
-
-
-
-/* ---------- 塔罗牌侧栏 ---------- */
-.hand-row {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.hand-cards {
-    flex: 0 1 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px 20px;
-    min-height: 180px;
-    padding: 6px 90px; /* 左右留出塔罗列空间 */
-    max-width: 100%;
-}
-
-/* ---------- 塔罗牌固定列 ---------- */
-#oppTarot,
-#myTarot {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
     pointer-events: none;
 }
-#oppTarot { left: 12px; }
-#myTarot { right: 12px; }
 
-/* ---------- 塔罗小卡（尺寸与游戏卡牌同步） ---------- */
-.tarot-card-mini {
-    width: 120px;   /* 与 .card-slot 一致 */
-    height: 180px;
-    border-radius: 12px;
-    background: #1a0a2e;
-    border: 1px solid rgba(255, 215, 0, 0.25);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);
-    text-align: center;
-    position: relative;
-    transition: transform 0.3s;
-    overflow: hidden;
-    pointer-events: auto;
-}
-.tarot-card-mini:hover {
-    transform: scale(1.05);
-}
-.tarot-card-mini img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;  /* 完整显示牌面，不裁剪 */
-    display: block;
-}
-.tarot-card-mini .tarot-position {
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    font-size: 0.6rem;
-    color: #ffd700;
-    background: rgba(0,0,0,0.6);
-    padding: 1px 8px;
-    border-radius: 12px;
-    z-index: 2;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-}
-.tarot-card-mini .tarot-reverse-indicator,
-.tarot-card-mini .tarot-upright-indicator {
-    position: absolute;
-    bottom: 6px;
-    right: 6px;
-    font-size: 0.65rem;
-    background: rgba(0,0,0,0.7);
-    padding: 2px 10px;
-    border-radius: 12px;
-    z-index: 2;
-    font-weight: 600;
-    backdrop-filter: blur(4px);
-}
-.tarot-reverse-indicator {
-    color: #ff7a7a;
-    border: 1px solid rgba(255, 100, 100, 0.4);
-}
-.tarot-upright-indicator {
-    color: #69f0ae;
-    border: 1px solid rgba(100, 255, 100, 0.4);
-}
-.tarot-card-mini.face-down img {
-    filter: brightness(0.6);
-}
-
-/* ---------- 手牌区域留出空间 ---------- */
-.hand-cards {
-    padding: 6px 100px;  /* 左右留出塔罗列空间，与卡片宽度匹配 */
-}
-
-/* ---------- 响应式（与 .card-slot 同步） ---------- */
-@media (max-width: 1024px) {
-    .tarot-card-mini {
-        width: 100px;
-        height: 150px;
-    }
-    .hand-cards {
-        padding: 6px 80px;
-    }
-    #oppTarot { left: 8px; }
-    #myTarot { right: 8px; }
-}
-@media (max-width: 768px) {
-    .tarot-card-mini {
-        width: 80px;
-        height: 120px;
-    }
-    .hand-cards {
-        padding: 6px 60px;
-    }
-    #oppTarot { left: 6px; }
-    #myTarot { right: 6px; }
-    .tarot-card-mini .tarot-position {
-        font-size: 0.5rem;
-        padding: 1px 6px;
-    }
-    .tarot-card-mini .tarot-reverse-indicator,
-    .tarot-card-mini .tarot-upright-indicator {
-        font-size: 0.5rem;
-        padding: 1px 6px;
-        bottom: 4px;
-        right: 4px;
-    }
-}
-@media (max-width: 480px) {
-    .tarot-card-mini {
-        width: 60px;
-        height: 90px;
-    }
-    .hand-cards {
-        padding: 6px 45px;
-    }
-    #oppTarot { left: 4px; }
-    #myTarot { right: 4px; }
-    .tarot-card-mini .tarot-position {
-        font-size: 0.4rem;
-        padding: 1px 4px;
-        top: 2px;
-        left: 2px;
-    }
-    .tarot-card-mini .tarot-reverse-indicator,
-    .tarot-card-mini .tarot-upright-indicator {
-        font-size: 0.4rem;
-        padding: 1px 4px;
-        bottom: 2px;
-        right: 2px;
-    }
-}
-
-
-/* 塔罗列标签 */
-.tarot-column-label {
-    color: #ffd700;
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-align: center;
-    letter-spacing: 2px;
-    text-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
-    margin-bottom: 8px;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    padding: 4px 0;
-    border-radius: 20px;
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 215, 0, 0.08);
-}
-
-/* 响应式调整 */
-@media (max-width: 768px) {
-    .tarot-column-label {
-        font-size: 0.9rem;
-        margin-bottom: 6px;
-        padding: 2px 0;
-    }
-}
-@media (max-width: 480px) {
-    .tarot-column-label {
-        font-size: 0.7rem;
-        margin-bottom: 4px;
-        padding: 2px 0;
-    }
-}
-
-
-
-/* ---------- 塔罗组合特效 ---------- */
+/* 塔罗组合特效 */
 .tarot-card-mini.tarot-combo-active {
     animation: comboPulse 1.8s ease-in-out infinite;
     border-color: #ffd700 !important;
@@ -1008,8 +712,6 @@ img {
     z-index: 5;
     position: relative;
 }
-
-/* 外发光旋转光环（伪元素） */
 .tarot-card-mini.tarot-combo-active::before {
     content: '';
     position: absolute;
@@ -1027,136 +729,84 @@ img {
     mask-composite: exclude;
     pointer-events: none;
 }
-
-/* 脉冲动画 */
 @keyframes comboPulse {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.06); }
 }
-
-/* 边框旋转 */
 @keyframes borderRotate {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-/* 响应式调整 */
-@media (max-width: 768px) {
-    .tarot-card-mini.tarot-combo-active::before {
-        inset: -4px;
-        border-radius: 10px;
-    }
-}
-@media (max-width: 480px) {
-    .tarot-card-mini.tarot-combo-active::before {
-        inset: -3px;
-        border-radius: 8px;
-    }
-}
-
-
-
-/* ---------- 发牌动画：牌从中央飞出 ---------- */
+/* 发牌动画 */
 .card-slot.dealing {
     will-change: transform, opacity;
-    /* 初始状态由 JS 动态设置，transition 由 JS 触发 */
 }
 
-
-
-html, body {
-    height: 100%;
-    overflow: hidden;
-}
-.game-container {
-    height: 100vh;
-    overflow: hidden;
-    padding: 12px 20px 16px;
-    display: flex;
-    flex-direction: column;
-}
-.table-area {
-    flex: 1 1 auto;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: visible; /* 允许动画牌溢出，但父容器裁剪 */
-    padding: 4px 0;
-}
-.hand-area {
-    flex-shrink: 0;
-    overflow: visible;
-    padding: 2px 0;
-}
-.hand-cards {
-    overflow: visible;
-    min-height: 0;
-    padding: 4px 80px;
-    gap: 16px 20px;
-}
-/* 对手手牌叠放，不显示滚动条 */
-#oppHand.hand-cards-opp {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 0;
-    justify-content: flex-start;
-    overflow: visible; /* 不出现滚动条 */
-    padding: 4px 0;
-    min-height: 100px;
-}
-#oppHand .card-slot:not(:first-child) {
-    margin-left: -50px;
-    flex-shrink: 0;
-}
-#oppHand .card-slot:first-child {
-    margin-left: 0;
-}
-
-.play-area {
-    flex-shrink: 0;
-    min-height: 160px;
-    margin: 4px 0;
-    padding: 12px;
-}
-
-.card-slot {
-    width: 110px;
-    height: 165px;
-}
-.hand-cards {
-    gap: 20px 24px;
-    padding: 6px 90px;
-}
-
+/* ---------- 响应式 ---------- */
 @media (max-width: 1024px) {
     .card-slot { width: 95px; height: 142px; }
+    .tarot-card-mini { width: 95px; height: 142px; }
     #oppHand .card-slot:not(:first-child) { margin-left: -40px; }
     .hand-cards { padding: 4px 70px; gap: 16px 20px; }
+    .game-title { font-size: 2rem; }
+    .scoreboard { font-size: 0.9rem; padding: 6px 18px; gap: 14px; }
+    .game-message { font-size: 1rem; padding: 10px 20px; min-height: 48px; }
+    .game-actions .btn { padding: 12px 28px; font-size: 1rem; min-width: 110px; }
+    .connection-panel input { width: 110px; }
+    #oppTarot { left: 8px; } #myTarot { right: 8px; }
+    .tarot-card-mini .tarot-position { font-size: 0.6rem; padding: 1px 8px; }
+    .tarot-card-mini .tarot-reverse-indicator,
+    .tarot-card-mini .tarot-upright-indicator { font-size: 0.65rem; padding: 2px 10px; }
 }
+
 @media (max-width: 768px) {
     .card-slot { width: 80px; height: 120px; }
+    .tarot-card-mini { width: 80px; height: 120px; }
     #oppHand .card-slot:not(:first-child) { margin-left: -30px; }
     .hand-cards { padding: 4px 50px; gap: 12px 16px; }
     .play-area { min-height: 130px; }
+    .game-title { font-size: 1.6rem; letter-spacing: 3px; }
+    .game-header { flex-direction: column; align-items: center; gap: 8px; }
+    .scoreboard { width: 100%; justify-content: center; }
+    .connection-panel { width: 100%; justify-content: center; }
+    .game-message { font-size: 0.9rem; min-height: 44px; }
+    .game-actions .btn { padding: 10px 20px; font-size: 0.9rem; min-width: 90px; }
+    .play-area .play-cards .card-slot { width: 70px; height: 105px; }
+    #oppTarot { left: 6px; } #myTarot { right: 6px; }
+    .tarot-card-mini .tarot-position { font-size: 0.5rem; padding: 1px 6px; }
+    .tarot-card-mini .tarot-reverse-indicator,
+    .tarot-card-mini .tarot-upright-indicator { font-size: 0.5rem; padding: 1px 6px; bottom: 4px; right: 4px; }
+    .tarot-column-label { font-size: 0.9rem; margin-bottom: 6px; padding: 2px 0; }
+    body.large-mode .tarot-position { font-size: 1.5rem; }
+    body.large-mode .tarot-reverse-indicator,
+    body.large-mode .tarot-upright-indicator { font-size: 1.5rem; }
+    body.large-mode .tarot-column-label { font-size: 1.5rem; }
 }
+
 @media (max-width: 480px) {
     .card-slot { width: 60px; height: 90px; }
+    .tarot-card-mini { width: 60px; height: 90px; }
     #oppHand .card-slot:not(:first-child) { margin-left: -20px; }
     .hand-cards { padding: 4px 30px; gap: 8px 12px; }
     .play-area { min-height: 100px; padding: 8px; }
-}
-
-.tarot-card-mini {
-    width: 110px;
-    height: 165px;
-}
-@media (max-width: 1024px) {
-    .tarot-card-mini { width: 95px; height: 142px; }
-}
-@media (max-width: 768px) {
-    .tarot-card-mini { width: 80px; height: 120px; }
-}
-@media (max-width: 480px) {
-    .tarot-card-mini { width: 60px; height: 90px; }
+    .game-message { font-size: 0.8rem; padding: 8px 14px; min-height: 40px; }
+    .game-actions .btn { padding: 8px 16px; font-size: 0.8rem; min-width: 70px; }
+    .connection-panel input { width: 90px; font-size: 0.8rem; padding: 6px 12px; }
+    .connection-panel .btn { padding: 6px 14px; font-size: 0.8rem; }
+    .play-area .play-cards .card-slot { width: 60px; height: 90px; }
+    #oppTarot { left: 4px; } #myTarot { right: 4px; }
+    .tarot-card-mini .tarot-position { font-size: 0.4rem; padding: 1px 4px; top: 2px; left: 2px; }
+    .tarot-card-mini .tarot-reverse-indicator,
+    .tarot-card-mini .tarot-upright-indicator { font-size: 0.4rem; padding: 1px 4px; bottom: 2px; right: 2px; }
+    .tarot-column-label { font-size: 0.7rem; margin-bottom: 4px; padding: 2px 0; }
+    body.large-mode .tarot-position { font-size: 0.55rem; }
+    body.large-mode .tarot-reverse-indicator,
+    body.large-mode .tarot-upright-indicator { font-size: 0.55rem; }
+    body.large-mode .tarot-column-label { font-size: 0.9rem; }
+    .card-front .card-name { font-size: 0.7rem; }
+    .card-front .card-rank { font-size: 1rem; }
+    .card-front .card-suit { font-size: 1.4rem; }
+    .card-front .card-element { font-size: 1.2rem; }
 }
