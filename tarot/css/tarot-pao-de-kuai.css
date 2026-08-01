@@ -1062,3 +1062,101 @@ img {
     will-change: transform, opacity;
     /* 初始状态由 JS 动态设置，transition 由 JS 触发 */
 }
+
+
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+.game-container {
+    height: 100vh;
+    overflow: hidden;
+    padding: 12px 20px 16px;
+    display: flex;
+    flex-direction: column;
+}
+.table-area {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: visible; /* 允许动画牌溢出，但父容器裁剪 */
+    padding: 4px 0;
+}
+.hand-area {
+    flex-shrink: 0;
+    overflow: visible;
+    padding: 2px 0;
+}
+.hand-cards {
+    overflow: visible;
+    min-height: 0;
+    padding: 4px 80px;
+    gap: 16px 20px;
+}
+/* 对手手牌叠放，不显示滚动条 */
+#oppHand.hand-cards-opp {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: flex-start;
+    overflow: visible; /* 不出现滚动条 */
+    padding: 4px 0;
+    min-height: 100px;
+}
+#oppHand .card-slot:not(:first-child) {
+    margin-left: -50px;
+    flex-shrink: 0;
+}
+#oppHand .card-slot:first-child {
+    margin-left: 0;
+}
+
+.play-area {
+    flex-shrink: 0;
+    min-height: 160px;
+    margin: 4px 0;
+    padding: 12px;
+}
+
+.card-slot {
+    width: 110px;
+    height: 165px;
+}
+.hand-cards {
+    gap: 20px 24px;
+    padding: 6px 90px;
+}
+
+@media (max-width: 1024px) {
+    .card-slot { width: 95px; height: 142px; }
+    #oppHand .card-slot:not(:first-child) { margin-left: -40px; }
+    .hand-cards { padding: 4px 70px; gap: 16px 20px; }
+}
+@media (max-width: 768px) {
+    .card-slot { width: 80px; height: 120px; }
+    #oppHand .card-slot:not(:first-child) { margin-left: -30px; }
+    .hand-cards { padding: 4px 50px; gap: 12px 16px; }
+    .play-area { min-height: 130px; }
+}
+@media (max-width: 480px) {
+    .card-slot { width: 60px; height: 90px; }
+    #oppHand .card-slot:not(:first-child) { margin-left: -20px; }
+    .hand-cards { padding: 4px 30px; gap: 8px 12px; }
+    .play-area { min-height: 100px; padding: 8px; }
+}
+
+.tarot-card-mini {
+    width: 110px;
+    height: 165px;
+}
+@media (max-width: 1024px) {
+    .tarot-card-mini { width: 95px; height: 142px; }
+}
+@media (max-width: 768px) {
+    .tarot-card-mini { width: 80px; height: 120px; }
+}
+@media (max-width: 480px) {
+    .tarot-card-mini { width: 60px; height: 90px; }
+}

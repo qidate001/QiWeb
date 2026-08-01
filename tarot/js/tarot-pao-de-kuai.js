@@ -338,9 +338,15 @@ function renderHand(playerId, animate = false) {
     const player = game.players[playerId];
     const container = document.getElementById(playerId === 'me' ? 'myHand' : 'oppHand');
     const countEl = document.getElementById(playerId === 'me' ? 'myCount' : 'oppCount');
-    const isFaceUp = (playerId === 'me'); // 自己的牌正面，对手背面
+    const isFaceUp = (playerId === 'me');
 
     container.innerHTML = '';
+    // 为对手手牌添加叠放类
+    container.classList.remove('hand-cards-opp');
+    if (playerId === 'opp') {
+        container.classList.add('hand-cards-opp');
+    }
+    
     const fragments = [];
 
     player.hand.forEach((card, idx) => {
