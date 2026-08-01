@@ -258,6 +258,273 @@ const TAROT_EFFECTS = {
     }
 };
 
+const TAROT_COMBOS = [
+    // ===== 太阳 + 月亮 =====
+    {
+        id: 'sun_moon',
+        cards: ['19', '18'],
+        // 正正：高价值牌 ×1.30
+        positive: {
+            weightMod: 1.30,
+            randomnessMod: 1.0,
+            clearPastEffect: true
+        },
+        // 逆逆：随机性 +30%
+        negative: {
+            randomnessMod: 1.3,
+            weightMod: 1.0,
+            clearPastEffect: true
+        },
+        // 一正一逆：无效化所有过去效果
+        mixed: {
+            weightMod: 1.0,
+            randomnessMod: 1.0,
+            clearPastEffect: true
+        }
+    },
+
+    // ===== 星星 + 月亮 =====
+    {
+        id: 'star_moon',
+        cards: ['17', '18'],
+        // 只检查存在，不管正逆位
+        any: {
+            randomnessMod: 1.5,
+            weightMod: 1.25,
+            clearPastEffect: true
+        }
+    },
+
+    // ===== 恶魔 + 太阳（过去） =====
+    {
+        id: 'devil_sun_past',
+        cards: ['15', '19'],
+        // 正正
+        positive: {
+            weightMod: 1.5,
+            randomnessMod: 1.5,
+            clearPastEffect: true
+        },
+        // 逆逆
+        negative: {
+            weightMod: 0.425,
+            randomnessMod: 0.7,
+            pastEffect: { type: 'weight_random', noBomb: true }
+        },
+        // 一正一逆
+        mixed: {
+            weightMod: 1.0,
+            randomnessMod: 1.0,
+            clearPastEffect: true
+        },
+        scope: 'past' // 只影响过去
+    },
+
+    // ===== 恶魔 + 太阳（未来） =====
+    {
+        id: 'devil_sun_future',
+        cards: ['15', '19'],
+        positive: {
+            futureEffect: {
+                type: 'future_bomb_boost',
+                bombBoost: 0.85,
+                reshuffleIfNoBomb: true,
+                reshuffleParams: { weight: 0.4, randomness: 1.8 }
+            },
+            futureWeightMod: 0.85,
+            futureRandomnessMod: 1.8
+        },
+        negative: {
+            futureEffect: {
+                type: 'future_weight',
+                weightMod: 1.3,
+                randomnessMod: 1.5
+            },
+            futureWeightMod: 1.3,
+            futureRandomnessMod: 1.5
+        },
+        mixed: {
+            clearFutureEffect: true
+        },
+        scope: 'future'
+    },
+
+    // ===== 皇帝 + 女皇 =====
+    {
+        id: 'emperor_empress',
+        cards: ['4', '3'],
+        any: {
+            weightMod: 1.1,
+            randomnessMod: 0.85,
+            clearPastEffect: true
+        }
+    },
+
+    // ===== 魔术师 + 女祭司 =====
+    {
+        id: 'magician_priestess',
+        cards: ['1', '2'],
+        any: {
+            weightMod: 1.0,
+            randomnessMod: 1.0,
+            clearPastEffect: true,
+            pastEffect: { type: 'magician_priestess_combo' }
+        }
+    },
+
+    // ===== 隐者 + 女祭司（未来） =====
+    {
+        id: 'hermit_priestess_future',
+        cards: ['9', '2'],
+        positive: {
+            futureEffect: { type: 'future_weight_gamble' },
+            futureWeightMod: 0.5,
+            futureRandomnessMod: 0.5
+        },
+        negative: {
+            futureEffect: { type: 'future_weight_gamble' },
+            futureWeightMod: 0.5,
+            futureRandomnessMod: 1.0
+        },
+        mixed: {
+            futureEffect: { type: 'future_weight_gamble' },
+            futureWeightMod: 0.5,
+            futureRandomnessMod: 0.8
+        },
+        scope: 'future'
+    },
+
+    // ===== 倒吊人 + 恶魔（未来） =====
+    {
+        id: 'hanged_man_devil_future',
+        cards: ['12', '15'],
+        positive: {
+            futureEffect: {
+                type: 'future_bomb_boost',
+                bombBoost: 1.5,
+                reshuffleIfNoBomb: true,
+                reshuffleParams: { weight: 1.3, randomness: 0.8 }
+            },
+            futureWeightMod: 1.5,
+            futureRandomnessMod: 1.0
+        },
+        negative: {
+            futureEffect: {
+                type: 'future_weight',
+                weightMod: 1.2,
+                randomnessMod: 1.2
+            },
+            futureWeightMod: 1.2,
+            futureRandomnessMod: 1.2
+        },
+        mixed: {
+            futureEffect: {
+                type: 'future_bomb_boost',
+                bombBoost: 1.3,
+                reshuffleIfNoBomb: false
+            },
+            futureWeightMod: 1.3,
+            futureRandomnessMod: 1.0
+        },
+        scope: 'future'
+    },
+
+    // ===== 倒吊人 + 死神（过去） =====
+    {
+        id: 'hanged_man_death_past',
+        cards: ['12', '13'],
+        any: {
+            weightMod: 1.0,
+            randomnessMod: 1.0,
+            clearPastEffect: true,
+            pastEffect: { type: 'hanged_man_death_combo' }
+        },
+        scope: 'past'
+    },
+
+    // ===== 恋人 + 恶魔（过去） =====
+    {
+        id: 'lovers_devil',
+        cards: ['6', '15'],
+        any: {
+            weightMod: 1.0,
+            randomnessMod: 1.0,
+            clearPastEffect: true,
+            pastEffect: { type: 'lovers_devil_combo' }
+        }
+    },
+
+    // ===== 恋人 + 魔术师（过去） =====
+    {
+        id: 'lovers_magician',
+        cards: ['6', '1'],
+        any: {
+            weightMod: 1.0,
+            randomnessMod: 1.0,
+            clearPastEffect: true,
+            pastEffect: { type: 'lovers_magician_combo' }
+        }
+    },
+
+    // ===== 战车 + 力量（过去） =====
+    {
+        id: 'chariot_strength',
+        cards: ['7', '8'],
+        any: {
+            weightMod: 1.3,
+            randomnessMod: 0.7,
+            clearPastEffect: true,
+            pastEffect: {
+                type: 'chariot_strength_combo',
+                stealFirstChance: 0.5
+            }
+        }
+    },
+
+    // ===== 皇帝 + 教皇（未来） =====
+    {
+        id: 'emperor_pope_future',
+        cards: ['4', '5'],
+        any: {
+            futureEffect: {
+                type: 'future_weight_gamble',
+                weightMod: 0.8,
+                randomnessMod: 0.3
+            },
+            futureWeightMod: 0.8,
+            futureRandomnessMod: 0.3
+        },
+        scope: 'future'
+    },
+
+    // ===== 节制 + 恶魔（未来） =====
+    {
+        id: 'temperance_devil_future',
+        cards: ['14', '15'],
+        any: {
+            futureEffect: {
+                type: 'future_bomb_boost',
+                bombBoost: 1.4,
+                reshuffleIfNoBomb: false
+            },
+            futureWeightMod: 1.4,
+            futureRandomnessMod: 1.0
+        },
+        scope: 'future'
+    },
+
+    // ===== 太阳 + 月亮 + 星星（过去） =====
+    {
+        id: 'sun_moon_star',
+        cards: ['19', '18', '17'],
+        any: {
+            weightMod: 1.3,
+            randomnessMod: 0.8,
+            clearPastEffect: true
+        }
+    }
+];
+
 const CARD_EFFECTS = {
     '10': {  // 命运之轮
         past: { positive: 'reshuffle', negative: 'force_3' },

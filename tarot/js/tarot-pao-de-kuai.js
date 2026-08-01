@@ -898,12 +898,6 @@ function startGameAsHost() {
     let oppFutureWeightMod = oppEffects.futureWeightMod;
     let oppFutureRandomnessMod = oppEffects.futureRandomnessMod;
 
-    // 存储过去效果（供 applyPastEffect 使用）
-    const pastEffects = {
-        me: myPastEffect,
-        opp: oppPastEffect
-    };
-
     
 
     if (myPastEffect && myPastEffect.stealFirstChance) {
@@ -919,524 +913,72 @@ function startGameAsHost() {
         }
     }
 
-
-    // 检查我方的过去组合
-    const myHasMagician = myTarot.some(c => c.id === '1');
-    const myHasPriestess = myTarot.some(c => c.id === '2');
-    const myHasEmpress = myTarot.some(c => c.id === '3');
-    const myHasEmperor = myTarot.some(c => c.id === '4');
-    const myHasPope = myTarot.some(c => c.id === '5');
-    const myHasLovers = myTarot.some(c => c.id === '6');
-    const myHasChariot = myTarot.some(c => c.id === '7');
-    const myHasStrength = myTarot.some(c => c.id === '8');
-    const myHasHermit = myTarot.some(c => c.id === '9');
-    const myHasJustice = myTarot.some(c => c.id === '11');
-    const myHasHangedMan = myTarot.some(c => c.id === '12');
-    const myHasDeath = myTarot.some(c => c.id === '13');
-    const myHasTemperance = myTarot.some(c => c.id === '14');
-    const myHasDevil = myTarot.some(c => c.id === '15');
-    const myHasStar = myTarot.some(c => c.id === '17');
-    const myHasMoon = myTarot.some(c => c.id === '18');
-    const myHasSun = myTarot.some(c => c.id === '19');
-    if (myHasSun && myHasMoon) {
-        const sunRev = myTarot.find(c => c.id === '19').reversed;
-        const moonRev = myTarot.find(c => c.id === '18').reversed;
-        if (!sunRev && !moonRev) {
-            // 正正：高价值牌 ×1.30
-            myWeightMod = 1.30;
-            myRandomnessMod = 1.0; // 重置其他随机性调整
-        } else if (sunRev && moonRev) {
-            // 逆逆：随机性 +30%
-            myRandomnessMod = 1.3;
-            myWeightMod = 1.0;
-        } else {
-            // 一正一逆：无效化所有过去效果
-            myWeightMod = 1.0;
-            myRandomnessMod = 1.0;
-            myPastEffect = null; // 清除过去效果
-        }
-    }
-
-    // 检查我方的过去组合：星星 + 月亮
-    if (myHasStar && myHasMoon) {
-        // 随机性+50%，高价值牌×1.25
-        myRandomnessMod = 1.5;
-        myWeightMod = 1.25;
-        // 清除单独效果（避免叠加）
-        myPastEffect = null; // 因为组合效果已经覆盖了星星和月亮的单独效果
-    }
-
-    // 检查我方的过去组合：恶魔 + 太阳
-    if (myHasDevil && myHasSun) {
-        const devilRev = myTarot.find(c => c.id === '15').reversed;
-        const sunRev = myTarot.find(c => c.id === '19').reversed;
-        if (!devilRev && !sunRev) {
-            // 正正：高价值×1.5，单牌×1.5，组合×0.425
-            myWeightMod = 1.5;
-            myRandomnessMod = 1.5;
-            myPastEffect = null; // 清除特殊效果
-        } else if (devilRev && sunRev) {
-            // 逆逆：低价值×0.425，组合×1.4，炸弹概率×0
-            myWeightMod = 0.425;
-            myRandomnessMod = 0.7;
-            myPastEffect = { type: 'weight_random', noBomb: true };
-        } else {
-            // 一正一逆：恢复默认
-            myWeightMod = 1.0;
-            myRandomnessMod = 1.0;
-            myPastEffect = null;
-        }
-    }
-
-    // 检查我方的未来组合：恶魔 + 太阳
-    if (myHasDevil && myHasSun) {
-        const devilRev = myTarot.find(c => c.id === '15').reversed;
-        const sunRev = myTarot.find(c => c.id === '19').reversed;
-        if (!devilRev && !sunRev) {
-            // 正正：炸弹概率×0.85，若无炸弹则超级烂牌
-            myFutureEffect = {
-                type: 'future_bomb_boost',
-                bombBoost: 0.85,
-                reshuffleIfNoBomb: true,
-                reshuffleParams: { weight: 0.4, randomness: 1.8 }
-            };
-            myFutureWeightMod = 0.85;
-            myFutureRandomnessMod = 1.8;
-        } else if (devilRev && sunRev) {
-            // 逆逆：低价值×1.3，高价值×1.3
-            myFutureEffect = {
-                type: 'future_weight',
-                weightMod: 1.3,
-                randomnessMod: 1.5
-            };
-            myFutureWeightMod = 1.3;
-            myFutureRandomnessMod = 1.5;
-        } else {
-            myFutureEffect = null;
-        }
-    }
-
-    // 检查我方的过去组合：皇帝 + 女皇
-    if (myHasEmperor && myHasEmpress) {
-        // 顺子概率×1.2，同花色概率×2
-        myWeightMod = 1.1;
-        myRandomnessMod = 0.85;
-        myPastEffect = null; // 清除单独效果（权重随机已处理）
-    }
-
-    // 检查我方的过去组合：魔术师 + 女祭司
-    if (myHasMagician && myHasPriestess) {
-        // 清除单独效果
-        myPastEffect = null;
-        myWeightMod = 1.0;
-        myRandomnessMod = 1.0;
-        // 标记为组合效果，在发牌后处理
-        myPastEffect = { type: 'magician_priestess_combo' };
-    }
-
-    // 检查我方的未来组合：隐者 + 女祭司
-    if (myHasHermit && myHasPriestess) {
-        const hermitRev = myTarot.find(c => c.id === '9').reversed;
-        const priestessRev = myTarot.find(c => c.id === '2').reversed;
-        if (!hermitRev && !priestessRev) {
-            // 正正：50%好牌，50%超级烂牌
-            myFutureEffect = { type: 'future_weight_gamble' };
-            myFutureWeightMod = 0.5;
-            myFutureRandomnessMod = 0.5;
-        } else if (hermitRev && priestessRev) {
-            // 逆逆：50%烂牌，50%超级好牌
-            myFutureEffect = { type: 'future_weight_gamble' };
-            myFutureWeightMod = 0.5;
-            myFutureRandomnessMod = 1.0;
-        } else {
-            // 一正一逆：50%烂牌，50%好牌
-            myFutureEffect = { type: 'future_weight_gamble' };
-            myFutureWeightMod = 0.5;
-            myFutureRandomnessMod = 0.8;
-        }
-    }
-
-    // 检查我方的未来组合：倒吊人 + 恶魔
-    if (myHasHangedMan && myHasDevil) {
-        const hangedRev = myTarot.find(c => c.id === '12').reversed;
-        const devilRev = myTarot.find(c => c.id === '15').reversed;
-        if (!hangedRev && !devilRev) {
-            // 正正：炸弹概率×1.5，若无炸弹则好牌重发
-            myFutureEffect = {
-                type: 'future_bomb_boost',
-                bombBoost: 1.5,
-                reshuffleIfNoBomb: true,
-                reshuffleParams: { weight: 1.3, randomness: 0.8 }  // 好牌参数
-            };
-            myFutureWeightMod = 1.5;
-            myFutureRandomnessMod = 1.0;
-        } else if (hangedRev && devilRev) {
-            // 逆逆：低价值×1.2，高价值×1.2
-            myFutureEffect = {
-                type: 'future_weight',
-                weightMod: 1.2,
-                randomnessMod: 1.2
-            };
-            myFutureWeightMod = 1.2;
-            myFutureRandomnessMod = 1.2;
-        } else {
-            // 一正一逆：炸弹概率×1.3
-            myFutureEffect = {
-                type: 'future_bomb_boost',
-                bombBoost: 1.3,
-                reshuffleIfNoBomb: false
-            };
-            myFutureWeightMod = 1.3;
-            myFutureRandomnessMod = 1.0;
-        }
-    }
-
-    // 检查我方的过去组合：倒吊人 + 死神
-    if (myHasHangedMan && myHasDevil) {
-        // 替换为三条
-        myPastEffect = {
-            type: 'hanged_man_death_combo'
-        };
-        // 清除其他过去效果
-        myWeightMod = 1.0;
-        myRandomnessMod = 1.0;
-    }
-
-    // 检查我方的过去组合：恋人 + 恶魔
-    if (myHasLovers && myHasDevil) {
-        myPastEffect = { type: 'lovers_devil_combo' };
-        myWeightMod = 1.0;
-        myRandomnessMod = 1.0;
-    }
-
-    // 检查我方的过去组合：恋人 + 魔术师
-    if (myHasLovers && myHasMagician) {
-        myPastEffect = { type: 'lovers_magician_combo' };
-        myWeightMod = 1.0;
-        myRandomnessMod = 1.0;
-    }
-
-    // 检查我方的过去组合：战车 + 力量
-    if (myHasChariot && myHasStrength) {
-        myWeightMod = 1.3;
-        myRandomnessMod = 0.7;
-        myPastEffect = {
-            type: 'chariot_strength_combo',
-            stealFirstChance: 0.5
-        };
-    }
-
-    // 检查我方的未来组合：皇帝 + 教皇
-    if (myHasEmperor && myHasPope) {
-        myFutureEffect = {
-            type: 'future_weight_gamble',
-            weightMod: 0.8,
-            randomnessMod: 0.3  // 超级好牌
-        };
-        myFutureWeightMod = 0.8;
-        myFutureRandomnessMod = 0.3;
-    }
-
-    // 检查我方的未来组合：节制 + 恶魔
-    if (myHasTemperance && myHasDevil) {
-        myFutureEffect = {
-            type: 'future_bomb_boost',
-            bombBoost: 1.4,
-            reshuffleIfNoBomb: false
-        };
-        myFutureWeightMod = 1.4;
-        myFutureRandomnessMod = 1.0;
-    }
-
-    // 检查我方的过去组合：太阳 + 月亮 + 星星
-    if (myHasSun && myHasMoon && myHasStar) {
-        // 高价值×1.3，低价值×1.3，顺子×1.3，对子×1.3，随机-20%
-        myWeightMod = 1.3;
-        myRandomnessMod = 0.8;
-        myPastEffect = null;  // 清除单独效果
-    }
-
-
-
-
-
-
-    // 处理对手的组合
-    const oppHasMagician = oppTarot.some(c => c.id === '1');
-    const oppHasPriestess = oppTarot.some(c => c.id === '2');
-    const oppHasEmpress = oppTarot.some(c => c.id === '3');
-    const oppHasEmperor = oppTarot.some(c => c.id === '4');
-    const oppHasPope = oppTarot.some(c => c.id === '5');
-    const oppHasLovers = oppTarot.some(c => c.id === '6');
-    const oppHasChariot = oppTarot.some(c => c.id === '7');
-    const oppHasStrength = oppTarot.some(c => c.id === '8');
-    const oppHasHermit = oppTarot.some(c => c.id === '9');
-    const oppHasJustice = oppTarot.some(c => c.id === '11');
-    const oppHasHangedMan = oppTarot.some(c => c.id === '12');
-    const oppHasDeath = oppTarot.some(c => c.id === '13');
-    const oppHasTemperance = oppTarot.some(c => c.id === '14');
-    const oppHasDevil = oppTarot.some(c => c.id === '15');
-    const oppHasStar = oppTarot.some(c => c.id === '17');
-    const oppHasMoon = oppTarot.some(c => c.id === '18');
-    const oppHasSun = oppTarot.some(c => c.id === '19');
-    if (oppHasSun && oppHasMoon) {
-        const sunRev = oppTarot.find(c => c.id === '19').reversed;
-        const moonRev = oppTarot.find(c => c.id === '18').reversed;
-        if (!sunRev && !moonRev) {
-            // 正正：高价值牌 ×1.30
-            oppWeightMod = 1.30;
-            oppRandomnessMod = 1.0; // 重置其他随机性调整
-        } else if (sunRev && moonRev) {
-            // 逆逆：随机性 +30%
-            oppRandomnessMod = 1.3;
-            oppWeightMod = 1.0;
-        } else {
-            // 一正一逆：无效化所有过去效果
-            oppWeightMod = 1.0;
-            oppRandomnessMod = 1.0;
-            oppPastEffect = null; // 清除过去效果
-        }
-    }
-
-    // 检查对方的过去组合：星星 + 月亮
-    if (oppHasStar && oppHasMoon) {
-        oppRandomnessMod = 1.5;
-        oppWeightMod = 1.25;
-        oppPastEffect = null;
-    }
-
-    // 检查对方的未来组合：恶魔 + 太阳
-    if (oppHasDevil && oppHasSun) {
-        const devilRev = oppTarot.find(c => c.id === '15').reversed;
-        const sunRev = oppTarot.find(c => c.id === '19').reversed;
-        if (!devilRev && !sunRev) {
-            // 正正：高价值×1.5，单牌×1.5，组合×0.425
-            oppWeightMod = 1.5;
-            oppRandomnessMod = 1.5;
-            oppPastEffect = null; // 清除特殊效果
-        } else if (devilRev && sunRev) {
-            // 逆逆：低价值×0.425，组合×1.4，炸弹概率×0
-            oppWeightMod = 0.425;
-            oppRandomnessMod = 0.7;
-            oppPastEffect = { type: 'weight_random', noBomb: true };
-        } else {
-            // 一正一逆：恢复默认
-            oppWeightMod = 1.0;
-            oppRandomnessMod = 1.0;
-            oppPastEffect = null;
-        }
-    }
-
-    // 检查对方的未来组合：恶魔 + 太阳
-    if (oppHasDevil && oppHasSun) {
-        const devilRev = oppTarot.find(c => c.id === '15').reversed;
-        const sunRev = oppTarot.find(c => c.id === '19').reversed;
-        if (!devilRev && !sunRev) {
-            // 正正：炸弹概率×0.85，若无炸弹则超级烂牌
-            oppFutureEffect = {
-                type: 'future_bomb_boost',
-                bombBoost: 0.85,
-                reshuffleIfNoBomb: true,
-                reshuffleParams: { weight: 0.4, randomness: 1.8 }
-            };
-            oppFutureWeightMod = 0.85;
-            oppFutureRandomnessMod = 1.8;
-        } else if (devilRev && sunRev) {
-            // 逆逆：低价值×1.3，高价值×1.3
-            oppFutureEffect = {
-                type: 'future_weight',
-                weightMod: 1.3,
-                randomnessMod: 1.5
-            };
-            oppFutureWeightMod = 1.3;
-            oppFutureRandomnessMod = 1.5;
-        } else {
-            oppFutureEffect = null;
-        }
-    }
-
-    // 检查对方的过去组合：皇帝 + 女皇
-    if (oppHasEmperor && oppHasEmpress) {
-        oppWeightMod = 1.1;
-        oppRandomnessMod = 0.85;
-        oppPastEffect = null;
-    }
-
-    // 检查对方的过去组合：魔术师 + 女祭司
-    if (oppHasMagician && oppHasPriestess) {
-        oppPastEffect = null;
-        oppWeightMod = 1.0;
-        oppRandomnessMod = 1.0;
-        oppPastEffect = { type: 'magician_priestess_combo' };
-    }
-
-    // 检查对方的未来组合：隐者 + 女祭司
-    if (oppHasHermit && oppHasPriestess) {
-        const hermitRev = oppTarot.find(c => c.id === '9').reversed;
-        const priestessRev = oppTarot.find(c => c.id === '2').reversed;
-        if (!hermitRev && !priestessRev) {
-            // 正正：50%好牌，50%超级烂牌
-            oppFutureEffect = { type: 'future_weight_gamble' };
-            oppFutureWeightMod = 0.5;
-            oppFutureRandomnessMod = 0.5;
-        } else if (hermitRev && priestessRev) {
-            // 逆逆：50%烂牌，50%超级好牌
-            oppFutureEffect = { type: 'future_weight_gamble' };
-            oppFutureWeightMod = 0.5;
-            oppFutureRandomnessMod = 1.0;
-        } else {
-            // 一正一逆：50%烂牌，50%好牌
-            oppFutureEffect = { type: 'future_weight_gamble' };
-            oppFutureWeightMod = 0.5;
-            oppFutureRandomnessMod = 0.8;
-        }
-    }
     
-    // 检查对方的未来组合：倒吊人 + 恶魔
-    if (oppHasHangedMan && oppHasDevil) {
-        const hangedRev = oppTarot.find(c => c.id === '12').reversed;
-        const devilRev = oppTarot.find(c => c.id === '15').reversed;
-        if (!hangedRev && !devilRev) {
-            // 正正：炸弹概率×1.5，若无炸弹则好牌重发
-            oppFutureEffect = {
-                type: 'future_bomb_boost',
-                bombBoost: 1.5,
-                reshuffleIfNoBomb: true,
-                reshuffleParams: { weight: 1.3, randomness: 0.8 }  // 好牌参数
-            };
-            oppFutureWeightMod = 1.5;
-            oppFutureRandomnessMod = 1.0;
-        } else if (hangedRev && devilRev) {
-            // 逆逆：低价值×1.2，高价值×1.2
-            oppFutureEffect = {
-                type: 'future_weight',
-                weightMod: 1.2,
-                randomnessMod: 1.2
-            };
-            oppFutureWeightMod = 1.2;
-            oppFutureRandomnessMod = 1.2;
-        } else {
-            // 一正一逆：炸弹概率×1.3
-            oppFutureEffect = {
-                type: 'future_bomb_boost',
-                bombBoost: 1.3,
-                reshuffleIfNoBomb: false
-            };
-            oppFutureWeightMod = 1.3;
-            oppFutureRandomnessMod = 1.0;
-        }
-    }
 
-    // 检查对方的过去组合：倒吊人 + 死神
-    if (oppHasHangedMan && oppHasDevil) {
-        // 替换为三条
-        oppPastEffect = {
-            type: 'hanged_man_death_combo'
-        };
-        // 清除其他过去效果
-        oppWeightMod = 1.0;
-        oppRandomnessMod = 1.0;
-    }
+    // ===== 应用组合效果 =====
+    const myCombined = applyComboEffects(myTarot, {
+        weightMod: myWeightMod,
+        randomnessMod: myRandomnessMod,
+        pastEffect: myPastEffect,
+        futureEffect: myFutureEffect,
+        futureWeightMod: myFutureWeightMod,
+        futureRandomnessMod: myFutureRandomnessMod
+    }, 'me');
 
-    // 检查对方的过去组合：恋人 + 恶魔
-    if (oppHasLovers && oppHasDevil) {
-        oppPastEffect = { type: 'lovers_devil_combo' };
-        oppWeightMod = 1.0;
-        oppRandomnessMod = 1.0;
-    }
+    const oppCombined = applyComboEffects(oppTarot, {
+        weightMod: oppWeightMod,
+        randomnessMod: oppRandomnessMod,
+        pastEffect: oppPastEffect,
+        futureEffect: oppFutureEffect,
+        futureWeightMod: oppFutureWeightMod,
+        futureRandomnessMod: oppFutureRandomnessMod
+    }, 'opp');
 
-    // 检查对方的过去组合：恋人 + 魔术师
-    if (oppHasLovers && oppHasMagician) {
-        oppPastEffect = { type: 'lovers_magician_combo' };
-        oppWeightMod = 1.0;
-        oppRandomnessMod = 1.0;
-    }
+    // 更新变量
+    myWeightMod = myCombined.weightMod;
+    myRandomnessMod = myCombined.randomnessMod;
+    myPastEffect = myCombined.pastEffect;
+    myFutureEffect = myCombined.futureEffect;
+    myFutureWeightMod = myCombined.futureWeightMod;
+    myFutureRandomnessMod = myCombined.futureRandomnessMod;
 
-    // 检查对方的过去组合：战车 + 力量
-    if (oppHasChariot && oppHasStrength) {
-        oppWeightMod = 1.3;
-        oppRandomnessMod = 0.7;
-        oppPastEffect = {
-            type: 'chariot_strength_combo',
-            stealFirstChance: 0.5
-        };
-    }
+    oppWeightMod = oppCombined.weightMod;
+    oppRandomnessMod = oppCombined.randomnessMod;
+    oppPastEffect = oppCombined.pastEffect;
+    oppFutureEffect = oppCombined.futureEffect;
+    oppFutureWeightMod = oppCombined.futureWeightMod;
+    oppFutureRandomnessMod = oppCombined.futureRandomnessMod;
 
-    // 检查对方的未来组合：皇帝 + 教皇
-    if (oppHasEmperor && oppHasPope) {
-        oppFutureEffect = {
-            type: 'future_weight_gamble',
-            weightMod: 0.8,
-            randomnessMod: 0.3  // 超级好牌
-        };
-        oppFutureWeightMod = 0.8;
-        oppFutureRandomnessMod = 0.3;
-    }
-
-    // 检查对方的未来组合：节制 + 恶魔
-    if (oppHasTemperance && oppHasDevil) {
-        oppFutureEffect = {
-            type: 'future_bomb_boost',
-            bombBoost: 1.4,
-            reshuffleIfNoBomb: false
-        };
-        oppFutureWeightMod = 1.4;
-        oppFutureRandomnessMod = 1.0;
-    }
-
-    // 检查对方的过去组合：太阳 + 月亮 + 星星
-    if (oppHasSun && oppHasMoon && oppHasStar) {
-        // 高价值×1.3，低价值×1.3，顺子×1.3，对子×1.3，随机-20%
-        oppWeightMod = 1.3;
-        oppRandomnessMod = 0.8;
-        oppPastEffect = null;  // 清除单独效果
-    }
+    // 存储过去效果
+    const pastEffects = {
+        me: myPastEffect,
+        opp: oppPastEffect
+    };
 
 
 
 
 
 
-    // ===== 记录组合激活状态（用于特效） =====
+    // ===== 收集组合激活状态（用于 UI 特效） =====
     window._tarotCombos = {
         my: { activeCards: [] },
         opp: { activeCards: [] }
     };
 
-    // 收集激活的牌ID
-    const myActiveCards = [];
-    if (myHasMagician && myHasPriestess) { myActiveCards.push('1', '2'); }
-    if (myHasEmperor && myHasEmpress) { myActiveCards.push('3', '4'); }
-    if (myHasEmperor && myHasPope) { myActiveCards.push('4', '5'); }
-    if (myHasLovers && myHasDevil) { myActiveCards.push('6', '15'); }
-    if (myHasLovers && myHasMagician) { myActiveCards.push('6', '1'); }
-    if (myHasChariot && myHasStrength) { myActiveCards.push('7', '8'); }
-    if (myHasHermit && myHasPriestess) { myActiveCards.push('9', '2'); }
-    if (myHasHangedMan && myHasDevil) { myActiveCards.push('12', '15'); }
-    if (myHasHangedMan && myHasDeath) { myActiveCards.push('12', '13'); }
-    if (myHasTemperance && myHasDevil) { myActiveCards.push('14', '15'); }
-    if (myHasDevil && myHasSun) { myActiveCards.push('15', '19'); }
-    if (myHasStar && myHasMoon) { myActiveCards.push('17', '18'); }
-    if (myHasSun && myHasMoon) { myActiveCards.push('19', '18'); }
-    if (myHasSun && myHasMoon && myHasStar) { myActiveCards.push('19', '18', '17'); }
-    window._tarotCombos.my.activeCards = [...new Set(myActiveCards)];
+    function collectActiveCards(tarotCards) {
+        const active = new Set();
+        TAROT_COMBOS.forEach(config => {
+            const allExist = config.cards.every(id => tarotCards.some(c => c.id === id));
+            if (allExist) {
+                config.cards.forEach(id => active.add(id));
+            }
+        });
+        return [...active];
+    }
 
-    const oppActiveCards = [];
-    if (oppHasEmperor && oppHasPope) { oppActiveCards.push('4', '5'); }
-    if (oppHasMagician && oppHasPriestess) { oppActiveCards.push('1', '2'); }
-    if (oppHasEmperor && oppHasEmpress) { oppActiveCards.push('3', '4'); }
-    if (oppHasLovers && oppHasDevil) { oppActiveCards.push('6', '15'); }
-    if (oppHasLovers && oppHasMagician) { oppActiveCards.push('6', '1'); }
-    if (oppHasChariot && oppHasStrength) { oppActiveCards.push('7', '8'); }
-    if (oppHasHermit && oppHasPriestess) { oppActiveCards.push('9', '2'); }
-    if (oppHasHangedMan  && oppHasDevil) { oppActiveCards.push('12', '15'); }
-    if (oppHasHangedMan  && oppHasDeath) { oppActiveCards.push('12', '13'); }
-    if (oppHasTemperance && oppHasDevil) { oppActiveCards.push('14', '15'); }
-    if (oppHasDevil && oppHasSun) { oppActiveCards.push('15', '19'); }
-    if (oppHasStar && oppHasMoon) { oppActiveCards.push('17', '18'); }
-    if (oppHasSun && oppHasMoon) { oppActiveCards.push('19', '18'); }
-    if (oppHasSun && oppHasMoon && oppHasStar) { oppActiveCards.push('19', '18', '17'); }
-    window._tarotCombos.opp.activeCards = [...new Set(oppActiveCards)];
+    window._tarotCombos.my.activeCards = collectActiveCards(myTarot);
+    window._tarotCombos.opp.activeCards = collectActiveCards(oppTarot);
 
 
 
@@ -2179,6 +1721,92 @@ function parseTarotEffects(playerId, tarotCards, myWins, oppWins) {
     });
 
     return { weightMod, randomnessMod, pastEffect, futureEffect, futureWeightMod, futureRandomnessMod };
+}
+
+/**
+ * 应用组合效果
+ * @param {Array} tarotCards - 三张塔罗牌
+ * @param {Object} effects - 当前累积的效果对象 { weightMod, randomnessMod, pastEffect, futureEffect, futureWeightMod, futureRandomnessMod }
+ * @param {string} playerId - 'me' 或 'opp'
+ * @param {Object} playerContext - { playerId, myWins, oppWins }（用于动态判断）
+ * @returns {Object} 修改后的效果对象
+ */
+function applyComboEffects(tarotCards, effects, playerId) {
+    // 检查某张牌是否存在以及它的正逆位
+    function getCardReversed(cardId) {
+        const card = tarotCards.find(c => c.id === cardId);
+        return card ? card.reversed : null;
+    }
+
+    // 判断组合的正逆位模式
+    function getComboPattern(cardIds) {
+        const reverseds = cardIds.map(id => getCardReversed(id));
+        // 如果任何一张牌不存在，返回 null
+        if (reverseds.some(r => r === null)) return null;
+        const positiveCount = reverseds.filter(r => r === false).length;
+        const negativeCount = reverseds.filter(r => r === true).length;
+        if (negativeCount === 0) return 'positive';
+        if (positiveCount === 0) return 'negative';
+        return 'mixed';
+    }
+
+    // 复制效果对象，避免修改原对象
+    const result = {
+        weightMod: effects.weightMod || 1.0,
+        randomnessMod: effects.randomnessMod || 1.0,
+        pastEffect: effects.pastEffect || null,
+        futureEffect: effects.futureEffect || null,
+        futureWeightMod: effects.futureWeightMod || 1.0,
+        futureRandomnessMod: effects.futureRandomnessMod || 1.0
+    };
+
+    // 遍历所有组合配置
+    TAROT_COMBOS.forEach(config => {
+        const pattern = getComboPattern(config.cards);
+        if (!pattern) return; // 条件不满足
+
+        // 选择对应的效果配置
+        let effectConfig = null;
+        if (config.any) {
+            effectConfig = config.any;
+        } else if (pattern === 'positive' && config.positive) {
+            effectConfig = config.positive;
+        } else if (pattern === 'negative' && config.negative) {
+            effectConfig = config.negative;
+        } else if (pattern === 'mixed' && config.mixed) {
+            effectConfig = config.mixed;
+        }
+
+        if (!effectConfig) return;
+
+        // 应用效果
+        if (effectConfig.weightMod !== undefined) {
+            result.weightMod = effectConfig.weightMod;
+        }
+        if (effectConfig.randomnessMod !== undefined) {
+            result.randomnessMod = effectConfig.randomnessMod;
+        }
+        if (effectConfig.clearPastEffect) {
+            result.pastEffect = null;
+        }
+        if (effectConfig.pastEffect) {
+            result.pastEffect = effectConfig.pastEffect;
+        }
+        if (effectConfig.clearFutureEffect) {
+            result.futureEffect = null;
+        }
+        if (effectConfig.futureEffect) {
+            result.futureEffect = effectConfig.futureEffect;
+        }
+        if (effectConfig.futureWeightMod !== undefined) {
+            result.futureWeightMod = effectConfig.futureWeightMod;
+        }
+        if (effectConfig.futureRandomnessMod !== undefined) {
+            result.futureRandomnessMod = effectConfig.futureRandomnessMod;
+        }
+    });
+
+    return result;
 }
 
 function playerPass() {

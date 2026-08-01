@@ -4,8 +4,8 @@
   "category": "磨损系列",
   "difficulty": "★★★★☆",
   "description": "此车非常特殊，根据有无车载货物分为A/B/C三个系列",
-  "routeImage": "",
   "bilibiliVideo": "https://www.bilibili.com/video/BV1ExkMBdENq",
+  "routeImage": "",
   "update_date": "2026-03-21",
   "variants": [
     {
@@ -21,13 +21,23 @@
           "label": "副色调",
           "value": "磨损军绿色",
           "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "磨损军绿色",
+          "isRare": true
         }
       ],
       "properties": {
         "入库情况": "直接入库",
         "获取难度": "★★★★☆",
         "收藏价值": "★★★☆☆",
-        "车友会": "未知"
+        "车友会": "完全继承"
       }
     },
     {
@@ -41,6 +51,16 @@
         },
         {
           "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
           "value": "磨损海蚀绿",
           "isRare": true
         }
@@ -49,7 +69,7 @@
         "入库情况": "直接入库",
         "获取难度": "★★★★☆",
         "收藏价值": "★★★★☆",
-        "车友会": "未知"
+        "车友会": "完全继承"
       }
     },
     {
@@ -63,6 +83,16 @@
         },
         {
           "label": "副色调",
+          "value": "黑色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
           "value": "磨损红",
           "isRare": true
         }
@@ -71,7 +101,7 @@
         "入库情况": "直接入库",
         "获取难度": "★★★★☆",
         "收藏价值": "★★★★☆",
-        "车友会": "未知"
+        "车友会": "完全继承"
       }
     },
     {
@@ -85,6 +115,16 @@
         },
         {
           "label": "副色调",
+          "value": "黑色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
           "value": "磨损蜂蜜棕",
           "isRare": true
         }
@@ -93,7 +133,7 @@
         "入库情况": "直接入库",
         "获取难度": "★★★★☆",
         "收藏价值": "★★★☆☆",
-        "车友会": "未知"
+        "车友会": "完全继承"
       }
     },
     {
@@ -107,6 +147,16 @@
         },
         {
           "label": "副色调",
+          "value": "黑色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
           "value": "磨损稻草棕",
           "isRare": true
         }
@@ -115,7 +165,7 @@
         "入库情况": "直接入库",
         "获取难度": "★★★★☆",
         "收藏价值": "★★★☆☆",
-        "车友会": "未知"
+        "车友会": "完全继承"
       }
     },
     {
@@ -131,15 +181,25 @@
           "label": "副色调",
           "value": "磨损军绿色",
           "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "磨损军绿色",
+          "isRare": true
         }
       ],
-      "accessory": "车载货物A",
       "properties": {
         "入库情况": "直接入库",
         "获取难度": "★★★★☆",
         "收藏价值": "★★★☆☆",
-        "车友会": "未知"
-      }
+        "车友会": "会掉配件"
+      },
+      "accessory": "车载货物A"
     },
     {
       "name": "货物A 海蚀绿款",
@@ -152,17 +212,27 @@
         },
         {
           "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
           "value": "磨损海蚀绿",
           "isRare": true
         }
       ],
-      "accessory": "车载货物A",
       "properties": {
         "入库情况": "直接入库",
         "获取难度": "★★★★☆",
         "收藏价值": "★★★★☆",
-        "车友会": "未知"
-      }
+        "车友会": "会掉配件"
+      },
+      "accessory": "车载货物A"
     },
     {
       "name": "货物A 磨损红款",
@@ -175,17 +245,27 @@
         },
         {
           "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
           "value": "磨损红",
           "isRare": true
         }
       ],
-      "accessory": "车载货物A",
       "properties": {
         "入库情况": "直接入库",
         "获取难度": "★★★★☆",
         "收藏价值": "★★★★☆",
-        "车友会": "未知"
-      }
+        "车友会": "会掉配件"
+      },
+      "accessory": "车载货物A"
     },
     {
       "name": "货物A 蜂蜜棕款",
@@ -198,17 +278,27 @@
         },
         {
           "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
           "value": "磨损蜂蜜棕",
           "isRare": true
         }
       ],
-      "accessory": "车载货物A",
       "properties": {
         "入库情况": "直接入库",
         "获取难度": "★★★★☆",
         "收藏价值": "★★★☆☆",
-        "车友会": "未知"
-      }
+        "车友会": "会掉配件"
+      },
+      "accessory": "车载货物A"
     },
     {
       "name": "货物A 稻草棕款",
@@ -221,17 +311,27 @@
         },
         {
           "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
           "value": "磨损稻草棕",
           "isRare": true
         }
       ],
-      "accessory": "车载货物A",
       "properties": {
         "入库情况": "直接入库",
         "获取难度": "★★★★☆",
         "收藏价值": "★★★☆☆",
-        "车友会": "未知"
-      }
+        "车友会": "会掉配件"
+      },
+      "accessory": "车载货物A"
     },
     {
       "name": "货物B 军绿款",
@@ -246,15 +346,25 @@
           "label": "副色调",
           "value": "磨损军绿色",
           "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "磨损军绿色",
+          "isRare": true
         }
       ],
-      "accessory": "车载货物B",
       "properties": {
         "入库情况": "直接入库",
         "获取难度": "★★★★☆",
         "收藏价值": "★★★☆☆",
-        "车友会": "未知"
-      }
+        "车友会": "会掉配件"
+      },
+      "accessory": "车载货物B"
     },
     {
       "name": "货物B 海蚀绿款",
@@ -267,17 +377,27 @@
         },
         {
           "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
           "value": "磨损海蚀绿",
           "isRare": true
         }
       ],
-      "accessory": "车载货物B",
       "properties": {
         "入库情况": "直接入库",
         "获取难度": "★★★★☆",
         "收藏价值": "★★★★☆",
-        "车友会": "未知"
-      }
+        "车友会": "会掉配件"
+      },
+      "accessory": "车载货物B"
     },
     {
       "name": "货物B 磨损红款",
@@ -290,17 +410,27 @@
         },
         {
           "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
           "value": "磨损红",
           "isRare": true
         }
       ],
-      "accessory": "车载货物B",
       "properties": {
         "入库情况": "直接入库",
         "获取难度": "★★★★☆",
         "收藏价值": "★★★★☆",
-        "车友会": "未知"
-      }
+        "车友会": "会掉配件"
+      },
+      "accessory": "车载货物B"
     },
     {
       "name": "货物B 蜂蜜棕款",
@@ -313,17 +443,27 @@
         },
         {
           "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
           "value": "磨损蜂蜜棕",
           "isRare": true
         }
       ],
-      "accessory": "车载货物B",
       "properties": {
         "入库情况": "直接入库",
         "获取难度": "★★★★☆",
         "收藏价值": "★★★☆☆",
-        "车友会": "未知"
-      }
+        "车友会": "会掉配件"
+      },
+      "accessory": "车载货物B"
     },
     {
       "name": "货物B 稻草棕款",
@@ -336,24 +476,38 @@
         },
         {
           "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
           "value": "磨损稻草棕",
           "isRare": true
         }
       ],
-      "accessory": "车载货物B",
       "properties": {
         "入库情况": "直接入库",
         "获取难度": "★★★★☆",
         "收藏价值": "★★★☆☆",
-        "车友会": "未知"
-      }
+        "车友会": "会掉配件"
+      },
+      "accessory": "车载货物B"
     }
   ],
   "methods": [
     {
       "title": "暂无获取方法",
       "number": 0,
-      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦"
+      "details": {},
+      "intro": "",
+      "description": "作者太忙，获取方法请见顶部的【📺 相关视频】按钮哦",
+      "noteLink": "",
+      "noteText": ""
     }
   ]
 }
