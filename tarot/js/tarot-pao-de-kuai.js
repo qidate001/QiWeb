@@ -425,7 +425,6 @@ function renderHand(playerId, animate = false) {
 }
 
 function renderPlay(cards, info, playType) {
-    // 重新获取元素，确保不为 null
     const playCardsContainer = document.getElementById('playCards');
     const playInfoContainer = document.getElementById('playInfo');
 
@@ -436,29 +435,35 @@ function renderPlay(cards, info, playType) {
 
     playCardsContainer.innerHTML = '';
 
-    // ===== 根据卡牌数量动态决定排版方式 =====
-    const shouldStack = cards && cards.length >= 8; // 8 张及以上触发叠放
-    
-    if (shouldStack) {
-        // 强制不换行，取消间距
-        playCardsContainer.style.flexWrap = 'nowrap';
-        playCardsContainer.style.gap = '0';
-    } else {
-        // 允许换行，恢复间距（平铺排列）
-        playCardsContainer.style.flexWrap = 'wrap';
-        playCardsContainer.style.gap = '12px';
-    }
-    // ==================================================
-
     if (cards && cards.length > 0) {
-        cards.forEach((c, index) => {
+        const count = cards.length;
+        let cardWidth = 90; // 默认标准宽度
+
+        // ===== 核心逻辑：自适应缩放 =====
+        // 获取当前容器的实际可用宽度（减去内边距）
+        const containerWidth = playCardsContainer.clientWidth - 20; 
+        const gap = 6; // 卡牌间隙
+
+        if (count >= 6) { 
+            // 如果牌非常多，计算挤在一行里每张牌能分到多宽
+            // 公式：(容器总宽 - 所有间隙的总宽) ÷ 卡牌数量
+            const totalGaps = (count - 1) * gap;
+            let calculatedWidth = (containerWidth - totalGaps) / count;
+
+            // 取标准宽度和计算宽度的较小值，防止牌少时被强行缩小
+            cardWidth = Math.min(90, calculatedWidth);
+            
+            // 设定最小宽度，防止手机上被挤压成一条线（最小 45px）
+            cardWidth = Math.max(45, cardWidth);
+        }
+
+        cards.forEach((c) => {
             const el = renderCard(c, true, false);
             el.style.cursor = 'default';
-
-            // 如果当前为叠放模式，且不是第一张牌，就加上 stacked 类触发重叠
-            if (shouldStack && index > 0) {
-                el.classList.add('stacked');
-            }
+            
+            // 动态设置卡牌的宽高（高度自动按 2:3 比例算出）
+            el.style.width = cardWidth + 'px';
+            el.style.height = (cardWidth * 1.5) + 'px';
 
             playCardsContainer.appendChild(el);
         });
@@ -467,15 +472,9 @@ function renderPlay(cards, info, playType) {
     let typeName = '';
     if (playType) {
         const typeMap = {
-            single: '单张',
-            pair: '对子',
-            straight: '顺子',
-            pair_straight: '姊妹对',
-            triple: '三条',
-            triple_one: '三带一',
-            triple_two: '三带二',
-            four_one: '四带一',
-            bomb: '炸弹',
+            single: '单张', pair: '对子', straight: '顺子',
+            pair_straight: '姊妹对', triple: '三条', triple_one: '三带一',
+            triple_two: '三带二', four_one: '四带一', bomb: '炸弹',
             joker_bomb: '鬼牌炸弹'
         };
         typeName = typeMap[playType.type] || '';

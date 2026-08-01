@@ -439,7 +439,6 @@ body::before {
     padding: 12px;
     flex-shrink: 0;
 }
-
 .play-area .play-label {
     font-size: 0.9rem;
     color: #6a5a7a;
@@ -447,31 +446,28 @@ body::before {
     margin-bottom: 8px;
 }
 
+/* 关键修改：强制不换行，允许水平溢出时出现滚动条（兜底） */
 .play-area .play-cards {
     display: flex;
-    flex-wrap: wrap;     /* 默认允许换行，平铺排列 */
-    gap: 12px;           /* 默认有间距 */
+    flex-wrap: nowrap;          /* 绝对不折行！ */
+    gap: 6px;                   /* 牌与牌之间的最小间隙 */
     justify-content: center;
     min-height: 80px;
     align-items: center;
     padding: 4px 0;
-    overflow: visible;
+    overflow-x: auto;           /* 极端情况下（手机）可左右滑动查看 */
+    width: 100%;
 }
 
 .play-area .play-cards .card-slot {
-    width: 90px;
+    width: 90px;                /* 默认宽度（JS 会动态覆盖） */
     height: 135px;
+    aspect-ratio: 2 / 3;       /* 保持卡牌比例 */
     cursor: default;
-    flex-shrink: 0;
-    margin-left: 0;      /* 默认没有负边距 */
+    flex-shrink: 0;             /* 拒绝被压缩 */
 }
 .play-area .play-cards .card-slot:hover {
     transform: none;
-}
-
-/* === 只有带 .stacked 类的卡片才触发叠放重叠 === */
-.play-area .play-cards .card-slot.stacked {
-    margin-left: -40px;  /* 重叠度 */
 }
 
 .hand-total {
