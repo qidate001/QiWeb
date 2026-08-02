@@ -652,10 +652,18 @@ function setupConnection() {
         isConnected = true;
         setMessage('连接已建立！', 'info');
         if (isHost) {
-            startGameAsHost();
+            // 1. 主机：生成 14 张不重复的大阿卡纳牌
+            const shuffledPool = [...MAJOR_ARCANA].sort(() => Math.random() - 0.5);
+            const hostPool = shuffledPool.slice(0, 7);   // 主机选的 7 张候选
+            const guestPool = shuffledPool.slice(7, 14); // 客机选的 7 张候选
+            
+            // 发送客机的候选牌池过去
+            sendData({ type: 'pool_init', pool: guestPool });
+            
+            // 主机用自己的候选牌池弹出选牌界面
+            showDraftOverlay(false, hostPool);
         } else {
-            // 客机连上后立刻弹窗选牌
-            showDraftOverlay(true);
+            // 客机不再触发选牌（改由收到 pool_init 后触发）
         }
     };
     conn.on('open', onOpen);
@@ -734,6 +742,13 @@ function handleData(data) {
             renderTarot();
             break;
         }
+        case 'pool_init': {
+            // 客机收到主机发来的 7 张绝对不重复的候选牌
+            const guestPool = data.pool;
+            // 客机弹出选牌界面（传入特有牌池）
+            showDraftOverlay(true, guestPool);
+            break;
+        }
         case 'reset': {
             // 客机收到重置指令
             game.reset();
@@ -748,7 +763,7 @@ function handleData(data) {
             updateUI();
             
             // 客机弹出选牌界面
-            showDraftOverlay(true);
+            // showDraftOverlay(true);
             break;
         }
         case 'guest_tarot': {
@@ -1137,15 +1152,26 @@ function startGameAsHost() {
     console.log('startGameAsHost 被调用');
     if (!isHost) return;
 
-    // 如果还没给主机选牌，则弹出选牌界面
-    if (!window._myTarot || window._myTarot.length === 0) {
-        // 主机选牌，选完后会自动执行内部逻辑（切记去掉 ()=>{} 的回调）
-        showDraftOverlay(false);
+    // 如果已有塔罗牌，直接开始对局
+    if (window._myTarot && window._myTarot.length === 3) {
+        continueGameStart();
         return;
     }
 
-    // 如果已有牌（例如重新开战），直接开始
-    continueGameStart();
+    // 如果没牌，且连接已建立，主机直接自己生成牌池并弹窗
+    if (isConnected) {
+        // 1. 生成 14 张绝对不重复的大阿卡纳牌
+        const shuffledPool = [...MAJOR_ARCANA].sort(() => Math.random() - 0.5);
+        const hostPool = shuffledPool.slice(0, 7);   // 主机选的 7 张候选
+        const guestPool = shuffledPool.slice(7, 14); // 客机选的 7 张候选
+        
+        // 发送客机候选牌池
+        sendData({ type: 'pool_init', pool: guestPool });
+        
+        // 主机弹出选牌界面
+        showDraftOverlay(false, hostPool);
+    }
+    // 如果 !isConnected，说明是首次连接，由 setupConnection 的 onOpen 自动接管
 }
 
 function continueGameStart() {
@@ -1618,17 +1644,16 @@ function playerPlay() {
 // ============================================================
 let draftData = { step: 0, cards: [], selected: [] };
 
-function showDraftOverlay(isGuest = false) {
+function showDraftOverlay(isGuest = false, customPool = null) {
     const overlay = document.getElementById('tarotDraftOverlay');
     const container = document.getElementById('draftCardsContainer');
     const message = document.getElementById('draftMessage');
     const confirmBtn = document.getElementById('draftConfirmBtn');
 
-    // 重置状态
     draftData.step = 0;
     draftData.selected = [];
     overlay.style.display = 'flex';
-    confirmBtn.style.display = 'none'; // 隐藏按钮
+    confirmBtn.style.display = 'none';
 
     if (isGuest) {
         message.innerHTML = '请选择你的命运之牌：<br><strong>【过去】</strong> (1/3)';
@@ -1636,13 +1661,12 @@ function showDraftOverlay(isGuest = false) {
         message.innerHTML = '请点击第一张牌：<br><strong>【过去】</strong> (1/3)';
     }
 
-    // 从大阿卡纳中随机抽取 7 张
-    const shuffled = [...MAJOR_ARCANA];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    // 使用传进来的牌池，如果没有传（旧版本），则随机抽取 7 张（作为兜底）
+    let shuffled = customPool;
+    if (!shuffled) {
+        shuffled = [...MAJOR_ARCANA].sort(() => Math.random() - 0.5).slice(0, 7);
     }
-    draftData.cards = shuffled.slice(0, 7);
+    draftData.cards = shuffled;
 
     // 渲染 7 张牌（牌背朝上）
     container.innerHTML = '';
@@ -1726,26 +1750,27 @@ function onDraftCardClick(index, isGuest) {
     if (draftData.step === 3) {
         message.innerHTML = '✨ 命运已定！';
 
+        // ★★★ 新增功能：选完第三张强制等 1 秒再继续 ★★★
         if (isGuest) {
-            // === 客机逻辑：选完自动发送给主机，关闭遮罩 ===
+            // 客机逻辑
             setTimeout(() => {
                 window._myTarot = draftData.selected; 
                 sendData({ type: 'guest_tarot', cards: draftData.selected });
                 overlay.style.display = 'none';
                 setMessage('已选好命运，等待房主开始...', 'info');
-            }, 500);
+            }, 1000); // 延迟 1000 毫秒（1 秒）
             return;
         } else {
-            // === 主机逻辑：选完自动保存并检查对方 ===
-            window._myTarot = draftData.selected;
-            overlay.style.display = 'none';
-            setMessage('🎴 命运已定！等待对手选择...', 'info');
-            
-            // 检查是否已经收到客机发来的牌（guest_tarot）
-            if (window._oppTarot && window._oppTarot.length === 3) {
-                continueGameStart(); // 客机已选好，立刻开局
-            }
-            // 否则这里什么都不做，等待 handleData 里的 guest_tarot 触发
+            // 主机逻辑
+            setTimeout(() => {
+                window._myTarot = draftData.selected;
+                overlay.style.display = 'none';
+                setMessage('🎴 命运已定！等待对手选择...', 'info');
+                
+                if (window._oppTarot && window._oppTarot.length === 3) {
+                    continueGameStart();
+                }
+            }, 1000); // 延迟 1000 毫秒（1 秒）
         }
     } else {
         const nextPos = positions[draftData.step];
@@ -2025,15 +2050,15 @@ playBtn.addEventListener('click', playerPlay);
 passBtn.addEventListener('click', playerPass);
 resetBtn.addEventListener('click', () => {
     if (isHost && isConnected) {
-        // 1. 发送重置指令给客机（必须第一时间发）
+        // 1. 发送重置指令给客机（客机收到后会清空并等待新的 pool_init）
         sendData({ type: 'reset' });
         
-        // 2. 重置本地的游戏数据（弥补了之前没写 game.reset() 的问题）
+        // 2. 重置本地的游戏数据
         game.reset();
         round = 1;
         myWins = 0;
         oppWins = 0;
-        nextFirstPlayer = Math.random() < 0.5 ? 'me' : 'opp'; // 随机先手
+        nextFirstPlayer = Math.random() < 0.5 ? 'me' : 'opp';
         
         // 3. 清空塔罗牌状态
         window._myTarot = [];
@@ -2043,7 +2068,7 @@ resetBtn.addEventListener('click', () => {
         renderPlay(null, '');
         updateUI();
         
-        // 5. 主机开始重新选牌
+        // 5. 主机重新触发选牌（函数内部会自动发 pool_init 给客机并弹出主机窗口）
         startGameAsHost();
     } else {
         setMessage('只有房主可以重新开始', 'info');
