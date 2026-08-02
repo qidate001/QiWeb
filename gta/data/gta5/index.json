@@ -273,5 +273,38 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1uZ421U7y6",
     "coverImage": "ec-black-lustered-英庞提-不死鸟.png",
     "variantsCount": 1
+  },
+  {
+    "id": "up-长崎-烈焰",
+    "name": "UP 长崎 烈焰",
+    "category": "主线：焦虑的小罗",
+    "difficulty": "★★★☆☆",
+    "description": "需要推车，相对麻烦",
+    "update_date": "2026-08-02",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1xt421a7u7",
+    "coverImage": "up-长崎-烈焰_1.png",
+    "variantsCount": 2
+  },
+  {
+    "id": "up-毕福-沙丘魔宝",
+    "name": "UP 毕福 沙丘魔宝",
+    "category": "主线：焦虑的小罗",
+    "difficulty": "★★☆☆☆",
+    "description": "任务结束，收集就顺手的事",
+    "update_date": "2026-08-02",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV14K421k7Fd",
+    "coverImage": "up-毕福-沙丘魔宝.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-red-ec2-white-古邦-800",
+    "name": "EC Red/EC2 White 古邦 800",
+    "category": "主线：焦虑的小罗",
+    "difficulty": "★★☆☆☆",
+    "description": "单个就顺手的事，两个都要有点难",
+    "update_date": "2026-08-02",
+    "bilibiliVideo": "",
+    "coverImage": "ec-red-ec2-white-古邦-800_1.png",
+    "variantsCount": 2
   }
 ]

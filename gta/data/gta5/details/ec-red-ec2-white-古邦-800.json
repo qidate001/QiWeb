@@ -1,0 +1,127 @@
+{
+  "id": "ec-red-ec2-white-古邦-800",
+  "name": "EC Red/EC2 White 古邦 800",
+  "category": "主线：焦虑的小罗",
+  "difficulty": "★★☆☆☆",
+  "description": "单个就顺手的事，两个都要有点难",
+  "bilibiliVideo": "",
+  "routeImage": "",
+  "update_date": "2026-08-02",
+  "variants": [
+    {
+      "name": "红色款",
+      "image": "ec-red-ec2-white-古邦-800_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "工业红",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损白",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "磨损红",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        3650256867,
+        "古邦µ800-1 (EC Red/EC2 White 古邦 800)",
+        {
+          "priColor": 43,
+          "secColor": 132,
+          "pearlColor": 46,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 4,
+          "plate": "61DFR736",
+          "mods": {
+            "22": 0
+          },
+          "extras": {}
+        }
+      ]
+    },
+    {
+      "name": "蓝色款",
+      "image": "ec-red-ec2-white-古邦-800_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损暗蓝色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损白",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "钻石蓝",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        3650256867,
+        "古邦µ800-2 (EC Blue/EC2 White 古邦 800)",
+        {
+          "priColor": 85,
+          "secColor": 132,
+          "pearlColor": 67,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 4,
+          "plate": "61ZVU218",
+          "mods": {
+            "22": 0
+          },
+          "extras": {}
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

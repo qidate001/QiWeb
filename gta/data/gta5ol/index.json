@@ -262,5 +262,16 @@
     "bilibiliVideo": "",
     "coverImage": "改车王守护星.png",
     "variantsCount": 1
+  },
+  {
+    "id": "tri-cycles-race-bike",
+    "name": "特莱赛可竞速自行车",
+    "category": "零散系列",
+    "difficulty": "★★★★☆",
+    "description": "非常有趣的稀有自行车",
+    "update_date": "2026-08-02",
+    "bilibiliVideo": "",
+    "coverImage": "特莱赛可竞速自行车.png",
+    "variantsCount": 1
   }
 ]

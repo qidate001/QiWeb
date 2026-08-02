@@ -1,0 +1,129 @@
+{
+  "id": "up-长崎-烈焰",
+  "name": "UP 长崎 烈焰",
+  "category": "主线：焦虑的小罗",
+  "difficulty": "★★★☆☆",
+  "description": "需要推车，相对麻烦",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1xt421a7u7",
+  "routeImage": "",
+  "update_date": "2026-08-02",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "up-长崎-烈焰_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "糖果红",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "糖果红",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "黑色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆"
+      },
+      "accessory": "特殊车牌：TPI1000",
+      "explosion_data": [
+        2166734073,
+        "烈焰-1 (UP)",
+        {
+          "priColor": 35,
+          "secColor": 35,
+          "pearlColor": 0,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 4,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "TPI1000 ",
+          "mods": {
+            "22": 0
+          },
+          "extras": {}
+        }
+      ]
+    },
+    {
+      "name": "小罗款",
+      "image": "up-长崎-烈焰_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "深蓝色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "深蓝色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "黑色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★☆☆☆"
+      },
+      "accessory": "特殊车牌：B3L13V3",
+      "explosion_data": [
+        2166734073,
+        "烈焰-2 (UP)",
+        {
+          "priColor": 62,
+          "secColor": 62,
+          "pearlColor": 0,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 4,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "B3L13V3 ",
+          "mods": {
+            "22": 0
+          },
+          "extras": {}
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

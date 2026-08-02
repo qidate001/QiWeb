@@ -1,0 +1,83 @@
+{
+  "id": "tri-cycles-race-bike",
+  "name": "特莱赛可竞速自行车",
+  "category": "零散系列",
+  "difficulty": "★★★★☆",
+  "description": "非常有趣的稀有自行车",
+  "bilibiliVideo": "",
+  "routeImage": "特莱赛可竞速自行车_获取路线.png",
+  "update_date": "2026-08-02",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "特莱赛可竞速自行车.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损白",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损白",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "磨损白",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "入库情况": "直接入库",
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆",
+        "车友会": "未知"
+      },
+      "explosion_data": [
+        3894672200,
+        "特莱赛可竞速自行车",
+        {
+          "priColor": 132,
+          "secColor": 132,
+          "pearlColor": 132,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 4,
+          "plate": "88IJP037",
+          "mods": {},
+          "extras": {}
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "title": "获得方案",
+      "number": 1,
+      "details": {
+        "时间限制": "10:00 ~ 16:00 左右",
+        "天气限制": "大晴天"
+      },
+      "intro": "时间限制",
+      "description": "线路图那里有概率刷出俩人骑着这玩意，可以碰碰运气",
+      "noteLink": "10:00 ~ 16:00 左右",
+      "noteText": "天气限制"
+    }
+  ]
+}
