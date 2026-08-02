@@ -88,6 +88,16 @@
 
     <button id="largeFontBtn" class="btn-large-font">🔍 大字模式</button>
 
+    <!-- 塔罗选牌遮罩 -->
+    <div id="tarotDraftOverlay" class="tarot-draft-overlay" style="display: none;">
+        <div class="draft-container">
+            <h2 class="draft-title">✨ 命运三选</h2>
+            <div id="draftMessage" class="draft-message">请点击第一张牌：<br><strong>【过去】</strong> (1/3)</div>
+            <div id="draftCardsContainer" class="draft-cards-container"></div>
+            <button id="draftConfirmBtn" class="btn btn-reset draft-confirm-btn" style="display: none;">✅ 命运已定，开始游戏</button>
+        </div>
+    </div>
+
     <script src="./js/tarot-pao-de-kuai-config.js"></script>
     <script src="./js/tarot-pao-de-kuai.js"></script>
     <!-- <script src="./js/tarot-pao-de-kuai-debug.js"></script> -->

@@ -653,6 +653,9 @@ function setupConnection() {
         setMessage('连接已建立！', 'info');
         if (isHost) {
             startGameAsHost();
+        } else {
+            // 客机连上后立刻弹窗选牌
+            showDraftOverlay(true);
         }
     };
     conn.on('open', onOpen);
@@ -729,6 +732,33 @@ function handleData(data) {
 
             renderPlay(null, '');
             renderTarot();
+            break;
+        }
+        case 'reset': {
+            // 客机收到重置指令
+            game.reset();
+            round = 1;
+            myWins = 0;
+            oppWins = 0;
+            nextFirstPlayer = Math.random() < 0.5 ? 'me' : 'opp';
+            window._myTarot = [];
+            window._oppTarot = [];
+            
+            renderPlay(null, '');
+            updateUI();
+            
+            // 客机弹出选牌界面
+            showDraftOverlay(true);
+            break;
+        }
+        case 'guest_tarot': {
+            // 主机收到客机选的牌，保存为对手的塔罗牌（oppTarot）
+            window._oppTarot = data.cards;
+            
+            // 如果主机已经选完牌了，触发对战开始
+            if (isHost && window._myTarot && window._myTarot.length === 3) {
+                continueGameStart();
+            }
             break;
         }
         case 'play': {
@@ -1107,6 +1137,34 @@ function startGameAsHost() {
     console.log('startGameAsHost 被调用');
     if (!isHost) return;
 
+    // 如果还没给主机选牌，则弹出选牌界面
+    if (!window._myTarot || window._myTarot.length === 0) {
+        // 主机选牌，选完后会自动执行内部回调
+        showDraftOverlay(false, () => {
+            // 主机选完，先保存自己的牌
+            window._myTarot = draftData.selected;
+            
+            // 检查是否已经收到客机发来的牌（guest_tarot）
+            if (window._oppTarot && window._oppTarot.length === 3) {
+                // 收到客机牌了，直接开始
+                continueGameStart();
+            } else {
+                // 还没收到客机牌，提示等待
+                setMessage('🎴 等待客机选择命运之牌...', 'info');
+                // 继续等待，稍后由 handleData 里的 guest_tarot 触发 continueGameStart
+            }
+        });
+        return;
+    }
+
+    // 如果已有牌（例如重新开战），直接开始
+    continueGameStart();
+}
+
+function continueGameStart() {
+    console.log('continueGameStart 执行，开始发牌');
+    if (!isHost) return;
+
     // 1. 处理上一局的未来效果
     const futureResult = handlePreviousFutureEffects();
     let myWeight = futureResult.myWeight;
@@ -1114,12 +1172,11 @@ function startGameAsHost() {
     let myRandomness = futureResult.myRandomness;
     let oppRandomness = futureResult.oppRandomness;
 
-    // 2. 生成塔罗牌
-    const { myCards: myTarot, oppCards: oppTarot } = drawTarotCardsForBoth();
-    window._myTarot = myTarot;
-    window._oppTarot = oppTarot;
+    // 2. 获取已存在的塔罗牌 (刚才已经在选牌阶段赋值好了)
+    const myTarot = window._myTarot; 
+    const oppTarot = window._oppTarot;
 
-    // 3. 解析塔罗牌效果
+    // 3. 解析塔罗牌效果 (和之前逻辑相同)
     const myEffects = parseTarotEffects('me', myTarot, myWins, oppWins);
     const oppEffects = parseTarotEffects('opp', oppTarot, myWins, oppWins);
 
@@ -1178,7 +1235,7 @@ function startGameAsHost() {
     // 5. 应用先手抢夺
     applyStealFirstChance(pastEffects);
 
-    // 6. 记录组合激活状态（UI特效）
+    // 6. 记录组合激活状态
     window._tarotCombos = {
         my: { activeCards: collectActiveCards(myTarot) },
         opp: { activeCards: collectActiveCards(oppTarot) }
@@ -1569,22 +1626,141 @@ function playerPlay() {
     updateUI();
 }
 
-function drawTarotCardsForBoth() {
+// ============================================================
+//  塔罗选牌功能
+// ============================================================
+let draftData = { step: 0, cards: [], selected: [] };
+
+function showDraftOverlay(isGuest = false, callback) {
+    const overlay = document.getElementById('tarotDraftOverlay');
+    const container = document.getElementById('draftCardsContainer');
+    const message = document.getElementById('draftMessage');
+    const confirmBtn = document.getElementById('draftConfirmBtn');
+
+    // 重置状态
+    draftData.step = 0;
+    draftData.selected = [];
+    overlay.style.display = 'flex';
+    confirmBtn.style.display = 'none';
+
+    if (isGuest) {
+        message.innerHTML = '请选择你的命运之牌：<br><strong>【过去】</strong> (1/3)';
+    } else {
+        message.innerHTML = '请点击第一张牌：<br><strong>【过去】</strong> (1/3)';
+    }
+
+    // 从大阿卡纳中随机抽取 7 张
     const shuffled = [...MAJOR_ARCANA];
     for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    const selected = shuffled.slice(0, 6);
-    const myCards = selected.slice(0, 3).map(card => ({
+    draftData.cards = shuffled.slice(0, 7);
+
+    // 渲染 7 张牌（牌背朝上）
+    container.innerHTML = '';
+    draftData.cards.forEach((card, index) => {
+        const slot = document.createElement('div');
+        slot.className = 'draft-card-slot';
+        slot.dataset.index = index;
+        
+        const inner = document.createElement('div');
+        inner.className = 'card-inner';
+
+        const back = document.createElement('div');
+        back.className = 'card-back';
+        inner.appendChild(back);
+
+        const front = document.createElement('div');
+        front.className = 'card-front';
+        
+        const img = document.createElement('img');
+        img.src = `${IMG_BASE}${card.id}.png`;
+        img.alt = card.name;
+        img.loading = 'lazy';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'contain';
+        front.appendChild(img);
+        
+        const nameLabel = document.createElement('div');
+        nameLabel.className = 'card-name-label';
+        nameLabel.textContent = card.name;
+        front.appendChild(nameLabel);
+
+        inner.appendChild(front);
+        slot.appendChild(inner);
+        container.appendChild(slot);
+
+        // 点击事件
+        slot.addEventListener('click', () => onDraftCardClick(index, isGuest, callback));
+    });
+}
+
+function onDraftCardClick(index, isGuest, callback) {
+    if (draftData.step >= 3) return;
+
+    const slots = document.querySelectorAll('.draft-card-slot');
+    const slot = slots[index];
+    if (slot.classList.contains('flipped')) return;
+
+    const positions = ['过去', '现在', '未来'];
+    const currentStep = draftData.step;
+
+    slot.classList.add('flipped');
+    const label = document.createElement('div');
+    label.className = 'draft-position-label';
+    label.textContent = positions[currentStep];
+    slot.querySelector('.card-front').appendChild(label);
+    slot.classList.add('selected');
+
+    const card = draftData.cards[index];
+    const selectedCard = { ...card, reversed: Math.random() < 0.5 };
+    draftData.selected.push(selectedCard);
+
+    draftData.step++;
+    const message = document.getElementById('draftMessage');
+    const confirmBtn = document.getElementById('draftConfirmBtn');
+    
+    if (draftData.step === 3) {
+        message.innerHTML = '✨ 命运已定！';
+
+        if (isGuest) {
+            setTimeout(() => {
+                // 客机在自己的内存里也存一份自己的塔罗牌
+                window._myTarot = draftData.selected; 
+                sendData({ type: 'guest_tarot', cards: draftData.selected });
+                document.getElementById('tarotDraftOverlay').style.display = 'none';
+                setMessage('已选好命运，等待房主开始...', 'info');
+            }, 500);
+            return;
+        } else {
+            // === 主机逻辑：弹出确认按钮 ===
+            confirmBtn.style.display = 'inline-block';
+            confirmBtn.onclick = () => {
+                const overlay = document.getElementById('tarotDraftOverlay');
+                overlay.style.display = 'none';
+                // 触发主机后续流程
+                if (callback) callback();
+            };
+        }
+    } else {
+        const nextPos = positions[draftData.step];
+        message.innerHTML = `请点击下一张牌：<br><strong>【${nextPos}】</strong> (${draftData.step + 1}/3)`;
+    }
+}
+
+function drawTarotCardsForOpponent() {
+    const shuffled = [...MAJOR_ARCANA];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    const selected = shuffled.slice(0, 3);
+    return selected.map(card => ({
         ...card,
         reversed: Math.random() < 0.5
     }));
-    const oppCards = selected.slice(3, 6).map(card => ({
-        ...card,
-        reversed: Math.random() < 0.5
-    }));
-    return { myCards, oppCards };
 }
 
 function parseTarotEffects(playerId, tarotCards, myWins, oppWins) {
@@ -1846,6 +2022,25 @@ playBtn.addEventListener('click', playerPlay);
 passBtn.addEventListener('click', playerPass);
 resetBtn.addEventListener('click', () => {
     if (isHost && isConnected) {
+        // 1. 发送重置指令给客机（必须第一时间发）
+        sendData({ type: 'reset' });
+        
+        // 2. 重置本地的游戏数据（弥补了之前没写 game.reset() 的问题）
+        game.reset();
+        round = 1;
+        myWins = 0;
+        oppWins = 0;
+        nextFirstPlayer = Math.random() < 0.5 ? 'me' : 'opp'; // 随机先手
+        
+        // 3. 清空塔罗牌状态
+        window._myTarot = [];
+        window._oppTarot = [];
+        
+        // 4. 清空出牌区并刷新 UI
+        renderPlay(null, '');
+        updateUI();
+        
+        // 5. 主机开始重新选牌
         startGameAsHost();
     } else {
         setMessage('只有房主可以重新开始', 'info');

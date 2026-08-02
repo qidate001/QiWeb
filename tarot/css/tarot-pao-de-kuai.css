@@ -1173,3 +1173,180 @@ img {
         font-size: 1.2rem;
     }
 }
+
+
+/* ---------- 塔罗选牌遮罩 ---------- */
+.tarot-draft-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(13, 6, 16, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.draft-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 1100px;
+}
+
+.draft-title {
+    color: #ffd700;
+    font-size: 2.4rem;
+    font-weight: 300;
+    letter-spacing: 8px;
+    text-shadow: 0 0 40px rgba(255, 215, 0, 0.15);
+    margin-bottom: 16px;
+}
+
+.draft-message {
+    color: #d8c8e0;
+    font-size: 1.3rem;
+    margin-bottom: 24px;
+    text-align: center;
+    line-height: 1.6;
+}
+.draft-message strong {
+    color: #ffd700;
+}
+
+.draft-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 20px;
+    justify-content: center;
+    padding: 10px;
+}
+
+/* 选牌卡片样式（复用游戏卡片翻转效果） */
+.draft-card-slot {
+    width: 110px;
+    height: 165px;
+    perspective: 1200px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+.draft-card-slot:hover:not(.selected) {
+    transform: translateY(-6px) scale(1.03);
+}
+
+.draft-card-slot .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+}
+.draft-card-slot.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* 复用原本 card-front 和 card-back */
+.draft-card-slot .card-front,
+.draft-card-slot .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), inset 0 0 40px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+
+.draft-card-slot .card-front {
+    transform: rotateY(180deg);
+    background: linear-gradient(145deg, #1e1028, #2d1a38);
+    border: 2px solid rgba(255, 215, 0, 0.25);
+    color: #d8c8e0;
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.2rem;
+}
+.draft-card-slot .card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.draft-card-slot .card-back {
+    background: linear-gradient(145deg, #12081a, #2d1a3d);
+    border: 3px solid rgba(255, 215, 0, 0.3);
+    color: #ffd700;
+    font-size: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.draft-card-slot .card-back::after {
+    content: '✦';
+    opacity: 0.2;
+    font-size: 3rem;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+}
+
+/* 已选中牌的标记 */
+.draft-card-slot.selected {
+    transform: translateY(-10px) scale(1.05);
+}
+.draft-card-slot.selected .card-front {
+    border-color: #ffd700 !important;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+.draft-position-label {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    font-size: 0.7rem;
+    color: #ffd700;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 2px 10px;
+    border-radius: 12px;
+    z-index: 5;
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    backdrop-filter: blur(4px);
+}
+
+.draft-confirm-btn {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    padding: 14px 40px;
+}
+
+/* 响应式调整选牌尺寸 */
+@media (max-width: 1024px) {
+    .draft-card-slot { width: 95px; height: 142px; }
+}
+@media (max-width: 768px) {
+    .draft-card-slot { width: 80px; height: 120px; }
+    .draft-title { font-size: 1.8rem; }
+    .draft-message { font-size: 1.1rem; }
+}
+@media (max-width: 480px) {
+    .draft-card-slot { width: 60px; height: 90px; }
+    .draft-title { font-size: 1.4rem; }
+    .draft-message { font-size: 0.9rem; }
+    .draft-cards-container { gap: 8px; }
+    .draft-position-label { font-size: 0.5rem; padding: 1px 6px; }
+}
