@@ -1139,21 +1139,8 @@ function startGameAsHost() {
 
     // 如果还没给主机选牌，则弹出选牌界面
     if (!window._myTarot || window._myTarot.length === 0) {
-        // 主机选牌，选完后会自动执行内部回调
-        showDraftOverlay(false, () => {
-            // 主机选完，先保存自己的牌
-            window._myTarot = draftData.selected;
-            
-            // 检查是否已经收到客机发来的牌（guest_tarot）
-            if (window._oppTarot && window._oppTarot.length === 3) {
-                // 收到客机牌了，直接开始
-                continueGameStart();
-            } else {
-                // 还没收到客机牌，提示等待
-                setMessage('🎴 等待客机选择命运之牌...', 'info');
-                // 继续等待，稍后由 handleData 里的 guest_tarot 触发 continueGameStart
-            }
-        });
+        // 主机选牌，选完后会自动执行内部逻辑（切记去掉 ()=>{} 的回调）
+        showDraftOverlay(false);
         return;
     }
 
@@ -1631,7 +1618,7 @@ function playerPlay() {
 // ============================================================
 let draftData = { step: 0, cards: [], selected: [] };
 
-function showDraftOverlay(isGuest = false, callback) {
+function showDraftOverlay(isGuest = false) {
     const overlay = document.getElementById('tarotDraftOverlay');
     const container = document.getElementById('draftCardsContainer');
     const message = document.getElementById('draftMessage');
@@ -1641,7 +1628,7 @@ function showDraftOverlay(isGuest = false, callback) {
     draftData.step = 0;
     draftData.selected = [];
     overlay.style.display = 'flex';
-    confirmBtn.style.display = 'none';
+    confirmBtn.style.display = 'none'; // 隐藏按钮
 
     if (isGuest) {
         message.innerHTML = '请选择你的命运之牌：<br><strong>【过去】</strong> (1/3)';
@@ -1657,10 +1644,8 @@ function showDraftOverlay(isGuest = false, callback) {
     }
     draftData.cards = shuffled.slice(0, 7);
 
-        // 渲染 7 张牌（牌背朝上）
+    // 渲染 7 张牌（牌背朝上）
     container.innerHTML = '';
-    
-    // 1. 先提前生成好所有 7 个卡牌 DOM 元素
     const cardSlots = draftData.cards.map((card, index) => {
         const slot = document.createElement('div');
         slot.className = 'draft-card-slot';
@@ -1693,12 +1678,11 @@ function showDraftOverlay(isGuest = false, callback) {
         inner.appendChild(front);
         slot.appendChild(inner);
 
-        // 点击事件
-        slot.addEventListener('click', () => onDraftCardClick(index, isGuest, callback));
+        slot.addEventListener('click', () => onDraftCardClick(index, isGuest));
         return slot;
     });
 
-    // 2. 按照 2-3-2 的规则分布到三行（完美居中）
+    // 2-3-2 排列
     const rowConfig = [2, 3, 2];
     let slotIndex = 0;
     rowConfig.forEach(count => {
@@ -1714,7 +1698,7 @@ function showDraftOverlay(isGuest = false, callback) {
     });
 }
 
-function onDraftCardClick(index, isGuest, callback) {
+function onDraftCardClick(index, isGuest) {
     if (draftData.step >= 3) return;
 
     const slots = document.querySelectorAll('.draft-card-slot');
@@ -1737,29 +1721,31 @@ function onDraftCardClick(index, isGuest, callback) {
 
     draftData.step++;
     const message = document.getElementById('draftMessage');
-    const confirmBtn = document.getElementById('draftConfirmBtn');
+    const overlay = document.getElementById('tarotDraftOverlay');
     
     if (draftData.step === 3) {
         message.innerHTML = '✨ 命运已定！';
 
         if (isGuest) {
+            // === 客机逻辑：选完自动发送给主机，关闭遮罩 ===
             setTimeout(() => {
-                // 客机在自己的内存里也存一份自己的塔罗牌
                 window._myTarot = draftData.selected; 
                 sendData({ type: 'guest_tarot', cards: draftData.selected });
-                document.getElementById('tarotDraftOverlay').style.display = 'none';
+                overlay.style.display = 'none';
                 setMessage('已选好命运，等待房主开始...', 'info');
             }, 500);
             return;
         } else {
-            // === 主机逻辑：弹出确认按钮 ===
-            confirmBtn.style.display = 'inline-block';
-            confirmBtn.onclick = () => {
-                const overlay = document.getElementById('tarotDraftOverlay');
-                overlay.style.display = 'none';
-                // 触发主机后续流程
-                if (callback) callback();
-            };
+            // === 主机逻辑：选完自动保存并检查对方 ===
+            window._myTarot = draftData.selected;
+            overlay.style.display = 'none';
+            setMessage('🎴 命运已定！等待对手选择...', 'info');
+            
+            // 检查是否已经收到客机发来的牌（guest_tarot）
+            if (window._oppTarot && window._oppTarot.length === 3) {
+                continueGameStart(); // 客机已选好，立刻开局
+            }
+            // 否则这里什么都不做，等待 handleData 里的 guest_tarot 触发
         }
     } else {
         const nextPos = positions[draftData.step];
