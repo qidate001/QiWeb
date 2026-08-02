@@ -1657,9 +1657,11 @@ function showDraftOverlay(isGuest = false, callback) {
     }
     draftData.cards = shuffled.slice(0, 7);
 
-    // 渲染 7 张牌（牌背朝上）
+        // 渲染 7 张牌（牌背朝上）
     container.innerHTML = '';
-    draftData.cards.forEach((card, index) => {
+    
+    // 1. 先提前生成好所有 7 个卡牌 DOM 元素
+    const cardSlots = draftData.cards.map((card, index) => {
         const slot = document.createElement('div');
         slot.className = 'draft-card-slot';
         slot.dataset.index = index;
@@ -1690,10 +1692,25 @@ function showDraftOverlay(isGuest = false, callback) {
 
         inner.appendChild(front);
         slot.appendChild(inner);
-        container.appendChild(slot);
 
         // 点击事件
         slot.addEventListener('click', () => onDraftCardClick(index, isGuest, callback));
+        return slot;
+    });
+
+    // 2. 按照 2-3-2 的规则分布到三行（完美居中）
+    const rowConfig = [2, 3, 2];
+    let slotIndex = 0;
+    rowConfig.forEach(count => {
+        const row = document.createElement('div');
+        row.className = 'draft-card-row';
+        for (let i = 0; i < count; i++) {
+            if (slotIndex < cardSlots.length) {
+                row.appendChild(cardSlots[slotIndex]);
+                slotIndex++;
+            }
+        }
+        container.appendChild(row);
     });
 }
 
