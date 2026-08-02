@@ -253,14 +253,25 @@
     "variantsCount": 1
   },
   {
-    "id": "gang-peyote",
-    "name": "帮派佩优特",
-    "category": "零散系列",
-    "difficulty": "★★☆☆☆",
-    "description": "请填写描述",
-    "update_date": "2026-08-01",
-    "bilibiliVideo": "",
-    "coverImage": null,
+    "id": "ec2-black-贝飞特-迪布达2",
+    "name": "EC2 Black 贝飞特 迪布达2",
+    "category": "主线：崔佛菲利普产业",
+    "difficulty": "★☆☆☆☆",
+    "description": "难度较大，价值较低，仅限次世代。",
+    "update_date": "2026-08-02",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1BAKsezEez",
+    "coverImage": "ec2-black-贝飞特-迪布达2.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-black-lustered-英庞提-不死鸟",
+    "name": "EC Black/Lustered 英庞提 不死鸟",
+    "category": "主线：崔佛菲利普产业",
+    "difficulty": "★★★★☆",
+    "description": "难度极低，价值不错，比另一辆好多了！",
+    "update_date": "2026-08-02",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1uZ421U7y6",
+    "coverImage": "ec-black-lustered-英庞提-不死鸟.png",
     "variantsCount": 1
   }
 ]

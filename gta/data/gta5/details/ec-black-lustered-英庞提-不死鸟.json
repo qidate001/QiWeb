@@ -1,0 +1,74 @@
+{
+  "id": "ec-black-lustered-英庞提-不死鸟",
+  "name": "EC Black/Lustered 英庞提 不死鸟",
+  "category": "主线：崔佛菲利普产业",
+  "difficulty": "★★★★☆",
+  "description": "难度极低，价值不错，比另一辆好多了！",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1uZ421U7y6",
+  "routeImage": "",
+  "update_date": "2026-08-02",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec-black-lustered-英庞提-不死鸟.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "工业黑",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "工业黑",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "冰雪白",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        2199527893,
+        "不死鸟 (EC Black/Lustered)",
+        {
+          "priColor": 15,
+          "secColor": 15,
+          "pearlColor": 111,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 1,
+          "lowGripTyres": 0,
+          "plateIndex": 2,
+          "plate": "04MBB307",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "4": 1,
+            "10": 1,
+            "11": 0
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
