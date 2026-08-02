@@ -803,6 +803,8 @@ function handleData(data) {
         }
         case 'gameover': {
             handleGameOver(data.winner);
+            window._myTarot = [];
+            window._oppTarot = [];
             if (isHost) {
                 setTimeout(() => {
                     if (isConnected) startGameAsHost();
@@ -2009,7 +2011,10 @@ function gameOver() {
     if (isHost) {
         // 延迟 1.5 秒后重新开始，确保客机收到消息
         setTimeout(() => {
-            startGameAsHost();
+            // 清空塔罗牌，触发下一局重新抽牌
+            window._myTarot = [];
+            window._oppTarot = [];
+            if (isConnected) startGameAsHost();
         }, 1500);
     }
 }
