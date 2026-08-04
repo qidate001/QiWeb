@@ -84,7 +84,7 @@
         {
           "label": "副色调",
           "value": "黑色",
-          "isRare": true
+          "isRare": false
         },
         {
           "label": "轮胎色",
@@ -116,7 +116,7 @@
         {
           "label": "副色调",
           "value": "黑色",
-          "isRare": true
+          "isRare": false
         },
         {
           "label": "轮胎色",
@@ -148,7 +148,7 @@
         {
           "label": "副色调",
           "value": "黑色",
-          "isRare": true
+          "isRare": false
         },
         {
           "label": "轮胎色",
