@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/observing-jia-ju.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <title>🔭 观测加橘</title>
+</head>
+<body>
+    <div class="container">
+        <!-- 标题 -->
+        <div class="header">
+            <div class="title">
+                <span class="icon">🔭</span>
+                观测加橘
+                <span class="icon" style="font-size:24px;">🐈</span>
+            </div>
+            <div class="subtitle">✦ 橘猫行为观测报告 ✦</div>
+        </div>
+
+        <!-- 观测报告 -->
+        <div class="report-card" id="reportCard">
+            <!-- 报告头 -->
+            <div class="report-header">
+                <span class="report-id" id="reportId">#0000</span>
+                <span class="report-time">
+                    <span class="clock-icon">🕒</span>
+                    <span id="reportTime">--:--:--</span>
+                </span>
+            </div>
+
+            <!-- 正文 -->
+            <div class="observation-body">
+                <div class="cat-avatar" id="catAvatar">🐱</div>
+                <div class="main-result" id="mainResult">
+                    正在加载观测数据……
+                </div>
+            </div>
+
+            <!-- 元数据 -->
+            <div class="meta-row">
+                <span class="meta-item">
+                    <span class="label">🧬 种子</span>
+                    <span class="value" id="seedDisplay">0</span>
+                </span>
+                <span class="meta-item">
+                    <span class="label">📌 状态</span>
+                    <span class="value" id="statusDisplay">稳定</span>
+                </span>
+                <span class="meta-item">
+                    <span class="label">💬 备注</span>
+                    <span class="value" id="remarkDisplay">——</span>
+                </span>
+            </div>
+
+            <!-- 倒计时 -->
+            <div class="timer-section">
+                <span style="font-size:16px;">⏳</span>
+                <div class="timer-bar-wrap">
+                    <div class="timer-bar" id="timerBar"></div>
+                </div>
+                <span class="timer-text" id="timerText">10:00</span>
+            </div>
+        </div>
+
+        <!-- 按钮 -->
+        <button class="btn-observe" id="btnObserve">
+            <span class="btn-icon">🔭</span>
+            再观测一次
+        </button>
+    </div>
+
+    <script src="./js/observing-jia-ju.js"></script>
+
+</body>
+</html>
