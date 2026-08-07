@@ -315,7 +315,7 @@
     "description": "任务结束，收集就顺手的事，且价值极高",
     "update_date": "2026-08-07",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1MJ4m1x7Ct",
-    "coverImage": null,
+    "coverImage": "ec-white-绝致-屌客.png",
     "variantsCount": 1
   },
   {
@@ -323,10 +323,21 @@
     "name": "Lustered/EC 乔氏 魅影",
     "category": "主线：出名或出丑",
     "difficulty": "★★☆☆☆",
-    "description": "四辆都是稀有滴，拖车拖走",
+    "description": "四辆有三辆都是稀有滴，拖车拖走~",
     "update_date": "2026-08-07",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1kj421X7F6",
     "coverImage": "lustered-ec-乔氏-魅影_1.png",
     "variantsCount": 4
+  },
+  {
+    "id": "lustered-pp-乔氏-魅影",
+    "name": "Lustered/PP 乔氏 魅影",
+    "category": "主线：出名或出丑",
+    "difficulty": "★★☆☆☆",
+    "description": "任务结束老崔开走的那辆",
+    "update_date": "2026-08-07",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1EC411W7Nt",
+    "coverImage": "lustered-pp-乔氏-魅影.png",
+    "variantsCount": 1
   }
 ]

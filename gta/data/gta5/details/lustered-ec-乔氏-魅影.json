@@ -3,130 +3,230 @@
   "name": "Lustered/EC 乔氏 魅影",
   "category": "主线：出名或出丑",
   "difficulty": "★★☆☆☆",
-  "description": "四辆都是稀有滴，拖车拖走",
+  "description": "四辆有三辆都是稀有滴，拖车拖走~",
   "bilibiliVideo": "https://www.bilibili.com/video/BV1kj421X7F6",
   "routeImage": "",
   "update_date": "2026-08-07",
   "variants": [
     {
-      "name": "默认款",
+      "name": "黑色款",
       "image": "lustered-ec-乔氏-魅影_1.png",
       "specs": [
         {
           "label": "主色调",
-          "value": "",
+          "value": "黑色",
           "isRare": false
         },
         {
           "label": "副色调",
-          "value": "",
+          "value": "黑色",
           "isRare": false
         },
         {
           "label": "轮胎色",
-          "value": "",
+          "value": "Default Alloy",
           "isRare": false
         },
         {
           "label": "珠光",
-          "value": "",
-          "isRare": false
+          "value": "Util Maui Blue Poly",
+          "isRare": true
         }
       ],
       "properties": {
-        "获取难度": "★★★☆☆",
+        "获取难度": "★★☆☆☆",
         "收藏价值": "★★★☆☆"
-      }
+      },
+      "explosion_data": [
+        2157618379,
+        "魅影-1 (Lustered/EC)",
+        {
+          "priColor": 0,
+          "secColor": 0,
+          "pearlColor": 80,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 3,
+          "plate": "25JYW398",
+          "mods": {},
+          "extras": {}
+        }
+      ]
     },
     {
-      "name": "默认款",
+      "name": "铸铁银款",
       "image": "lustered-ec-乔氏-魅影_2.png",
       "specs": [
         {
           "label": "主色调",
-          "value": "",
+          "value": "铸铁银",
           "isRare": false
         },
         {
           "label": "副色调",
-          "value": "",
+          "value": "黑色",
           "isRare": false
         },
         {
           "label": "轮胎色",
-          "value": "",
+          "value": "Default Alloy",
           "isRare": false
         },
         {
           "label": "珠光",
-          "value": "",
-          "isRare": false
+          "value": "磨损海蚀绿",
+          "isRare": true
         }
       ],
       "properties": {
-        "获取难度": "★★★☆☆",
+        "获取难度": "★★☆☆☆",
         "收藏价值": "★★★☆☆"
-      }
+      },
+      "explosion_data": [
+        2157618379,
+        "魅影-2 (Lustered/EC)",
+        {
+          "priColor": 10,
+          "secColor": 0,
+          "pearlColor": 60,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "25FHH498",
+          "mods": {},
+          "extras": {}
+        }
+      ]
     },
     {
-      "name": "默认款",
+      "name": "暗影银款",
       "image": "lustered-ec-乔氏-魅影_3.png",
       "specs": [
         {
           "label": "主色调",
-          "value": "",
-          "isRare": false
+          "value": "磨损暗影银",
+          "isRare": true
         },
         {
           "label": "副色调",
-          "value": "",
+          "value": "黑色",
           "isRare": false
         },
         {
           "label": "轮胎色",
-          "value": "",
+          "value": "Default Alloy",
           "isRare": false
         },
         {
           "label": "珠光",
-          "value": "",
+          "value": "黑色",
           "isRare": false
         }
       ],
       "properties": {
-        "获取难度": "★★★☆☆",
+        "获取难度": "★★☆☆☆",
         "收藏价值": "★★★☆☆"
-      }
+      },
+      "explosion_data": [
+        2157618379,
+        "魅影-3 (Lustered/EC)",
+        {
+          "priColor": 20,
+          "secColor": 0,
+          "pearlColor": 0,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "28HDQ691",
+          "mods": {},
+          "extras": {}
+        }
+      ]
     },
     {
-      "name": "默认款",
+      "name": "冲浪蓝款",
       "image": "lustered-ec-乔氏-魅影_4.png",
       "specs": [
         {
           "label": "主色调",
-          "value": "",
+          "value": "黑色",
           "isRare": false
         },
         {
           "label": "副色调",
-          "value": "",
+          "value": "黑色",
           "isRare": false
         },
         {
           "label": "轮胎色",
-          "value": "",
+          "value": "Default Alloy",
           "isRare": false
         },
         {
           "label": "珠光",
-          "value": "",
+          "value": "冲浪蓝",
           "isRare": false
         }
       ],
       "properties": {
-        "获取难度": "★★★☆☆",
+        "获取难度": "★☆☆☆☆",
         "收藏价值": "★★★☆☆"
-      }
+      },
+      "explosion_data": [
+        2157618379,
+        "魅影-4 (Lustered/EC)",
+        {
+          "priColor": 0,
+          "secColor": 0,
+          "pearlColor": 68,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 3,
+          "plate": "69YPU451",
+          "mods": {},
+          "extras": {}
+        }
+      ]
     }
   ],
   "methods": []

@@ -1,0 +1,68 @@
+{
+  "id": "lustered-pp-乔氏-魅影",
+  "name": "Lustered/PP 乔氏 魅影",
+  "category": "主线：出名或出丑",
+  "difficulty": "★★☆☆☆",
+  "description": "任务结束老崔开走的那辆",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1EC411W7Nt",
+  "routeImage": "",
+  "update_date": "2026-08-07",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "lustered-pp-乔氏-魅影.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "冲浪蓝",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        2157618379,
+        "魅影 (Lustered/PP)",
+        {
+          "priColor": 0,
+          "secColor": 0,
+          "pearlColor": 68,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 0,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": 0,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "29UCT427",
+          "mods": {},
+          "extras": {}
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
