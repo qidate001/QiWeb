@@ -1,0 +1,43 @@
+{
+  "id": "ec-white-亚班尼-明日之星",
+  "name": "EC White 亚班尼 明日之星",
+  "category": "主线：出名或出丑",
+  "difficulty": "★★☆☆☆",
+  "description": "请填写描述",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1UH4y1h72z",
+  "routeImage": "",
+  "update_date": "2026-08-07",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      }
+    }
+  ],
+  "methods": []
+}
