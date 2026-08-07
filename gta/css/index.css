@@ -1,0 +1,55 @@
+.version-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 12px rgba(139, 92, 246, 0.4);
+}
+
+.version-btn.active {
+    background: #8b5cf6 !important;
+    color: #fff !important;
+}
+
+.quick-item ul {
+    list-style: none;
+    padding: 0;
+}
+
+.quick-item ul li {
+    margin: 6px 0;
+}
+
+.quick-item ul li a {
+    color: #8b5cf6;
+    text-decoration: none;
+}
+
+.quick-item ul li a:hover {
+    text-decoration: underline;
+}
+
+.version-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 12px rgba(139, 92, 246, 0.4);
+}
+
+.version-btn.active {
+    background: #8b5cf6 !important;
+    color: #fff !important;
+}
+
+.quick-item ul {
+    list-style: none;
+    padding: 0;
+}
+
+.quick-item ul li {
+    margin: 6px 0;
+}
+
+.quick-item ul li a {
+    color: #8b5cf6;
+    text-decoration: none;
+}
+
+.quick-item ul li a:hover {
+    text-decoration: underline;
+}
