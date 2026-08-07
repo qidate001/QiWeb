@@ -1,16 +1,16 @@
 {
-  "id": "ec-white-亚班尼-明日之星",
-  "name": "EC White 亚班尼 明日之星",
+  "id": "ec-white-lustered-贝飞特-莎夫特",
+  "name": "EC White/Lustered 贝飞特 莎夫特",
   "category": "主线：出名或出丑",
-  "difficulty": "★★☆☆☆",
-  "description": "有可能会刷主副为冰雪白的，需要注意区分一下",
-  "bilibiliVideo": "https://www.bilibili.com/video/BV1UH4y1h72z",
+  "difficulty": "★★★★☆",
+  "description": "获取需要卡车库，挺值的",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1ERjx6JEkk",
   "routeImage": "",
   "update_date": "2026-08-07",
   "variants": [
     {
       "name": "默认款",
-      "image": "ec-white-亚班尼-明日之星.png",
+      "image": "ec-white-lustered-贝飞特-莎夫特.png",
       "specs": [
         {
           "label": "主色调",
@@ -29,8 +29,8 @@
         },
         {
           "label": "珠光",
-          "value": "冰雪白",
-          "isRare": false
+          "value": "磨损银",
+          "isRare": true
         }
       ],
       "properties": {
@@ -38,12 +38,12 @@
         "收藏价值": "★★★★☆"
       },
       "explosion_data": [
-        2170765704,
-        "明日之星 (EC White)",
+        3039514899,
+        "莎夫特 (EC White/Lustered)",
         {
           "priColor": 132,
           "secColor": 132,
-          "pearlColor": 111,
+          "pearlColor": 24,
           "wheelColor": 156,
           "dialsColor": 0,
           "trimColor": 0,
@@ -54,18 +54,15 @@
           "neonState": 0,
           "livery": -1,
           "windowTint": -1,
-          "wheelType": 2,
+          "wheelType": 0,
           "lowGripTyres": 0,
-          "plateIndex": 2,
-          "plate": "46OQE340",
+          "plateIndex": 0,
+          "plate": "83QOQ538",
           "mods": {
             "22": 0
           },
           "extras": {
-            "1": 0,
-            "2": 1,
-            "10": 1,
-            "11": 0,
+            "11": 1,
             "12": 1
           }
         }

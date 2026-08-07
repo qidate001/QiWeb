@@ -367,10 +367,32 @@
     "name": "EC White 亚班尼 明日之星",
     "category": "主线：出名或出丑",
     "difficulty": "★★☆☆☆",
-    "description": "请填写描述",
+    "description": "有可能会刷主副为冰雪白的，需要注意区分一下",
     "update_date": "2026-08-07",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1UH4y1h72z",
-    "coverImage": null,
+    "coverImage": "ec-white-亚班尼-明日之星.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-white-lustered-绝品-卫士-xs",
+    "name": "EC White/Lustered 绝品 卫士 XS",
+    "category": "主线：出名或出丑",
+    "difficulty": "★★★★☆",
+    "description": "获取需要卡车库，挺值的",
+    "update_date": "2026-08-07",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1rd7w6sExc",
+    "coverImage": "ec-white-lustered-绝品-卫士-xs.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-white-lustered-贝飞特-莎夫特",
+    "name": "EC White/Lustered 贝飞特 莎夫特",
+    "category": "主线：出名或出丑",
+    "difficulty": "★★★★☆",
+    "description": "获取需要卡车库，挺值的",
+    "update_date": "2026-08-07",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1ERjx6JEkk",
+    "coverImage": "ec-white-lustered-贝飞特-莎夫特.png",
     "variantsCount": 1
   }
 ]
