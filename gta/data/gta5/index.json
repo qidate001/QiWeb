@@ -339,5 +339,16 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1EC411W7Nt",
     "coverImage": "lustered-pp-乔氏-魅影.png",
     "variantsCount": 1
+  },
+  {
+    "id": "ec-lustered-威皮-竞速",
+    "name": "EC/Lustered 威皮 竞速",
+    "category": "主线：出名或出丑",
+    "difficulty": "★★☆☆☆",
+    "description": "非常麻烦的载具，这是第一部分",
+    "update_date": "2026-08-07",
+    "bilibiliVideo": "",
+    "coverImage": "ec-lustered-威皮-竞速_1.png",
+    "variantsCount": 8
   }
 ]
