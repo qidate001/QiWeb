@@ -394,5 +394,27 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1ERjx6JEkk",
     "coverImage": "ec-white-lustered-贝飞特-莎夫特.png",
     "variantsCount": 1
+  },
+  {
+    "id": "ec-black-lustered-乔氏-搬运者",
+    "name": "EC Black/Lustered 乔氏 搬运者",
+    "category": "主线：港口探查",
+    "difficulty": "★☆☆☆☆",
+    "description": "价值挺低，不推荐获取",
+    "update_date": "2026-08-07",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1PC411W7G2",
+    "coverImage": "ec-black-lustered-乔氏-搬运者.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "up-拖吊车",
+    "name": "UP 拖吊车",
+    "category": "主线：港口探查",
+    "difficulty": "★★☆☆☆",
+    "description": "离开的时候，获取这车顺手的事",
+    "update_date": "2026-08-07",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1Ry421B7A8",
+    "coverImage": "up-拖吊车.png",
+    "variantsCount": 1
   }
 ]
