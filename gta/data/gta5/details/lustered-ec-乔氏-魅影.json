@@ -1,0 +1,133 @@
+{
+  "id": "lustered-ec-乔氏-魅影",
+  "name": "Lustered/EC 乔氏 魅影",
+  "category": "主线：出名或出丑",
+  "difficulty": "★★☆☆☆",
+  "description": "四辆都是稀有滴，拖车拖走",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1kj421X7F6",
+  "routeImage": "",
+  "update_date": "2026-08-07",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "lustered-ec-乔氏-魅影_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      }
+    },
+    {
+      "name": "默认款",
+      "image": "lustered-ec-乔氏-魅影_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      }
+    },
+    {
+      "name": "默认款",
+      "image": "lustered-ec-乔氏-魅影_3.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      }
+    },
+    {
+      "name": "默认款",
+      "image": "lustered-ec-乔氏-魅影_4.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      }
+    }
+  ],
+  "methods": []
+}

@@ -306,5 +306,27 @@
     "bilibiliVideo": "",
     "coverImage": "ec-red-ec2-white-古邦-800_1.png",
     "variantsCount": 2
+  },
+  {
+    "id": "ec-white-绝致-屌客",
+    "name": "EC White 绝致 屌客",
+    "category": "主线：冰毒迷宫",
+    "difficulty": "★☆☆☆☆",
+    "description": "任务结束，收集就顺手的事，且价值极高",
+    "update_date": "2026-08-07",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1MJ4m1x7Ct",
+    "coverImage": null,
+    "variantsCount": 1
+  },
+  {
+    "id": "lustered-ec-乔氏-魅影",
+    "name": "Lustered/EC 乔氏 魅影",
+    "category": "主线：出名或出丑",
+    "difficulty": "★★☆☆☆",
+    "description": "四辆都是稀有滴，拖车拖走",
+    "update_date": "2026-08-07",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1kj421X7F6",
+    "coverImage": "lustered-ec-乔氏-魅影_1.png",
+    "variantsCount": 4
   }
 ]

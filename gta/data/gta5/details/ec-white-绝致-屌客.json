@@ -1,0 +1,77 @@
+{
+  "id": "ec-white-绝致-屌客",
+  "name": "EC White 绝致 屌客",
+  "category": "主线：冰毒迷宫",
+  "difficulty": "★☆☆☆☆",
+  "description": "任务结束，收集就顺手的事，且价值极高",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1MJ4m1x7Ct",
+  "routeImage": "",
+  "update_date": "2026-08-07",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "冰雪白",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "冰雪白",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "冰雪白",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        2948279460,
+        "屌客 (EC White)",
+        {
+          "priColor": 111,
+          "secColor": 111,
+          "pearlColor": 111,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": 2,
+          "windowTint": -1,
+          "wheelType": 1,
+          "lowGripTyres": 0,
+          "plateIndex": 3,
+          "plate": "87FSQ904",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "1": 0,
+            "2": 1,
+            "5": 1,
+            "10": 0,
+            "11": 1,
+            "12": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
