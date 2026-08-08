@@ -473,6 +473,28 @@
     "variantsCount": 3
   },
   {
+    "id": "ec2-beige-兰帕达缇-恶龙",
+    "name": "EC2 Beige 兰帕达缇 恶龙",
+    "category": "主线：毒窟逃亡",
+    "difficulty": "★★☆☆☆",
+    "description": "老显眼了，是个人都能察觉是稀有的吧？",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1GF4m157Nb",
+    "coverImage": "ec2-beige-兰帕达缇-恶龙.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-beige-roof-亚班尼-皇霸天",
+    "name": "EC Beige Roof 亚班尼 皇霸天",
+    "category": "主线：毒窟逃亡",
+    "difficulty": "★★☆☆☆",
+    "description": "一个个争着抢着把稀有载具送到手里",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1Q1421X7VB",
+    "coverImage": "ec-beige-roof-亚班尼-皇霸天.png",
+    "variantsCount": 1
+  },
+  {
     "id": "ec-black-lustered-ne-pp-hvy-混凝土搅拌车",
     "name": "EC Black/Lustered/NE/PP HVY 混凝土搅拌车",
     "category": "主线：毒窟逃亡",
