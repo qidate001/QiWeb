@@ -1,16 +1,16 @@
 {
-  "id": "ec2-black-贝飞特-迪布达2",
-  "name": "EC2 Black 贝飞特 迪布达2",
-  "category": "主线：崔佛菲利普产业",
+  "id": "ec2-black-lustered-up-绝致-屌客",
+  "name": "EC2 Black/Lustered/UP 绝致 屌客",
+  "category": "主线：珠宝店劫案",
   "difficulty": "★☆☆☆☆",
-  "description": "难度较大，价值较低，仅限次世代。",
-  "bilibiliVideo": "https://www.bilibili.com/video/BV1BAKsezEez",
+  "description": "此车为“强攻”方案专属。",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1s4421c7KT",
   "routeImage": "",
-  "update_date": "2026-08-02",
+  "update_date": "2026-08-08",
   "variants": [
     {
       "name": "默认款",
-      "image": "ec2-black-贝飞特-迪布达2.png",
+      "image": "ec2-black-lustered-up-绝致-屌客.png",
       "specs": [
         {
           "label": "主色调",
@@ -29,21 +29,21 @@
         },
         {
           "label": "珠光",
-          "value": "黑色",
+          "value": "墨黑色",
           "isRare": false
         }
       ],
       "properties": {
-        "获取难度": "★★★☆☆",
+        "获取难度": "★★☆☆☆",
         "收藏价值": "★☆☆☆☆"
       },
       "explosion_data": [
-        3900892662,
-        "迪布达2 (EC2 Black)",
+        2551651283,
+        "屌客 (EC2 Black/Lustered/UP)",
         {
           "priColor": 0,
           "secColor": 0,
-          "pearlColor": 0,
+          "pearlColor": 1,
           "wheelColor": 156,
           "dialsColor": 0,
           "trimColor": 0,
@@ -54,14 +54,15 @@
           "neonState": 0,
           "livery": -1,
           "windowTint": -1,
-          "wheelType": 3,
+          "wheelType": 1,
           "lowGripTyres": 0,
-          "plateIndex": 0,
-          "plate": "64OAJ002",
+          "plateIndex": 3,
+          "plate": "RW1602B0",
           "mods": {
             "22": 0
           },
           "extras": {
+            "10": 1,
             "11": 1,
             "12": 1
           }

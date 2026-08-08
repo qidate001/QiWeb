@@ -1,16 +1,16 @@
 {
-  "id": "ec2-black-贝飞特-迪布达2",
-  "name": "EC2 Black 贝飞特 迪布达2",
-  "category": "主线：崔佛菲利普产业",
-  "difficulty": "★☆☆☆☆",
-  "description": "难度较大，价值较低，仅限次世代。",
-  "bilibiliVideo": "https://www.bilibili.com/video/BV1BAKsezEez",
+  "id": "unique-佩嘉西-801rr巴提",
+  "name": "Unique 佩嘉西 801RR巴提",
+  "category": "主线：珠宝店劫案",
+  "difficulty": "★★☆☆☆",
+  "description": "卡里姆精心挑选的，完全不适合越野的摩托车",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1UH4y1e7oA",
   "routeImage": "",
-  "update_date": "2026-08-02",
+  "update_date": "2026-08-08",
   "variants": [
     {
       "name": "默认款",
-      "image": "ec2-black-贝飞特-迪布达2.png",
+      "image": "unique-佩嘉西-801rr巴提.png",
       "specs": [
         {
           "label": "主色调",
@@ -20,7 +20,7 @@
         {
           "label": "副色调",
           "value": "黑色",
-          "isRare": true
+          "isRare": false
         },
         {
           "label": "轮胎色",
@@ -35,11 +35,11 @@
       ],
       "properties": {
         "获取难度": "★★★☆☆",
-        "收藏价值": "★☆☆☆☆"
+        "收藏价值": "★★★☆☆"
       },
       "explosion_data": [
-        3900892662,
-        "迪布达2 (EC2 Black)",
+        3403504941,
+        "801RRµ巴提 (Unique)",
         {
           "priColor": 0,
           "secColor": 0,
@@ -52,19 +52,16 @@
           "tireSmoke": 16777215,
           "neon": 16711935,
           "neonState": 0,
-          "livery": -1,
+          "livery": 2,
           "windowTint": -1,
-          "wheelType": 3,
+          "wheelType": 6,
           "lowGripTyres": 0,
           "plateIndex": 0,
-          "plate": "64OAJ002",
+          "plate": "68ZYC640",
           "mods": {
             "22": 0
           },
-          "extras": {
-            "11": 1,
-            "12": 1
-          }
+          "extras": {}
         }
       ]
     }

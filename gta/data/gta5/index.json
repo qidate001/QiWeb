@@ -220,11 +220,33 @@
     "variantsCount": 1
   },
   {
+    "id": "ec2-black-lustered-up-绝致-屌客",
+    "name": "EC2 Black/Lustered/UP 绝致 屌客",
+    "category": "主线：珠宝店劫案",
+    "difficulty": "★☆☆☆☆",
+    "description": "此车为“强攻”方案专属。",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1s4421c7KT",
+    "coverImage": "ec2-black-lustered-up-绝致-屌客.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "unique-佩嘉西-801rr巴提",
+    "name": "Unique 佩嘉西 801RR巴提",
+    "category": "主线：珠宝店劫案",
+    "difficulty": "★★☆☆☆",
+    "description": "卡里姆精心挑选的，完全不适合越野的摩托车",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1UH4y1e7oA",
+    "coverImage": "unique-佩嘉西-801rr巴提.png",
+    "variantsCount": 1
+  },
+  {
     "id": "ec2-red-卡林-入侵者",
     "name": "EC2 Red 卡林 入侵者",
     "category": "主线：珠宝店劫案",
     "difficulty": "★★☆☆☆",
-    "description": "珠光随机但无稀有",
+    "description": "珠光随机但无稀有珠光",
     "update_date": "2026-07-30",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1Q1Nde7E84",
     "coverImage": "ec2-red-卡林-入侵者.png",
@@ -235,7 +257,7 @@
     "name": "EC2 Grey/Lustered 亚班尼 华盛顿",
     "category": "主线：珠宝店劫案",
     "difficulty": "★★★☆☆",
-    "description": "珠光随机，难刷的一批",
+    "description": "珠光随机，仙品司机，难刷的一批",
     "update_date": "2026-07-30",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1Q1Nde7E84",
     "coverImage": "ec2-grey-lustered-亚班尼-华盛顿_1.png",
