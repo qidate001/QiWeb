@@ -427,5 +427,27 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1gS421N7pC",
     "coverImage": "pp-mtl-车辆运送车.png",
     "variantsCount": 1
+  },
+  {
+    "id": "ec-dark-red-ec2-black-rims-穿梭者",
+    "name": "EC Dark Red/EC2 Black Rims 穿梭者",
+    "category": "主线：三人成众",
+    "difficulty": "★★★★☆",
+    "description": "较为少见的稀有直升机，非常推荐拿下",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1Fv421k7Xv",
+    "coverImage": "ec-dark-red-ec2-black-rims-穿梭者.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "lustered-ec-dark-red-穿梭者",
+    "name": "Lustered/EC Dark Red 穿梭者",
+    "category": "主线：三人成众",
+    "difficulty": "★★★☆☆",
+    "description": "反正顺手的事，速速获取~",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1TW421w74z",
+    "coverImage": "lustered-ec-dark-red-穿梭者.png",
+    "variantsCount": 1
   }
 ]

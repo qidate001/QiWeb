@@ -1,0 +1,74 @@
+{
+  "id": "lustered-ec-dark-red-穿梭者",
+  "name": "Lustered/EC Dark Red 穿梭者",
+  "category": "主线：三人成众",
+  "difficulty": "★★★☆☆",
+  "description": "反正顺手的事，速速获取~",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1TW421w74z",
+  "routeImage": "",
+  "update_date": "2026-08-08",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "lustered-ec-dark-red-穿梭者.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "葡萄酒红",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "葡萄酒红",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "墨黑色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        744705981,
+        "穿梭者 (Lustered/EC Dark Red)",
+        {
+          "priColor": 34,
+          "secColor": 34,
+          "pearlColor": 1,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 0,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": 0,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 4,
+          "plate": "40LIX799",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "1": 0,
+            "2": 0,
+            "7": 0
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
