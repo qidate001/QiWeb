@@ -495,6 +495,28 @@
     "variantsCount": 1
   },
   {
+    "id": "ec2-sky-blue-绝品-先知xs",
+    "name": "EC2 Sky Blue 绝品 先知XS",
+    "category": "主线：毒窟逃亡",
+    "difficulty": "★★☆☆☆",
+    "description": "蓝的异常，是个人都能察觉是稀有的吧？",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1kj421d7Wo",
+    "coverImage": "ec2-sky-blue-绝品-先知xs.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-ec2-black-rims-水上枭雄-海鲨摩托艇",
+    "name": "EC/EC2 Black Rims 水上枭雄 海鲨摩托艇",
+    "category": "主线：毒窟逃亡",
+    "difficulty": "★★☆☆☆",
+    "description": "有趣的摩托艇，非常好玩",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV17E42157Px",
+    "coverImage": "ec-ec2-black-rims-水上枭雄-海鲨摩托艇_1.png",
+    "variantsCount": 3
+  },
+  {
     "id": "ec-black-lustered-ne-pp-hvy-混凝土搅拌车",
     "name": "EC Black/Lustered/NE/PP HVY 混凝土搅拌车",
     "category": "主线：毒窟逃亡",
