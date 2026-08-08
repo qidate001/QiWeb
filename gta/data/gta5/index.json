@@ -548,5 +548,27 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1fW421R7uP",
     "coverImage": "pp-垃圾大王.png",
     "variantsCount": 1
+  },
+  {
+    "id": "ec-black-lustered-拖吊车",
+    "name": "EC Black/Lustered 拖吊车",
+    "category": "主线：闪电突击",
+    "difficulty": "★★☆☆☆",
+    "description": "难崩小面具，猪猪突击！",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1fW421R7uP",
+    "coverImage": "ec-black-lustered-拖吊车.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-bright-red-ec2-dark-red-rims-欧斯洛-f620",
+    "name": "EC Bright Red/EC2 Dark Red Rims 欧斯洛 F620",
+    "category": "主线：拒不伏法",
+    "difficulty": "★★★★★",
+    "description": "请填写描述",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1Ei421Y7bK",
+    "coverImage": "ec-bright-red-ec2-dark-red-rims-欧斯洛-f620.png",
+    "variantsCount": 1
   }
 ]

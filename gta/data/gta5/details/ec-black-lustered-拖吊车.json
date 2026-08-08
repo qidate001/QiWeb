@@ -1,26 +1,26 @@
 {
-  "id": "pp-垃圾大王",
-  "name": "PP 垃圾大王",
-  "category": "主线：垃圾车",
-  "difficulty": "★★★☆☆",
-  "description": "挺好一辆垃圾车，就是收集麻烦",
+  "id": "ec-black-lustered-拖吊车",
+  "name": "EC Black/Lustered 拖吊车",
+  "category": "主线：闪电突击",
+  "difficulty": "★★☆☆☆",
+  "description": "难崩小面具，猪猪突击！",
   "bilibiliVideo": "https://www.bilibili.com/video/BV1fW421R7uP",
   "routeImage": "",
   "update_date": "2026-08-08",
   "variants": [
     {
       "name": "默认款",
-      "image": "pp-垃圾大王.png",
+      "image": "ec-black-lustered-拖吊车.png",
       "specs": [
         {
           "label": "主色调",
-          "value": "磨损暗蓝色",
+          "value": "黑色",
           "isRare": true
         },
         {
           "label": "副色调",
-          "value": "磨损绿",
-          "isRare": true
+          "value": "黑色",
+          "isRare": false
         },
         {
           "label": "轮胎色",
@@ -29,22 +29,21 @@
         },
         {
           "label": "珠光",
-          "value": "银色",
-          "isRare": true
+          "value": "深钢色",
+          "isRare": false
         }
       ],
       "properties": {
-        "获取难度": "★★★★☆",
-        "收藏价值": "★★★☆☆"
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★☆☆☆☆"
       },
-      "accessory": "防爆胎",
       "explosion_data": [
-        1917016601,
-        "垃圾大王 (PP)",
+        2971866336,
+        "拖吊车 (EC Black/Lustered)",
         {
-          "priColor": 85,
-          "secColor": 59,
-          "pearlColor": 4,
+          "priColor": 0,
+          "secColor": 0,
+          "pearlColor": 3,
           "wheelColor": 156,
           "dialsColor": 0,
           "trimColor": 0,
@@ -57,8 +56,8 @@
           "windowTint": -1,
           "wheelType": 0,
           "lowGripTyres": 0,
-          "plateIndex": 0,
-          "plate": "21CGZ745",
+          "plateIndex": 2,
+          "plate": "85LZN448",
           "mods": {},
           "extras": {}
         }

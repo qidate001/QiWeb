@@ -1,0 +1,73 @@
+{
+  "id": "ec-bright-red-ec2-dark-red-rims-欧斯洛-f620",
+  "name": "EC Bright Red/EC2 Dark Red Rims 欧斯洛 F620",
+  "category": "主线：拒不伏法",
+  "difficulty": "★★★★★",
+  "description": "请填写描述",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1Ei421Y7bK",
+  "routeImage": "",
+  "update_date": "2026-08-08",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec-bright-red-ec2-dark-red-rims-欧斯洛-f620.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "工业红",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "工业红",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "磨损暗红",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "磨损暗红",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★★★★"
+      },
+      "explosion_data": [
+        3703357000,
+        "F620 (EC Bright Red/EC2 Dark Red Rims)",
+        {
+          "priColor": 43,
+          "secColor": 43,
+          "pearlColor": 48,
+          "wheelColor": 48,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 7,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "27UQG582",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 1,
+            "12": 0
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
