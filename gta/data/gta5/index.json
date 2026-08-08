@@ -565,10 +565,32 @@
     "name": "EC Bright Red/EC2 Dark Red Rims 欧斯洛 F620",
     "category": "主线：拒不伏法",
     "difficulty": "★★★★★",
-    "description": "请填写描述",
+    "description": "飙车那任务小富开的那个",
     "update_date": "2026-08-08",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1Ei421Y7bK",
     "coverImage": "ec-bright-red-ec2-dark-red-rims-欧斯洛-f620.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec2-orange-up-傲弗拉-本质xf",
+    "name": "EC2 Orange/UP 傲弗拉 本质XF",
+    "category": "主线：拒不伏法",
+    "difficulty": "★★☆☆☆",
+    "description": "飙车那任务领先那个",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1hH4y1w7k8",
+    "coverImage": "ec2-orange-up-傲弗拉-本质xf.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "up-古罗帝-猎豹",
+    "name": "UP 古罗帝 猎豹",
+    "category": "主线：拒不伏法",
+    "difficulty": "★★☆☆☆",
+    "description": "飙车那任务怼人那个",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1Gz421B7Wi",
+    "coverImage": "up-古罗帝-猎豹.png",
     "variantsCount": 1
   }
 ]
