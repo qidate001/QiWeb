@@ -1,0 +1,72 @@
+{
+  "id": "unique-崔佛菲利普产业-运兵直升机",
+  "name": "Unique 崔佛菲利普产业 运兵直升机",
+  "category": "主线：抢劫梅利威瑟",
+  "difficulty": "★★★★☆",
+  "description": "带有崔佛菲利普产业涂鸦的特殊运兵直升机~",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1Yp42127q4",
+  "routeImage": "",
+  "update_date": "2026-08-08",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "unique-崔佛菲利普产业-运兵直升机.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损白",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损白",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "黑色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★★☆"
+      },
+      "accessory": "崔佛菲利普产业",
+      "explosion_data": [
+        1394036463,
+        "运兵直升机 (Unique)",
+        {
+          "priColor": 121,
+          "secColor": 121,
+          "pearlColor": 0,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 4,
+          "plate": "23DWV277",
+          "mods": {},
+          "extras": {
+            "1": 0,
+            "2": 0
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
