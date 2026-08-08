@@ -53,3 +53,158 @@
 .quick-item ul li a:hover {
     text-decoration: underline;
 }
+
+/* ========================================
+   GTA5 故事模式：上下双行，内部多列网格布局
+   ======================================== */
+.gta5-story-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.story-module-card {
+    background: #2d2d2d;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid #404040;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.story-module-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+}
+
+/* 主线卡片：紫色边框 */
+.story-module-card.main-module {
+    border-left: 5px solid #8b5cf6;
+}
+
+/* 支线卡片：红色边框 */
+.story-module-card.side-module {
+    border-left: 5px solid #e74c3c;
+}
+
+.module-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #404040;
+}
+
+.module-icon {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.module-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #e0e0e0;
+    flex: 1;
+}
+
+.module-count {
+    font-size: 0.8rem;
+    background: #3a3a3a;
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: #94a3b8;
+    white-space: nowrap;
+}
+
+/* --- 内部网格布局 --- */
+.module-list {
+    display: grid;
+    gap: 10px;
+}
+
+/* 主线：三列 */
+.module-list.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* 支线：两列 */
+.module-list.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.task-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #3a3a3a;
+    color: #bdc3c7;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+    text-align: center;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.task-link:hover {
+    background: #4a4a4a;
+    color: #ffffff;
+    border-color: #8b5cf6;
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* 浅色主题适配 */
+body.light-theme .story-module-card {
+    background: #ffffff;
+    border-color: #e0e0e0;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+body.light-theme .story-module-card:hover {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+body.light-theme .module-header {
+    border-bottom-color: #e0e0e0;
+}
+
+body.light-theme .module-header h3 {
+    color: #333333;
+}
+
+body.light-theme .module-count {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+body.light-theme .task-link {
+    background: #f8fafc;
+    color: #555555;
+}
+
+body.light-theme .task-link:hover {
+    background: #e8e8e8;
+    border-color: #8b5cf6;
+}
+
+/* --- 手机适配 --- */
+@media (max-width: 700px) {
+    .module-list.grid-3 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 500px) {
+    .module-list.grid-3,
+    .module-list.grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
