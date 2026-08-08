@@ -526,5 +526,27 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV131421r7ny",
     "coverImage": "ec-black-lustered-ne-up-pp-hvy-混凝土搅拌车.png",
     "variantsCount": 2
+  },
+  {
+    "id": "ec-bright-red-up-绝致-统领",
+    "name": "EC Bright Red/UP 绝致 统领",
+    "category": "主线：瑜伽初体验",
+    "difficulty": "★★★☆☆",
+    "description": "麦克家人离开后麦克的个人载具",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1zH4y1J7yA",
+    "coverImage": "ec-bright-red-up-绝致-统领.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "pp-垃圾大王",
+    "name": "PP 垃圾大王",
+    "category": "主线：垃圾车",
+    "difficulty": "★★★☆☆",
+    "description": "挺好一辆垃圾车，就是收集麻烦",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1fW421R7uP",
+    "coverImage": "pp-垃圾大王.png",
+    "variantsCount": 1
   }
 ]

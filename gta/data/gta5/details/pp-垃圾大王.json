@@ -1,0 +1,69 @@
+{
+  "id": "pp-垃圾大王",
+  "name": "PP 垃圾大王",
+  "category": "主线：垃圾车",
+  "difficulty": "★★★☆☆",
+  "description": "挺好一辆垃圾车，就是收集麻烦",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1fW421R7uP",
+  "routeImage": "",
+  "update_date": "2026-08-08",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "pp-垃圾大王.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损暗蓝色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损绿",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "银色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "accessory": "防爆胎",
+      "explosion_data": [
+        1917016601,
+        "垃圾大王",
+        {
+          "priColor": 85,
+          "secColor": 59,
+          "pearlColor": 4,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "21CGZ745",
+          "mods": {},
+          "extras": {}
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
