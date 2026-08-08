@@ -1,0 +1,129 @@
+{
+  "id": "ec-black-lustered-ne-pp-hvy-混凝土搅拌车",
+  "name": "EC Black/Lustered/NE/PP HVY 混凝土搅拌车",
+  "category": "主线：毒窟逃亡",
+  "difficulty": "★★★★★",
+  "description": "价值极高！非常推荐！",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV131421r7ny",
+  "routeImage": "",
+  "update_date": "2026-08-08",
+  "variants": [
+    {
+      "name": "上时代款",
+      "image": "ec-black-lustered-ne-up-pp-hvy-混凝土搅拌车.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "磨损石墨黑",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "磨损暗影银",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★★★"
+      },
+      "accessory": "无水泥罐、防爆胎、空车牌",
+      "explosion_data": [
+        3510150843,
+        "混凝土搅拌车 (EC Black/Lustered/NE/PP)",
+        {
+          "priColor": 0,
+          "secColor": 0,
+          "pearlColor": 26,
+          "wheelColor": 22,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 0,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": 0,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 3,
+          "plate": "06RFL271",
+          "mods": {},
+          "extras": {
+            "1": 1
+          }
+        }
+      ]
+    },
+    {
+      "name": "次时代款",
+      "image": "ec-black-lustered-ne-pp-hvy-混凝土搅拌车.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "磨损石墨黑",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "磨损暗影银",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★★★"
+      },
+      "accessory": "无水泥罐、防爆胎",
+      "explosion_data": [
+        3510150843,
+        "混凝土搅拌车 (EC Black/Lustered/NE/UP/PP)",
+        {
+          "priColor": 0,
+          "secColor": 0,
+          "pearlColor": 26,
+          "wheelColor": 22,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 0,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": 0,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 3,
+          "plate": "",
+          "mods": {},
+          "extras": {
+            "1": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

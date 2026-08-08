@@ -460,5 +460,27 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1TW421w74z",
     "coverImage": "lustered-ec-dark-red-穿梭者.png",
     "variantsCount": 1
+  },
+  {
+    "id": "ec-ec2-black-rims-bmx",
+    "name": "EC/EC2 Black Rims BMX",
+    "category": "主线：毒窟逃亡",
+    "difficulty": "★★☆☆☆",
+    "description": "GTA SA 的彩蛋载具，刷出全看运气。",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1oJ4m1L7sY",
+    "coverImage": "ec-ec2-black-rims-bmx_1.png",
+    "variantsCount": 3
+  },
+  {
+    "id": "ec-black-lustered-ne-pp-hvy-混凝土搅拌车",
+    "name": "EC Black/Lustered/NE/PP HVY 混凝土搅拌车",
+    "category": "主线：毒窟逃亡",
+    "difficulty": "★★★★★",
+    "description": "价值极高！非常推荐！",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV131421r7ny",
+    "coverImage": "ec-black-lustered-ne-up-pp-hvy-混凝土搅拌车.png",
+    "variantsCount": 2
   }
 ]
