@@ -416,5 +416,16 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1Ry421B7A8",
     "coverImage": "up-拖吊车.png",
     "variantsCount": 1
+  },
+  {
+    "id": "pp-mtl-车辆运送车",
+    "name": "PP MTL 车辆运送车",
+    "category": "主线：小潜水艇",
+    "difficulty": "★☆☆☆☆",
+    "description": "略感麻烦，且价值很一般",
+    "update_date": "2026-08-08",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1gS421N7pC",
+    "coverImage": "pp-mtl-车辆运送车.png",
+    "variantsCount": 1
   }
 ]

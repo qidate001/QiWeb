@@ -1,16 +1,16 @@
 {
-  "id": "lustered-pp-乔氏-魅影",
-  "name": "Lustered/PP 乔氏 魅影",
-  "category": "主线：出名或出丑",
-  "difficulty": "★★☆☆☆",
-  "description": "任务结束老崔开走的那辆",
-  "bilibiliVideo": "https://www.bilibili.com/video/BV1EC411W7Nt",
+  "id": "pp-mtl-车辆运送车",
+  "name": "PP MTL 车辆运送车",
+  "category": "主线：小潜水艇",
+  "difficulty": "★☆☆☆☆",
+  "description": "略感麻烦，且价值很一般",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1gS421N7pC",
   "routeImage": "",
-  "update_date": "2026-08-07",
+  "update_date": "2026-08-08",
   "variants": [
     {
       "name": "默认款",
-      "image": "lustered-pp-乔氏-魅影.png",
+      "image": "pp-mtl-车辆运送车.png",
       "specs": [
         {
           "label": "主色调",
@@ -19,7 +19,7 @@
         },
         {
           "label": "副色调",
-          "value": "黑色",
+          "value": "冰霜白",
           "isRare": false
         },
         {
@@ -29,38 +29,40 @@
         },
         {
           "label": "珠光",
-          "value": "冲浪蓝",
+          "value": "黑钢色",
           "isRare": false
         }
       ],
       "properties": {
         "获取难度": "★★★☆☆",
-        "收藏价值": "★★★☆☆"
+        "收藏价值": "★☆☆☆☆"
       },
       "accessory": "防爆胎",
       "explosion_data": [
-        2157618379,
-        "魅影 (Lustered/PP)",
+        569305213,
+        "车辆运送车 (PP)",
         {
           "priColor": 0,
-          "secColor": 0,
-          "pearlColor": 68,
+          "secColor": 112,
+          "pearlColor": 2,
           "wheelColor": 156,
           "dialsColor": 0,
           "trimColor": 0,
           "customPriColor": 0,
           "customSecColor": 0,
           "tireSmoke": 16777215,
-          "neon": 0,
+          "neon": 16711935,
           "neonState": 0,
           "livery": -1,
-          "windowTint": 0,
+          "windowTint": -1,
           "wheelType": 0,
           "lowGripTyres": 0,
           "plateIndex": 0,
-          "plate": "29UCT427",
+          "plate": "49DEU166",
           "mods": {},
-          "extras": {}
+          "extras": {
+            "1": 1
+          }
         }
       ]
     }
