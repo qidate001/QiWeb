@@ -208,3 +208,26 @@ body.light-theme .task-link:hover {
         grid-template-columns: 1fr;
     }
 }
+
+/* ========================================
+   主线任务：角色悬停颜色
+   ======================================== */
+.task-link.role-franklin:hover {
+    background: rgba(46, 204, 113, 0.2);
+    border-color: #2ecc71;
+}
+
+.task-link.role-michael:hover {
+    background: rgba(52, 152, 219, 0.2);
+    border-color: #3498db;
+}
+
+.task-link.role-trevor:hover {
+    background: rgba(243, 156, 18, 0.2);
+    border-color: #f39c12;
+}
+
+/* 浅色主题保持同样的半透明颜色，但文字颜色稍深一点 */
+body.light-theme .task-link.role-franklin:hover { color: #1a7a42; }
+body.light-theme .task-link.role-michael:hover { color: #1a5a7a; }
+body.light-theme .task-link.role-trevor:hover { color: #a67a1a; }

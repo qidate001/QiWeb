@@ -51,9 +51,23 @@ async function loadVehicleIndex(version) {
 }
 
 // ============================================================
-//  渲染快速开始区域（根据版本分别渲染）
+//  加载任务角色映射配置文件
 // ============================================================
-function renderQuickStart(version, vehicles) {
+async function loadTaskRoles(version) {
+    try {
+        const response = await fetch(`data/${version}/task-roles.json`);
+        if (!response.ok) throw new Error('任务角色配置不存在');
+        return await response.json();
+    } catch (error) {
+        console.warn('加载任务角色配置失败，将使用默认样式:', error);
+        return {}; // 失败时返回空对象，不影响主功能
+    }
+}
+
+// ============================================================
+//  渲染快速开始区域
+// ============================================================
+function renderQuickStart(version, vehicles, taskRoles) {
     const container = document.querySelector('.quick-links');
     if (!container) return;
 
@@ -82,7 +96,7 @@ function renderQuickStart(version, vehicles) {
 
         let html = '<div class="gta5-story-grid">';
 
-        // 1. 生成【主线任务】大卡片（内部三列）
+        // 1. 生成【主线任务】大卡片（内部三列，带角色标识）
         if (uniqueMain.length > 0) {
             html += `
                 <div class="story-module-card main-module">
@@ -92,15 +106,18 @@ function renderQuickStart(version, vehicles) {
                         <span class="module-count">${uniqueMain.length} 个分类</span>
                     </div>
                     <div class="module-list grid-3">
-                        ${uniqueMain.map(cat => `
-                            <a href="vehicles.html?category=${encodeURIComponent(cat)}&version=gta5" class="task-link">→ ${cat}</a>
-                        `).join('')}
+                        ${uniqueMain.map(cat => {
+                            const displayName = cat.replace(/^主线[：:]/, '');
+                            // 👇 从配置文件中读取角色，读取不到则 fallback 为 default
+                            const role = taskRoles[displayName] || 'default';
+                            return `<a href="vehicles.html?category=${encodeURIComponent(cat)}&version=gta5" class="task-link role-${role}">${displayName}</a>`;
+                        }).join('')}
                     </div>
                 </div>
             `;
         }
 
-        // 2. 生成【陌生人与怪胎】大卡片（内部两列）
+        // 2. 生成【陌生人与怪胎】大卡片（内部两列，无角色标识）
         if (uniqueSide.length > 0) {
             html += `
                 <div class="story-module-card side-module">
@@ -110,9 +127,10 @@ function renderQuickStart(version, vehicles) {
                         <span class="module-count">${uniqueSide.length} 个分类</span>
                     </div>
                     <div class="module-list grid-2">
-                        ${uniqueSide.map(cat => `
-                            <a href="vehicles.html?category=${encodeURIComponent(cat)}&version=gta5" class="task-link">→ ${cat}</a>
-                        `).join('')}
+                        ${uniqueSide.map(cat => {
+                            const displayName = cat.replace(/^支线[：:]/, '');
+                            return `<a href="vehicles.html?category=${encodeURIComponent(cat)}&version=gta5" class="task-link">${displayName}</a>`;
+                        }).join('')}
                     </div>
                 </div>
             `;
@@ -122,7 +140,7 @@ function renderQuickStart(version, vehicles) {
         container.innerHTML = html || '<p style="text-align:center; color:#94a3b8;">暂无分类数据</p>';
 
     } else {
-        // ===== GTA5 Online：保持原来的三块结构（代码保持不变） =====
+        // ===== GTA5 Online：保持原来的三块结构 =====
         container.innerHTML = `
             <div class="quick-item">
                 <h3>按分类浏览</h3>
@@ -142,7 +160,7 @@ function renderQuickStart(version, vehicles) {
             </div>
         `;
 
-        // 动态填充分类和推荐（原有逻辑）
+        // 动态填充分类和推荐
         const categories = new Set();
         vehicles.forEach(v => { if (v.category) categories.add(v.category); });
         const categoryContainer = document.getElementById('categoryLinks');
@@ -224,13 +242,16 @@ async function initPage() {
         btn.style.color = btn.dataset.version === version ? '#fff' : '#aaa';
     });
 
-    // 1. 加载车辆数据（只请求一次）
+    // 1. 加载车辆数据
     const vehicles = await loadVehicleIndex(version);
 
-    // 2. 根据版本渲染快速开始区域
-    renderQuickStart(version, vehicles);
+    // 2. 加载角色映射配置
+    const taskRoles = await loadTaskRoles(version);
 
-    // 3. 更新统计信息
+    // 3. 根据版本渲染快速开始区域（同时传入角色配置）
+    renderQuickStart(version, vehicles, taskRoles);
+
+    // 4. 更新统计信息
     const totalVehicles = vehicles.length;
     const totalVariants = vehicles.reduce((sum, v) => sum + (v.variantsCount || 0), 0);
     let lastDate = '';
