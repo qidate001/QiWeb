@@ -1,0 +1,72 @@
+{
+  "id": "ec-black-and-red-ec2-black-rims-长崎-小艇",
+  "name": "EC Black and Red/EC2 Black Rims 长崎 小艇",
+  "category": "主线：脱轨而出",
+  "difficulty": "★★★★★",
+  "description": "超奈斯的四隐藏载具！极其简单！非常推荐！",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1Br421K7h3",
+  "routeImage": "",
+  "update_date": "2026-08-09",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec-black-and-red-ec2-black-rims-长崎-小艇.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "墨黑色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损红",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "黑色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "磨损白",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★★★★"
+      },
+      "explosion_data": [
+        276773164,
+        "小艇 (EC Black and Red/EC2 Black Rims)",
+        {
+          "priColor": 1,
+          "secColor": 46,
+          "pearlColor": 132,
+          "wheelColor": 0,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 4,
+          "plate": "86OQN964",
+          "mods": {},
+          "extras": {
+            "1": 1,
+            "2": 1,
+            "3": 0
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
