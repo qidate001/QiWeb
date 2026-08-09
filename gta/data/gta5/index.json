@@ -658,5 +658,27 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1i1421t7Rg",
     "coverImage": "up-悠游-行者.png",
     "variantsCount": 1
+  },
+  {
+    "id": "up-ec2-silver-浪子-jb700",
+    "name": "UP/EC2 Silver 浪子 JB700",
+    "category": "主线：谍影重重",
+    "difficulty": "★★☆☆☆",
+    "description": "就去制片厂合法拿有个傻逼女明星的那车",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1TE4m1972j",
+    "coverImage": "up-ec2-silver-浪子-jb700.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-yellow-撒药机",
+    "name": "EC Yellow 撒药机",
+    "category": "主线：有惊无险",
+    "difficulty": "★★★★★",
+    "description": "崔佛开着这小飞机冲进货机里了！",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "",
+    "coverImage": "ec-yellow-撒药机.png",
+    "variantsCount": 1
   }
 ]
