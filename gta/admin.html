@@ -1173,34 +1173,34 @@
             };
 
             const detailsHtml = methodData.details ? Object.entries(methodData.details).map(([key, value]) => `
-                    <div class="detail-group">
-                        <input class="form-control" style="flex:0.7;" placeholder="条件" value="${key}">
-                        <input class="form-control" placeholder="值" value="${value}">
-                        <button type="button" class="btn-remove-item" onclick="this.closest('.detail-group').remove()">✕</button>
-                    </div>
-                `).join('') : '';
+                <div class="detail-group">
+                    <input class="form-control" style="flex:0.7;" placeholder="条件" value="${key}">
+                    <input class="form-control" placeholder="值" value="${value}">
+                    <button type="button" class="btn-remove-item" onclick="this.closest('.detail-group').remove()">✕</button>
+                </div>
+            `).join('') : '';
 
             div.innerHTML = `
-                    <button type="button" class="remove-btn" onclick="this.closest('.card-item').remove()">✕</button>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
-                        <input class="form-control" placeholder="标题" value="${methodData.title || ''}">
-                        <input class="form-control" placeholder="编号 (数字)" value="${methodData.number || ''}">
-                    </div>
-                    <div class="sub-label">📌 详情条件</div>
-                    <div class="method-details-wrapper">${detailsHtml || '<div style="color:#94a3b8;font-size:0.8rem;padding:4px 0;">暂无条件</div>'}</div>
-                    <button type="button" class="btn-add" style="font-size:0.7rem; padding:3px 12px; margin:4px 0;" onclick="addMethodDetail(this)">＋ 添加条件</button>
+                <button type="button" class="remove-btn" onclick="this.closest('.card-item').remove()">✕</button>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+                    <input class="form-control method-title" placeholder="标题" value="${methodData.title || ''}">
+                    <input class="form-control method-number" placeholder="编号 (数字)" value="${methodData.number || ''}">
+                </div>
+                <div class="sub-label">📌 详情条件</div>
+                <div class="method-details-wrapper">${detailsHtml || '<div style="color:#94a3b8;font-size:0.8rem;padding:4px 0;">暂无条件</div>'}</div>
+                <button type="button" class="btn-add" style="font-size:0.7rem; padding:3px 12px; margin:4px 0;" onclick="addMethodDetail(this)">＋ 添加条件</button>
 
-                    <div style="margin-top:8px;">
-                        <input class="form-control" placeholder="简介" value="${methodData.intro || ''}">
-                    </div>
-                    <div style="margin-top:6px;">
-                        <textarea class="form-control" rows="2" placeholder="描述">${methodData.description || ''}</textarea>
-                    </div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px;">
-                        <input class="form-control" placeholder="备注链接" value="${methodData.noteLink || ''}">
-                        <input class="form-control" placeholder="备注文字" value="${methodData.noteText || ''}">
-                    </div>
-                `;
+                <div style="margin-top:8px;">
+                    <input class="form-control method-intro" placeholder="简介" value="${methodData.intro || ''}">
+                </div>
+                <div style="margin-top:6px;">
+                    <textarea class="form-control method-description" rows="2" placeholder="描述">${methodData.description || ''}</textarea>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px;">
+                    <input class="form-control method-noteLink" placeholder="备注链接" value="${methodData.noteLink || ''}">
+                    <input class="form-control method-noteText" placeholder="备注文字" value="${methodData.noteText || ''}">
+                </div>
+            `;
             container.appendChild(div);
         }
 
@@ -1270,26 +1270,32 @@
             const items = document.querySelectorAll('#methodsContainer .card-item');
             const result = [];
             items.forEach(el => {
-                const inputs = el.querySelectorAll('input');
-                const textareas = el.querySelectorAll('textarea');
-                if (inputs.length < 2) return;
-                const title = inputs[0]?.value || '';
-                const number = parseInt(inputs[1]?.value) || 0;
-                if (!title) return;
+                const titleInput = el.querySelector('.method-title');
+                const numberInput = el.querySelector('.method-number');
+                const introInput = el.querySelector('.method-intro');
+                const noteLinkInput = el.querySelector('.method-noteLink');
+                const noteTextInput = el.querySelector('.method-noteText');
+                const descriptionTextarea = el.querySelector('.method-description');
 
+                const title = titleInput ? titleInput.value.trim() : '';
+                const number = parseInt(numberInput ? numberInput.value : 0, 10) || 0;
+                if (!title) return; // 标题为空则跳过
+
+                // 收集详情条件
                 const details = {};
                 const detailGroups = el.querySelectorAll('.method-details-wrapper .detail-group');
                 detailGroups.forEach(dg => {
                     const dgInputs = dg.querySelectorAll('input');
-                    if (dgInputs.length < 2) return;
-                    const key = dgInputs[0].value.trim();
-                    if (key) details[key] = dgInputs[1].value || '';
+                    if (dgInputs.length >= 2) {
+                        const key = dgInputs[0].value.trim();
+                        if (key) details[key] = dgInputs[1].value || '';
+                    }
                 });
 
-                const intro = inputs[2]?.value || '';
-                const description = textareas[0]?.value || '';
-                const noteLink = inputs[3]?.value || '';
-                const noteText = inputs[4]?.value || '';
+                const intro = introInput ? introInput.value : '';
+                const description = descriptionTextarea ? descriptionTextarea.value : '';
+                const noteLink = noteLinkInput ? noteLinkInput.value : '';
+                const noteText = noteTextInput ? noteTextInput.value : '';
 
                 result.push({ title, number, details, intro, description, noteLink, noteText });
             });
