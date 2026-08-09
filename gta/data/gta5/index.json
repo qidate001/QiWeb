@@ -790,5 +790,38 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1Br421K7h3",
     "coverImage": "ec-black-and-red-ec2-black-rims-长崎-小艇.png",
     "variantsCount": 1
+  },
+  {
+    "id": "ec-dark-red-ec2-dark-red-rims-威皮-沙德勒",
+    "name": "EC Dark Red/EC2 Dark Red Rims 威皮 沙德勒",
+    "category": "主线：脱轨而出",
+    "difficulty": "★★★★★",
+    "description": "超级有趣的沙德勒，脱身载具之一",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1ME421A75S",
+    "coverImage": "ec-dark-red-ec2-dark-red-rims-威皮-沙德勒.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ne-毕福-沙丘征服者",
+    "name": "NE 毕福 沙丘征服者",
+    "category": "主线：脱轨而出",
+    "difficulty": "★★★☆☆",
+    "description": "超级有趣的沙丘征服者，脱身载具之一",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1NkvveRE9e",
+    "coverImage": "ne-毕福-沙丘征服者.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "lustered-ec-black-长崎-小艇",
+    "name": "Lustered/EC Black 长崎 小艇",
+    "category": "零散系列",
+    "difficulty": "★★☆☆☆",
+    "description": "请填写描述",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV17qiMeTEtn",
+    "coverImage": "lustered-ec-black-长崎-小艇.png",
+    "variantsCount": 1
   }
 ]

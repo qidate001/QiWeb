@@ -1,0 +1,71 @@
+{
+  "id": "lustered-ec-black-长崎-小艇",
+  "name": "Lustered/EC Black 长崎 小艇",
+  "category": "零散系列",
+  "difficulty": "★★☆☆☆",
+  "description": "请填写描述",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV17qiMeTEtn",
+  "routeImage": "",
+  "update_date": "2026-08-09",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "lustered-ec-black-长崎-小艇.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        1033245328,
+        "小艇 (Lustered/EC Black)",
+        {
+          "priColor": 0,
+          "secColor": 0,
+          "pearlColor": 0,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 4,
+          "plate": "02GOR319",
+          "mods": {},
+          "extras": {
+            "2": 1,
+            "3": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
