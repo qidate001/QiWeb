@@ -141,3 +141,27 @@ body.light-theme a:hover {
     border: 5px solid rgba(255,255,255,0.3);
     margin-bottom: 20px;
 }
+
+/* 导航栏主题切换按钮 */
+.theme-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ecf0f1;
+    padding: 4px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+.theme-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+body.light-theme .theme-btn {
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #333;
+    background: rgba(0, 0, 0, 0.05);
+}
+body.light-theme .theme-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
