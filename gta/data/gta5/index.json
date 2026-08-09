@@ -614,5 +614,49 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1Gz421B7Wi",
     "coverImage": "up-古罗帝-猎豹.png",
     "variantsCount": 1
+  },
+  {
+    "id": "ec-black-door-frames-警用小蛮牛",
+    "name": "EC Black Door Frames 警用小蛮牛",
+    "category": "主线：天网恢恢",
+    "difficulty": "★★★☆☆",
+    "description": "冷知识，Z型反而不稀有，这直升机倒是稀有滴",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1R6421Z7GN",
+    "coverImage": "ec-black-door-frames-警用小蛮牛.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec2-white-lustered-赛乐斯特-眩光",
+    "name": "EC2 White/Lustered 赛乐斯特 眩光",
+    "category": "主线：飞机事故",
+    "difficulty": "★★☆☆☆",
+    "description": "任务进行前随手拿下就行，但价值很低",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1RW421R7wM",
+    "coverImage": "ec2-white-lustered-赛乐斯特-眩光_1.png",
+    "variantsCount": 3
+  },
+  {
+    "id": "ec2-black-lustered-绝致-屌客",
+    "name": "EC2 Black/Lustered 绝致 屌客",
+    "category": "主线：飞机事故",
+    "difficulty": "★★☆☆☆",
+    "description": "反器材狙击枪打大飞机那个车",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1eS421X7t3",
+    "coverImage": "ec2-black-lustered-绝致-屌客.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "up-悠游-行者",
+    "name": "UP 悠游 行者",
+    "category": "主线：飞机事故",
+    "difficulty": "★★★☆☆",
+    "description": "马德拉斯那傻逼的车",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1i1421t7Rg",
+    "coverImage": "up-悠游-行者.png",
+    "variantsCount": 1
   }
 ]

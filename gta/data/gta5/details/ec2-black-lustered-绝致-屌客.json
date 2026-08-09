@@ -1,0 +1,74 @@
+{
+  "id": "ec2-black-lustered-绝致-屌客",
+  "name": "EC2 Black/Lustered 绝致 屌客",
+  "category": "主线：飞机事故",
+  "difficulty": "★★☆☆☆",
+  "description": "反器材狙击枪打大飞机那个车",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1eS421X7t3",
+  "routeImage": "",
+  "update_date": "2026-08-09",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec2-black-lustered-绝致-屌客.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "黑色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "煤黑色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★☆☆☆"
+      },
+      "explosion_data": [
+        2551651283,
+        "屌客 (EC2 Black/Lustered)",
+        {
+          "priColor": 0,
+          "secColor": 0,
+          "pearlColor": 11,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 1,
+          "lowGripTyres": 0,
+          "plateIndex": 3,
+          "plate": "09PRL334",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 0,
+            "11": 1,
+            "12": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
