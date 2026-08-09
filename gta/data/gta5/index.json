@@ -660,6 +660,17 @@
     "variantsCount": 1
   },
   {
+    "id": "pp-诗津-烈阳号",
+    "name": "PP 诗津 烈阳号",
+    "category": "主线：飞机事故",
+    "difficulty": "★☆☆☆☆",
+    "description": "幽默载具，防爆胎船只。",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1X142147x1",
+    "coverImage": "pp-诗津-烈阳号.png",
+    "variantsCount": 1
+  },
+  {
     "id": "up-ec2-silver-浪子-jb700",
     "name": "UP/EC2 Silver 浪子 JB700",
     "category": "主线：谍影重重",
@@ -679,6 +690,17 @@
     "update_date": "2026-08-09",
     "bilibiliVideo": "",
     "coverImage": "ec-yellow-撒药机.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-black-rims-unique-梅利威瑟-卡尼斯-炎魔",
+    "name": "EC Black Rims/Unique 梅利威瑟 卡尼斯 炎魔",
+    "category": "主线：有惊无险",
+    "difficulty": "★★☆☆☆",
+    "description": "这车有四处获取机会",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV17b421J77o",
+    "coverImage": "ec-black-rims-unique-梅利威瑟-卡尼斯-炎魔.png",
     "variantsCount": 1
   }
 ]

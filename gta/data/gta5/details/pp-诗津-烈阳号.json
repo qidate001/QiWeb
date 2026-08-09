@@ -1,0 +1,89 @@
+{
+  "id": "pp-诗津-烈阳号",
+  "name": "PP 诗津 烈阳号",
+  "category": "主线：飞机事故",
+  "difficulty": "★☆☆☆☆",
+  "description": "幽默载具，防爆胎船只。",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1X142147x1",
+  "routeImage": "",
+  "update_date": "2026-08-09",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "pp-诗津-烈阳号.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损白",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "煤黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "幽影银",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★☆☆☆☆"
+      },
+      "accessory": "防爆胎",
+      "explosion_data": [
+        290013743,
+        "烈阳号 (PP)",
+        {
+          "priColor": 121,
+          "secColor": 11,
+          "pearlColor": 7,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 0,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": 0,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 4,
+          "plate": "01FGC466",
+          "mods": {},
+          "extras": {
+            "1": 1,
+            "2": 1,
+            "3": 0,
+            "4": 1,
+            "5": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "title": "获取方法",
+      "number": 1,
+      "details": {
+        "篇章": "飞机事故后",
+        "天气": "晴天",
+        "时间": "白天"
+      },
+      "intro": "",
+      "description": "完成主线“飞机事故”后进入下一篇章，切换至麦克时，有概率麦克正驾驶该载具。\nSL刷就行",
+      "noteLink": "",
+      "noteText": ""
+    }
+  ]
+}
