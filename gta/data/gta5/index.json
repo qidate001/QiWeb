@@ -724,5 +724,38 @@
     "bilibiliVideo": "",
     "coverImage": "ec-white-lustered-绝致-军刀涡轮.png",
     "variantsCount": 1
+  },
+  {
+    "id": "ec-white-lustered-威皮-辐光",
+    "name": "EC White/Lustered 威皮 辐光",
+    "category": "主线：狩猎之夜",
+    "difficulty": "★★★★☆",
+    "description": "白的显眼的辐光，一看就稀有~",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1YgT567Es3",
+    "coverImage": "ec-white-lustered-威皮-辐光.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-dark-red-door-frames-穿梭者",
+    "name": "EC Dark Red Door Frames 穿梭者",
+    "category": "主线：狩猎之夜",
+    "difficulty": "★★★★☆",
+    "description": "带有崔佛菲利普产业涂鸦的特殊穿梭者~",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1D4421Z7Bt",
+    "coverImage": "ec-dark-red-door-frames-穿梭者.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "狩猎之夜-sp-亚班尼-骑兵",
+    "name": "SP 亚班尼 骑兵",
+    "category": "主线：狩猎之夜",
+    "difficulty": "★☆☆☆☆",
+    "description": "任务完成后切换到小富就有了。",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1D4421Z7Bt",
+    "coverImage": "狩猎之夜-sp-亚班尼-骑兵.png",
+    "variantsCount": 1
   }
 ]
