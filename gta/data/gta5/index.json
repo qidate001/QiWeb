@@ -845,5 +845,38 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1TVi7eyEnS",
     "coverImage": "ec-black-lustered-pp-乔氏-搬运者.png",
     "variantsCount": 1
+  },
+  {
+    "id": "unique-威皮-小丑花车",
+    "name": "Unique 威皮 小丑花车",
+    "category": "支线：烟草战士 - 崔佛",
+    "difficulty": "★★★★☆",
+    "description": "耳熟能详吧？",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1Uu1RYsECD",
+    "coverImage": "unique-威皮-小丑花车.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-red-lustered-拖吊车",
+    "name": "EC Red/Lustered 拖吊车",
+    "category": "支线：烟草战士 - 连托带拉",
+    "difficulty": "★★☆☆☆",
+    "description": "拖走被拖走的发动机坏了的那个的托车",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV16D28YVE68",
+    "coverImage": "ec-red-lustered-拖吊车.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-blue-亚班尼-皇霸天",
+    "name": "EC Blue 亚班尼 皇霸天",
+    "category": "支线：烟草战士 - 连托带拉",
+    "difficulty": "★★★☆☆",
+    "description": "被拖走的发动机坏了的那个",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "",
+    "coverImage": "ec-blue-亚班尼-皇霸天.png",
+    "variantsCount": 1
   }
 ]

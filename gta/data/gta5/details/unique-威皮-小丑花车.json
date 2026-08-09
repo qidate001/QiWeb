@@ -1,0 +1,70 @@
+{
+  "id": "unique-威皮-小丑花车",
+  "name": "Unique 威皮 小丑花车",
+  "category": "支线：烟草战士 - 崔佛",
+  "difficulty": "★★★★☆",
+  "description": "耳熟能详吧？",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1Uu1RYsECD",
+  "routeImage": "",
+  "update_date": "2026-08-09",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "unique-威皮-小丑花车.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "冰霜白",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "优雅红",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★★★☆"
+      },
+      "explosion_data": [
+        728614474,
+        "小丑花车 (Unique)",
+        {
+          "priColor": 131,
+          "secColor": 0,
+          "pearlColor": 31,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 1,
+          "lowGripTyres": 0,
+          "plateIndex": 1,
+          "plate": "46IND546",
+          "mods": {
+            "22": 0
+          },
+          "extras": {}
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

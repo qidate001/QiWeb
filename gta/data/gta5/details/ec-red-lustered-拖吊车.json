@@ -1,0 +1,43 @@
+{
+  "id": "ec-red-lustered-拖吊车",
+  "name": "EC Red/Lustered 拖吊车",
+  "category": "支线：烟草战士 - 连托带拉",
+  "difficulty": "★★☆☆☆",
+  "description": "拖走被拖走的发动机坏了的那个的托车",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV16D28YVE68",
+  "routeImage": "",
+  "update_date": "2026-08-09",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec-red-lustered-拖吊车.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "红色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "工业红",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "深钢色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      }
+    }
+  ],
+  "methods": []
+}
