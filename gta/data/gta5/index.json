@@ -721,7 +721,7 @@
     "difficulty": "★★★★☆",
     "description": "白的显眼的军刀涡轮，一看就稀有~",
     "update_date": "2026-08-09",
-    "bilibiliVideo": "",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1V8TP69EqS",
     "coverImage": "ec-white-lustered-绝致-军刀涡轮.png",
     "variantsCount": 1
   },
@@ -756,6 +756,28 @@
     "update_date": "2026-08-09",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1D4421Z7Bt",
     "coverImage": "狩猎之夜-sp-亚班尼-骑兵.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "pp-地霸王",
+    "name": "PP 地霸王",
+    "category": "主线：军用装备",
+    "difficulty": "★☆☆☆☆",
+    "description": "获取麻烦，价值不大，不推荐",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1rE4m1R7Vf",
+    "coverImage": "pp-地藏王.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec2-white-lustered-绝致-屌客",
+    "name": "EC2 White/Lustered 绝致 屌客",
+    "category": "主线：佩立托劫案",
+    "difficulty": "★★★☆☆",
+    "description": "类似ol的科学家系列的屌客",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1V4421f7TK",
+    "coverImage": "ec2-white-lustered-绝致-屌客.png",
     "variantsCount": 1
   }
 ]
