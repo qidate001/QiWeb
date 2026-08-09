@@ -1,16 +1,16 @@
 {
-  "id": "lustered-ec-black-长崎-小艇",
-  "name": "Lustered/EC Black 长崎 小艇",
+  "id": "ec-black-lustered-pp-乔氏-搬运者",
+  "name": "EC Black/Lustered/PP 乔氏 搬运者",
   "category": "主线：不法勾当",
   "difficulty": "★★★☆☆",
-  "description": "就停在边上，打断任务即可获得",
-  "bilibiliVideo": "https://www.bilibili.com/video/BV17qiMeTEtn",
+  "description": "把神经毒素拉走的那个卡车",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1TVi7eyEnS",
   "routeImage": "",
   "update_date": "2026-08-09",
   "variants": [
     {
       "name": "默认款",
-      "image": "lustered-ec-black-长崎-小艇.png",
+      "image": "ec-black-lustered-pp-乔氏-搬运者.png",
       "specs": [
         {
           "label": "主色调",
@@ -29,21 +29,21 @@
         },
         {
           "label": "珠光",
-          "value": "黑色",
+          "value": "金属香槟色",
           "isRare": true
         }
       ],
       "properties": {
-        "获取难度": "★☆☆☆☆",
+        "获取难度": "★★★☆☆",
         "收藏价值": "★★★☆☆"
       },
       "explosion_data": [
-        1033245328,
-        "小艇 (Lustered/EC Black)",
+        1518533038,
+        "搬运者 (EC Black/Lustered/PP)",
         {
           "priColor": 0,
           "secColor": 0,
-          "pearlColor": 0,
+          "pearlColor": 93,
           "wheelColor": 156,
           "dialsColor": 0,
           "trimColor": 0,
@@ -56,12 +56,11 @@
           "windowTint": -1,
           "wheelType": 0,
           "lowGripTyres": 0,
-          "plateIndex": 4,
-          "plate": "02GOR319",
+          "plateIndex": 3,
+          "plate": "04XLY077",
           "mods": {},
           "extras": {
-            "2": 1,
-            "3": 1
+            "1": 0
           }
         }
       ]

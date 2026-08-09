@@ -816,12 +816,34 @@
   {
     "id": "lustered-ec-black-长崎-小艇",
     "name": "Lustered/EC Black 长崎 小艇",
-    "category": "零散系列",
-    "difficulty": "★★☆☆☆",
-    "description": "请填写描述",
+    "category": "主线：不法勾当",
+    "difficulty": "★★★☆☆",
+    "description": "就停在边上，打断任务即可获得",
     "update_date": "2026-08-09",
     "bilibiliVideo": "https://www.bilibili.com/video/BV17qiMeTEtn",
     "coverImage": "lustered-ec-black-长崎-小艇.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "unique-杰特森-军用货物运输直升机",
+    "name": "Unique 杰特森 军用货物运输直升机",
+    "category": "主线：不法勾当",
+    "difficulty": "★★☆☆☆",
+    "description": "就花老多钱买的那个直升机",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1dwvfeuEDj",
+    "coverImage": "unique-杰特森-军用货物运输直升机.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-black-lustered-pp-乔氏-搬运者",
+    "name": "EC Black/Lustered/PP 乔氏 搬运者",
+    "category": "主线：不法勾当",
+    "difficulty": "★★★☆☆",
+    "description": "把神经毒素拉走的那个卡车",
+    "update_date": "2026-08-09",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1TVi7eyEnS",
+    "coverImage": "ec-black-lustered-pp-乔氏-搬运者.png",
     "variantsCount": 1
   }
 ]
