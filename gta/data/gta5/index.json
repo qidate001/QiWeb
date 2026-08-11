@@ -950,10 +950,32 @@
     "name": "EC2 Yellow/UP 佩嘉西 门罗",
     "category": "主线：排除万难",
     "difficulty": "★★★☆☆",
-    "description": "请填写描述",
+    "description": "拉玛偷的那个载具",
     "update_date": "2026-08-11",
-    "bilibiliVideo": "",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1fieTecEbx",
     "coverImage": "ec2-yellow-up-佩嘉西-门罗.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "排除万难-pp-mtl-车辆运送车",
+    "name": "PP MTL 车辆运送车",
+    "category": "主线：排除万难",
+    "difficulty": "★★☆☆☆",
+    "description": "就那个运送车",
+    "update_date": "2026-08-11",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1P5eGeQEAR",
+    "coverImage": "排除万难-pp-mtl-车辆运送车.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "up-ec2-silver-ec2-silver-rims-浪子-jb700",
+    "name": "UP/EC2 Silver/EC2 Silver Rims 浪子 JB700",
+    "category": "主线：排除万难",
+    "difficulty": "★★★★☆",
+    "description": "非常少见的高价值载具捏",
+    "update_date": "2026-08-11",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1uFWceKEmo",
+    "coverImage": "up-ec2-silver-ec2-silver-rims-浪子-jb700.png",
     "variantsCount": 1
   },
   {

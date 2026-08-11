@@ -1,0 +1,44 @@
+{
+  "id": "up-ec2-silver-ec2-silver-rims-浪子-jb700",
+  "name": "UP/EC2 Silver/EC2 Silver Rims 浪子 JB700",
+  "category": "主线：排除万难",
+  "difficulty": "★★★★☆",
+  "description": "非常少见的高价值载具捏",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1uFWceKEmo",
+  "routeImage": "",
+  "update_date": "2026-08-11",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "up-ec2-silver-ec2-silver-rims-浪子-jb700.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "深钢色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "深钢色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "深钢色",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "深钢色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★★☆"
+      },
+      "accessory": "特殊车牌：4G3NT"
+    }
+  ],
+  "methods": []
+}
