@@ -1,0 +1,77 @@
+{
+  "id": "unique-北扬克顿-威皮-沙德勒",
+  "name": "Unique 北扬克顿 威皮 沙德勒",
+  "category": "主线：真相大白",
+  "difficulty": "★★★☆☆",
+  "description": "北洋克顿特殊NPC载具",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1AEYbeFE7a",
+  "routeImage": "",
+  "update_date": "2026-08-11",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "unique-北扬克顿-威皮-沙德勒.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "午夜银",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "午夜银",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "幽影银",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "accessory": "积雪",
+      "explosion_data": [
+        734217681,
+        "沙德勒 (Unique 北扬克顿)",
+        {
+          "priColor": 9,
+          "secColor": 9,
+          "pearlColor": 7,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 3,
+          "lowGripTyres": 0,
+          "plateIndex": 5,
+          "plate": "82BGU544",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "1": 1,
+            "2": 1,
+            "3": 0,
+            "10": 0,
+            "12": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

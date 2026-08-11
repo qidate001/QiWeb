@@ -891,6 +891,28 @@
     "variantsCount": 1
   },
   {
+    "id": "unique-北扬克顿-威皮-沙德勒",
+    "name": "Unique 北扬克顿 威皮 沙德勒",
+    "category": "主线：真相大白",
+    "difficulty": "★★★☆☆",
+    "description": "北洋克顿特殊NPC载具",
+    "update_date": "2026-08-11",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1AEYbeFE7a",
+    "coverImage": "unique-北扬克顿-威皮-沙德勒.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "unique-北扬克顿-亚班尼-皇霸天",
+    "name": "Unique 北扬克顿 亚班尼 皇霸天",
+    "category": "主线：真相大白",
+    "difficulty": "★★☆☆☆",
+    "description": "北洋克顿特殊NPC载具",
+    "update_date": "2026-08-11",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1XJYEemEAk",
+    "coverImage": "unique-北扬克顿-亚班尼-皇霸天.png",
+    "variantsCount": 1
+  },
+  {
     "id": "unique-威皮-小丑花车",
     "name": "Unique 威皮 小丑花车",
     "category": "支线：烟草战士 - 崔佛",
