@@ -176,8 +176,8 @@
     "variantsCount": 1
   },
   {
-    "id": "sp-威皮-劲速",
-    "name": "SP 威皮 劲速",
+    "id": "up-威皮-劲速",
+    "name": "UP 威皮 劲速",
     "category": "主线：小查",
     "difficulty": "★★☆☆☆",
     "description": "特殊车牌载具，任务完成记得顺走",
@@ -987,6 +987,28 @@
     "update_date": "2026-08-11",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1GCWNepEni",
     "coverImage": "up-兰帕达缇-恶龙.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec2-green-lustered-冒险家-野牛",
+    "name": "EC2 Green/Lustered 冒险家 野牛",
+    "category": "主线：任人宰割",
+    "difficulty": "★★☆☆☆",
+    "description": "就入厂门口停着的那个，但获取机器麻烦",
+    "update_date": "2026-08-11",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1oCMu6VEcu",
+    "coverImage": "ec2-green-lustered-冒险家-野牛.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "sp-ec2-red-威皮-史塔尼亚",
+    "name": "SP/EC2 Red 威皮 史塔尼亚",
+    "category": "主线：FIB清洁工",
+    "difficulty": "★★★☆☆",
+    "description": "就被我们跟踪的那个清洁工的车",
+    "update_date": "2026-08-11",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV11np2esEi5",
+    "coverImage": "sp-ec2-red-威皮-史塔尼亚.png",
     "variantsCount": 1
   },
   {

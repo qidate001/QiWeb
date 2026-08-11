@@ -1,0 +1,73 @@
+{
+  "id": "sp-ec2-red-威皮-史塔尼亚",
+  "name": "SP/EC2 Red 威皮 史塔尼亚",
+  "category": "主线：FIB清洁工",
+  "difficulty": "★★★☆☆",
+  "description": "就被我们跟踪的那个清洁工的车",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV11np2esEi5",
+  "routeImage": "",
+  "update_date": "2026-08-11",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "sp-ec2-red-威皮-史塔尼亚.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "糖果红",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "糖果红",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "日落红",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "日落红",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★☆☆☆"
+      },
+      "accessory": "固定车牌：83QSL722",
+      "explosion_data": [
+        2817386317,
+        "史塔尼亚 (SP/EC2 Red)",
+        {
+          "priColor": 35,
+          "secColor": 35,
+          "pearlColor": 33,
+          "wheelColor": 33,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 1,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "83QSL722",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 0
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
