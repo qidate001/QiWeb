@@ -869,6 +869,28 @@
     "variantsCount": 1
   },
   {
+    "id": "lustered-up-unique-北扬克顿-绝致-海致",
+    "name": "Lustered/UP/Unique 北扬克顿 绝致 海致",
+    "category": "主线：真相大白",
+    "difficulty": "★★★★☆",
+    "description": "麦克开的那个",
+    "update_date": "2026-08-11",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1aoake2ERn",
+    "coverImage": "lustered-up-unique-北扬克顿-绝致-海致.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "unique-北扬克顿-绝致-蓝彻xl",
+    "name": "Unique 北扬克顿 绝致 蓝彻XL",
+    "category": "主线：真相大白",
+    "difficulty": "★★★☆☆",
+    "description": "北洋克顿特殊NPC载具",
+    "update_date": "2026-08-11",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1QYaDeNEv2",
+    "coverImage": "unique-北扬克顿-绝致-蓝彻xl.png",
+    "variantsCount": 1
+  },
+  {
     "id": "unique-威皮-小丑花车",
     "name": "Unique 威皮 小丑花车",
     "category": "支线：烟草战士 - 崔佛",
@@ -899,17 +921,6 @@
     "update_date": "2026-08-09",
     "bilibiliVideo": "",
     "coverImage": "ec-blue-亚班尼-皇霸天.png",
-    "variantsCount": 1
-  },
-  {
-    "id": "lustered-up-unique-北扬克顿-绝致-海致",
-    "name": "Lustered/UP/Unique 北扬克顿 绝致 海致",
-    "category": "主线：真相大白",
-    "difficulty": "★★☆☆☆",
-    "description": "请填写描述",
-    "update_date": "2026-08-11",
-    "bilibiliVideo": "",
-    "coverImage": "lustered-up-unique-北扬克顿-绝致-海致.png",
     "variantsCount": 1
   }
 ]
