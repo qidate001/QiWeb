@@ -946,6 +946,28 @@
     "variantsCount": 1
   },
   {
+    "id": "ec2-yellow-up-佩嘉西-门罗",
+    "name": "EC2 Yellow/UP 佩嘉西 门罗",
+    "category": "主线：排除万难",
+    "difficulty": "★★★☆☆",
+    "description": "请填写描述",
+    "update_date": "2026-08-11",
+    "bilibiliVideo": "",
+    "coverImage": "ec2-yellow-up-佩嘉西-门罗.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "up-兰帕达缇-恶龙",
+    "name": "UP 兰帕达缇 恶龙",
+    "category": "主线：排除万难",
+    "difficulty": "★★☆☆☆",
+    "description": "莫莉酱的车子",
+    "update_date": "2026-08-11",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1GCWNepEni",
+    "coverImage": "up-兰帕达缇-恶龙.png",
+    "variantsCount": 1
+  },
+  {
     "id": "unique-威皮-小丑花车",
     "name": "Unique 威皮 小丑花车",
     "category": "支线：烟草战士 - 崔佛",
