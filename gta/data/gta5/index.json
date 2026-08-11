@@ -847,6 +847,28 @@
     "variantsCount": 1
   },
   {
+    "id": "ec-black-door-frames-穿梭者",
+    "name": "EC Black Door Frames 穿梭者",
+    "category": "主线：探路踩点",
+    "difficulty": "★☆☆☆☆",
+    "description": "崔佛任务中开的那个直升机",
+    "update_date": "2026-08-11",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1VzaoexEtQ",
+    "coverImage": "ec-black-door-frames-穿梭者.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-red-door-frames-穿梭者",
+    "name": "EC Red Door Frames 穿梭者",
+    "category": "主线：探路踩点",
+    "difficulty": "★☆☆☆☆",
+    "description": "扮演麦克完成任务，切换到崔佛停着的那个直升机",
+    "update_date": "2026-08-11",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1VzaoexEtQ",
+    "coverImage": "ec-red-door-frames-穿梭者.png",
+    "variantsCount": 1
+  },
+  {
     "id": "unique-威皮-小丑花车",
     "name": "Unique 威皮 小丑花车",
     "category": "支线：烟草战士 - 崔佛",
@@ -877,6 +899,17 @@
     "update_date": "2026-08-09",
     "bilibiliVideo": "",
     "coverImage": "ec-blue-亚班尼-皇霸天.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "lustered-up-unique-北扬克顿-绝致-海致",
+    "name": "Lustered/UP/Unique 北扬克顿 绝致 海致",
+    "category": "主线：真相大白",
+    "difficulty": "★★☆☆☆",
+    "description": "请填写描述",
+    "update_date": "2026-08-11",
+    "bilibiliVideo": "",
+    "coverImage": "lustered-up-unique-北扬克顿-绝致-海致.png",
     "variantsCount": 1
   }
 ]

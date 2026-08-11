@@ -1,0 +1,73 @@
+{
+  "id": "ec-red-door-frames-穿梭者",
+  "name": "EC Red Door Frames 穿梭者",
+  "category": "主线：探路踩点",
+  "difficulty": "★☆☆☆☆",
+  "description": "扮演麦克完成任务，切换到崔佛停着的那个直升机",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1VzaoexEtQ",
+  "routeImage": "",
+  "update_date": "2026-08-11",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec-red-door-frames-穿梭者.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "暗红色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "银色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★☆☆☆☆"
+      },
+      "explosion_data": [
+        1949211328,
+        "穿梭者 (EC Red Door Frames)",
+        {
+          "priColor": 40,
+          "secColor": 0,
+          "pearlColor": 4,
+          "wheelColor": 0,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 0,
+          "neonState": 0,
+          "livery": 1,
+          "windowTint": 0,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 4,
+          "plate": "88EFD539",
+          "mods": {},
+          "extras": {
+            "1": 0,
+            "2": 0,
+            "7": 0,
+            "12": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

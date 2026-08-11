@@ -1,0 +1,43 @@
+{
+  "id": "lustered-up-unique-北扬克顿-绝致-海致",
+  "name": "Lustered/UP/Unique 北扬克顿 绝致 海致",
+  "category": "主线：真相大白",
+  "difficulty": "★★☆☆☆",
+  "description": "请填写描述",
+  "bilibiliVideo": "",
+  "routeImage": "",
+  "update_date": "2026-08-11",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "lustered-up-unique-北扬克顿-绝致-海致.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      }
+    }
+  ],
+  "methods": []
+}
