@@ -1,0 +1,43 @@
+{
+  "id": "ec-green-lustered-mtl-车辆运送车",
+  "name": "EC Green/Lustered MTL 车辆运送车",
+  "category": "主线：法律纠纷",
+  "difficulty": "★★★☆☆",
+  "description": "被莫莉酱创翻爆炸的大运",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1rTn9e8Egp",
+  "routeImage": "",
+  "update_date": "2026-08-12",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec-green-lustered-mtl-车辆运送车.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "工业绿",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "工业绿",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "糖果红",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      }
+    }
+  ],
+  "methods": []
+}

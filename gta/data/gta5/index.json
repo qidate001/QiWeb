@@ -1062,8 +1062,30 @@
     "difficulty": "★★☆☆☆",
     "description": "门口停着呢",
     "update_date": "2026-08-12",
-    "bilibiliVideo": "",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1zQsAewE1c",
     "coverImage": "ec2-white-lustered-浪子-疾速gt.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-green-lustered-mtl-车辆运送车",
+    "name": "EC Green/Lustered MTL 车辆运送车",
+    "category": "主线：法律纠纷",
+    "difficulty": "★★★☆☆",
+    "description": "被莫莉酱创翻爆炸的大运",
+    "update_date": "2026-08-12",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1rTn9e8Egp",
+    "coverImage": "ec-green-lustered-mtl-车辆运送车.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec2-red-lustered-埃努斯-至尊慧眼敞篷版",
+    "name": "EC2 Red/Lustered 埃努斯 至尊慧眼敞篷版",
+    "category": "主线：法律纠纷",
+    "difficulty": "★☆☆☆☆",
+    "description": "莫莉成酱前驾驶的车子",
+    "update_date": "2026-08-12",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1WRpbeuE2k",
+    "coverImage": "ec2-red-lustered-埃努斯-至尊慧眼敞篷版.png",
     "variantsCount": 1
   },
   {
@@ -1082,7 +1104,7 @@
     "name": "EC Red/Lustered 拖吊车",
     "category": "支线：烟草战士 - 连托带拉",
     "difficulty": "★★☆☆☆",
-    "description": "拖走被拖走的发动机坏了的那个的托车",
+    "description": "拖走被拖���的发动机坏了的那个的托车",
     "update_date": "2026-08-09",
     "bilibiliVideo": "https://www.bilibili.com/video/BV16D28YVE68",
     "coverImage": "ec-red-lustered-拖吊车.png",

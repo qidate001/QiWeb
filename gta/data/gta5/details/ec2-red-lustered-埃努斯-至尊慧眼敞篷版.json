@@ -1,0 +1,43 @@
+{
+  "id": "ec2-red-lustered-埃努斯-至尊慧眼敞篷版",
+  "name": "EC2 Red/Lustered 埃努斯 至尊慧眼敞篷版",
+  "category": "主线：法律纠纷",
+  "difficulty": "★☆☆☆☆",
+  "description": "莫莉成酱前驾驶的车子",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1WRpbeuE2k",
+  "routeImage": "",
+  "update_date": "2026-08-12",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec2-red-lustered-埃努斯-至尊慧眼敞篷版.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "红色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "红色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "深钢色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★☆☆☆"
+      }
+    }
+  ],
+  "methods": []
+}
