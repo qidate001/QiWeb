@@ -223,7 +223,6 @@ class VehicleManager {
     div.className = 'vehicle-card';
     div.dataset.id = vehicle.id;
 
-    // ⭐ 关键修改：图片路径改为版本目录下
     const imagePath = vehicle.coverImage 
       ? `data/${this.version}/images/${vehicle.coverImage}` 
       : 'images/placeholder.jpg';
@@ -256,6 +255,7 @@ class VehicleManager {
     return div;
   }
 
+  // ==================== ⭐ 修改核心：分页渲染 ====================
   renderPagination() {
     const pagination = document.getElementById('pagination');
     if (!pagination) return;
@@ -269,10 +269,19 @@ class VehicleManager {
 
     let html = '<div class="pagination">';
 
+    // 第一页按钮
+    if (this.currentPage > 1) {
+      html += `<button class="page-btn first" onclick="vehicleManager.goToPage(1)">第一页</button>`;
+    } else {
+      html += `<button class="page-btn first disabled" disabled>第一页</button>`;
+    }
+
+    // 上一页
     if (this.currentPage > 1) {
       html += `<button class="page-btn prev" onclick="vehicleManager.goToPage(${this.currentPage - 1})">上一页</button>`;
     }
 
+    // 数字页码（最多显示5个）
     const maxVisiblePages = 5;
     let startPage = Math.max(1, this.currentPage - Math.floor(maxVisiblePages / 2));
     let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
@@ -289,13 +298,43 @@ class VehicleManager {
       }
     }
 
+    // 下一页
     if (this.currentPage < totalPages) {
       html += `<button class="page-btn next" onclick="vehicleManager.goToPage(${this.currentPage + 1})">下一页</button>`;
     }
 
+    // 最后一页按钮
+    if (this.currentPage < totalPages) {
+      html += `<button class="page-btn last" onclick="vehicleManager.goToPage(${totalPages})">最后一页</button>`;
+    } else {
+      html += `<button class="page-btn last disabled" disabled>最后一页</button>`;
+    }
+
+    // ⭐ 新增：输入跳转框（支持回车键）
+    html += `
+      <span class="jump-box">
+        <input type="number" id="pageJumpInput" min="1" max="${totalPages}" value="${this.currentPage}" 
+               style="width:45px; padding:2px 5px; text-align:center;"
+               onkeydown="if(event.key==='Enter') vehicleManager.jumpToPage()">
+        <button class="jump-btn" onclick="vehicleManager.jumpToPage()">跳转</button>
+      </span>
+    `;
+
     html += '</div>';
     pagination.innerHTML = html;
   }
+
+  // ⭐ 新增：跳转页码方法
+  jumpToPage() {
+    const input = document.getElementById('pageJumpInput');
+    if (!input) return;
+    let page = parseInt(input.value);
+    const totalPages = Math.ceil(this.filteredVehicles.length / this.itemsPerPage);
+    if (isNaN(page) || page < 1) page = 1;
+    if (page > totalPages) page = totalPages;
+    this.goToPage(page);
+  }
+  // ==============================================================
 
   goToPage(page) {
     this.currentPage = page;

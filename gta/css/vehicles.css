@@ -82,3 +82,50 @@
     margin-top: 20px;
     font-weight: bold;
 }
+
+/* 分页容器布局 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+/* 禁用状态 */
+.page-btn.disabled,
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 跳转输入框区域 */
+.jump-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 10px;
+}
+.jump-box input {
+  border: 1px solid #444;
+  background: #222;
+  color: #fff;
+  border-radius: 4px;
+  outline: none;
+}
+.jump-box input:focus {
+  border-color: #8b5cf6;
+}
+.jump-box .jump-btn {
+  padding: 4px 10px;
+  background: #8b5cf6;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.jump-box .jump-btn:hover {
+  background: #7c3aed;
+}
