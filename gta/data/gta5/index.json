@@ -1045,6 +1045,28 @@
     "variantsCount": 1
   },
   {
+    "id": "ec2-yellow-lustered-古罗帝-汗血宝马",
+    "name": "EC2 Yellow/Lustered 古罗帝 汗血宝马",
+    "category": "主线：法律纠纷",
+    "difficulty": "★★☆☆☆",
+    "description": "门口停着呢",
+    "update_date": "2026-08-12",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1zQsAewE1c",
+    "coverImage": "ec2-yellow-lustered-古罗帝-汗血宝马.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec2-white-lustered-浪子-疾速gt",
+    "name": "EC2 White/Lustered 浪子 疾速GT",
+    "category": "主线：法律纠纷",
+    "difficulty": "★★☆☆☆",
+    "description": "门口停着呢",
+    "update_date": "2026-08-12",
+    "bilibiliVideo": "",
+    "coverImage": "ec2-white-lustered-浪子-疾速gt.png",
+    "variantsCount": 1
+  },
+  {
     "id": "unique-威皮-小丑花车",
     "name": "Unique 威皮 小丑花车",
     "category": "支线：烟草战士 - 崔佛",

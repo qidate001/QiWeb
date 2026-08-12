@@ -1,0 +1,73 @@
+{
+  "id": "ec2-yellow-lustered-古罗帝-汗血宝马",
+  "name": "EC2 Yellow/Lustered 古罗帝 汗血宝马",
+  "category": "主线：法律纠纷",
+  "difficulty": "★★☆☆☆",
+  "description": "门口停着呢",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1zQsAewE1c",
+  "routeImage": "",
+  "update_date": "2026-08-12",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec2-yellow-lustered-古罗帝-汗血宝马.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "竞速黄",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "竞速黄",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "烈阳红",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★☆☆☆"
+      },
+      "explosion_data": [
+        2072687711,
+        "汗血宝马 (EC2 Yellow/Lustered)",
+        {
+          "priColor": 89,
+          "secColor": 89,
+          "pearlColor": 30,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 7,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "65HWR686",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 1,
+            "12": 0
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
