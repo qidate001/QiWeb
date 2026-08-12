@@ -1137,10 +1137,43 @@
     "name": "Unique HVY 钻洞机",
     "category": "主线：大干一票",
     "difficulty": "★★☆☆☆",
-    "description": "请填写描述",
+    "description": "那个H要长按的载具",
     "update_date": "2026-08-12",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1zxx4ecEcT",
     "coverImage": "unique-hvy-钻洞机.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "sp-ec-dark-silver-绝品-先知",
+    "name": "SP/EC Dark Silver 绝品 先知",
+    "category": "主线：大干一票",
+    "difficulty": "★★☆☆☆",
+    "description": "开始任务时麦克开的载具",
+    "update_date": "2026-08-12",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1SLtmeLE6F",
+    "coverImage": "sp-ec-dark-silver-绝品-先知.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec2-black-rims-穿梭者",
+    "name": "EC2 Black Rims 穿梭者",
+    "category": "主线：大干一票",
+    "difficulty": "★★★☆☆",
+    "description": "队友开的那个直升飞机",
+    "update_date": "2026-08-12",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1zxx4ecEcT",
+    "coverImage": "ec2-black-rims-穿梭者.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "up-奥北-密探",
+    "name": "UP 奥北 密探",
+    "category": "主线：大干一票",
+    "difficulty": "★☆☆☆☆",
+    "description": "任务完成，小富开走那个",
+    "update_date": "2026-08-12",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1zxx4ecEcT",
+    "coverImage": "up-奥北-密探.png",
     "variantsCount": 1
   },
   {
