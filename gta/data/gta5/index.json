@@ -1089,6 +1089,28 @@
     "variantsCount": 1
   },
   {
+    "id": "lustered-ne-up-敦追里-加长型礼车",
+    "name": "Lustered/NE/UP 敦追里 加长型礼车",
+    "category": "主线：崩溃危机",
+    "difficulty": "★☆☆☆☆",
+    "description": "接麦克和他儿子去走红毯那个礼车",
+    "update_date": "2026-08-12",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1uL48ebEYS",
+    "coverImage": "lustered-ne-up-敦追里-加长型礼车.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec2-red-up-佩嘉西-狂牛",
+    "name": "EC2 Red/UP 佩嘉西 狂牛",
+    "category": "主线：崩溃危机",
+    "difficulty": "★★★★☆",
+    "description": "停在礼车边上的那个",
+    "update_date": "2026-08-12",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1FktKemECx",
+    "coverImage": "ec2-red-up-佩嘉西-狂牛.png",
+    "variantsCount": 1
+  },
+  {
     "id": "unique-威皮-小丑花车",
     "name": "Unique 威皮 小丑花车",
     "category": "支线：烟草战士 - 崔佛",
@@ -1104,7 +1126,7 @@
     "name": "EC Red/Lustered 拖吊车",
     "category": "支线：烟草战士 - 连托带拉",
     "difficulty": "★★☆☆☆",
-    "description": "拖走被拖���的发动机坏了的那个的托车",
+    "description": "拖走被拖走的发动机坏了的那个的托车",
     "update_date": "2026-08-09",
     "bilibiliVideo": "https://www.bilibili.com/video/BV16D28YVE68",
     "coverImage": "ec-red-lustered-拖吊车.png",

@@ -1,25 +1,25 @@
 {
-  "id": "ec2-red-lustered-埃努斯-至尊慧眼敞篷版",
-  "name": "EC2 Red/Lustered 埃努斯 至尊慧眼敞篷版",
-  "category": "主线：法律纠纷",
-  "difficulty": "★☆☆☆☆",
-  "description": "莫莉成酱前驾驶的车子",
-  "bilibiliVideo": "https://www.bilibili.com/video/BV1WRpbeuE2k",
+  "id": "ec2-red-up-佩嘉西-狂牛",
+  "name": "EC2 Red/UP 佩嘉西 狂牛",
+  "category": "主线：崩溃危机",
+  "difficulty": "★★★★☆",
+  "description": "停在礼车边上的那个",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1FktKemECx",
   "routeImage": "",
   "update_date": "2026-08-12",
   "variants": [
     {
       "name": "默认款",
-      "image": "ec2-red-lustered-埃努斯-至尊慧眼敞篷版.png",
+      "image": "ec2-red-up-佩嘉西-狂牛.png",
       "specs": [
         {
           "label": "主色调",
-          "value": "红色",
+          "value": "都灵红",
           "isRare": false
         },
         {
           "label": "副色调",
-          "value": "红色",
+          "value": "都灵红",
           "isRare": true
         },
         {
@@ -29,21 +29,22 @@
         },
         {
           "label": "珠光",
-          "value": "深钢色",
+          "value": "冰雪白",
           "isRare": false
         }
       ],
       "properties": {
-        "获取难度": "★☆☆☆☆",
-        "收藏价值": "★★☆☆☆"
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆"
       },
+      "accessory": "特殊车牌：JKW87N1D",
       "explosion_data": [
-        330661258,
-        "至尊慧眼敞篷版 (EC2 Red/Lustered)",
+        338562499,
+        "狂牛 (EC2 Red/UP)",
         {
-          "priColor": 27,
-          "secColor": 27,
-          "pearlColor": 3,
+          "priColor": 28,
+          "secColor": 28,
+          "pearlColor": 111,
           "wheelColor": 156,
           "dialsColor": 0,
           "trimColor": 0,
@@ -54,14 +55,16 @@
           "neonState": 0,
           "livery": -1,
           "windowTint": -1,
-          "wheelType": 0,
+          "wheelType": 7,
           "lowGripTyres": 0,
           "plateIndex": 0,
-          "plate": "20SUF197",
+          "plate": "JKW87N1D",
           "mods": {
             "22": 0
           },
-          "extras": {}
+          "extras": {
+            "12": 0
+          }
         }
       ]
     }

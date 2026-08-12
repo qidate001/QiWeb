@@ -36,7 +36,34 @@
       "properties": {
         "获取难度": "★★★☆☆",
         "收藏价值": "★★★☆☆"
-      }
+      },
+      "explosion_data": [
+        569305213,
+        "车辆运送车 (EC Green/Lustered MTL)",
+        {
+          "priColor": 57,
+          "secColor": 57,
+          "pearlColor": 35,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 3,
+          "plate": "42NQG532",
+          "mods": {},
+          "extras": {
+            "1": 1
+          }
+        }
+      ]
     }
   ],
   "methods": []
