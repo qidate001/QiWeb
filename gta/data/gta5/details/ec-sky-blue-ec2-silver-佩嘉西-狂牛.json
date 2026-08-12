@@ -1,0 +1,72 @@
+{
+  "id": "ec-sky-blue-ec2-silver-佩嘉西-狂牛",
+  "name": "EC Sky Blue/EC2 Silver 佩嘉西 狂牛",
+  "category": "主线：十面埋伏",
+  "difficulty": "★★★☆☆",
+  "description": "获取麻烦，但挺值得的",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1GEWmezEwU",
+  "routeImage": "",
+  "update_date": "2026-08-12",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec-sky-blue-ec2-silver-佩嘉西-狂牛.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "Util Maui Blue Poly ",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "深钢色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "冲浪蓝",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        338562499,
+        "狂牛-蓝色 (EC Sky Blue/EC2 Silver)",
+        {
+          "priColor": 80,
+          "secColor": 3,
+          "pearlColor": 68,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 7,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "48ZGM013",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "12": 0
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

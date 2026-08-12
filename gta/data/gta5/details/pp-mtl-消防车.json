@@ -1,0 +1,69 @@
+{
+  "id": "pp-mtl-消防车",
+  "name": "PP MTL 消防车",
+  "category": "主线：消防车",
+  "difficulty": "★☆☆☆☆",
+  "description": "远离后再回来就有PP属性了",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1weW3eXEsC",
+  "routeImage": "",
+  "update_date": "2026-08-12",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "pp-mtl-消防车.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "纯白色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "都灵红",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "纯白色",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★☆☆☆☆"
+      },
+      "accessory": "防爆胎",
+      "explosion_data": [
+        1938952078,
+        "消防车 (PP)",
+        {
+          "priColor": 134,
+          "secColor": 28,
+          "pearlColor": 134,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 4,
+          "plate": "83FOY570",
+          "mods": {},
+          "extras": {}
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

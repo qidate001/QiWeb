@@ -1023,6 +1023,28 @@
     "variantsCount": 1
   },
   {
+    "id": "pp-mtl-消防车",
+    "name": "PP MTL 消防车",
+    "category": "主线：消防车",
+    "difficulty": "★☆☆☆☆",
+    "description": "远离后再回来就有PP属性了",
+    "update_date": "2026-08-12",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1weW3eXEsC",
+    "coverImage": "pp-mtl-消防车.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-sky-blue-ec2-silver-佩嘉西-狂牛",
+    "name": "EC Sky Blue/EC2 Silver 佩嘉西 狂牛",
+    "category": "主线：十面埋伏",
+    "difficulty": "★★★☆☆",
+    "description": "获取麻烦，但挺值得的",
+    "update_date": "2026-08-12",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1GEWmezEwU",
+    "coverImage": "ec-sky-blue-ec2-silver-佩嘉西-狂牛.png",
+    "variantsCount": 1
+  },
+  {
     "id": "unique-威皮-小丑花车",
     "name": "Unique 威皮 小丑花车",
     "category": "支线：烟草战士 - 崔佛",
