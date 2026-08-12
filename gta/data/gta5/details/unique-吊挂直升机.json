@@ -1,0 +1,75 @@
+{
+  "id": "unique-吊挂直升机",
+  "name": "Unique 吊挂直升机",
+  "category": "主线：偏离正轨",
+  "difficulty": "★★☆☆☆",
+  "description": "就那个贼难开的破磁铁直升机",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1314UeDEfq",
+  "routeImage": "",
+  "update_date": "2026-08-12",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "unique-吊挂直升机.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损银",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "浅灰色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★★☆",
+        "收藏价值": "★★☆☆☆"
+      },
+      "explosion_data": [
+        1044954915,
+        "吊挂直升机 (Unique)",
+        {
+          "priColor": 24,
+          "secColor": 0,
+          "pearlColor": 14,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 4,
+          "plate": "29RTW519",
+          "mods": {},
+          "extras": {
+            "1": 0,
+            "2": 0,
+            "7": 0,
+            "10": 1,
+            "11": 1,
+            "12": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

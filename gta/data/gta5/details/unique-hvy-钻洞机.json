@@ -1,0 +1,70 @@
+{
+  "id": "unique-hvy-钻洞机",
+  "name": "Unique HVY 钻洞机",
+  "category": "主线：大干一票",
+  "difficulty": "★★☆☆☆",
+  "description": "请填写描述",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1zxx4ecEcT",
+  "routeImage": "",
+  "update_date": "2026-08-12",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "unique-hvy-钻洞机.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损橙",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "黄色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "黑钢色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        3288047904,
+        "钻洞机 (Unique)",
+        {
+          "priColor": 123,
+          "secColor": 88,
+          "pearlColor": 2,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "02CVU812",
+          "mods": {},
+          "extras": {
+            "8": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

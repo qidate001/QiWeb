@@ -1111,6 +1111,39 @@
     "variantsCount": 1
   },
   {
+    "id": "ec-graphite-敦追里-追捕者",
+    "name": "EC Graphite 敦追里 追捕者",
+    "category": "主线：家教入门",
+    "difficulty": "★★★☆☆",
+    "description": "就那帮绑匪的载具",
+    "update_date": "2026-08-12",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1RE4meJEnN",
+    "coverImage": "ec-graphite-敦追里-追捕者.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "unique-吊挂直升机",
+    "name": "Unique 吊挂直升机",
+    "category": "主线：偏离正轨",
+    "difficulty": "★★☆☆☆",
+    "description": "就那个贼难开的破磁铁直升机",
+    "update_date": "2026-08-12",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1314UeDEfq",
+    "coverImage": "unique-吊挂直升机.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "unique-hvy-钻洞机",
+    "name": "Unique HVY 钻洞机",
+    "category": "主线：大干一票",
+    "difficulty": "★★☆☆☆",
+    "description": "请填写描述",
+    "update_date": "2026-08-12",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1zxx4ecEcT",
+    "coverImage": "unique-hvy-钻洞机.png",
+    "variantsCount": 1
+  },
+  {
     "id": "unique-威皮-小丑花车",
     "name": "Unique 威皮 小丑花车",
     "category": "支线：烟草战士 - 崔佛",

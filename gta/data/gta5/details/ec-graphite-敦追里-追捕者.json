@@ -1,0 +1,72 @@
+{
+  "id": "ec-graphite-敦追里-追捕者",
+  "name": "EC Graphite 敦追里 追捕者",
+  "category": "主线：家教入门",
+  "difficulty": "★★★☆☆",
+  "description": "就那帮绑匪的载具",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1RE4meJEnN",
+  "routeImage": "",
+  "update_date": "2026-08-12",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec-graphite-敦追里-追捕者.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损石墨黑",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损石墨黑",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "石银色",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "黑色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        1269098716,
+        "追捕者 (EC Graphite)",
+        {
+          "priColor": 22,
+          "secColor": 22,
+          "pearlColor": 0,
+          "wheelColor": 8,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 3,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "84NMY809",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
