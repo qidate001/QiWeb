@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>what2eat - 今天吃点啥</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
 </head>
 <body>
     <div class="app-container">
@@ -41,7 +42,15 @@
                 </div>
 
                 <div class="filter-section">
-                    <div class="filter-label">🌍 菜系偏好 (互斥)</div>
+                    <div class="filter-label">🧬 嘌呤关注</div>
+                    <div id="purine-filters" class="tag-wrapper">
+                        <div class="tag-btn active" data-type="purine" data-label="无偏好">无偏好</div>
+                        <div class="tag-btn" data-type="purine" data-label="忌高嘌呤">忌高嘌呤</div>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <div class="filter-label">🌍 菜系偏好</div>
                     <div id="cuisine-filters" class="tag-wrapper"></div>
                 </div>
             </div>

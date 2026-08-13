@@ -69,9 +69,9 @@ function createTagBtn(label, type) {
     return btn;
 }
 
-// ===== 2. 核心交互逻辑（菜系多选 + 老样式） =====
+// ===== 2. 核心交互逻辑 =====
 function setupInteractions() {
-    // 互斥清理函数（仅用于 肉类偏好）
+    // 互斥清理函数（用于肉类偏好和嘌呤关注）
     function clearExclusiveGroup(wrapperId, exceptBtn) {
         const wrapper = document.getElementById(wrapperId);
         wrapper.querySelectorAll('.tag-btn').forEach(btn => {
@@ -89,18 +89,16 @@ function setupInteractions() {
             let state = parseInt(btn.dataset.state || '0');
             const type = btn.dataset.type;
 
-            // --- 互斥逻辑 ---
-            // 注意：这里移除了 type === 'cuisine' 的清理，现在【菜系偏好】可以多选了！
+            // --- 互斥清理逻辑（添加了嘌呤） ---
             if (type === 'meat-base') clearExclusiveGroup('meat-base-filters', btn);
             if (type === 'meat-exclude') clearExclusiveGroup('meat-exclude-filters', btn);
+            if (type === 'purine') clearExclusiveGroup('purine-filters', btn); 
 
             // --- 状态切换 ---
             if (type === 'avoid') {
-                // 忌口排除：左键切换 包含(1) 和 默认(0)（如果有红色排除状态，左键直接归零）
                 if (state === 1 || state === 2) btn.dataset.state = '0';
                 else btn.dataset.state = '1';
             } else {
-                // 其他组（菜系、肉类基础、肉类限制）：0 <-> 1 切换
                 if (state === 1) btn.dataset.state = '0';
                 else btn.dataset.state = '1';
             }
@@ -110,7 +108,7 @@ function setupInteractions() {
             applyFilters();
         });
 
-        // 右键逻辑：仅用于【忌口排除】里的排除切换
+        // 右键逻辑：仅用于【忌口排除】
         btn.addEventListener('contextmenu', (e) => {
             e.preventDefault();
             if (btn.dataset.type !== 'avoid') return; 
@@ -128,22 +126,20 @@ function setupInteractions() {
     });
 }
 
-// ===== 3. 样式更新（恢复老配色，双色专属忌口） =====
+// ===== 3. 样式更新 =====
 function updateBtnClass(btn) {
     const state = parseInt(btn.dataset.state || '0');
     btn.classList.remove('active', 'state-include', 'state-exclude');
 
     if (btn.dataset.type === 'avoid') {
-        // 【忌口排除】：绿色表示包含，红色表示排除
-        if (state === 1) btn.classList.add('state-include'); // 绿
-        else if (state === 2) btn.classList.add('state-exclude'); // 红
+        if (state === 1) btn.classList.add('state-include');
+        else if (state === 2) btn.classList.add('state-exclude');
     } else {
-        // 【其他所有分类】：用你喜欢的那个老样式（橙色高亮 active）
-        if (state === 1) btn.classList.add('active'); // 橙
+        if (state === 1) btn.classList.add('active');
     }
 }
 
-// ===== 4. 核心过滤算法 =====
+// ===== 4. 核心过滤算法（补上了嘌呤过滤） =====
 function applyFilters() {
     const includeTags = [];
     const excludeTags = [];
@@ -156,30 +152,41 @@ function applyFilters() {
     const meatBase = getSelectedLabels('meat-base');
     const meatExcludes = getSelectedLabels('meat-exclude');
     const selectedCuisines = getSelectedLabels('cuisine');
+    const selectedPurines = getSelectedLabels('purine'); // 获取嘌呤设置
 
     filteredDishes = allDishes.filter(dish => {
+        // 1. 强制包含与排除
         for (let include of includeTags) {
             if (!dish.tags.includes(include)) return false;
         }
         for (let exclude of excludeTags) {
             if (dish.tags.includes(exclude)) return false;
         }
-        // 菜系现在支持多选 OR 逻辑了
+        // 2. 菜系过滤
         if (selectedCuisines.length > 0) {
             if (!selectedCuisines.includes(dish.cuisine)) return false;
         }
+        // 3. 肉类基础过滤
         if (meatBase.length > 0) {
             if (meatBase.includes('素食') && dish.meat_type !== '无') return false;
         }
+        // 4. 肉食限制过滤
         if (meatExcludes.length > 0) {
             const exc = meatExcludes[0];
             if (exc === '不吃红肉' && dish.meat_type === '红肉') return false;
             if (exc === '不吃白肉' && dish.meat_type === '白肉') return false;
             if (exc === '不吃海鲜' && dish.meat_type === '海鲜') return false;
         }
+        // 5. 🧬 嘌呤过滤（补上了！）
+        if (selectedPurines.length > 0) {
+            const purinePref = selectedPurines[0];
+            if (purinePref === '忌高嘌呤' && dish.purine_level === '高') return false;
+        }
+
         return true;
     });
 
+    // 更新 UI 状态
     if (filteredDishes.length === 0) {
         matchCountEl.textContent = '😭 没有符合条件的菜品，放宽筛选';
         resultEl.className = 'result-card empty';
@@ -202,6 +209,7 @@ function getSelectedLabels(type) {
     return Array.from(btns).filter(btn => parseInt(btn.dataset.state || '0') === 1).map(btn => btn.dataset.label);
 }
 
+// ===== 5. 随机抽取 =====
 function getRandomDish() {
     if (filteredDishes.length === 0) return null;
     const randomIndex = Math.floor(Math.random() * filteredDishes.length);
@@ -223,7 +231,7 @@ function pickAndDisplay() {
     }, 200);
 }
 
-// ===== 5. 持久化存储 =====
+// ===== 6. 持久化存储 =====
 function saveAllStates() {
     const allTags = document.querySelectorAll('.tag-btn');
     const states = Array.from(allTags).map(btn => ({
@@ -247,7 +255,7 @@ function loadAllStates() {
     });
 }
 
-// ===== 6. 重置与绑定 =====
+// ===== 7. 重置与启动 =====
 resetBtn.addEventListener('click', () => {
     document.querySelectorAll('.tag-btn').forEach(btn => {
         btn.dataset.state = '0';

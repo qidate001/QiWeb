@@ -282,3 +282,26 @@ body {
         min-height: 120px;
     }
 }
+
+
+/* ===== 定制滚动条 (配合深色主题) ===== */
+.sidebar-body::-webkit-scrollbar {
+    width: 6px; /* 滚动条宽度，尽量细一点，保持精致 */
+}
+.sidebar-body::-webkit-scrollbar-track {
+    background: #0f0f0f; /* 轨道颜色，比侧边栏更深 */
+    border-radius: 3px;
+}
+.sidebar-body::-webkit-scrollbar-thumb {
+    background: #ff6b35; /* 滑块的橙色，呼应你的随机按钮 */
+    border-radius: 3px;
+}
+.sidebar-body::-webkit-scrollbar-thumb:hover {
+    background: #e55a2b; /* 鼠标悬停时变深一点 */
+}
+
+/* 兼容 Firefox 浏览器 */
+.sidebar-body {
+    scrollbar-width: thin;
+    scrollbar-color: #ff6b35 #0f0f0f;
+}
