@@ -11,21 +11,44 @@ const resetBtn = document.getElementById('reset-btn');
 const avoidWrapper = document.getElementById('avoid-filters');
 const cuisineWrapper = document.getElementById('cuisine-filters');
 
-// ===== 1. 加载数据并初始化 =====
+// ===== 1. 核心数据加载逻辑 =====
 async function init() {
     try {
-        const response = await fetch('data/dishes.json');
-        allDishes = await response.json();
+        // 【优先级 1】从 Cloudflare Worker API 加载数据
+        // 下面这行是你 Worker 部署后的真实链接
+        const apiUrl = 'https://what2eat.qidate001.workers.dev/api/dishes';
         
-        // 提取所有标签和菜系，生成过滤器
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+            allDishes = await response.json();
+            console.log('✅ 已成功从 Cloudflare D1 获取数据！');
+        } else {
+            throw new Error('API 未响应，准备降级');
+        }
+
+        // —— 下面这里原封不动 ——
         generateFilters();
-        // 恢复本地存储的状态
         loadFilterState();
-        // 应用过滤规则，刷新显示
         applyFilters();
+
     } catch (error) {
-        console.error('加载失败:', error);
-        resultEl.textContent = '😅 数据加载失败，请刷新';
+        console.warn('⚠️ 云端 API 加载失败，降级读取本地 data/dishes.json');
+        
+        // 【优先级 2】如果线上 API 失败（例如本地开发时），读取本地 JSON 兜底
+        try {
+            const localResponse = await fetch('data/dishes.json');
+            if (localResponse.ok) {
+                allDishes = await localResponse.json();
+                generateFilters();
+                loadFilterState();
+                applyFilters();
+            } else {
+                throw new Error('本地 JSON 也加载失败');
+            }
+        } catch (e) {
+            resultEl.textContent = '😅 数据加载全失败，请检查网络';
+            resultEl.className = 'result-card empty';
+        }
     }
 }
 
@@ -36,7 +59,16 @@ function generateFilters() {
 
     allDishes.forEach(dish => {
         cuisines.add(dish.cuisine);
-        dish.tags.forEach(tag => avoids.add(tag));
+        
+        let tags = dish.tags;
+        if (typeof tags === 'string') {
+            try {
+                tags = JSON.parse(tags); 
+            } catch (e) {
+                tags = []; // 如果解析失败，就当没标签
+            }
+        }
+        tags.forEach(tag => avoids.add(tag));
     });
 
     // 渲染忌口按钮
