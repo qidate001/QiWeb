@@ -69,9 +69,9 @@ function createTagBtn(label, type) {
     return btn;
 }
 
-// ===== 2. 核心交互逻辑 (重点修改了左右键逻辑) =====
+// ===== 2. 核心交互逻辑（菜系多选 + 老样式） =====
 function setupInteractions() {
-    // 互斥清理函数
+    // 互斥清理函数（仅用于 肉类偏好）
     function clearExclusiveGroup(wrapperId, exceptBtn) {
         const wrapper = document.getElementById(wrapperId);
         wrapper.querySelectorAll('.tag-btn').forEach(btn => {
@@ -83,27 +83,24 @@ function setupInteractions() {
     }
 
     document.querySelectorAll('.tag-btn').forEach(btn => {
-        // 【修改点 1】左键逻辑：只切换【包含】和【默认】
+        // 左键点击
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             let state = parseInt(btn.dataset.state || '0');
-
             const type = btn.dataset.type;
+
+            // --- 互斥逻辑 ---
+            // 注意：这里移除了 type === 'cuisine' 的清理，现在【菜系偏好】可以多选了！
             if (type === 'meat-base') clearExclusiveGroup('meat-base-filters', btn);
             if (type === 'meat-exclude') clearExclusiveGroup('meat-exclude-filters', btn);
-            if (type === 'cuisine') clearExclusiveGroup('cuisine-filters', btn);
 
-            // 左键点击：只有两种结果。
-            // 如果是 1(包含) 或 2(排除)，左键一律归零(恢复默认)
-            // 如果是 0(默认)，左键变为 1(包含)
-            if (btn.dataset.type === 'avoid') {
-                if (state === 1 || state === 2) {
-                    btn.dataset.state = '0';
-                } else {
-                    btn.dataset.state = '1';
-                }
+            // --- 状态切换 ---
+            if (type === 'avoid') {
+                // 忌口排除：左键切换 包含(1) 和 默认(0)（如果有红色排除状态，左键直接归零）
+                if (state === 1 || state === 2) btn.dataset.state = '0';
+                else btn.dataset.state = '1';
             } else {
-                // 其他互斥分组依然保持 0<->1 切换
+                // 其他组（菜系、肉类基础、肉类限制）：0 <-> 1 切换
                 if (state === 1) btn.dataset.state = '0';
                 else btn.dataset.state = '1';
             }
@@ -113,22 +110,17 @@ function setupInteractions() {
             applyFilters();
         });
 
-        // 【修改点 2】右键逻辑：只切换【排除】和【默认】
+        // 右键逻辑：仅用于【忌口排除】里的排除切换
         btn.addEventListener('contextmenu', (e) => {
             e.preventDefault();
             if (btn.dataset.type !== 'avoid') return; 
 
             let state = parseInt(btn.dataset.state || '0');
-
-            // 右键点击：只有两种结果。
-            // 如果是 1(包含) 或 2(排除)，右键一律归零(恢复默认)
-            // 如果是 0(默认)，右键变为 2(排除)
             if (state === 1 || state === 2) {
                 btn.dataset.state = '0';
             } else {
                 btn.dataset.state = '2';
             }
-
             updateBtnClass(btn);
             saveAllStates();
             applyFilters();
@@ -136,19 +128,22 @@ function setupInteractions() {
     });
 }
 
-// 根据状态更新样式
+// ===== 3. 样式更新（恢复老配色，双色专属忌口） =====
 function updateBtnClass(btn) {
     const state = parseInt(btn.dataset.state || '0');
     btn.classList.remove('active', 'state-include', 'state-exclude');
-    if (state === 1) btn.classList.add('state-include'); // 包含 (绿)
-    if (state === 2) btn.classList.add('state-exclude'); // 排除 (红)
-    // 兼容旧版单纯的 active (用于非 avoid 标签的互斥选中)
-    if (state === 1 && btn.dataset.type !== 'avoid') {
-        btn.classList.add('active');
+
+    if (btn.dataset.type === 'avoid') {
+        // 【忌口排除】：绿色表示包含，红色表示排除
+        if (state === 1) btn.classList.add('state-include'); // 绿
+        else if (state === 2) btn.classList.add('state-exclude'); // 红
+    } else {
+        // 【其他所有分类】：用你喜欢的那个老样式（橙色高亮 active）
+        if (state === 1) btn.classList.add('active'); // 橙
     }
 }
 
-// ===== 3. 核心过滤算法 =====
+// ===== 4. 核心过滤算法 =====
 function applyFilters() {
     const includeTags = [];
     const excludeTags = [];
@@ -169,6 +164,7 @@ function applyFilters() {
         for (let exclude of excludeTags) {
             if (dish.tags.includes(exclude)) return false;
         }
+        // 菜系现在支持多选 OR 逻辑了
         if (selectedCuisines.length > 0) {
             if (!selectedCuisines.includes(dish.cuisine)) return false;
         }
@@ -227,7 +223,7 @@ function pickAndDisplay() {
     }, 200);
 }
 
-// ===== 4. 持久化存储 =====
+// ===== 5. 持久化存储 =====
 function saveAllStates() {
     const allTags = document.querySelectorAll('.tag-btn');
     const states = Array.from(allTags).map(btn => ({
@@ -251,7 +247,7 @@ function loadAllStates() {
     });
 }
 
-// ===== 5. 重置与绑定 =====
+// ===== 6. 重置与绑定 =====
 resetBtn.addEventListener('click', () => {
     document.querySelectorAll('.tag-btn').forEach(btn => {
         btn.dataset.state = '0';

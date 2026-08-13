@@ -794,3 +794,11 @@ body.light-theme .app-card:hover {
 body.light-theme .app-card .card-sub {
     color: #444;
 }
+
+/* --- what2eat 卡片配色 --- */
+.app-card.card-what2eat {
+    background: linear-gradient(145deg, #c0392b, #e67e22); /* 红橙暖色，非常下饭 */
+}
+.app-card.card-what2eat:hover {
+    box-shadow: 0 18px 40px rgba(230, 126, 34, 0.6);
+}
