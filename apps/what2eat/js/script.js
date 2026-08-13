@@ -1,40 +1,51 @@
-// 菜品数据（你可以随时在这里增删改）
-const dishes = [
-    "红烧肉", "宫保鸡丁", "鱼香肉丝", "麻婆豆腐", "番茄炒蛋",
-    "青椒肉丝", "回锅肉", "酸辣土豆丝", "糖醋排骨", "水煮鱼",
-    "干锅牛蛙", "小炒黄牛肉", "口水鸡", "蒜蓉西兰花", "清蒸鲈鱼"
-];
+// 用一个空数组接收数据
+let dishes = [];
 
-// 获取 DOM 元素
 const resultEl = document.getElementById('result');
 const btnEl = document.getElementById('pick-btn');
 
-// 核心随机函数
+// 1. 异步加载 JSON 数据
+async function loadData() {
+    try {
+        // 注意路径：从 js/ 目录往上一级，再进 data/ 目录
+        const response = await fetch('./data/dishes.json');
+        if (!response.ok) throw new Error('网络响应异常');
+        
+        dishes = await response.json();
+        
+        // 数据加载完成后，立刻给用户显示一道菜，避免空白
+        pickAndDisplay();
+    } catch (error) {
+        console.error('数据加载失败:', error);
+        resultEl.textContent = '😅 数据加载失败，请刷新重试';
+        resultEl.style.color = '#e74c3c';
+    }
+}
+
+// 2. 核心随机抽取函数
 function getRandomDish() {
+    if (dishes.length === 0) return '暂无数据';
     const randomIndex = Math.floor(Math.random() * dishes.length);
     return dishes[randomIndex];
 }
 
-// 抽取并更新 UI 的函数
+// 3. 抽取并更新 UI（保留你原来的闪动效果）
 function pickAndDisplay() {
-    // 1. 闪动反馈（透明度变浅）
+    // 闪烁反馈
     resultEl.style.opacity = '0.6';
     resultEl.classList.remove('active');
 
-    // 2. 延迟 200ms 后显示结果（更有仪式感）
+    // 延迟 200ms 后显示（更有仪式感）
     setTimeout(() => {
         const dish = getRandomDish();
         resultEl.textContent = dish;
         resultEl.style.opacity = '1';
-        resultEl.classList.add('active'); // 变绿放大
+        resultEl.classList.add('active'); 
     }, 200);
 }
 
-// 绑定点击事件
+// 4. 绑定点击事件
 btnEl.addEventListener('click', pickAndDisplay);
 
-// 页面加载完成时，先帮用户抽一道菜
-window.addEventListener('DOMContentLoaded', () => {
-    resultEl.textContent = getRandomDish();
-    resultEl.classList.add('active');
-});
+// 5. 页面启动，先加载数据
+loadData();
