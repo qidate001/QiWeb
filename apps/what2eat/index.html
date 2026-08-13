@@ -7,30 +7,43 @@
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>🍽️ 今天吃点啥？</h1>
-        
-        <!-- 过滤器区域 -->
-        <div class="filter-panel" id="filter-panel">
-            <div class="filter-group">
-                <label>🚫 忌口（点击可切换）</label>
-                <div id="avoid-filters" class="tag-wrapper"></div>
+    <div class="app-container">
+        <!-- 左侧：忌口/菜系筛选栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">🍽️ what2eat</div>
             </div>
-            <div class="filter-group">
-                <label>🌍 菜系偏好</label>
-                <div id="cuisine-filters" class="tag-wrapper"></div>
-            </div>
-            <button id="reset-btn" class="reset-btn">🔄 重置所有筛选</button>
-        </div>
 
-        <!-- 结果展示区 -->
-        <div class="result-wrapper">
-            <div class="result-card" id="result">正在加载...</div>
-            <div class="match-count" id="match-count"></div>
-        </div>
-        
-        <!-- 抽卡按钮 -->
-        <button id="pick-btn">🎲 随机抽一个</button>
+            <div class="sidebar-body">
+                <div class="filter-section">
+                    <div class="filter-label">🚫 忌口排除</div>
+                    <div id="avoid-filters" class="tag-wrapper"></div>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="filter-label">🌍 菜系偏好</div>
+                    <div id="cuisine-filters" class="tag-wrapper"></div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button id="reset-btn" class="reset-btn">🔄 重置所有筛选</button>
+            </div>
+        </aside>
+
+        <!-- 右侧：核心抽取面板 -->
+        <main class="main-panel">
+            <div class="panel-center">
+                <div class="main-title">今天吃点啥？</div>
+                
+                <div class="result-wrapper">
+                    <div class="result-card" id="result">正在加载数据...</div>
+                    <div class="match-count" id="match-count">选择左侧偏好，寻找灵感</div>
+                </div>
+
+                <button id="pick-btn" class="action-btn">🎲 随机抽一个</button>
+            </div>
+        </main>
     </div>
 
     <script src="js/script.js"></script>

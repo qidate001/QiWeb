@@ -1,45 +1,53 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ===== 全局重置与深色主题 ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: #f0f2f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    color: #333;
+    background-color: #000; /* 全屏背景黑 */
+    color: #fff;
+    height: 100vh;
+    overflow: hidden;
 }
-.container {
-    background: #ffffff;
-    padding: 30px 40px 40px;
-    border-radius: 24px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
-    text-align: center;
-    width: 90%;
-    max-width: 500px;
-}
-h1 { font-size: 26px; font-weight: 600; margin-bottom: 20px; }
 
-/* --- 过滤器样式 --- */
-.filter-panel {
-    background: #f8f9fa;
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 20px;
+.app-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
 }
-.filter-group {
-    margin-bottom: 12px;
-    text-align: left;
+
+/* ===== 左侧边栏 (DeepSeek 风格) ===== */
+.sidebar {
+    width: 260px;
+    background-color: #1a1a1a; /* 侧边栏深灰 */
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #2a2a2a;
+    flex-shrink: 0;
+    padding: 20px 16px;
 }
-.filter-group label {
-    font-size: 14px;
+.sidebar-header {
+    margin-bottom: 30px;
+}
+.brand {
+    font-size: 18px;
     font-weight: 600;
-    color: #666;
-    display: block;
-    margin-bottom: 8px;
+    color: #eee;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.sidebar-body {
+    flex: 1; /* 占据中间全部剩余空间 */
+    overflow-y: auto; /* 过滤项过多时可以滚动 */
+}
+.filter-section {
+    margin-bottom: 28px;
+}
+.filter-label {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 .tag-wrapper {
     display: flex;
@@ -47,78 +55,146 @@ h1 { font-size: 26px; font-weight: 600; margin-bottom: 20px; }
     gap: 8px;
 }
 .tag-btn {
-    display: inline-block;
-    padding: 6px 16px;
-    border: 2px solid #e0e0e0;
+    padding: 6px 14px;
+    background: #2a2a2a;
+    border: 1px solid transparent;
     border-radius: 20px;
-    background: #fff;
     font-size: 13px;
     font-weight: 500;
-    color: #666;
+    color: #999;
     cursor: pointer;
     transition: all 0.2s ease;
     user-select: none;
 }
-.tag-btn:hover { border-color: #ff6b35; color: #ff6b35; }
+.tag-btn:hover {
+    color: #fff;
+    background: #3a3a3a;
+}
 .tag-btn.active {
-    background: #ff6b35;
-    border-color: #ff6b35;
+    background: #ff6b35; /* 橙色选中高亮 */
     color: #fff;
 }
+.sidebar-footer {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #2a2a2a;
+}
 .reset-btn {
-    margin-top: 8px;
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     background: transparent;
-    border: 1px dashed #ccc;
+    border: 1px solid #333;
     border-radius: 8px;
-    color: #999;
+    color: #777;
     font-size: 13px;
+    font-weight: 500;
     cursor: pointer;
     transition: 0.2s;
 }
-.reset-btn:hover { border-color: #ff6b35; color: #ff6b35; background: #fff5f0; }
+.reset-btn:hover { border-color: #ff6b35; color: #ff6b35; background: rgba(255, 107, 53, 0.05); }
 
-/* --- 结果区样式 --- */
-.result-wrapper {
-    margin: 15px 0;
-}
-.result-card {
-    background: #f8f9fa;
-    border-radius: 16px;
-    padding: 35px 20px;
-    font-size: 32px;
-    font-weight: bold;
-    color: #2c3e50;
-    min-height: 120px;
+/* ===== 右侧主面板 ===== */
+.main-panel {
+    flex: 1;
+    background-color: #141414;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background 0.3s, transform 0.2s, opacity 0.2s;
+    position: relative;
 }
-.result-card.active { background: #e8f5e9; color: #2e7d32; transform: scale(1.02); }
-.result-card.empty { background: #fff3e0; color: #e65100; font-size: 20px; }
+.panel-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 20px;
+}
+.main-title {
+    font-size: 36px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+}
+.result-wrapper {
+    width: 100%;
+    margin-bottom: 30px;
+}
+.result-card {
+    background: #1f1f1f;
+    border-radius: 16px;
+    padding: 60px 20px;
+    font-size: 42px;
+    font-weight: bold;
+    color: #eee;
+    min-height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    border: 1px solid #333;
+}
+.result-card.active {
+    border-color: #ff6b35;
+    background: #1f1f1f;
+    color: #fff;
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(255, 107, 53, 0.1);
+}
+.result-card.empty {
+    color: #666;
+    font-size: 22px;
+    border-color: #2a2a2a;
+}
 .match-count {
-    font-size: 13px;
-    color: #aaa;
-    margin-top: 8px;
-    height: 18px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    margin-top: 16px;
+    height: 20px;
 }
 
-/* --- 按钮 --- */
-#pick-btn {
+/* ===== 核心交互按钮 ===== */
+.action-btn {
     background: #ff6b35;
     color: #fff;
     border: none;
-    padding: 16px 48px;
+    padding: 18px 40px;
     font-size: 18px;
-    font-weight: 500;
-    border-radius: 50px;
+    font-weight: 600;
+    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 6px 12px rgba(255, 107, 53, 0.2);
+    transition: all 0.25s;
     width: 100%;
+    max-width: 400px;
+    box-shadow: 0 8px 20px rgba(255, 107, 53, 0.2);
 }
-#pick-btn:hover { background: #e55a2b; transform: translateY(-3px); box-shadow: 0 8px 16px rgba(255, 107, 53, 0.3); }
-#pick-btn:active { transform: translateY(0); }
-#pick-btn:disabled { opacity: 0.5; pointer-events: none; }
+.action-btn:hover {
+    background: #e55a2b;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(255, 107, 53, 0.3);
+}
+.action-btn:active { transform: translateY(0); }
+.action-btn:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    transform: none;
+}
+
+/* ===== 移动端适配 ===== */
+@media (max-width: 768px) {
+    .app-container { flex-direction: column; overflow-y: auto; }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-shrink: 0;
+        border-right: none;
+        border-bottom: 1px solid #2a2a2a;
+        padding: 16px;
+    }
+    .sidebar-body { max-height: 150px; overflow-y: auto; }
+    .main-panel { height: auto; padding: 40px 0; }
+    .main-title { font-size: 26px; margin-bottom: 20px; }
+    .result-card { padding: 40px 15px; font-size: 28px; min-height: 120px; }
+}
