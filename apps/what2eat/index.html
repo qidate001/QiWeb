@@ -8,42 +8,40 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- 左侧：忌口/菜系筛选栏 -->
+        <!-- 左侧：筛选栏 -->
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="brand">🍽️ what2eat</div>
             </div>
 
             <div class="sidebar-body">
+                <!-- 忌口排除 (支持左键包含/右键排除) -->
                 <div class="filter-section">
-                    <div class="filter-label">🚫 忌口排除</div>
+                    <div class="filter-label">🚫 忌口排除 <span style="font-size:12px;color:#666;font-weight:normal;">(左键包含·右键排除)</span></div>
                     <div id="avoid-filters" class="tag-wrapper"></div>
-                    <!-- 替换或增加到 <div class="sidebar-body"> 内部 -->
                 </div>
                 
-                
-
+                <!-- 肉类：基本偏好 (互斥) -->
                 <div class="filter-section">
-                    <div class="filter-label">🥩 肉类偏好</div>
-                    <div id="meat-filters" class="tag-wrapper">
-                        <div class="tag-btn active" data-type="meat" data-label="无偏好">无偏好</div>
-                        <div class="tag-btn" data-type="meat" data-label="素食">素食</div>
-                        <div class="tag-btn" data-type="meat" data-label="不吃红肉">不吃红肉</div>
-                        <div class="tag-btn" data-type="meat" data-label="不吃白肉">不吃白肉</div>
-                        <div class="tag-btn" data-type="meat" data-label="不吃海鲜">不吃海鲜</div>
+                    <div class="filter-label">🥩 基本偏好</div>
+                    <div id="meat-base-filters" class="tag-wrapper">
+                        <div class="tag-btn active" data-type="meat-base" data-label="无偏好" data-state="1">无偏好</div>
+                        <div class="tag-btn" data-type="meat-base" data-label="素食" data-state="0">素食</div>
+                    </div>
+                </div>
+
+                <!-- 肉类：特定限制 (互斥) -->
+                <div class="filter-section">
+                    <div class="filter-label">❌ 肉食限制</div>
+                    <div id="meat-exclude-filters" class="tag-wrapper">
+                        <div class="tag-btn" data-type="meat-exclude" data-label="不吃红肉" data-state="0">不吃红肉</div>
+                        <div class="tag-btn" data-type="meat-exclude" data-label="不吃白肉" data-state="0">不吃白肉</div>
+                        <div class="tag-btn" data-type="meat-exclude" data-label="不吃海鲜" data-state="0">不吃海鲜</div>
                     </div>
                 </div>
 
                 <div class="filter-section">
-                    <div class="filter-label">🧬 嘌呤关注</div>
-                    <div id="purine-filters" class="tag-wrapper">
-                        <div class="tag-btn active" data-type="purine" data-label="无偏好">无偏好</div>
-                        <div class="tag-btn" data-type="purine" data-label="忌高嘌呤">忌高嘌呤</div>
-                    </div>
-                </div>
-
-                <div class="filter-section">
-                    <div class="filter-label">🌍 菜系偏好</div>
+                    <div class="filter-label">🌍 菜系偏好 (互斥)</div>
                     <div id="cuisine-filters" class="tag-wrapper"></div>
                 </div>
             </div>
@@ -59,8 +57,8 @@
                 <div class="main-title">今天吃点啥？</div>
                 
                 <div class="result-wrapper">
-                    <div class="result-card" id="result">正在加载数据...</div>
-                    <div class="match-count" id="match-count">选择左侧偏好，寻找灵感</div>
+                    <div class="result-card" id="result">加载数据中...</div>
+                    <div class="match-count" id="match-count">配置偏好，寻找灵感</div>
                 </div>
 
                 <button id="pick-btn" class="action-btn">🎲 随机抽一个</button>
