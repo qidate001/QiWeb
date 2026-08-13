@@ -1,0 +1,336 @@
+/* ---------- 全局重置 & 主题 ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #121212;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    line-height: 1.7;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ---------- 主卡片 ---------- */
+.eula-container {
+    max-width: 960px;
+    width: 100%;
+    background: #1e1e1e;
+    border-radius: 28px;
+    padding: 45px 50px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+    border: 1px solid #2c2c2c;
+    transition: all 0.2s;
+}
+
+/* ---------- 头部 ---------- */
+.eula-header {
+    text-align: center;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #2a2a2a;
+}
+
+.eula-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #f1c40f, #e67e22);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.eula-header .sub {
+    font-size: 1rem;
+    color: #aaa;
+    margin-top: 6px;
+    letter-spacing: 0.3px;
+}
+
+.eula-header .sub a {
+    color: #64b5f6;
+    text-decoration: none;
+    border-bottom: 1px dotted #64b5f6;
+}
+
+.eula-header .sub a:hover {
+    color: #90caf9;
+    border-bottom-color: #90caf9;
+}
+
+/* ---------- 作者信息横幅 ---------- */
+.author-bar {
+    background: #282828;
+    border-radius: 14px;
+    padding: 14px 22px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 28px;
+    font-size: 0.92rem;
+    border: 1px solid #333;
+}
+
+.author-bar span {
+    color: #ccc;
+}
+
+.author-bar strong {
+    color: #f1c40f;
+    font-weight: 600;
+}
+
+.author-bar .contact {
+    color: #90caf9;
+}
+
+/* ---------- 正文排版 ---------- */
+.eula-body {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+}
+
+/* 每个条款块 */
+.clause {
+    background: #252525;
+    border-radius: 16px;
+    padding: 22px 28px;
+    border-left: 4px solid #3a3a3a;
+    transition: border-color 0.2s;
+}
+
+.clause:hover {
+    border-left-color: #f1c40f;
+}
+
+.clause h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #f1c40f;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.clause h2 .badge {
+    font-size: 0.7rem;
+    background: #3a3a3a;
+    color: #bbb;
+    padding: 0 12px;
+    border-radius: 30px;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+}
+
+.clause p,
+.clause li {
+    color: #d0d0d0;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+}
+
+.clause ul,
+.clause ol {
+    padding-left: 24px;
+    margin: 8px 0 4px 0;
+}
+
+.clause li {
+    margin-bottom: 4px;
+}
+
+.clause .highlight-box {
+    background: #1f2a2a;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 12px 0 4px 0;
+    border: 1px solid #2d4a4a;
+    color: #bcd4d4;
+    font-size: 0.92rem;
+}
+
+.clause .highlight-box strong {
+    color: #e67e22;
+}
+
+.clause .highlight-box .danger {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+/* ---------- 下载渠道 ---------- */
+.channel-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    margin-top: 10px;
+}
+
+.channel-list a {
+    color: #64b5f6;
+    text-decoration: none;
+    background: #1e2a3a;
+    padding: 4px 14px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    border: 1px solid #2a3a4a;
+    transition: all 0.2s;
+}
+
+.channel-list a:hover {
+    background: #2a3a5a;
+    border-color: #64b5f6;
+    color: #90caf9;
+}
+
+/* ---------- 底部接受声明 ---------- */
+.acceptance {
+    margin-top: 20px;
+    padding: 20px 28px;
+    background: #1a2a1a;
+    border-radius: 16px;
+    border: 1px solid #2d4a2d;
+    text-align: center;
+    font-size: 1rem;
+    color: #b0d0b0;
+}
+
+.acceptance strong {
+    color: #8bc34a;
+}
+
+.acceptance .btn-group {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.acceptance .btn {
+    padding: 10px 40px;
+    border-radius: 60px;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-agree {
+    background: #2e7d32;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(46, 125, 50, 0.3);
+}
+
+.btn-agree:hover {
+    background: #388e3c;
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
+}
+
+.btn-disagree {
+    background: #4a2a2a;
+    color: #ccc;
+}
+
+.btn-disagree:hover {
+    background: #5a2a2a;
+    color: #fff;
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 700px) {
+    .eula-container {
+        padding: 28px 20px;
+        border-radius: 20px;
+    }
+
+    .eula-header h1 {
+        font-size: 1.7rem;
+    }
+
+    .clause {
+        padding: 18px 18px;
+    }
+
+    .clause h2 {
+        font-size: 1.05rem;
+        flex-wrap: wrap;
+    }
+
+    .author-bar {
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.85rem;
+    }
+
+    .channel-list {
+        justify-content: center;
+    }
+
+    .acceptance .btn {
+        padding: 8px 28px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 450px) {
+    body {
+        padding: 16px 10px;
+    }
+
+    .eula-container {
+        padding: 18px 14px;
+    }
+
+    .clause {
+        padding: 14px 14px;
+    }
+
+    .clause h2 {
+        font-size: 0.95rem;
+    }
+
+    .clause p,
+    .clause li {
+        font-size: 0.88rem;
+    }
+
+    .highlight-box {
+        font-size: 0.85rem !important;
+        padding: 12px 14px !important;
+    }
+}
+
+/* ---------- 滚动条美化 ---------- */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
