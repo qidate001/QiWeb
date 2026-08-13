@@ -16,7 +16,7 @@ body {
 
 /* ===== 左侧边栏 (DeepSeek 风格) ===== */
 .sidebar {
-    width: 260px;
+    width: 330px;
     background-color: #1a1a1a; /* 侧边栏深灰 */
     display: flex;
     flex-direction: column;

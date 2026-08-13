@@ -100,26 +100,65 @@ function createTagBtn(label, type) {
     return btn;
 }
 
+// === 处理“互斥标签”的点击逻辑（同组只能选一个） ===
+function setupExclusiveButtons() {
+    document.querySelectorAll('.tag-wrapper').forEach(wrapper => {
+        const btns = wrapper.querySelectorAll('.tag-btn');
+        btns.forEach(btn => {
+            btn.removeEventListener('click', handleExclusiveClick); // 先移除旧事件避免重复绑定
+            btn.addEventListener('click', handleExclusiveClick);
+        });
+    });
+}
+
+function handleExclusiveClick(e) {
+    const wrapper = e.currentTarget.parentElement;
+    const btns = wrapper.querySelectorAll('.tag-btn');
+    // 移除同组所有按钮的 active 状态
+    btns.forEach(b => b.classList.remove('active'));
+    // 给自己加上 active
+    e.currentTarget.classList.add('active');
+    
+    saveFilterState(); // 保存状态
+    applyFilters();    // 重新过滤
+}
+
 // ===== 3. 核心过滤算法 =====
 function applyFilters() {
-    // 获取当前选中的忌口和菜系
+    // 获取当前选中的条件
     const selectedAvoids = getSelectedLabels('avoid');
     const selectedCuisines = getSelectedLabels('cuisine');
+    const selectedMeats = getSelectedLabels('meat');   // 获取肉类选择
+    const selectedPurines = getSelectedLabels('purine'); // 获取嘌呤选择
 
     // 开始过滤
     filteredDishes = allDishes.filter(dish => {
-        // 【1. 忌口筛选】：如果菜里有选中的忌口标签，直接淘汰
+        // 1. 忌口过滤
         for (let avoid of selectedAvoids) {
             if (dish.tags.includes(avoid)) return false;
         }
-        // 【2. 菜系筛选】：如果选了菜系，必须匹配；如果没选任何菜系，不限制
+        // 2. 菜系过滤
         if (selectedCuisines.length > 0) {
             if (!selectedCuisines.includes(dish.cuisine)) return false;
         }
+        // 3. 肉类过滤 (如果没有选择“无偏好”，才生效)
+        if (selectedMeats.length > 0 && !selectedMeats.includes('无偏好')) {
+            const meatPref = selectedMeats[0];
+            if (meatPref === '素食' && dish.meat_type !== '无') return false;
+            if (meatPref === '不吃红肉' && dish.meat_type === '红肉') return false;
+            if (meatPref === '不吃白肉' && dish.meat_type === '白肉') return false;
+            if (meatPref === '不吃海鲜' && dish.meat_type === '海鲜') return false;
+        }
+        // 4. 嘌呤过滤
+        if (selectedPurines.length > 0 && !selectedPurines.includes('无偏好')) {
+            const purinePref = selectedPurines[0];
+            if (purinePref === '忌高嘌呤' && dish.purine_level === '高') return false;
+        }
+
         return true;
     });
 
-    // 更新列表数量提示
+    // 更新 UI
     if (filteredDishes.length === 0) {
         matchCountEl.textContent = '😭 当前没有符合条件的菜品，请放宽筛选';
         resultEl.className = 'result-card empty';
@@ -128,7 +167,6 @@ function applyFilters() {
     } else {
         matchCountEl.textContent = `找到 ${filteredDishes.length} 道菜`;
         btnEl.disabled = false;
-        // 如果原来抽中的菜不在现在的结果里，自动重抽一个
         if (!currentSelection || !filteredDishes.some(d => d.name === currentSelection)) {
             pickAndDisplay();
         } else {
@@ -196,3 +234,4 @@ resetBtn.addEventListener('click', () => {
 
 // 启动应用
 init();
+setupExclusiveButtons();
