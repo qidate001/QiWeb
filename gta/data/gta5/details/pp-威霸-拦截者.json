@@ -1,0 +1,71 @@
+{
+  "id": "pp-威霸-拦截者",
+  "name": "PP 威霸 拦截者",
+  "category": "主线：大干一票",
+  "difficulty": "★★☆☆☆",
+  "description": "A 方案专属，毫无诚意",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1f94LeKE7a",
+  "routeImage": "",
+  "update_date": "2026-08-14",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "pp-威霸-拦截者.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "冰雪白",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "Metallic Securicor Green",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "冰雪白",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★☆☆☆"
+      },
+      "accessory": "防爆胎",
+      "explosion_data": [
+        1747439474,
+        "拦截者 (PP)",
+        {
+          "priColor": 111,
+          "secColor": 125,
+          "pearlColor": 111,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "40FWL732",
+          "mods": {},
+          "extras": {
+            "1": 0
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

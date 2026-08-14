@@ -1,0 +1,74 @@
+{
+  "id": "大干一票-sp-亚班尼-骑兵",
+  "name": "SP 亚班尼 骑兵",
+  "category": "主线：大干一票",
+  "difficulty": "★☆☆☆☆",
+  "description": "A 方案专属，毫无诚意",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1f94LeKE7a",
+  "routeImage": "",
+  "update_date": "2026-08-14",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "大干一票-sp-亚班尼-骑兵.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "黑色",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "蓝光银",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★☆☆☆☆"
+      },
+      "explosion_data": [
+        3505073125,
+        "骑兵 (sp)",
+        {
+          "priColor": 0,
+          "secColor": 0,
+          "pearlColor": 5,
+          "wheelColor": 0,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 3,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "54AJM610",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 1,
+            "11": 1,
+            "12": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

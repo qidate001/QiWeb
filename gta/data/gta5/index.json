@@ -1177,6 +1177,39 @@
     "variantsCount": 1
   },
   {
+    "id": "sp-贝飞特-迪布达",
+    "name": "SP 贝飞特 迪布达",
+    "category": "主线：大干一票",
+    "difficulty": "★☆☆☆☆",
+    "description": "A 方案专属，毫无诚意",
+    "update_date": "2026-08-14",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1XL43e1EhD",
+    "coverImage": "sp-贝飞特-迪布达.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "pp-威霸-拦截者",
+    "name": "PP 威霸 拦截者",
+    "category": "主线：大干一票",
+    "difficulty": "★★☆☆☆",
+    "description": "A 方案专属，毫无诚意",
+    "update_date": "2026-08-14",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1f94LeKE7a",
+    "coverImage": "pp-威霸-拦截者.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "大干一票-sp-亚班尼-骑兵",
+    "name": "SP 亚班尼 骑兵",
+    "category": "主线：大干一票",
+    "difficulty": "★☆☆☆☆",
+    "description": "A 方案专属，毫无诚意",
+    "update_date": "2026-08-14",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1f94LeKE7a",
+    "coverImage": "大干一票-sp-亚班尼-骑兵.png",
+    "variantsCount": 1
+  },
+  {
     "id": "unique-威皮-小丑花车",
     "name": "Unique 威皮 小丑花车",
     "category": "支线：烟草战士 - 崔佛",
