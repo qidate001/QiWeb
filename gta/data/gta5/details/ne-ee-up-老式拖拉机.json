@@ -1,51 +1,51 @@
 {
-  "id": "up-ec-epsilon-blue-奥北-密探",
-  "name": "UP/EC Epsilon Blue 奥北 密探",
+  "id": "ne-ee-up-老式拖拉机",
+  "name": "NE/EE/UP 老式拖拉机",
   "category": "支线：模糊真理",
-  "difficulty": "★★★★☆",
-  "description": "这两百万真不好挣呐",
-  "bilibiliVideo": "https://www.bilibili.com/video/BV1FpBEYsEQk",
+  "difficulty": "★★★★★",
+  "description": "真是糊弄人呐！",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1mUcbedER7",
   "routeImage": "",
   "update_date": "2026-08-14",
   "variants": [
     {
       "name": "默认款",
-      "image": "up-ec-epsilon-blue-奥北-密探.png",
+      "image": "ne-ee-up-老式拖拉机.png",
       "specs": [
         {
           "label": "主色调",
-          "value": "伊普西隆蓝",
+          "value": "磨损白",
           "isRare": true
         },
         {
           "label": "副色调",
-          "value": "伊普西隆蓝",
+          "value": "磨损白",
           "isRare": true
         },
         {
           "label": "轮胎色",
-          "value": "黑色",
+          "value": "Default Alloy",
           "isRare": false
         },
         {
           "label": "珠光",
-          "value": "黑色",
-          "isRare": false
+          "value": "磨损白",
+          "isRare": true
         }
       ],
       "properties": {
         "获取难度": "★★☆☆☆",
-        "收藏价值": "★★★★☆"
+        "收藏价值": "★★★★★"
       },
-      "accessory": "特殊车牌：K1FFLOM",
+      "accessory": "无挡泥板、可见车牌、特殊车牌：K1FFL0M1",
       "explosion_data": [
-        3286105550,
-        "密探 (UP/EC Epsilon Blue)",
+        1641462412,
+        "老式拖拉机 (NE/EE/UP)",
         {
-          "priColor": 157,
-          "secColor": 157,
-          "pearlColor": 0,
-          "wheelColor": 0,
+          "priColor": 132,
+          "secColor": 132,
+          "pearlColor": 132,
+          "wheelColor": 156,
           "dialsColor": 0,
           "trimColor": 0,
           "customPriColor": 0,
@@ -58,14 +58,11 @@
           "wheelType": 0,
           "lowGripTyres": 0,
           "plateIndex": 0,
-          "plate": "K1FFL0M ",
-          "mods": {
-            "22": 0
-          },
+          "plate": "K1FFL0M1",
+          "mods": {},
           "extras": {
             "1": 1,
-            "2": 1,
-            "3": 0
+            "8": 0
           }
         }
       ]

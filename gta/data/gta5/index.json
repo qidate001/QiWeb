@@ -1340,5 +1340,27 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1Uh6oYJEUZ",
     "coverImage": "ec-epsilon-blue-绝品-卫士xs.png",
     "variantsCount": 1
+  },
+  {
+    "id": "ec-epsilon-blue-ec2-black-rims-小蛮牛",
+    "name": "EC Epsilon Blue/EC2 Black Rims 小蛮牛",
+    "category": "支线：模糊真理",
+    "difficulty": "★★★★☆",
+    "description": "稍微注意点，晚一步开技能，这飞机就飞走了",
+    "update_date": "2026-08-14",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1mUcbedER7",
+    "coverImage": "ec-epsilon-blue-ec2-black-rims-小蛮牛.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ne-ee-up-老式拖拉机",
+    "name": "NE/EE/UP 老式拖拉机",
+    "category": "支线：模糊真理",
+    "difficulty": "★★★★★",
+    "description": "真是糊弄人呐！",
+    "update_date": "2026-08-14",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1mUcbedER7",
+    "coverImage": "ne-ee-up-老式拖拉机.png",
+    "variantsCount": 1
   }
 ]

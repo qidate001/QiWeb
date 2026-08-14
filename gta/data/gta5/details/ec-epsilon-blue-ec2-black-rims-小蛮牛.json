@@ -1,16 +1,16 @@
 {
-  "id": "up-ec-epsilon-blue-奥北-密探",
-  "name": "UP/EC Epsilon Blue 奥北 密探",
+  "id": "ec-epsilon-blue-ec2-black-rims-小蛮牛",
+  "name": "EC Epsilon Blue/EC2 Black Rims 小蛮牛",
   "category": "支线：模糊真理",
   "difficulty": "★★★★☆",
-  "description": "这两百万真不好挣呐",
-  "bilibiliVideo": "https://www.bilibili.com/video/BV1FpBEYsEQk",
+  "description": "稍微注意点，晚一步开技能，这飞机就飞走了",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1mUcbedER7",
   "routeImage": "",
   "update_date": "2026-08-14",
   "variants": [
     {
       "name": "默认款",
-      "image": "up-ec-epsilon-blue-奥北-密探.png",
+      "image": "ec-epsilon-blue-ec2-black-rims-小蛮牛.png",
       "specs": [
         {
           "label": "主色调",
@@ -25,7 +25,7 @@
         {
           "label": "轮胎色",
           "value": "黑色",
-          "isRare": false
+          "isRare": true
         },
         {
           "label": "珠光",
@@ -37,10 +37,9 @@
         "获取难度": "★★☆☆☆",
         "收藏价值": "★★★★☆"
       },
-      "accessory": "特殊车牌：K1FFLOM",
       "explosion_data": [
-        3286105550,
-        "密探 (UP/EC Epsilon Blue)",
+        2634305738,
+        "小蛮牛 (EC Epsilon Blue/EC2 Black Rims)",
         {
           "priColor": 157,
           "secColor": 157,
@@ -57,15 +56,17 @@
           "windowTint": -1,
           "wheelType": 0,
           "lowGripTyres": 0,
-          "plateIndex": 0,
-          "plate": "K1FFL0M ",
+          "plateIndex": 4,
+          "plate": "65GBU126",
           "mods": {
             "22": 0
           },
           "extras": {
-            "1": 1,
-            "2": 1,
-            "3": 0
+            "1": 0,
+            "2": 0,
+            "7": 0,
+            "10": 0,
+            "11": 0
           }
         }
       ]
