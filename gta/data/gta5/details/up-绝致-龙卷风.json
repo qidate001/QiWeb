@@ -1,0 +1,43 @@
+{
+  "id": "up-绝致-龙卷风",
+  "name": "UP 绝致 龙卷风",
+  "category": "主线：第三条路",
+  "difficulty": "★★★☆☆",
+  "description": "装那个傻逼德温的车~",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1ms1QY2ExW",
+  "routeImage": "",
+  "update_date": "2026-08-14",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆"
+      }
+    }
+  ],
+  "methods": []
+}

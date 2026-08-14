@@ -1,0 +1,73 @@
+{
+  "id": "ec-epsilon-blue-ec2-epsilon-blue-rims-冒险家-野牛",
+  "name": "EC Epsilon Blue/EC2 Epsilon Blue Rims 冒险家 野牛",
+  "category": "支线：寻求真理",
+  "difficulty": "★★★★☆",
+  "description": "请填写描述",
+  "bilibiliVideo": "",
+  "routeImage": "",
+  "update_date": "2026-08-14",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec-epsilon-blue-ec2-epsilon-blue-rims-冒险家-野牛.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "伊普西隆蓝",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "伊普西隆蓝",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "伊普西隆蓝",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "蓝光银",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★★☆"
+      },
+      "explosion_data": [
+        4278019151,
+        "野牛 (EC Epsilon Blue/EC2 Epsilon Blue Rims)",
+        {
+          "priColor": 157,
+          "secColor": 157,
+          "pearlColor": 5,
+          "wheelColor": 157,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 3,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "06RPO736",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 0,
+            "11": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
