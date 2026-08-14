@@ -126,12 +126,17 @@
     gap: 10px;
 }
 
-/* 主线：三列 */
+/* 四列 */
+.module-list.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* 三列 */
 .module-list.grid-3 {
     grid-template-columns: repeat(3, 1fr);
 }
 
-/* 支线：两列 */
+/* 两列 */
 .module-list.grid-2 {
     grid-template-columns: repeat(2, 1fr);
 }

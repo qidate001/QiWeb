@@ -105,7 +105,7 @@ function renderQuickStart(version, vehicles, taskRoles) {
                         <h3>主线任务</h3>
                         <span class="module-count">${uniqueMain.length} 个分类</span>
                     </div>
-                    <div class="module-list grid-3">
+                    <div class="module-list grid-4">
                         ${uniqueMain.map(cat => {
                             const displayName = cat.replace(/^主线[：:]/, '');
                             // 👇 从配置文件中读取角色，读取不到则 fallback 为 default
@@ -126,7 +126,7 @@ function renderQuickStart(version, vehicles, taskRoles) {
                         <h3>陌生人与怪胎</h3>
                         <span class="module-count">${uniqueSide.length} 个分类</span>
                     </div>
-                    <div class="module-list grid-2">
+                    <div class="module-list grid-3">
                         ${uniqueSide.map(cat => {
                             const displayName = cat.replace(/^支线[：:]/, '');
                             return `<a href="vehicles.html?category=${encodeURIComponent(cat)}&version=gta5" class="task-link">${displayName}</a>`;
