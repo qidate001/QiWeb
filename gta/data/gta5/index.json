@@ -1217,7 +1217,7 @@
     "description": "装那个傻逼德温的车~",
     "update_date": "2026-08-14",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1ms1QY2ExW",
-    "coverImage": null,
+    "coverImage": "up-绝致-龙卷风.png",
     "variantsCount": 1
   },
   {
@@ -1269,16 +1269,16 @@
     "name": "EC Epsilon Blue/EC2 Epsilon Blue Rims 冒险家 野牛",
     "category": "支线：寻求真理",
     "difficulty": "★★★★☆",
-    "description": "请填写描述",
+    "description": "简单易得，加载很高！",
     "update_date": "2026-08-14",
-    "bilibiliVideo": "",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1k4SBYkEwN",
     "coverImage": "ec-epsilon-blue-ec2-epsilon-blue-rims-冒险家-野牛.png",
     "variantsCount": 1
   },
   {
     "id": "ec-epsilon-blue-梅杜莎-1",
     "name": "EC Epsilon Blue 梅杜莎",
-    "category": "主线：传播真理",
+    "category": "支线：传播真理",
     "difficulty": "★★★★☆",
     "description": "银色条纹的Epsilon飞机",
     "update_date": "2026-08-14",
@@ -1289,7 +1289,7 @@
   {
     "id": "ec-epsilon-blue-梅杜莎-2",
     "name": "EC Epsilon Blue 梅杜莎",
-    "category": "主线：传播真理",
+    "category": "支线：传播真理",
     "difficulty": "★★★☆☆",
     "description": "黑色条纹的Epsilon飞机",
     "update_date": "2026-08-14",
@@ -1300,12 +1300,45 @@
   {
     "id": "ec-epsilon-blue-ec2-silver-rims-欧斯洛-f620",
     "name": "EC Epsilon Blue/EC2 Silver Rims 欧斯洛 F620",
-    "category": "主线：传播真理",
+    "category": "支线：传播真理",
     "difficulty": "★★★★☆",
-    "description": "直接送我们那个",
+    "description": "直接送我们那辆",
     "update_date": "2026-08-14",
     "bilibiliVideo": "https://www.bilibili.com/video/BV11TUqYCEr7",
     "coverImage": "ec-epsilon-blue-ec2-silver-rims-欧斯洛-f620.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "up-ec-epsilon-blue-奥北-密探",
+    "name": "UP/EC Epsilon Blue 奥北 密探",
+    "category": "支线：模糊真理",
+    "difficulty": "★★★★☆",
+    "description": "这两百万真不好挣呐",
+    "update_date": "2026-08-14",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1FpBEYsEQk",
+    "coverImage": "up-ec-epsilon-blue-奥北-密探.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-epsilon-blue-敦追里-追捕者",
+    "name": "EC Epsilon Blue 敦追里 追捕者",
+    "category": "支线：模糊真理",
+    "difficulty": "★★★☆☆",
+    "description": "Kifflom! Kifflom! Kifflom! Kifflom!",
+    "update_date": "2026-08-14",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1apztYuEkz",
+    "coverImage": "ec-epsilon-blue-敦追里-追捕者.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-epsilon-blue-绝品-卫士xs",
+    "name": "EC Epsilon Blue 绝品 卫士XS",
+    "category": "支线：模糊真理",
+    "difficulty": "★★★☆☆",
+    "description": "要钱？我缺那200万？我要的是载具！！！",
+    "update_date": "2026-08-14",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1Uh6oYJEUZ",
+    "coverImage": "ec-epsilon-blue-绝品-卫士xs.png",
     "variantsCount": 1
   }
 ]

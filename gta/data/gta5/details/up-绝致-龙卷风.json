@@ -10,33 +10,65 @@
   "variants": [
     {
       "name": "默认款",
-      "image": "",
+      "image": "up-绝致-龙卷风.png",
       "specs": [
         {
           "label": "主色调",
-          "value": "",
+          "value": "黑色",
           "isRare": false
         },
         {
           "label": "副色调",
-          "value": "",
+          "value": "黑色",
           "isRare": false
         },
         {
           "label": "轮胎色",
-          "value": "",
+          "value": "Default Alloy",
           "isRare": false
         },
         {
           "label": "珠光",
-          "value": "",
+          "value": "墨黑色",
           "isRare": false
         }
       ],
       "properties": {
         "获取难度": "★★☆☆☆",
         "收藏价值": "★★★☆☆"
-      }
+      },
+      "accessory": "特殊车牌：MONIED",
+      "explosion_data": [
+        464687292,
+        "龙卷风 (UP)",
+        {
+          "priColor": 0,
+          "secColor": 0,
+          "pearlColor": 1,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 2,
+          "lowGripTyres": 0,
+          "plateIndex": 1,
+          "plate": " M0NIED ",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 1,
+            "11": 0,
+            "12": 1
+          }
+        }
+      ]
     }
   ],
   "methods": []
