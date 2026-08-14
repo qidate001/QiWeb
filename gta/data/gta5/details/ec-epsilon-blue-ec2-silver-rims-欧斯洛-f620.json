@@ -1,0 +1,73 @@
+{
+  "id": "ec-epsilon-blue-ec2-silver-rims-欧斯洛-f620",
+  "name": "EC Epsilon Blue/EC2 Silver Rims 欧斯洛 F620",
+  "category": "主线：传播真理",
+  "difficulty": "★★★★☆",
+  "description": "直接送我们那个",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV11TUqYCEr7",
+  "routeImage": "",
+  "update_date": "2026-08-14",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec-epsilon-blue-ec2-silver-rims-欧斯洛-f620.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "伊普西隆蓝",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "伊普西隆蓝",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "伊普西隆蓝",
+          "isRare": true
+        },
+        {
+          "label": "珠光",
+          "value": "蓝光银",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★★★☆"
+      },
+      "explosion_data": [
+        3703357000,
+        "F620 (EC Epsilon Blue/EC2 Silver Rims)",
+        {
+          "priColor": 157,
+          "secColor": 157,
+          "pearlColor": 157,
+          "wheelColor": 5,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 7,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "69KMH206",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 0,
+            "12": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

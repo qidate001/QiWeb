@@ -1274,5 +1274,38 @@
     "bilibiliVideo": "",
     "coverImage": "ec-epsilon-blue-ec2-epsilon-blue-rims-冒险家-野牛.png",
     "variantsCount": 1
+  },
+  {
+    "id": "ec-epsilon-blue-梅杜莎-1",
+    "name": "EC Epsilon Blue 梅杜莎",
+    "category": "主线：传播真理",
+    "difficulty": "★★★★☆",
+    "description": "银色条纹的Epsilon飞机",
+    "update_date": "2026-08-14",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1zNDrYEEuy",
+    "coverImage": "ec-epsilon-blue-梅杜莎-1.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-epsilon-blue-梅杜莎-2",
+    "name": "EC Epsilon Blue 梅杜莎",
+    "category": "主线：传播真理",
+    "difficulty": "★★★☆☆",
+    "description": "黑色条纹的Epsilon飞机",
+    "update_date": "2026-08-14",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV11TUqYCEr7",
+    "coverImage": "ec-epsilon-blue-梅杜莎-2.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-epsilon-blue-ec2-silver-rims-欧斯洛-f620",
+    "name": "EC Epsilon Blue/EC2 Silver Rims 欧斯洛 F620",
+    "category": "主线：传播真理",
+    "difficulty": "★★★★☆",
+    "description": "直接送我们那个",
+    "update_date": "2026-08-14",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV11TUqYCEr7",
+    "coverImage": "ec-epsilon-blue-ec2-silver-rims-欧斯洛-f620.png",
+    "variantsCount": 1
   }
 ]

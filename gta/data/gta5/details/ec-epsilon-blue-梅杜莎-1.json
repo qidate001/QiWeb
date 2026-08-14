@@ -1,0 +1,70 @@
+{
+  "id": "ec-epsilon-blue-梅杜莎-1",
+  "name": "EC Epsilon Blue 梅杜莎",
+  "category": "主线：传播真理",
+  "difficulty": "★★★★☆",
+  "description": "银色条纹的Epsilon飞机",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1zNDrYEEuy",
+  "routeImage": "",
+  "update_date": "2026-08-14",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec-epsilon-blue-梅杜莎-1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "伊普西隆蓝",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "伊普西隆蓝",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "蓝光银",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "伊普西隆蓝",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★★★☆"
+      },
+      "explosion_data": [
+        2621610858,
+        "梅杜莎 银线条 (EC Epsilon Blue)",
+        {
+          "priColor": 157,
+          "secColor": 157,
+          "pearlColor": 157,
+          "wheelColor": 5,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": 3,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "80WKJ916",
+          "mods": {
+            "22": 0
+          },
+          "extras": {}
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
