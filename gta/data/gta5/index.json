@@ -1362,5 +1362,38 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1mUcbedER7",
     "coverImage": "ne-ee-up-老式拖拉机.png",
     "variantsCount": 1
+  },
+  {
+    "id": "unique-敌痛息-冒险家-澜波",
+    "name": "Unique 敌痛息 冒险家 澜波",
+    "category": "支线：再爱我一次",
+    "difficulty": "★★★☆☆",
+    "description": "崔佛老妈要的药车",
+    "update_date": "2026-08-15",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1mQNHeLEX3",
+    "coverImage": "unique-敌痛息-冒险家-澜波.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-white-lustered-悠游-行者",
+    "name": "EC White/Lustered 悠游 行者",
+    "category": "支线：狗仔队",
+    "difficulty": "★★★☆☆",
+    "description": "狗仔队稀有行者中价值最高的",
+    "update_date": "2026-08-15",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1m9XoYmEZG",
+    "coverImage": "ec-white-lustered-悠游-行者.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec2-lustered-悠游-行者",
+    "name": "EC2/Lustered 悠游 行者",
+    "category": "支线：狗仔队",
+    "difficulty": "★☆☆☆☆",
+    "description": "狗仔队稀有行者系列，价值挺低",
+    "update_date": "2026-08-15",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1m9XoYmEZG",
+    "coverImage": "ec2-lustered-悠游-行者_1.png",
+    "variantsCount": 8
   }
 ]

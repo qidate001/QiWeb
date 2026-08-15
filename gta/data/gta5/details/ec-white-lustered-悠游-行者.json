@@ -1,0 +1,74 @@
+{
+  "id": "ec-white-lustered-悠游-行者",
+  "name": "EC White/Lustered 悠游 行者",
+  "category": "支线：狗仔队",
+  "difficulty": "★★★☆☆",
+  "description": "狗仔队稀有行者中价值最高的",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1m9XoYmEZG",
+  "routeImage": "",
+  "update_date": "2026-08-15",
+  "variants": [
+    {
+      "name": "磨损白款",
+      "image": "ec-white-lustered-悠游-行者.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损白",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损白",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "冰雪白",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        3486135912,
+        "行者 (EC White/Lustered)",
+        {
+          "priColor": 132,
+          "secColor": 132,
+          "pearlColor": 111,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 3,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "01NJY201",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 1,
+            "11": 1,
+            "12": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
