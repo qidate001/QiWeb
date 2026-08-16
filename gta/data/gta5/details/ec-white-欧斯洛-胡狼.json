@@ -1,0 +1,72 @@
+{
+  "id": "ec-white-欧斯洛-胡狼",
+  "name": "EC White 欧斯洛 胡狼",
+  "category": "支线：狗仔队",
+  "difficulty": "★★★☆☆",
+  "description": "狗仔队稀有胡狼中价值最高的",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1hyXpYdEtv",
+  "routeImage": "",
+  "update_date": "2026-08-16",
+  "variants": [
+    {
+      "name": "磨损白款",
+      "image": "ec-white-欧斯洛-胡狼.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损白",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损白",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "都灵红",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        3670438162,
+        "胡狼 (EC White)",
+        {
+          "priColor": 132,
+          "secColor": 132,
+          "pearlColor": 28,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "80YSZ613",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "11": 0
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

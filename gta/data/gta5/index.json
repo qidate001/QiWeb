@@ -1395,5 +1395,27 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1m9XoYmEZG",
     "coverImage": "ec2-lustered-悠游-行者_1.png",
     "variantsCount": 8
+  },
+  {
+    "id": "ec-white-欧斯洛-胡狼",
+    "name": "EC White 欧斯洛 胡狼",
+    "category": "支线：狗仔队",
+    "difficulty": "★★★☆☆",
+    "description": "狗仔队稀有胡狼中价值最高的",
+    "update_date": "2026-08-16",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1hyXpYdEtv",
+    "coverImage": "ec-white-欧斯洛-胡狼.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec2-欧斯洛-胡狼",
+    "name": "EC2 欧斯洛 胡狼",
+    "category": "支线：狗仔队",
+    "difficulty": "★☆☆☆☆",
+    "description": "狗仔队稀有胡狼系列，价值挺低",
+    "update_date": "2026-08-16",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1hyXpYdEtv",
+    "coverImage": "ec2-欧斯洛-胡狼_1.png",
+    "variantsCount": 9
   }
 ]
