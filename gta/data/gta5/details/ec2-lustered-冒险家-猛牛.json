@@ -1,0 +1,283 @@
+{
+  "id": "ec2-lustered-冒险家-猛牛",
+  "name": "EC2/Lustered 冒险家 猛牛",
+  "category": "支线：狗仔队",
+  "difficulty": "★☆☆☆☆",
+  "description": "狗仔队稀有猛牛系列，价值挺低",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1UsXhYrE3B",
+  "routeImage": "",
+  "update_date": "2026-09-01",
+  "variants": [
+    {
+      "name": "浅蓝款",
+      "image": "ec2-lustered-冒险家-猛牛_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "冲浪蓝",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "冲浪蓝",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "黑钢色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★☆☆☆☆"
+      }
+    },
+    {
+      "name": "深蓝款",
+      "image": "ec2-lustered-冒险家-猛牛_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "深蓝色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "深蓝色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "黑钢色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★☆☆☆☆"
+      }
+    },
+    {
+      "name": "竞速蓝款",
+      "image": "ec2-lustered-冒险家-猛牛_3.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "竞速蓝",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "竞速蓝",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "黑钢色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★☆☆☆☆"
+      }
+    },
+    {
+      "name": "绿色款",
+      "image": "ec2-lustered-冒险家-猛牛_4.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "橄榄绿",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "橄榄绿",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "黑钢色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★☆☆☆☆"
+      }
+    },
+    {
+      "name": "黄色款",
+      "image": "ec2-lustered-冒险家-猛牛_5.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "黄色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "黄色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "黑钢色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★☆☆☆☆"
+      }
+    },
+    {
+      "name": "红色款",
+      "image": "ec2-lustered-冒险家-猛牛_6.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "红色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "红色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "黑钢色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★☆☆☆☆"
+      }
+    },
+    {
+      "name": "银色款",
+      "image": "ec2-lustered-冒险家-猛牛_7.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "银色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "银色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "黑钢色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★☆☆☆☆"
+      }
+    },
+    {
+      "name": "深银款",
+      "image": "ec2-lustered-冒险家-猛牛_8.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "幽影银",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "幽影银",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "黑钢色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★☆☆☆☆"
+      }
+    },
+    {
+      "name": "黑钢款",
+      "image": "ec2-lustered-冒险家-猛牛_9.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "黑钢色",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "黑钢色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "黑钢色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★☆☆☆☆"
+      }
+    }
+  ],
+  "methods": []
+}

@@ -1375,6 +1375,17 @@
     "variantsCount": 1
   },
   {
+    "id": "up-敦追里-追捕者",
+    "name": "UP 敦追里 追捕者",
+    "category": "支线：好麦坞明日之星",
+    "difficulty": "★★☆☆☆",
+    "description": "德赖弗斯的载具",
+    "update_date": "2026-09-01",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1ExfqYoEYU",
+    "coverImage": "up-敦追里-追捕者.png",
+    "variantsCount": 1
+  },
+  {
     "id": "ec-white-lustered-悠游-行者",
     "name": "EC White/Lustered 悠游 行者",
     "category": "支线：狗仔队",
@@ -1416,6 +1427,28 @@
     "update_date": "2026-08-16",
     "bilibiliVideo": "https://www.bilibili.com/video/BV1hyXpYdEtv",
     "coverImage": "ec2-欧斯洛-胡狼_1.png",
+    "variantsCount": 9
+  },
+  {
+    "id": "ec-white-lustered-冒险家-猛牛",
+    "name": "EC White/Lustered 冒险家 猛牛",
+    "category": "支线：狗仔队",
+    "difficulty": "★★★☆☆",
+    "description": "狗仔队稀有猛牛中价值最高的",
+    "update_date": "2026-09-01",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1UsXhYrE3B",
+    "coverImage": "ec-white-lustered-冒险家-猛牛.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec2-lustered-冒险家-猛牛",
+    "name": "EC2/Lustered 冒险家 猛牛",
+    "category": "支线：狗仔队",
+    "difficulty": "★☆☆☆☆",
+    "description": "狗仔队稀有猛牛系列，价值挺低",
+    "update_date": "2026-09-01",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1UsXhYrE3B",
+    "coverImage": "ec2-lustered-冒险家-猛牛_1.png",
     "variantsCount": 9
   }
 ]
