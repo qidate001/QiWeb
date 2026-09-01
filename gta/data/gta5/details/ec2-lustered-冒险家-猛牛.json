@@ -36,7 +36,42 @@
       "properties": {
         "获取难度": "★★☆☆☆",
         "收藏价值": "★☆☆☆☆"
-      }
+      },
+      "explosion_data": [
+        3990165190,
+        "猛牛 冲浪蓝 (EC2/Lustered)",
+        {
+          "priColor": 68,
+          "secColor": 68,
+          "pearlColor": 2,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "01SMF077",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "10": 1,
+            "11": 1
+          }
+        }
+      ]
     },
     {
       "name": "深蓝款",
@@ -66,7 +101,42 @@
       "properties": {
         "获取难度": "★★☆☆☆",
         "收藏价值": "★☆☆☆☆"
-      }
+      },
+      "explosion_data": [
+        3990165190,
+        "猛牛 深蓝色 (EC2/Lustered)",
+        {
+          "priColor": 62,
+          "secColor": 62,
+          "pearlColor": 2,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "07YOJ469",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "10": 1,
+            "11": 1
+          }
+        }
+      ]
     },
     {
       "name": "竞速蓝款",
@@ -96,7 +166,42 @@
       "properties": {
         "获取难度": "★★☆☆☆",
         "收藏价值": "★☆☆☆☆"
-      }
+      },
+      "explosion_data": [
+        3990165190,
+        "猛牛 竞速蓝 (EC2/Lustered)",
+        {
+          "priColor": 73,
+          "secColor": 73,
+          "pearlColor": 2,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "27FBB043",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "10": 0,
+            "11": 1
+          }
+        }
+      ]
     },
     {
       "name": "绿色款",
@@ -126,7 +231,42 @@
       "properties": {
         "获取难度": "★★☆☆☆",
         "收藏价值": "★☆☆☆☆"
-      }
+      },
+      "explosion_data": [
+        3990165190,
+        "猛牛 橄榄绿 (EC2/Lustered)",
+        {
+          "priColor": 52,
+          "secColor": 52,
+          "pearlColor": 2,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "24KEJ363",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "10": 0,
+            "11": 1
+          }
+        }
+      ]
     },
     {
       "name": "黄色款",
@@ -156,7 +296,42 @@
       "properties": {
         "获取难度": "★★☆☆☆",
         "收藏价值": "★☆☆☆☆"
-      }
+      },
+      "explosion_data": [
+        3990165190,
+        "猛牛 黄色 (EC2/Lustered)",
+        {
+          "priColor": 88,
+          "secColor": 88,
+          "pearlColor": 38,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "85SAK974",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "10": 1,
+            "11": 1
+          }
+        }
+      ]
     },
     {
       "name": "红色款",
@@ -186,7 +361,42 @@
       "properties": {
         "获取难度": "★★☆☆☆",
         "收藏价值": "★☆☆☆☆"
-      }
+      },
+      "explosion_data": [
+        3990165190,
+        "猛牛 红色 (EC2/Lustered)",
+        {
+          "priColor": 27,
+          "secColor": 27,
+          "pearlColor": 2,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "62RRR721",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "10": 0,
+            "11": 1
+          }
+        }
+      ]
     },
     {
       "name": "银色款",
@@ -216,7 +426,42 @@
       "properties": {
         "获取难度": "★★☆☆☆",
         "收藏价值": "★☆☆☆☆"
-      }
+      },
+      "explosion_data": [
+        3990165190,
+        "猛牛 银色 (EC2/Lustered)",
+        {
+          "priColor": 4,
+          "secColor": 4,
+          "pearlColor": 2,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "49ABB516",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "10": 1,
+            "11": 1
+          }
+        }
+      ]
     },
     {
       "name": "深银款",
@@ -246,7 +491,42 @@
       "properties": {
         "获取难度": "★★☆☆☆",
         "收藏价值": "★☆☆☆☆"
-      }
+      },
+      "explosion_data": [
+        3990165190,
+        "猛牛 幽影银 (EC2/Lustered)",
+        {
+          "priColor": 7,
+          "secColor": 7,
+          "pearlColor": 2,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "81UMH672",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "10": 1,
+            "11": 0
+          }
+        }
+      ]
     },
     {
       "name": "黑钢款",
@@ -276,7 +556,42 @@
       "properties": {
         "获取难度": "★★☆☆☆",
         "收藏价值": "★☆☆☆☆"
-      }
+      },
+      "explosion_data": [
+        3990165190,
+        "猛牛 黑钢色 (EC2/Lustered)",
+        {
+          "priColor": 2,
+          "secColor": 2,
+          "pearlColor": 2,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 0,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "62LVU888",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "10": 0,
+            "11": 1
+          }
+        }
+      ]
     }
   ],
   "methods": []
