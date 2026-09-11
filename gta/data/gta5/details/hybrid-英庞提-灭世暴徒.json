@@ -1,0 +1,77 @@
+{
+  "id": "hybrid-英庞提-灭世暴徒",
+  "name": "Hybrid 英庞提 灭世暴徒",
+  "category": "主线：罪恶暗杀活动",
+  "difficulty": "★★★☆☆",
+  "description": "V代里仅此一辆的混合造型（Hybrid）载具",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV13zLDzXEhp",
+  "routeImage": "",
+  "update_date": "2026-09-11",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "hybrid-英庞提-灭世暴徒.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "竞速绿",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "深绿色",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "竞速绿",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "accessory": "玻璃顶+硬顶",
+      "explosion_data": [
+        4067225593,
+        "灭世暴徒 (Hybrid)",
+        {
+          "priColor": 50,
+          "secColor": 49,
+          "pearlColor": 50,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 1,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "08VKI669",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "2": 0,
+            "3": 0,
+            "7": 1,
+            "10": 1,
+            "11": 0
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
