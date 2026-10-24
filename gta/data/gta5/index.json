@@ -1397,6 +1397,17 @@
     "variantsCount": 1
   },
   {
+    "id": "ec-bright-red-小蛮牛",
+    "name": "EC Bright Red 小蛮牛",
+    "category": "支线：风险评估",
+    "difficulty": "★★★☆☆",
+    "description": "霸主跳伞那架，工地暗杀行动里也能获得",
+    "update_date": "2026-10-20",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1DcEv6PEdh",
+    "coverImage": "ec-bright-red-小蛮牛.png",
+    "variantsCount": 1
+  },
+  {
     "id": "ec-white-lustered-悠游-行者",
     "name": "EC White/Lustered 悠游 行者",
     "category": "支线：狗仔队",
