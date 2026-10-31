@@ -1,0 +1,199 @@
+{
+  "id": "ec-sp-绝致-蓝彻-xl",
+  "name": "EC/SP 绝致 蓝彻 XL",
+  "category": "随机：决斗",
+  "difficulty": "★★★★☆",
+  "description": "hyw的红绿灯追兵。还是挺扎眼的不容易错过",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1N8Yp6oE1Y",
+  "routeImage": "",
+  "update_date": "2026-10-31",
+  "variants": [
+    {
+      "name": "红色款",
+      "image": "ec-sp-绝致-蓝彻-xl_1.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损暗红色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损暗红色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "石银色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★★☆"
+      },
+      "accessory": "固定车牌：18NJM316",
+      "explosion_data": [
+        1645267888,
+        "蓝彻µXL (EC Red/SP)",
+        {
+          "priColor": 48,
+          "secColor": 48,
+          "pearlColor": 8,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 4,
+          "lowGripTyres": 0,
+          "plateIndex": 3,
+          "plate": "18NJM316",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 1,
+            "11": 1,
+            "12": 1
+          }
+        }
+      ]
+    },
+    {
+      "name": "绿色款",
+      "image": "ec-sp-绝致-蓝彻-xl_2.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损暗绿色",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损暗绿色",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "石银色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★★★★☆"
+      },
+      "accessory": "固定车牌：28HDT291",
+      "explosion_data": [
+        1645267888,
+        "蓝彻µXL (EC Green/SP)",
+        {
+          "priColor": 58,
+          "secColor": 58,
+          "pearlColor": 8,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 4,
+          "lowGripTyres": 0,
+          "plateIndex": 3,
+          "plate": "28HDT291",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 1,
+            "11": 1,
+            "12": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "黄色款",
+      "image": "ec-sp-绝致-蓝彻-xl_3.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "飞特者棕",
+          "isRare": false
+        },
+        {
+          "label": "副色调",
+          "value": "飞特者棕",
+          "isRare": false
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "石银色",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★☆☆☆",
+        "收藏价值": "★☆☆☆☆"
+      },
+      "accessory": "固定车牌：23DJT162",
+      "explosion_data": [
+        1645267888,
+        "蓝彻µXL (SP)",
+        {
+          "priColor": 94,
+          "secColor": 94,
+          "pearlColor": 8,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 4,
+          "lowGripTyres": 0,
+          "plateIndex": 3,
+          "plate": "23DJT162",
+          "mods": {
+            "22": 0
+          },
+          "extras": {
+            "10": 0,
+            "11": 1,
+            "12": 1
+          }
+        }
+      ]
+    }
+  ],
+  "methods": []
+}

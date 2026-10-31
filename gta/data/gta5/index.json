@@ -1538,5 +1538,38 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1Udt96rEZ4",
     "coverImage": "ec-black-sp-乔氏-魅影_1.png",
     "variantsCount": 2
+  },
+  {
+    "id": "ec-sp-绝致-蓝彻-xl",
+    "name": "EC/SP 绝致 蓝彻 XL",
+    "category": "随机：决斗",
+    "difficulty": "★★★★☆",
+    "description": "hyw的红绿灯追兵。还是挺扎眼的不容易错过",
+    "update_date": "2026-10-31",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1N8Yp6oE1Y",
+    "coverImage": "ec-sp-绝致-蓝彻-xl_1.png",
+    "variantsCount": 3
+  },
+  {
+    "id": "sp-卡林-叛逆男女生锈版",
+    "name": "SP 卡林 叛逆男女生锈版",
+    "category": "随机：交易出错",
+    "difficulty": "★☆☆☆☆",
+    "description": "价值有点低",
+    "update_date": "2026-10-31",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1d4ej6tEd8",
+    "coverImage": "sp-卡林-叛逆男女生锈版_1.png",
+    "variantsCount": 2
+  },
+  {
+    "id": "sp-威皮-雄猫-xl",
+    "name": "SP 威皮 雄猫 XL",
+    "category": "随机：交易出错",
+    "difficulty": "★☆☆☆☆",
+    "description": "价值有点低",
+    "update_date": "2026-10-31",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1d4ej6tEd8",
+    "coverImage": "sp-威皮-雄猫-xl_1.png",
+    "variantsCount": 2
   }
 ]
