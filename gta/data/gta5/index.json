@@ -1516,5 +1516,27 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1tcgo6NEqs",
     "coverImage": "ne-卡尼斯-傲世铁骑.png",
     "variantsCount": 1
+  },
+  {
+    "id": "up-雪佛-斗牛士",
+    "name": "UP 雪佛 斗牛士",
+    "category": "随机：乡村帮派争斗",
+    "difficulty": "★★☆☆☆",
+    "description": "私藏隐藏车可是重罪！不管我是不是刚帮了你",
+    "update_date": "2026-10-31",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1Z8t46yE5K",
+    "coverImage": "up-雪佛-斗牛士.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-black-sp-乔氏-魅影",
+    "name": "EC Black/SP 乔氏 魅影",
+    "category": "随机：决斗",
+    "difficulty": "★★☆☆☆",
+    "description": "低难度，低价值，滴滴啵唧嘀嘀啵啵嘢",
+    "update_date": "2026-10-31",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1Udt96rEZ4",
+    "coverImage": "ec-black-sp-乔氏-魅影_1.png",
+    "variantsCount": 2
   }
 ]
