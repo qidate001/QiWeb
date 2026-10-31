@@ -1,0 +1,44 @@
+{
+  "id": "ne-卡尼斯-傲世铁骑",
+  "name": "NE 卡尼斯 傲世铁骑",
+  "category": "支线：疯狂杀戮 - 军方",
+  "difficulty": "★★★☆☆",
+  "description": "头被掀了",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1tcgo6NEqs",
+  "routeImage": "",
+  "update_date": "2026-10-31",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ne-卡尼斯-傲世铁骑.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "磨损白",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "磨损白",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "磨损白",
+          "isRare": true
+        }
+      ],
+      "properties": {
+        "获取难度": "★☆☆☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "accessory": "无车顶"
+    }
+  ],
+  "methods": []
+}
