@@ -1472,5 +1472,27 @@
     "bilibiliVideo": "https://www.bilibili.com/video/BV1UsXhYrE3B",
     "coverImage": "ec2-lustered-冒险家-猛牛_1.png",
     "variantsCount": 9
+  },
+  {
+    "id": "sp-绝致-统领",
+    "name": "SP 绝致 统领",
+    "category": "支线：奈杰尔与桑希尔女士",
+    "difficulty": "★★☆☆☆",
+    "description": "就那俩老变态的车",
+    "update_date": "2026-10-31",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1UtK26wErT",
+    "coverImage": "sp-绝致-统领.png",
+    "variantsCount": 1
+  },
+  {
+    "id": "ec-bronze-lustered-威皮-竞速",
+    "name": "EC Bronze/Lustered 威皮 竞速",
+    "category": "支线：好麦坞纪念品 - 泰勒",
+    "difficulty": "★★★☆☆",
+    "description": "有工具 可惜保存不了",
+    "update_date": "2026-10-31",
+    "bilibiliVideo": "https://www.bilibili.com/video/BV1y7gb6SE25",
+    "coverImage": "ec-bronze-lustered-威皮-竞速.png",
+    "variantsCount": 1
   }
 ]

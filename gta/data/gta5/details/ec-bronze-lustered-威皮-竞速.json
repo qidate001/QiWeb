@@ -1,0 +1,70 @@
+{
+  "id": "ec-bronze-lustered-威皮-竞速",
+  "name": "EC Bronze/Lustered 威皮 竞速",
+  "category": "支线：好麦坞纪念品 - 泰勒",
+  "difficulty": "★★★☆☆",
+  "description": "有工具 可惜保存不了",
+  "bilibiliVideo": "https://www.bilibili.com/video/BV1y7gb6SE25",
+  "routeImage": "",
+  "update_date": "2026-10-31",
+  "variants": [
+    {
+      "name": "默认款",
+      "image": "ec-bronze-lustered-威皮-竞速.png",
+      "specs": [
+        {
+          "label": "主色调",
+          "value": "枫木棕",
+          "isRare": true
+        },
+        {
+          "label": "副色调",
+          "value": "枫木棕",
+          "isRare": true
+        },
+        {
+          "label": "轮胎色",
+          "value": "Default Alloy",
+          "isRare": false
+        },
+        {
+          "label": "珠光",
+          "value": "银光蓝",
+          "isRare": false
+        }
+      ],
+      "properties": {
+        "获取难度": "★★★☆☆",
+        "收藏价值": "★★★☆☆"
+      },
+      "explosion_data": [
+        3484649228,
+        "劲速 (EC Bronze/Lustered)",
+        {
+          "priColor": 97,
+          "secColor": 97,
+          "pearlColor": 5,
+          "wheelColor": 156,
+          "dialsColor": 0,
+          "trimColor": 0,
+          "customPriColor": 0,
+          "customSecColor": 0,
+          "tireSmoke": 16777215,
+          "neon": 16711935,
+          "neonState": 0,
+          "livery": -1,
+          "windowTint": -1,
+          "wheelType": 1,
+          "lowGripTyres": 0,
+          "plateIndex": 0,
+          "plate": "82HCJ195",
+          "mods": {
+            "22": 0
+          },
+          "extras": {}
+        }
+      ]
+    }
+  ],
+  "methods": []
+}
