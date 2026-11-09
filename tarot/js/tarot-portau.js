@@ -662,6 +662,14 @@ resetBtn.addEventListener('click', () => {
     startGameAsHost();
 });
 
+// ---------- 大字模式切换 ----------
+const largeFontBtn = document.getElementById('largeFontBtn');
+largeFontBtn.addEventListener('click', () => {
+    document.body.classList.toggle('large-mode');
+    const isLarge = document.body.classList.contains('large-mode');
+    largeFontBtn.textContent = isLarge ? '🔍 正常模式' : '🔍 大字模式';
+});
+
 // ---------- 启动 ----------
 initPeer();
 console.log('🎴 塔罗 Portau 已启动');
