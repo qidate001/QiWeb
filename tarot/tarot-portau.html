@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎴 塔罗 Portau</title>
+    <link rel="stylesheet" href="./css/tarot-portau.css" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+</head>
+<body>
+
+    <div class="game-container">
+
+        <!-- 顶部 -->
+        <header class="game-header">
+            <div class="header-left">
+                <h1 class="game-title">塔罗 Portau</h1>
+                <div class="scoreboard">
+                    <div class="score">
+                        <span>👤 我</span>
+                        <span class="num" id="myScore">0</span>
+                    </div>
+                    <span class="vs">⚔️</span>
+                    <div class="score">
+                        <span>👤 对手</span>
+                        <span class="num" id="oppScore">0</span>
+                    </div>
+                    <span class="deck-info" id="deckInfo">牌库 0</span>
+                </div>
+            </div>
+
+            <div class="connection-panel" id="connectionPanel">
+                <input type="text" id="peerIdInput" placeholder="输入房间号">
+                <button class="btn btn-create" id="createBtn">创建房间</button>
+                <button class="btn" id="joinBtn">加入房间</button>
+                <span class="peer-id-display" id="myPeerIdDisplay" title="点击复制">未连接</span>
+            </div>
+        </header>
+
+        <!-- 对手 -->
+        <div class="opp-area">
+            <div class="area-label">🎩 对手（<span id="oppCount">0</span> 张）</div>
+            <div class="opp-hand" id="oppHand"></div>
+        </div>
+
+        <!-- 牌桌 -->
+        <div class="board-area">
+            <div class="board" id="board"></div>
+        </div>
+
+        <!-- 我的手牌 -->
+        <div class="my-area">
+            <div class="area-label">🃏 我的手牌（<span id="myCount">0</span> 张）</div>
+            <div class="my-hand" id="myHand"></div>
+        </div>
+
+        <!-- 底部 -->
+        <footer class="game-footer">
+            <div class="game-message" id="gameMessage">等待连接...</div>
+            <div class="game-actions">
+                <button class="btn btn-discard" id="discardBtn" disabled>🗑️ 弃 1 张 (-2分)</button>
+                <button class="btn btn-redraw" id="redrawBtn" disabled>🔄 重抽全部（跳过回合）</button>
+                <button class="btn btn-reset" id="resetBtn">新游戏</button>
+                <a href="./docs/tarot-portau.html" class="btn btn-rules" target="_blank">📖 规则</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="./js/tarot-portau-config.js"></script>
+    <script src="./js/tarot-portau.js"></script>
+</body>
+</html>

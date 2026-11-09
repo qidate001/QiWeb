@@ -1,0 +1,600 @@
+/* ============================================================
+   css/tarot-portau.css
+   ============================================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, #0d0610 0%, #1a0a2e 30%, #2d1b3d 60%, #1a0a2e 100%);
+    color: #d8c8e0;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, #ffd700, transparent),
+        radial-gradient(2px 2px at 40px 70px, #ffd700, transparent),
+        radial-gradient(2px 2px at 50px 160px, #ffd700, transparent),
+        radial-gradient(2px 2px at 90px 40px, #ffd700, transparent),
+        radial-gradient(2px 2px at 130px 80px, #ffd700, transparent),
+        radial-gradient(2px 2px at 160px 30px, #ffd700, transparent);
+    background-size: 200px 200px;
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.game-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    overflow: hidden;
+}
+
+/* ---------- 顶部 ---------- */
+.game-header {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 20px;
+    padding: 4px 24px;
+    flex-shrink: 0;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.game-title {
+    color: #ffd700;
+    font-size: 2.4rem;
+    font-weight: 300;
+    letter-spacing: 6px;
+    text-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
+}
+
+.game-title::before { content: '♠ '; opacity: 0.5; }
+.game-title::after  { content: ' ♥'; opacity: 0.5; }
+
+.scoreboard {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 60px;
+    padding: 8px 26px;
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    font-size: 1.1rem;
+    color: #b8a0c0;
+}
+
+.scoreboard .score { display: flex; align-items: center; gap: 10px; }
+.scoreboard .num { font-weight: 700; font-size: 1.9rem; color: #ffd700; min-width: 34px; text-align: center; }
+.scoreboard .vs { color: #6a5a7a; }
+.scoreboard .deck-info { color: #9a8aaa; font-size: 0.95rem; }
+
+.connection-panel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 60px;
+    padding: 8px 20px;
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.connection-panel input {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 30px;
+    padding: 8px 16px;
+    color: #d8c8e0;
+    font-size: 0.95rem;
+    width: 150px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.connection-panel input:focus {
+    border-color: #ffd700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+.connection-panel .btn {
+    border: none;
+    border-radius: 30px;
+    padding: 8px 18px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    background: linear-gradient(135deg, #4a7a9c, #2a5a7a);
+    color: #fff;
+}
+
+.connection-panel .btn:hover { transform: scale(1.05); }
+.connection-panel .btn-create { background: linear-gradient(135deg, #ffd700, #f0a500); color: #1a0a1e; }
+
+.peer-id-display {
+    color: #ffd700;
+    font-size: 0.95rem;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    cursor: pointer;
+    max-width: 170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ---------- 对手区 ---------- */
+.opp-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 6px 0 4px;
+}
+
+.area-label {
+    font-size: 1rem;
+    color: #b8a0c0;
+    letter-spacing: 3px;
+    opacity: 0.75;
+    margin-bottom: 4px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.opp-hand {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 0;
+}
+
+.opp-hand .card-slot {
+    width: 78px;
+    height: 117px;
+    cursor: default;
+}
+
+/* ---------- 棋盘 ---------- */
+.board-area {
+    flex: 1 1 auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 10px 12px;
+    min-height: 0;
+}
+
+.board {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+
+.board-slot {
+    width: 86px;
+    height: 128px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    border-radius: 12px;
+    border: 1.5px dashed rgba(255, 215, 0, 0.18);
+    background: rgba(0, 0, 0, 0.22);
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.board-slot.empty .slot-label { color: rgba(255, 215, 0, 0.45); }
+
+.slot-label {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    color: #ffd700;
+    opacity: 0.7;
+    z-index: 2;
+    white-space: nowrap;
+    pointer-events: none;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.slot-card-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.board-slot .card-slot { width: 100%; height: 100%; cursor: default; }
+.board-slot .card-slot:hover { transform: none; }
+
+.board-slot.has-major {
+    border-color: rgba(255, 215, 0, 0.55);
+    box-shadow: 0 0 18px rgba(255, 215, 0, 0.2);
+}
+
+.board-slot.can-place {
+    border-color: #ffd700;
+    background: rgba(255, 215, 0, 0.12);
+    box-shadow: 0 0 22px rgba(255, 215, 0, 0.3);
+    cursor: pointer;
+    animation: pulseGlow 1.5s ease-in-out infinite;
+}
+
+.board-slot.target-slot { border-width: 2.5px; }
+
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 14px rgba(255, 215, 0, 0.25); }
+    50%      { box-shadow: 0 0 32px rgba(255, 215, 0, 0.55); }
+}
+
+/* ---------- 手牌区 ---------- */
+.my-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 4px 0 6px;
+}
+
+.my-hand {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 0;
+}
+
+.my-hand .card-slot {
+    width: 100px;
+    height: 150px;
+}
+
+/* 弃牌模式下的手牌反馈 */
+.my-hand.discard-mode .card-slot .card-front {
+    border-color: #ff5555;
+    animation: discardPulse 1s ease-in-out infinite;
+    cursor: pointer;
+}
+
+.my-hand.discard-mode .card-slot:hover .card-front {
+    box-shadow: 0 0 28px rgba(255, 80, 80, 0.7);
+}
+
+@keyframes discardPulse {
+    0%, 100% { box-shadow: 0 0 14px rgba(255, 80, 80, 0.4); }
+    50%      { box-shadow: 0 0 26px rgba(255, 80, 80, 0.75); }
+}
+
+/* ---------- 卡牌通用 ---------- */
+.card-slot {
+    perspective: 1000px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.card-slot:hover { transform: translateY(-6px); }
+.card-slot.selected { transform: translateY(-12px) scale(1.06); }
+.card-slot.selected .card-front {
+    border-color: #ffd700;
+    box-shadow: 0 0 28px rgba(255, 215, 0, 0.55);
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+}
+
+.card-slot.flipped .card-inner { transform: rotateY(180deg); }
+
+.card-front, .card-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ★ 正面改为纵向布局：上方图片，下方牌名 */
+.card-front {
+    transform: rotateY(180deg);
+    background: linear-gradient(145deg, #1e1028, #2d1a38);
+    border: 2px solid rgba(255, 215, 0, 0.28);
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* 图片区：占满除底部牌名外的空间 */
+.card-img-wrap {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 3px 3px 0;
+}
+
+.card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.card-img-placeholder {
+    font-size: 1.8rem;
+    opacity: 0.6;
+    line-height: 1;
+}
+
+/* ★ 底部牌名标签（跑得快风格） */
+.card-name-label {
+    flex-shrink: 0;
+    width: 100%;
+    text-align: center;
+    color: #ffd700;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: rgba(0, 0, 0, 0.78);
+    border-top: 1px solid rgba(255, 215, 0, 0.28);
+    padding: 3px 4px;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 大阿卡纳牌名：金色渐变、微微发光 */
+.card-name-label.major {
+    color: #ffe066;
+    background: linear-gradient(90deg, rgba(80, 40, 0, 0.9), rgba(40, 20, 0, 0.9));
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+    border-top-color: rgba(255, 215, 0, 0.5);
+}
+
+/* 背面 */
+.card-back {
+    background: linear-gradient(145deg, #12081a, #2d1a3d);
+    border: 2px solid rgba(255, 215, 0, 0.32);
+}
+
+.card-back img { width: 100%; height: 100%; object-fit: contain; }
+
+/* ---------- 底部 ---------- */
+.game-footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    padding: 8px 0 12px;
+}
+
+.game-message {
+    color: #c8b8d0;
+    font-size: 1.15rem;
+    padding: 12px 28px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(10px);
+    border-radius: 60px;
+    border-left: 4px solid #ffd700;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 760px;
+    width: 92%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.game-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn {
+    border: none;
+    border-radius: 50px;
+    padding: 12px 26px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    letter-spacing: 0.8px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+.btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.btn-discard { background: linear-gradient(135deg, #c95a5a, #8a3030); color: #fff; }
+.btn-redraw  { background: linear-gradient(135deg, #7a5aa0, #4a2a6a); color: #fff; }
+.btn-reset   { background: linear-gradient(135deg, #ffd700, #f0a500); color: #1a0a1e; }
+.btn-rules {
+    background: rgba(255, 255, 255, 0.06);
+    color: #b8a0c0;
+    border: 1px solid rgba(255, 215, 0, 0.18);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover:not(:disabled) { transform: translateY(-2px) scale(1.04); }
+
+/* ============================================================
+   响应式
+   ============================================================ */
+@media (max-width: 1400px) {
+    .board-slot { width: 78px; height: 117px; }
+    .board { gap: 7px; }
+    .my-hand .card-slot { width: 92px; height: 138px; }
+    .opp-hand .card-slot { width: 72px; height: 108px; }
+    .game-title { font-size: 2.1rem; }
+}
+
+@media (max-width: 1200px) {
+    .board-slot { width: 68px; height: 102px; }
+    .board { gap: 6px; }
+    .my-hand .card-slot { width: 84px; height: 126px; }
+    .opp-hand .card-slot { width: 64px; height: 96px; }
+    .my-hand { gap: 12px; }
+    .opp-hand { gap: 9px; }
+    .game-title { font-size: 1.9rem; }
+    .scoreboard { font-size: 1rem; padding: 6px 20px; gap: 14px; }
+    .scoreboard .num { font-size: 1.6rem; }
+    .card-name-label { font-size: 0.65rem; }
+}
+
+@media (max-width: 1000px) {
+    .board-slot { width: 58px; height: 87px; }
+    .board { gap: 5px; }
+    .slot-label { font-size: 0.6rem; }
+    .my-hand .card-slot { width: 74px; height: 111px; }
+    .opp-hand .card-slot { width: 56px; height: 84px; }
+    .my-hand { gap: 10px; }
+    .opp-hand { gap: 8px; }
+    .game-title { font-size: 1.7rem; letter-spacing: 4px; }
+    .game-message { font-size: 1rem; padding: 10px 22px; min-height: 46px; }
+    .btn { padding: 10px 20px; font-size: 0.95rem; }
+    .card-name-label { font-size: 0.6rem; padding: 2px 3px; }
+    .card-img-placeholder { font-size: 1.4rem; }
+}
+
+@media (max-width: 820px) {
+    .board-slot { width: 46px; height: 69px; }
+    .board { gap: 4px; }
+    .slot-label { font-size: 0.5rem; }
+    .my-hand .card-slot { width: 60px; height: 90px; }
+    .opp-hand .card-slot { width: 46px; height: 69px; }
+    .my-hand { gap: 8px; }
+    .opp-hand { gap: 6px; }
+    .game-header { flex-direction: column; gap: 8px; padding: 4px 14px; }
+    .header-left { justify-content: center; gap: 16px; }
+    .game-title { font-size: 1.5rem; letter-spacing: 3px; }
+    .scoreboard { font-size: 0.9rem; padding: 5px 16px; }
+    .scoreboard .num { font-size: 1.4rem; }
+    .connection-panel { padding: 6px 14px; }
+    .connection-panel input { width: 120px; padding: 6px 12px; font-size: 0.85rem; }
+    .connection-panel .btn { padding: 6px 14px; font-size: 0.85rem; }
+    .peer-id-display { font-size: 0.85rem; padding: 4px 10px; }
+    .card-name-label { font-size: 0.52rem; padding: 2px 2px; letter-spacing: 0; }
+    .card-img-placeholder { font-size: 1.1rem; }
+}
+
+@media (max-width: 640px) {
+    .board-slot { width: 36px; height: 54px; }
+    .board { gap: 3px; }
+    .slot-label { font-size: 0.4rem; top: 3px; }
+    .my-hand .card-slot { width: 48px; height: 72px; }
+    .opp-hand .card-slot { width: 36px; height: 54px; }
+    .my-hand { gap: 6px; }
+    .opp-hand { gap: 5px; }
+    .area-label { font-size: 0.85rem; letter-spacing: 2px; }
+    .game-message { font-size: 0.85rem; padding: 8px 16px; min-height: 40px; }
+    .btn { padding: 8px 14px; font-size: 0.82rem; }
+    .game-actions { gap: 10px; }
+    .card-name-label { font-size: 0.46rem; padding: 1px 2px; }
+    .card-img-wrap { padding: 2px 2px 0; }
+    .card-img-placeholder { font-size: 0.9rem; }
+}
+
+@media (max-width: 480px) {
+    .board-slot { width: 28px; height: 42px; }
+    .board { gap: 2px; }
+    .slot-label { font-size: 0.32rem; }
+    .my-hand .card-slot { width: 40px; height: 60px; }
+    .opp-hand .card-slot { width: 30px; height: 45px; }
+    .my-hand { gap: 5px; }
+    .opp-hand { gap: 4px; }
+    .game-title { font-size: 1.2rem; letter-spacing: 2px; }
+    .scoreboard { font-size: 0.8rem; padding: 4px 12px; gap: 10px; }
+    .scoreboard .num { font-size: 1.15rem; min-width: 22px; }
+    .game-message { font-size: 0.75rem; padding: 6px 12px; min-height: 36px; }
+    .btn { padding: 6px 12px; font-size: 0.72rem; letter-spacing: 0.3px; }
+    .card-name-label { font-size: 0.4rem; padding: 1px 1px; letter-spacing: 0; }
+    .card-img-wrap { padding: 1px 1px 0; }
+    .card-img-placeholder { font-size: 0.8rem; }
+}
+
+/* 按屏幕高度压缩（笔记本/平板横屏时） */
+@media (max-height: 780px) and (min-width: 640px) {
+    .board-slot { width: 66px; height: 99px; }
+    .my-hand .card-slot { width: 78px; height: 117px; }
+    .opp-hand .card-slot { width: 58px; height: 87px; }
+    .game-title { font-size: 1.6rem; }
+    .game-message { min-height: 40px; padding: 8px 20px; font-size: 0.95rem; }
+    .btn { padding: 9px 20px; font-size: 0.92rem; }
+    .card-name-label { font-size: 0.6rem; }
+}
+
+@media (max-height: 640px) and (min-width: 640px) {
+    .board-slot { width: 56px; height: 84px; }
+    .my-hand .card-slot { width: 66px; height: 99px; }
+    .opp-hand .card-slot { width: 50px; height: 75px; }
+    .area-label { font-size: 0.85rem; }
+    .game-title { font-size: 1.35rem; }
+    .game-message { min-height: 34px; padding: 6px 16px; font-size: 0.85rem; }
+    .btn { padding: 8px 16px; font-size: 0.85rem; }
+    .card-name-label { font-size: 0.52rem; padding: 2px 2px; }
+}
