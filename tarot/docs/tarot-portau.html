@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📖 塔罗 Portau · 战术手册</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <style>
+        /* ============================================================
+           全局样式 —— 星际霓虹质感
+           ============================================================ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: 
+                radial-gradient(ellipse at 10% 10%, rgba(139, 30, 30, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 90%, rgba(0, 80, 150, 0.2) 0%, transparent 50%),
+                linear-gradient(135deg, #070b12 0%, #12060c 40%, #0c1524 100%);
+            background-attachment: fixed;
+            color: #cbd8e6;
+            line-height: 1.7;
+        }
+
+        /* 星空粒子背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, #00bfff, transparent),
+                radial-gradient(2px 2px at 40px 70px, #00bfff, transparent),
+                radial-gradient(2px 2px at 50px 160px, #00bfff, transparent),
+                radial-gradient(2px 2px at 90px 40px, #00bfff, transparent),
+                radial-gradient(2px 2px at 130px 80px, #00bfff, transparent),
+                radial-gradient(2px 2px at 160px 30px, #00bfff, transparent);
+            background-size: 200px 200px;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .doc-container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+
+        /* 顶部大标题 */
+        .doc-header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .doc-title {
+            color: #e0f0ff;
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-shadow: 0 0 30px rgba(0, 191, 255, 0.4), 0 0 10px rgba(0, 191, 255, 0.2);
+            margin-bottom: 10px;
+        }
+
+        .doc-subtitle {
+            color: #8da6cc;
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* 顶部导航返回按钮 */
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #00bfff;
+            background: rgba(0, 191, 255, 0.1);
+            border: 1px solid rgba(0, 191, 255, 0.3);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.15);
+        }
+
+        .btn-back:hover {
+            background: rgba(0, 191, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+            color: #fff;
+        }
+
+        /* ============================================================
+           卡片式内容区块
+           ============================================================ */
+        .section-card {
+            background: rgba(10, 18, 30, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 191, 255, 0.15);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .section-card:nth-child(1) { animation-delay: 0.1s; }
+        .section-card:nth-child(2) { animation-delay: 0.2s; }
+        .section-card:nth-child(3) { animation-delay: 0.3s; }
+        .section-card:nth-child(4) { animation-delay: 0.4s; }
+        .section-card:nth-child(5) { animation-delay: 0.5s; }
+
+        /* 卡片左侧光带 */
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #00bfff, transparent);
+            box-shadow: 0 0 10px #00bfff;
+        }
+
+        .section-title {
+            color: #00bfff;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-shadow: 0 0 15px rgba(0, 191, 255, 0.4);
+        }
+
+        .section-title .icon {
+            font-size: 1.8rem;
+            filter: drop-shadow(0 0 8px rgba(0, 191, 255, 0.6));
+        }
+
+        p { margin-bottom: 15px; color: #b8c8db; }
+        
+        /* 高亮文字 */
+        .hl-cyan { color: #00bfff; font-weight: 700; text-shadow: 0 0 8px rgba(0,191,255,0.3); }
+        .hl-gold { color: #ffd700; font-weight: 700; text-shadow: 0 0 8px rgba(255,215,0,0.3); }
+        .hl-red { color: #ff5555; font-weight: 700; }
+
+        /* 列表样式 */
+        ul.rule-list {
+            list-style: none;
+            padding-left: 5px;
+        }
+        ul.rule-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            color: #b8c8db;
+        }
+        ul.rule-list li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: #00bfff;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* 快捷键/徽章 */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin: 0 4px;
+            background: rgba(0, 191, 255, 0.15);
+            color: #00bfff;
+            border: 1px solid rgba(0, 191, 255, 0.3);
+        }
+        .badge.gold {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+        .badge.red {
+            background: rgba(255, 85, 85, 0.15);
+            color: #ff5555;
+            border-color: rgba(255, 85, 85, 0.3);
+        }
+
+        /* ============================================================
+           核心：得分示意图（菱形棋盘）
+           ============================================================ */
+        .example-box {
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 1px dashed rgba(0, 191, 255, 0.2);
+            overflow-x: auto;
+        }
+        .example-title {
+            font-size: 1.1rem;
+            color: #e0f0ff;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .example-title .score-tag {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            letter-spacing: 1px;
+        }
+
+        /* 迷你棋盘行 */
+        .mini-board {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        /* 迷你菱形槽 */
+        .mini-slot {
+            width: 44px;
+            height: 62px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: rgba(0, 191, 255, 0.5);
+            transition: all 0.3s;
+        }
+
+        .mini-slot::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 191, 255, 0.15);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            z-index: 0;
+        }
+        .mini-slot::after {
+            content: '';
+            position: absolute;
+            inset: 1.5px;
+            background: rgba(5, 10, 18, 0.9);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            z-index: 1;
+        }
+        .mini-slot span { position: relative; z-index: 2; }
+
+        /* 有牌的槽（发光） */
+        .mini-slot.filled::before {
+            background: #00bfff;
+            filter: drop-shadow(0 0 6px #00bfff);
+        }
+        .mini-slot.filled span { color: #fff; text-shadow: 0 0 5px #00bfff; }
+
+        /* 目标放置槽（高亮） */
+        .mini-slot.target::before {
+            background: #ffd700;
+            filter: drop-shadow(0 0 8px #ffd700);
+        }
+        .mini-slot.target span { color: #ffd700; text-shadow: 0 0 5px #ffd700; }
+
+        /* 文字替换 */
+        .text-block {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #ffd700;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        /* 动画 */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .doc-title { font-size: 2rem; letter-spacing: 4px; }
+            .doc-subtitle { font-size: 0.9rem; letter-spacing: 2px; }
+            .section-card { padding: 20px; }
+            .mini-slot { width: 32px; height: 45px; font-size: 0.55rem; }
+            .mini-board { gap: 3px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="doc-container">
+
+        <!-- 头部 -->
+        <header class="doc-header">
+            <h1 class="doc-title">塔罗 Portau</h1>
+            <p class="doc-subtitle">TACTICAL MANUAL // 战术手册</p>
+        </header>
+
+        <div class="nav-bar">
+            <a href="../tarot-portau.html" class="btn-back">
+                <span>◀</span> 返回游戏
+            </a>
+        </div>
+
+        <!-- 1. 游戏概述 -->
+        <div class="section-card">
+            <h2 class="section-title"><span class="icon">🌌</span> 游戏概述</h2>
+            <p>
+                欢迎来到Portau。这是一场 1v1 的 P2P 联机对战。
+                你和对手将争夺 <span class="hl-cyan">14 个卡槽</span> 的控制权。
+                游戏的目标只有一个：<strong>填满所有卡槽时，获得比对手更高的分数。</strong>
+            </p>
+            <p>
+                牌组由 <span class="hl-cyan">56 张小阿卡纳</span>（4 花色 × 14 阶位）与 
+                <span class="hl-gold">4 张特殊大阿卡纳</span>（命运之轮、正义、倒吊人、世界）组成，总计 60 张。
+            </p>
+        </div>
+
+        <!-- 2. 回合流程 -->
+        <div class="section-card">
+            <h2 class="section-title"><span class="icon">⚡</span> 回合流程</h2>
+            <ul class="rule-list">
+                <li><strong>开局：</strong>每人发 4 张手牌。系统会在 14 个卡槽中随机抽取 1 张卡牌放置，以此作为起始局势。第一轮先手随机。</li>
+                <li><strong>后续先手：</strong>从第二轮开始，上一局输掉的人获得先手权。</li>
+                <li><strong>行动阶段：</strong>轮到你时，你的手牌应当始终保持在 <span class="hl-cyan">4 张</span>。你可以进行以下操作：
+                    <br>— <strong>出牌（必做）：</strong>打出一张牌到对应的空槽中，随后立即补牌。
+                    <br>— <strong>弃牌（可选）：</strong>支付 2 分，弃掉手中 1 张牌并重抽（每回合限 1 次）。
+                    <br>— <strong>重抽（可选）：</strong>将手中所有牌送回牌库重抽 4 张，代价是<strong>跳过本回合</strong>。
+                </li>
+            </ul>
+        </div>
+
+        <!-- 3. 卡牌放置规则 -->
+        <div class="section-card">
+            <h2 class="section-title"><span class="icon">🃏</span> 卡牌放置规则</h2>
+            <ul class="rule-list">
+                <li><strong>小阿卡纳：</strong>必须放入它对应的阶位槽（例如：一张 <span class="badge">4</span> 只能放入第 4 号卡槽）。</li>
+                <li><strong>大阿卡纳：</strong>作为“万能牌”，可以放入任意一个<strong>空置</strong>的卡槽。</li>
+                <li>
+                    <strong>抢牌机制（置换）：</strong>如果你手里有一张 4，而第 4 号槽里目前插着的是大阿卡纳（比如“世界”），
+                    你可以打出这张 4，将“世界”换回手中（或者牌库），并将 4 留在槽内。<br>
+                    <span class="hl-red">注意：这种置换行为不产生任何得分。</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 4. 核心得分法则 -->
+        <div class="section-card">
+            <h2 class="section-title"><span class="icon">💎</span> 核心得分法则</h2>
+            <p>
+                得分取决于你打出的牌与<strong>左右两侧最近的牌</strong>之间的“引力间隔”。同牌面只能拿基础分，但巧妙利用对称性，可以打出高额伤害。
+            </p>
+
+            <!-- 2分 -->
+            <div class="example-box">
+                <div class="example-title">
+                    <span>☄️ 孤立无援（不在两张牌之间）</span>
+                    <span class="score-tag">得 2 分</span>
+                </div>
+                <div class="mini-board">
+                    <div class="mini-slot"><span>A</span></div>
+                    <div class="mini-slot"><span>2</span></div>
+                    <div class="mini-slot filled"><span>3</span></div>
+                    <div class="mini-slot"><span>4</span></div>
+                    <div class="mini-slot"><span>5</span></div>
+                    <div class="mini-slot target"><span>6</span></div>
+                    <div class="mini-slot"><span>7</span></div>
+                    <div class="mini-slot"><span>8</span></div>
+                    <div class="mini-slot"><span>9</span></div>
+                    <div class="mini-slot"><span>10</span></div>
+                    <div class="mini-slot"><span>侍</span></div>
+                    <div class="mini-slot"><span>骑</span></div>
+                    <div class="mini-slot"><span>后</span></div>
+                    <div class="mini-slot"><span>王</span></div>
+                </div>
+                <div class="text-block">
+                    目标槽的右侧没有任何牌。无法形成夹击，只能获得最低的 <span class="hl-cyan">2 分</span>。
+                </div>
+            </div>
+
+            <!-- 4分 -->
+            <div class="example-box">
+                <div class="example-title">
+                    <span>⚖️ 失衡夹击（在两张牌之间，但间隔不对称）</span>
+                    <span class="score-tag">得 4 分</span>
+                </div>
+                <div class="mini-board">
+                    <div class="mini-slot"><span>A</span></div>
+                    <div class="mini-slot"><span>2</span></div>
+                    <div class="mini-slot filled"><span>3</span></div>
+                    <div class="mini-slot"><span>4</span></div>
+                    <div class="mini-slot filled"><span>5</span></div>
+                    <div class="mini-slot target"><span>6</span></div>
+                    <div class="mini-slot"><span>7</span></div>
+                    <div class="mini-slot filled"><span>8</span></div>
+                    <div class="mini-slot"><span>9</span></div>
+                    <div class="mini-slot"><span>10</span></div>
+                    <div class="mini-slot"><span>侍</span></div>
+                    <div class="mini-slot"><span>骑</span></div>
+                    <div class="mini-slot"><span>后</span></div>
+                    <div class="mini-slot"><span>王</span></div>
+                </div>
+                <div class="text-block">
+                    目标槽的左边隔着 <strong>2 个空槽</strong>是 [3]，右边隔着 <strong>1 个空槽</strong>是 [8]。<br>
+                    左 2 右 1，不对称，得 <span class="hl-cyan">4 分</span>。
+                </div>
+            </div>
+
+            <!-- 7分 -->
+            <div class="example-box">
+                <div class="example-title">
+                    <span>✨ 完美对称（在两张牌之间，且间隔完全对称）</span>
+                    <span class="score-tag">得 7 分</span>
+                </div>
+                <div class="mini-board">
+                    <div class="mini-slot"><span>A</span></div>
+                    <div class="mini-slot"><span>2</span></div>
+                    <div class="mini-slot filled"><span>3</span></div>
+                    <div class="mini-slot"><span>4</span></div>
+                    <div class="mini-slot filled"><span>5</span></div>
+                    <div class="mini-slot"><span>6</span></div>
+                    <div class="mini-slot"><span>7</span></div>
+                    <div class="mini-slot filled"><span>8</span></div> <!-- 修正：8 加上了 filled -->
+                    <div class="mini-slot"><span>9</span></div>
+                    <div class="mini-slot target"><span>10</span></div>
+                    <div class="mini-slot"><span>侍</span></div>
+                    <div class="mini-slot filled"><span>骑</span></div>
+                    <div class="mini-slot"><span>后</span></div>
+                    <div class="mini-slot filled"><span>王</span></div>
+                </div>
+                <div class="text-block">
+                    目标槽的左边隔着 <strong>1 个空槽</strong>是 [8]，右边隔着 <strong>1 个空槽</strong>是 [骑士]。<br>
+                    左 1 右 1，完全对称，获取最高 <span class="hl-cyan">7 分</span>。
+                    <br><br><em>（注：如果左右两边紧贴，没有任何空槽，也就是左 0 右 0，同样算作完美对称！）</em>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. 战术指令 -->
+        <div class="section-card">
+            <h2 class="section-title"><span class="icon">🎯</span> 特殊战术指令</h2>
+            
+            <div class="example-title" style="margin-top:10px;">
+                <span class="badge red">弃 1 张 (-2分)</span>
+            </div>
+            <p>
+                当你的手牌卡手，或者你极度渴望某张特定阶位的牌时。你可以消耗 <span class="hl-red">2 分</span>（分数允许扣成负数），
+                从手中挑 1 张弃掉送回牌库，洗牌后重新抽 1 张。
+                <strong>每回合只能执行一次</strong>，且不影响你接下来出牌。
+            </p>
+
+            <div class="example-title" style="margin-top:20px;">
+                <span class="badge">重抽全部（跳过回合）</span>
+            </div>
+            <p>
+                如果手牌烂到极点，你可以将 4 张手牌全部洗回牌库，重新抽 4 张。
+                但作为代价，<strong>你的本回合将被直接跳过</strong>，轮到对手行动。请谨慎使用。
+            </p>
+        </div>
+
+        <div style="text-align:center; margin-top: 50px; color:#556a82; font-size:0.9rem;">
+            “命运在星轨的节点交汇。指挥官，祝你好运。”
+        </div>
+
+    </div>
+
+</body>
+
+</html>
