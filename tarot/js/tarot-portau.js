@@ -191,7 +191,10 @@ function renderBoard() {
 function renderHand(player) {
     const container = player === 'me' ? myHandEl : oppHandEl;
     const hand = gameState.hands[player];
-    const faceUp = (player === 'me');
+    
+    // 双方明牌，将 faceUp 写死为 true
+    const faceUp = true; 
+    
     container.innerHTML = '';
 
     // 弃牌模式的视觉反馈
@@ -650,7 +653,6 @@ discardBtn.addEventListener('click', () => {
 redrawBtn.addEventListener('click', () => {
     if (!isMyTurn()) return;
     if (gameState.gameOver) return;
-    if (!confirm('重抽全部手牌并跳过本回合，确定？')) return;
     sendAction({ action: 'redraw' });
 });
 
